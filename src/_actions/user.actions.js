@@ -1,12 +1,9 @@
 import { useSetRecoilState } from 'recoil';
 import { message } from 'antd';
-// import { history } from '_helpers/history';
 import authAtom from '../_state/auth';
 import usersAtom from '../_state/users';
 
 import useFetchWrapper from '../_helpers/fetch_wrapper';
-
-// import  { Redirect } from 'react-router-dom'
 
 export default function useUserActions() {
   const baseUrl = `${process.env.REACT_APP_API_BASE}`;
@@ -22,8 +19,6 @@ export default function useUserActions() {
           token: user.token,
           at: user.token.accessToken,
         };
-
-        console.log(user);
 
         // store user details and jwt token in local storage
         // to keep user logged in between page refreshes
@@ -44,7 +39,6 @@ export default function useUserActions() {
     // remove user from local storage, set auth state to null and redirect to login page
     localStorage.removeItem('user');
     setAuth(null);
-    // history.push('/authentication/wallet-sign-in');
   }
 
   function getAll() {

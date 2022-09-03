@@ -1,30 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
+import { useRecoilValue } from 'recoil';
+import authAtom from '../../_state/auth';
+import useUserActions from '../../_actions/user.actions';
 
 const { Header } = Layout;
 
 export default function CustomHeader() {
-  const menuItems = [
-    {
-      name: 'Home',
-      link: '/',
-      navKey: 1,
-      disabled: false,
-    },
-    {
-      name: 'Sign in',
-      link: '/sign-in',
-      navKey: 2,
-      disabled: false,
-    },
-    {
-      name: 'Sign up',
-      link: '/sign-up',
-      navKey: 3,
-      disabled: false,
-    },
-  ];
+  const auth = useRecoilValue(authAtom);
+  const [menuItems, setMenuItems] = useState([]);
+
+  const userActions = useUserActions();
+
+  useEffect(() => {
+    if (auth) {
+      setMenuItems([{
+        name: 'Home',
+        link: '/',
+        navKey: 1,
+        disabled: false,
+      }, {
+        name: 'Logout',
+        link: '/logout',
+        navKey: 4,
+        disabled: false,
+      }]);
+    } else {
+      setMenuItems([
+        {
+          name: 'Home',
+          link: '/',
+          navKey: 1,
+          disabled: false,
+        },
+        {
+          name: 'Sign in',
+          link: '/sign-in',
+          navKey: 2,
+          disabled: false,
+        },
+        {
+          name: 'Sign up',
+          link: '/sign-up',
+          navKey: 3,
+          disabled: false,
+        },
+      ]);
+    }
+  }, [auth, userActions]);
 
   const location = useLocation();
 

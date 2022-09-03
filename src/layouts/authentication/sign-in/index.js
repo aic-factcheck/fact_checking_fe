@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Layout, Button, Checkbox, Form, Input,
+  Layout, Button, Checkbox, Form, Input, message,
 } from 'antd';
 
 import { useRecoilValue } from 'recoil';
@@ -19,22 +19,19 @@ export default function SignIn() {
   useEffect(() => {
     // redirect to home if already logged in
     if (auth) {
-      // history.push('/');
-      // window.location.reload(false);
       navigate('/');
     }
-  }, []);
+  }, [auth, navigate]);
 
   const onFinish = (values) => {
     userActions.login(values.email, values.password)
       .catch((error) => {
-        console.error(error);
-        // setErrorMessage(error);
+        message.error(error);
       });
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    message.error(errorInfo);
   };
 
   return (
