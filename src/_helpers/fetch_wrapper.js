@@ -1,6 +1,7 @@
 import { useRecoilState } from 'recoil';
 // import { history } from '_helpers/history';
-import { authAtom } from '_state/auth';
+
+import authAtom from 'src/_state/auth';
 
 export default function useFetchWrapper() {
   const [auth, setAuth] = useRecoilState(authAtom);

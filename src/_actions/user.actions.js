@@ -1,8 +1,9 @@
 import { useSetRecoilState } from 'recoil';
 // import { history } from '_helpers/history';
-import { useFetchWrapper } from '_helpers/fetch_wrapper';
-import { authAtom } from '_state/auth';
-import { usersAtom } from '_state/users';
+import authAtom from 'src/_state/auth';
+import usersAtom from 'src/_state/users';
+
+import useFetchWrapper from 'src/_helpers/fetch_wrapper';
 
 // import  { Redirect } from 'react-router-dom'
 
