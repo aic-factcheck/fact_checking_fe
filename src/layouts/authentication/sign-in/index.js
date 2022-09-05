@@ -35,14 +35,14 @@ export default function SignIn() {
   };
 
   return (
-    <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
+    <Content className="site-layout" style={{ padding: '50px 50px', marginTop: 64 }}>
       <Form
         name="basic"
         labelCol={{
-          span: 8,
+          span: 10,
         }}
         wrapperCol={{
-          span: 16,
+          span: 10,
         }}
         initialValues={{
           remember: true,

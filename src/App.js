@@ -7,12 +7,13 @@ import {
 } from 'react-router-dom';
 
 import './App.less';
-import Home from './layouts/Home';
-import Header from './layouts/Header';
-import Footer from './layouts/Footer';
+import Home from './layouts/home';
+import Header from './layouts/header';
+import Footer from './layouts/footer';
 import SignIn from './layouts/authentication/sign-in';
 import SignUp from './layouts/authentication/sign-up';
 import Logout from './layouts/authentication/logout';
+import CreateArticlePage from './layouts/create-article-page';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/sign-in" element={<SignIn />} />
           <Route exact path="/sign-up" element={<SignUp />} />
           <Route exact path="/logout" element={<Logout />} />
+          <Route exact path="/article/create" element={<CreateArticlePage />} />
         </Routes>
         <Footer />
       </Layout>

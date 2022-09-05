@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import { useRecoilValue } from 'recoil';
 import authAtom from '../../_state/auth';
-import useUserActions from '../../_actions/user.actions';
+import { authRoutes, nonAuthRoutes } from './routes';
 
 const { Header } = Layout;
 
@@ -11,44 +11,13 @@ export default function CustomHeader() {
   const auth = useRecoilValue(authAtom);
   const [menuItems, setMenuItems] = useState([]);
 
-  const userActions = useUserActions();
-
   useEffect(() => {
     if (auth) {
-      setMenuItems([{
-        name: 'Home',
-        link: '/',
-        navKey: 1,
-        disabled: false,
-      }, {
-        name: 'Logout',
-        link: '/logout',
-        navKey: 4,
-        disabled: false,
-      }]);
+      setMenuItems(authRoutes);
     } else {
-      setMenuItems([
-        {
-          name: 'Home',
-          link: '/',
-          navKey: 1,
-          disabled: false,
-        },
-        {
-          name: 'Sign in',
-          link: '/sign-in',
-          navKey: 2,
-          disabled: false,
-        },
-        {
-          name: 'Sign up',
-          link: '/sign-up',
-          navKey: 3,
-          disabled: false,
-        },
-      ]);
+      setMenuItems(nonAuthRoutes);
     }
-  }, [auth, userActions]);
+  }, [auth]);
 
   const location = useLocation();
 

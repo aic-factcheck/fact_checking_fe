@@ -12,7 +12,7 @@ export default function Home() {
         <Breadcrumb.Item>App</Breadcrumb.Item>
       </Breadcrumb>
       <div className="site-layout-background" style={{ padding: 24, minHeight: 380 }}>
-        Content
+        List of the hottest articles
       </div>
     </Content>
   );
