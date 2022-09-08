@@ -1,40 +1,53 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Layout, Menu } from 'antd';
 import { useRecoilValue } from 'recoil';
-import authAtom from '../../_state/auth';
-import { authRoutes, nonAuthRoutes } from './routes';
+// import { authRoutes, nonAuthRoutes } from './routes';
 
-const { Header } = Layout;
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+
+import authAtom from '../../_state/auth';
 
 export default function CustomHeader() {
   const auth = useRecoilValue(authAtom);
-  const [menuItems, setMenuItems] = useState([]);
-
-  useEffect(() => {
-    if (auth) {
-      setMenuItems(authRoutes);
-    } else {
-      setMenuItems(nonAuthRoutes);
-    }
-  }, [auth]);
 
   const location = useLocation();
+  useEffect(() => {
+  }, [auth]);
+
+  const navItems = (auth)
+    ? (
+      <Container>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto" activeKey={location.pathname}>
+            <Nav.Link as={Link} to="/" active={location.pathname === '/'}>Home</Nav.Link>
+            <Nav.Link as={Link} to="/article/create" active={location.pathname === '/article/create'}>Add article</Nav.Link>
+          </Nav>
+          <Nav activeKey={location.pathname}>
+            <Nav.Link as={Link} to="/logout" active={location.pathname === '/logout'}>logout</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    ) : (
+      <Container>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto" activeKey={location.pathname}>
+            <Nav.Link as={Link} to="/" active={location.pathname === '/'}>Home</Nav.Link>
+          </Nav>
+          <Nav activeKey={location.pathname}>
+            <Nav.Link as={Link} active={location.pathname === '/sign-in'} to="/sign-in">Sign In</Nav.Link>
+            <Nav.Link as={Link} active={location.pathname === '/sign-up'} to="/sign-up">Sign up</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    );
 
   return (
-    <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-      <div className="logo" />
-      <Menu
-        theme="dark"
-        mode="horizontal"
-        selectedKeys={[location.pathname]}
-      >
-        {menuItems.map((item) => (
-          <Menu.Item key={item.link}>
-            <Link to={item.link}>{item.name}</Link>
-          </Menu.Item>
-        ))}
-      </Menu>
-    </Header>
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      {navItems}
+    </Navbar>
   );
 }
