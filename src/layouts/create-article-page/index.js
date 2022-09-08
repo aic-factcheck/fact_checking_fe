@@ -1,15 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  Layout, Col, Row, Typography,
+  Layout, Col, Row, Typography, List,
 } from 'antd';
 import CreateClaim from '../../components/claim/create';
 import CreateArticle from '../../components/article/create';
+import Claim from '../../components/claim';
+import Article from '../../components/article';
 
 const { Content } = Layout;
 const { Title } = Typography;
 
 export default function CreateArticlePage() {
   const [articleSubmited, setArticleSubmited] = useState(false);
+  const [article, setArticle] = useState({});
+  const [claims, setClaims] = useState([]);
+
+  useEffect(() => {}, [claims]);
+
+  const addArticleComponent = (!articleSubmited)
+    ? (
+      <CreateArticle
+        setArticleSubmited={setArticleSubmited}
+        articleSubmited={articleSubmited}
+        setArticle={setArticle}
+      />
+    ) : (
+      <Article article={article} />
+    );
 
   return (
     <Content className="site-layout" style={{ padding: '50px 0 0 0', marginTop: 40 }}>
@@ -21,20 +38,34 @@ export default function CreateArticlePage() {
           margin: 0,
         }}
       >
-        <Col xs={24} sm={24} md={13} lg={14} xl={14}>
+        <Col
+          xs={24}
+          sm={24}
+          md={13}
+          lg={14}
+          xl={14}
+          style={{
+            minHeight: '250px',
+          }}
+        >
           <div
             style={{
               background: (articleSubmited) ? '#fffffa' : '#9E9E9E',
-              padding: '20px 50px',
             }}
           >
-            <CreateArticle
-              setArticleSubmited={setArticleSubmited}
-              articleSubmited={articleSubmited}
-            />
+            {addArticleComponent}
           </div>
         </Col>
-        <Col xs={24} sm={24} md={9} lg={10} xl={10}>
+        <Col
+          xs={24}
+          sm={24}
+          md={9}
+          lg={10}
+          xl={10}
+          style={{
+            minHeight: '250px',
+          }}
+        >
           <div
             style={{
               background: (articleSubmited) ? '#9E9E9E' : '#fffffa',
@@ -42,9 +73,32 @@ export default function CreateArticlePage() {
               padding: '10px 40px',
             }}
           >
-            <Title level={5}>Aaaa</Title>
-            <CreateClaim articleSubmited={articleSubmited} />
+            <Title level={5}>Add claim to article</Title>
+            <CreateClaim
+              articleSubmited={articleSubmited}
+              claims={claims}
+              setClaims={setClaims}
+              article={article}
+            />
           </div>
+        </Col>
+      </Row>
+      {(articleSubmited && <Title level={3}>List of claims:</Title>)}
+      <Row
+        style={{
+          margin: 0,
+        }}
+      >
+        <Col xs={24} sm={24} md={13} lg={14} xl={14}>
+          <List
+            style={{
+              paddingBottom: '10px',
+            }}
+          >
+            {
+              claims.map((obj) => <div key={obj._id} style={{ padding: '20px' }}><Claim {...obj} /></div>)
+            }
+          </List>
         </Col>
       </Row>
     </Content>

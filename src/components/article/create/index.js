@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
 import {
-  Button, Form, Input, Select,
+  Button, Form, Input, Select, message,
 } from 'antd';
 import PropTypes from 'prop-types';
+import useFetchWrapper from '../../../_helpers/fetch_wrapper';
 
 const { Option } = Select;
 
-export default function CreateArticle({ articleSubmited, setArticleSubmited }) {
+export default function CreateArticle({ articleSubmited, setArticleSubmited, setArticle }) {
+  const fetchWrapper = useFetchWrapper();
+
   const [language, setLanguage] = useState('cz');
 
   const onFinish = (values) => {
     const mergedValues = values;
     mergedValues.language = language;
-    setArticleSubmited(true);
+    mergedValues.sourceType = 'article';
+
+    fetchWrapper.post(`${process.env.REACT_APP_API_BASE}/articles`, mergedValues)
+      .then((res) => {
+        message.success('Successfully added new article');
+        setArticle(res);
+        setArticleSubmited(true);
+      })
+      .catch((e) => message.error(e));
   };
 
   const handleChange = (value) => {
@@ -26,6 +37,9 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited }) {
       name="nest-messages"
       onFinish={onFinish}
       // validateMessages={validateMessages}
+      style={{
+        padding: '20px 50px',
+      }}
     >
       <Form.Item
         name="sourceUrl"
@@ -61,4 +75,5 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited }) {
 CreateArticle.propTypes = {
   setArticleSubmited: PropTypes.func.isRequired,
   articleSubmited: PropTypes.bool.isRequired,
+  setArticle: PropTypes.func.isRequired,
 };

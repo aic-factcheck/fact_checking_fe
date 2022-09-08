@@ -12,7 +12,7 @@ export default function useFetchWrapper() {
     const isLoggedIn = !!token;
     const isApiUrl = url.startsWith(process.env.REACT_APP_API_BASE);
     if (isLoggedIn && isApiUrl) {
-      return { Authorization: `Bearer ${token}` };
+      return { Authorization: `Bearer ${token.accessToken}` };
     }
 
     return {};
