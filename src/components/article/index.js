@@ -3,33 +3,36 @@ import PropTypes from 'prop-types';
 import {
   Col, Row, Typography, Divider,
 } from 'antd';
+import MyTitle from '../MyTitle/index';
 
-const { Title, Paragraph } = Typography;
+const { Paragraph } = Typography;
 
 export default function Article({ article }) {
   return (
     <div style={{
-      backgroundColor: '#F5DEB3',
-      padding: '10px',
+      backgroundColor: '#00887A',
+      padding: '1% 3% 3% 3%',
+      borderRadius: '10px',
+      color: 'white',
     }}
     >
       <Row>
         <Col offset={2} span={20}>
-          <Title level={4} style={{ color: 'crimson' }}>{article.sourceUrl}</Title>
+          <MyTitle headline={article.sourceUrl} />
         </Col>
       </Row>
       <Row>
         <Col offset={2} span={4}>
-          <Paragraph style={{ color: 'black' }}>{`Type: ${article.sourceType}`}</Paragraph>
+          <Paragraph style={{ color: 'white' }}>{`Type: ${article.sourceType}`}</Paragraph>
         </Col>
         <Col span={4}>
-          <Paragraph style={{ color: 'black' }}>{`Language: ${article.language}`}</Paragraph>
+          <Paragraph style={{ color: 'white' }}>{`Language: ${article.language}`}</Paragraph>
         </Col>
       </Row>
       <Divider />
       <Row>
         <Col offset={2} span={20}>
-          <Paragraph style={{ color: 'black' }}>{article.text}</Paragraph>
+          <Paragraph style={{ color: 'white' }}>{article.text}</Paragraph>
         </Col>
       </Row>
       <Divider />

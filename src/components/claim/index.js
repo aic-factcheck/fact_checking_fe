@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import {
   List, Col, Row, Typography, Divider,
 } from 'antd';
+import MyTitle from '../MyTitle';
 
-const { Title, Paragraph } = Typography;
+const { Paragraph } = Typography;
 
 export default function Claim({
   // eslint-disable-next-line no-unused-vars
@@ -33,7 +34,7 @@ export default function Claim({
           {addedBy}
         </Col>
         <Col span={8}>
-          <Title level={5}>{articleId}</Title>
+          <MyTitle headline={articleId} />
         </Col>
       </Row>
       <Divider />

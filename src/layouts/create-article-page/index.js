@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Layout, Col, Row, Typography, List,
+  Layout, Col, Row, List,
 } from 'antd';
 import CreateClaim from '../../components/claim/create';
 import CreateArticle from '../../components/article/create';
 import Claim from '../../components/claim';
 import Article from '../../components/article';
+import MyTitle from '../../components/MyTitle';
 
 const { Content } = Layout;
-const { Title } = Typography;
 
 export default function CreateArticlePage() {
   const [articleSubmited, setArticleSubmited] = useState(false);
@@ -29,13 +29,10 @@ export default function CreateArticlePage() {
     );
 
   return (
-    <Content className="site-layout" style={{ padding: '50px 0 0 0', marginTop: 40 }}>
+    <Content className="site-layout" style={{ padding: '1% 3% 3% 3%', borderRadius: '10px' }}>
       <Row
         gutter={{
           xs: 16, sm: 16, md: 16, lg: 16,
-        }}
-        style={{
-          margin: 0,
         }}
       >
         <Col
@@ -45,17 +42,23 @@ export default function CreateArticlePage() {
           lg={14}
           xl={14}
           style={{
-            minHeight: '250px',
+            minWidth: '100%',
           }}
         >
           <div
             style={{
-              background: (articleSubmited) ? '#fffffa' : '#9E9E9E',
+              background: (articleSubmited) ? '#77A6F7' : '#77A6F7', borderRadius: '10px',
             }}
           >
             {addArticleComponent}
           </div>
         </Col>
+      </Row>
+      <Row
+        style={{
+          margin: '1% 0% 0% 0%',
+        }}
+      >
         <Col
           xs={24}
           sm={24}
@@ -68,12 +71,13 @@ export default function CreateArticlePage() {
         >
           <div
             style={{
-              background: (articleSubmited) ? '#9E9E9E' : '#fffffa',
+              background: (articleSubmited) ? '#77A6F7' : '#77A6F7',
               border: '5px bold',
               padding: '10px 40px',
+              borderRadius: '10px',
             }}
           >
-            <Title level={5}>Add claim to article</Title>
+            <MyTitle headline="Add claim to article" />
             <CreateClaim
               articleSubmited={articleSubmited}
               claims={claims}
@@ -83,7 +87,7 @@ export default function CreateArticlePage() {
           </div>
         </Col>
       </Row>
-      {(articleSubmited && <Title level={3}>List of claims:</Title>)}
+      {(articleSubmited && <MyTitle headline="List of claims:" />)}
       <Row
         style={{
           margin: 0,
