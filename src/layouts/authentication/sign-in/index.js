@@ -35,7 +35,12 @@ export default function SignIn() {
   };
 
   return (
-    <Content className="site-layout" style={{ padding: '50px 50px', marginTop: 64 }}>
+    <Content
+      className="site-layout"
+      style={{
+        padding: '3%', marginTop: '1%', marginRight: '10%', marginLeft: '10%',
+      }}
+    >
       <Form
         name="basic"
         labelCol={{
@@ -50,10 +55,15 @@ export default function SignIn() {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
+        style={{
+          paddingTop: '1%', padding: '5%', marginTop: 64, background: '#00887A', borderRadius: '10px',
+        }}
       >
         <Form.Item
-          label="Email"
+          // eslint-disable-next-line jsx-a11y/label-has-associated-control
+          label="Your email"
           name="email"
+          className="whites"
           rules={[
             {
               required: true,
@@ -65,8 +75,10 @@ export default function SignIn() {
         </Form.Item>
 
         <Form.Item
-          label="Password"
+          // eslint-disable-next-line jsx-a11y/label-has-associated-control
+          label="Your password"
           name="password"
+          className="whites"
           rules={[
             {
               required: true,
@@ -85,7 +97,11 @@ export default function SignIn() {
             span: 16,
           }}
         >
-          <Checkbox>Remember me</Checkbox>
+          <Checkbox>
+            <div style={{ color: '#000000' }}>
+              Remember me
+            </div>
+          </Checkbox>
         </Form.Item>
 
         <Form.Item

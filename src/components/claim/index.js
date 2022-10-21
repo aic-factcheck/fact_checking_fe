@@ -18,15 +18,16 @@ export default function Claim({
       title={_id}
       style={{
         width: '100%',
-        padding: '10px',
-        backgroundColor: 'tomato',
+        padding: '2%',
+        backgroundColor: '#00887A',
         color: 'white',
         display: 'block',
+        borderRadius: '10px',
       }}
       key={_id}
       description={_id}
     >
-      <Row gutter={[16, 16]}>
+      <Row>
         <Col span={4}>
           {priority}
         </Col>
@@ -38,9 +39,9 @@ export default function Claim({
         </Col>
       </Row>
       <Divider />
-      <Row gutter={[16, 16]}>
+      <Row>
         <Col span={24}>
-          <Paragraph>
+          <Paragraph style={{ color: 'white' }}>
             {text}
           </Paragraph>
         </Col>

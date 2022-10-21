@@ -35,6 +35,32 @@ export default function useUserActions() {
       });
   }
 
+  function signup(firstName, lastName, email, password, verificationCode) {
+    return fetchWrapper.post(`${baseUrl}/auth/register-code`, {
+      firstName, lastName, email, password, verificationCode,
+    })
+      .then((user) => {
+        const saveUser = {
+          data: user.user,
+          token: user.token,
+          at: user.token.accessToken,
+        };
+
+        // store user details and jwt token in local storage
+        // to keep user logged in between page refreshes
+        localStorage.setItem('user', JSON.stringify(saveUser));
+        setAuth(saveUser);
+
+        // get return url from location state or default to home page
+        // const { from } = history.location.state || { from: { pathname: '/' } };
+        // history.push('/collections');
+        window.location.reload(false);
+      })
+      .catch((error) => {
+        message.error(error);
+      });
+  }
+
   function logout() {
     // remove user from local storage, set auth state to null and redirect to login page
     localStorage.removeItem('user');
@@ -49,5 +75,6 @@ export default function useUserActions() {
     login,
     logout,
     getAll,
+    signup,
   };
 }

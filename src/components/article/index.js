@@ -11,7 +11,7 @@ export default function Article({ article }) {
   return (
     <div style={{
       backgroundColor: '#00887A',
-      padding: '1% 3% 3% 3%',
+      padding: '3% 3% 3% 3%',
       borderRadius: '10px',
       color: 'white',
     }}

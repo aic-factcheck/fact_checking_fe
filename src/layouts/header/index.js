@@ -6,6 +6,7 @@ import { useRecoilValue } from 'recoil';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { CgProfile } from 'react-icons/cg';
 
 import authAtom from '../../_state/auth';
 
@@ -26,7 +27,12 @@ export default function CustomHeader() {
             <Nav.Link as={Link} to="/article/create" active={location.pathname === '/article/create'} style={{ color: 'white' }}>Add article</Nav.Link>
           </Nav>
           <Nav activeKey={location.pathname}>
-            <Nav.Link as={Link} to="/logout" active={location.pathname === '/logout'} style={{ color: 'white' }}>logout</Nav.Link>
+            <Nav.Link as={Link} to="/profile" active={location.pathname === '/profile'} style={{ color: 'white' }}>
+              <CgProfile />
+            </Nav.Link>
+            <Nav.Link as={Link} to="/logout" active={location.pathname === '/logout'} style={{ color: 'white' }}>
+              logout
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -35,11 +41,11 @@ export default function CustomHeader() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto" activeKey={location.pathname}>
-            <Nav.Link as={Link} to="/" active={location.pathname === '/'}>Home</Nav.Link>
+            <Nav.Link as={Link} to="/" active={location.pathname === '/'} style={{ color: 'white' }}>Home</Nav.Link>
           </Nav>
           <Nav activeKey={location.pathname}>
-            <Nav.Link as={Link} active={location.pathname === '/sign-in'} to="/sign-in">Sign In</Nav.Link>
-            <Nav.Link as={Link} active={location.pathname === '/sign-up'} to="/sign-up">Sign up</Nav.Link>
+            <Nav.Link as={Link} active={location.pathname === '/sign-in'} to="/sign-in" style={{ color: 'white' }}>Sign In</Nav.Link>
+            <Nav.Link as={Link} active={location.pathname === '/sign-up'} to="/sign-up" style={{ color: 'white' }}>Sign up</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

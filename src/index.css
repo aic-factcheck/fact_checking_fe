@@ -20,3 +20,16 @@ label{
   font-family: sans-serif;
   color: azure;
 }
+
+[title="Your email"] {
+  color: white !important;
+}
+
+[title="Your password"] {
+  color: white !important;
+}
+
+[title="Remember me"] {
+  color: white !important;
+}
+

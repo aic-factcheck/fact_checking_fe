@@ -11,7 +11,7 @@ export default function MyTitle({
 }) {
   return (
     <div>
-      <Title level={3} className="defaultForm" style={{ color: 'white' }}>{headline}</Title>
+      <Title level={3} className="defaultForm" style={{ color: 'white', whiteSpace: 'pre-line' }}>{headline}</Title>
     </div>
   );
 }

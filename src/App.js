@@ -13,6 +13,7 @@ import Footer from './layouts/footer';
 import SignIn from './layouts/authentication/sign-in';
 import SignUp from './layouts/authentication/sign-up';
 import Logout from './layouts/authentication/logout';
+import Profile from './layouts/profile';
 import CreateArticlePage from './layouts/create-article-page';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/sign-in" element={<SignIn />} />
           <Route exact path="/sign-up" element={<SignUp />} />
+          <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/logout" element={<Logout />} />
           <Route exact path="/article/create" element={<CreateArticlePage />} />
         </Routes>
