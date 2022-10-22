@@ -19,7 +19,7 @@ import CreateArticlePage from './layouts/create-article-page';
 function App() {
   return (
     <BrowserRouter>
-      <Layout style={{ minHeight: '100vh', color: 'white' }}>
+      <Layout style={{ minHeight: '100vh' }}>
         <Header />
         <Routes>
           <Route exact path="/" element={<Home />} />

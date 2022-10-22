@@ -1,7 +1,10 @@
 import React from 'react';
+import ProfileSidebar from '../../components/ProfileSidebar';
 
 export default function Profile() {
   return (
-    <div>index</div>
+    <div>
+      <ProfileSidebar />
+    </div>
   );
 }

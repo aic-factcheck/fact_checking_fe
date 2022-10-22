@@ -31,7 +31,7 @@ export default function CustomHeader() {
               <CgProfile />
             </Nav.Link>
             <Nav.Link as={Link} to="/logout" active={location.pathname === '/logout'} style={{ color: 'white' }}>
-              logout
+              Logout
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

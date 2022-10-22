@@ -33,3 +33,18 @@ label{
   color: white !important;
 }
 
+/*a.nav-link {
+  color: black !important;
+}*/
+
+[aria-selected='false'] {
+  color: black !important;
+}
+
+.nav-pills {
+  --bs-nav-pills-link-active-bg: #00887A !important;
+}
+
+a:hover {
+  opacity: 0.5;
+}
