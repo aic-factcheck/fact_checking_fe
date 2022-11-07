@@ -59,5 +59,6 @@ export default function useFetchWrapper() {
     post: request('POST'),
     put: request('PUT'),
     delete: request('DELETE'),
+    patch: request('PATCH'),
   };
 }

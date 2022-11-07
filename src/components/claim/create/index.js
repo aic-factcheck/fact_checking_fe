@@ -36,7 +36,9 @@ export default function CreateClaim({
     >
       <Form.Item
         name="text"
-        label="Claim - A sentence from the article to be fact-checked."
+        // eslint-disable-next-line jsx-a11y/label-has-associated-control
+        label={<label>Claim - A sentence from the article to be fact-checked.</label>}
+        style={{ color: '#000000' }}
         rules={[
           {
             required: true,

@@ -1,33 +1,41 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Layout, Button, Checkbox, Form, Input, message,
+  Layout, Button, Form, Input, message,
 } from 'antd';
 
 import { useRecoilValue } from 'recoil';
 
-import authAtom from '../../../_state/auth';
-import useUserActions from '../../../_actions/user.actions';
+import authAtom from '../../_state/auth';
+import useUserActions from '../../_actions/user.actions';
 
 const { Content } = Layout;
 
-export default function SignIn() {
+export default function EditProfile() {
   const auth = useRecoilValue(authAtom);
   const userActions = useUserActions();
   const navigate = useNavigate();
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth) {
+    if (!auth) {
       navigate('/');
     }
   }, [auth, navigate]);
 
   const onFinish = (values) => {
-    userActions.login(values.email, values.password)
+    const { id } = auth.data;
+    userActions.editProfile(
+      id,
+      values.firstName,
+      values.lastName,
+      values.email,
+      values.password,
+    )
       .catch((error) => {
         message.error(error);
       });
+    navigate('/');
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -35,73 +43,65 @@ export default function SignIn() {
   };
 
   return (
-    <Content
-      className="site-layout"
-      style={{
-        padding: '3%', marginTop: '1%', marginRight: '10%', marginLeft: '10%',
-      }}
-    >
+    <Content className="site-layout" style={{ paddingLeft: '0%', padding: '1%' }}>
       <Form
         name="basic"
         labelCol={{
-          span: 10,
+          span: 24,
         }}
         wrapperCol={{
-          span: 10,
+          span: 24,
         }}
         initialValues={{
-          remember: true,
+          firstName: auth.data.firstName,
+          lastName: auth.data.lastName,
+          email: auth.data.email,
+          password: auth.data.password,
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
-        style={{
-          paddingTop: '1%', padding: '5%', marginTop: 64, background: '#00887A', borderRadius: '10px',
-        }}
       >
         <Form.Item
-          // eslint-disable-next-line jsx-a11y/label-has-associated-control
-          label="Your email"
+          id="1st"
+          label="First name"
+          name="firstName"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your first name!',
+            },
+          ]}
+        >
+          <Input defaultValue={auth.data.firstName} />
+        </Form.Item>
+
+        <Form.Item
+          id="2nd"
+          label="Last name"
+          name="lastName"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your last name!',
+            },
+          ]}
+        >
+          <Input defaultValue={auth.data.lastName} value={auth.data.lastName} />
+        </Form.Item>
+
+        <Form.Item
+          id="3rd"
+          label="Email"
           name="email"
-          className="whites"
           rules={[
             {
               required: true,
-              message: 'Please input your username!',
+              message: 'Please input your email!',
             },
           ]}
         >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          // eslint-disable-next-line jsx-a11y/label-has-associated-control
-          label="Your password"
-          name="password"
-          className="whites"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your password!',
-            },
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-
-        <Form.Item
-          name="remember"
-          valuePropName="checked"
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-        >
-          <Checkbox>
-            <div style={{ color: '#000000' }}>
-              Remember me
-            </div>
-          </Checkbox>
+          <Input defaultValue={auth.data.email} />
         </Form.Item>
 
         <Form.Item

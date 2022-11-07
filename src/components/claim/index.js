@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import {
   List, Col, Row, Typography, Divider,
 } from 'antd';
+import MyTitle from '../MyTitle';
 
-const { Title, Paragraph } = Typography;
+const { Paragraph } = Typography;
 
 export default function Claim({
   // eslint-disable-next-line no-unused-vars
@@ -17,15 +18,16 @@ export default function Claim({
       title={_id}
       style={{
         width: '100%',
-        padding: '10px',
-        backgroundColor: 'tomato',
+        padding: '2%',
+        backgroundColor: '#00887A',
         color: 'white',
         display: 'block',
+        borderRadius: '10px',
       }}
       key={_id}
       description={_id}
     >
-      <Row gutter={[16, 16]}>
+      <Row>
         <Col span={4}>
           {priority}
         </Col>
@@ -33,13 +35,13 @@ export default function Claim({
           {addedBy}
         </Col>
         <Col span={8}>
-          <Title level={5}>{articleId}</Title>
+          <MyTitle headline={articleId} />
         </Col>
       </Row>
       <Divider />
-      <Row gutter={[16, 16]}>
+      <Row>
         <Col span={24}>
-          <Paragraph>
+          <Paragraph style={{ color: 'white' }}>
             {text}
           </Paragraph>
         </Col>

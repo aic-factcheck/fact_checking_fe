@@ -9,6 +9,11 @@ const locSharedRoutes = [{
   link: '/article/create',
   navKey: 1,
   disabled: false,
+}, {
+  name: 'Profile',
+  link: '/profile',
+  navKey: 1,
+  disabled: false,
 }];
 
 // auth routes only
