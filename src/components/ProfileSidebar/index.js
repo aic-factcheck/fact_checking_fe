@@ -4,6 +4,8 @@ import {
   Tab, Row, Col, Nav,
 } from 'react-bootstrap';
 import EditProfile from '../EditProfile';
+import MyArticles from '../MyArticles';
+import MyClaims from '../MyClaims';
 
 const { Content } = Layout;
 
@@ -42,10 +44,10 @@ export default function ProfileSidebar() {
                 <EditProfile />
               </Tab.Pane>
               <Tab.Pane eventKey="2nd">
-                <p> 2 </p>
+                <MyArticles />
               </Tab.Pane>
               <Tab.Pane eventKey="3rd">
-                <p> 3 </p>
+                <MyClaims />
               </Tab.Pane>
               <Tab.Pane eventKey="4th">
                 <p> 4 </p>

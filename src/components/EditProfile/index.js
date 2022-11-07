@@ -105,20 +105,6 @@ export default function EditProfile() {
         </Form.Item>
 
         <Form.Item
-          id="4th"
-          label="Password"
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your password!',
-            },
-          ]}
-        >
-          <Input.Password defaultValue={auth.data.password} />
-        </Form.Item>
-
-        <Form.Item
           wrapperCol={{
             offset: 8,
             span: 16,

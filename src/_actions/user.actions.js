@@ -9,6 +9,7 @@ export default function useUserActions() {
   const baseUrl = `${process.env.REACT_APP_API_BASE}`;
   const fetchWrapper = useFetchWrapper();
   const [auth, setAuth] = useRecoilState(authAtom);
+  // eslint-disable-next-line no-unused-vars
   const setUsers = useSetRecoilState(usersAtom);
 
   function login(email, password) {
@@ -62,7 +63,6 @@ export default function useUserActions() {
   }
 
   function editProfile(id, firstName, lastName, email, password) {
-    console.log(auth);
     return fetchWrapper.patch(`${baseUrl}/users/${id}`, {
       firstName, lastName, email, password,
     })
@@ -94,6 +94,10 @@ export default function useUserActions() {
     setAuth(null);
   }
 
+  function getArticles() {
+    return fetchWrapper.get(`${baseUrl}/articles`, { }).then((res) => res.json()).catch(console.log('api error'));
+  }
+
   function getAll() {
     return fetchWrapper.get(`${baseUrl}/users`).then(setUsers);
   }
@@ -104,5 +108,6 @@ export default function useUserActions() {
     getAll,
     signup,
     editProfile,
+    getArticles,
   };
 }
