@@ -17,6 +17,15 @@ export default function MyArticles() {
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
   const [articlesList, setArticlesList] = useState([]);
+  const allowEdit = true;
+
+  /* function add(id) {
+    articlesList.forEach((a) => {
+      if (a._id === id) {
+        a.sourceURL = 'sss';
+      }
+    });
+  } */
 
   useEffect(() => {
     // redirect to home if already logged in
@@ -34,7 +43,7 @@ export default function MyArticles() {
         }}
       >
         {
-          articlesList.map((obj) => <div key={obj._id} style={{ padding: '1%', background: '#77A6F7', borderRadius: '10px' }}><Article article={obj} /></div>)
+          articlesList.map((obj) => <div key={obj._id} style={{ padding: '1%', background: '#77A6F7', borderRadius: '10px' }}><Article article={obj} isEditable={allowEdit} setMyArticles={setArticlesList} /></div>)
         }
       </List>
     </Content>

@@ -14,6 +14,7 @@ export default function CreateArticlePage() {
   const [articleSubmited, setArticleSubmited] = useState(false);
   const [article, setArticle] = useState({});
   const [claims, setClaims] = useState([]);
+  const allowEdit = true;
 
   useEffect(() => {}, [claims]);
 
@@ -25,7 +26,7 @@ export default function CreateArticlePage() {
         setArticle={setArticle}
       />
     ) : (
-      <Article article={article} />
+      <Article article={article} isEditable={allowEdit} />
     );
 
   return (

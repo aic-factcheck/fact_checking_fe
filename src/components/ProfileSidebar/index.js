@@ -53,7 +53,7 @@ export default function ProfileSidebar() {
                 <p> 4 </p>
               </Tab.Pane>
               <Tab.Pane eventKey="5th">
-                <p> 5 </p>
+                <p> To be continued:) </p>
               </Tab.Pane>
             </Tab.Content>
           </Col>
