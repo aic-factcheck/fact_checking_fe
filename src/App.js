@@ -15,6 +15,7 @@ import SignUp from './layouts/authentication/sign-up';
 import Logout from './layouts/authentication/logout';
 import Profile from './layouts/profile';
 import CreateArticlePage from './layouts/create-article-page';
+import ReviewArticle from './layouts/review-article';
 
 function App() {
   return (
@@ -22,12 +23,13 @@ function App() {
       <Layout style={{ minHeight: '100vh' }}>
         <Header />
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/sign-in" element={<SignIn />} />
-          <Route exact path="/sign-up" element={<SignUp />} />
-          <Route exact path="/profile" element={<Profile />} />
-          <Route exact path="/logout" element={<Logout />} />
-          <Route exact path="/article/create" element={<CreateArticlePage />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/article/create" element={<CreateArticlePage />} />
+          <Route path="/article/:articleId" element={<ReviewArticle />} />
         </Routes>
         <Footer />
       </Layout>

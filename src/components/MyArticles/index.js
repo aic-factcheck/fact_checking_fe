@@ -17,13 +17,25 @@ export default function MyArticles() {
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
   const [articlesList, setArticlesList] = useState([]);
+  const allowEdit = true;
+
+  /* function add(id) {
+    articlesList.forEach((a) => {
+      if (a._id === id) {
+        a.sourceURL = 'sss';
+      }
+    });
+  } */
 
   useEffect(() => {
     // redirect to home if already logged in
     if (!auth) {
-      navigate('/');
+      navigate('/sign-in');
     }
-    fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles`).then((res) => setArticlesList(res)).catch(console.log('api error'));
+    const id = auth?.data.id;
+    if (id) {
+      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/articles`).then((res) => setArticlesList(res)).catch(console.log('api error'));
+    }
   }, [auth, navigate]);
 
   return (
@@ -34,7 +46,7 @@ export default function MyArticles() {
         }}
       >
         {
-          articlesList.map((obj) => <div key={obj._id} style={{ padding: '1%', background: '#77A6F7', borderRadius: '10px' }}><Article article={obj} /></div>)
+          articlesList.map((obj) => <div key={obj._id} style={{ padding: '1%', background: '#77A6F7', borderRadius: '10px' }}><Article article={obj} isEditable={allowEdit} setMyArticles={setArticlesList} /></div>)
         }
       </List>
     </Content>

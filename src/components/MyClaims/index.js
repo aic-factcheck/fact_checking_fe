@@ -17,13 +17,17 @@ export default function MyClaims() {
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
   const [claimsList, setClaimsList] = useState([]);
+  const allowEdit = true;
 
   useEffect(() => {
     // redirect to home if already logged in
     if (!auth) {
-      navigate('/');
+      navigate('/sign-in');
     }
-    fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/claims`).then((res) => setClaimsList(res)).catch(console.log('api error'));
+    const id = auth?.data.id;
+    if (id) {
+      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/claims`).then((res) => setClaimsList(res)).catch(console.log('api error'));
+    }
   }, [auth, navigate]);
 
   return (
@@ -34,7 +38,17 @@ export default function MyClaims() {
         }}
       >
         {
-          claimsList.map((obj) => <div key={obj._id} style={{ padding: '1%', background: '#77A6F7' }}><Claim article={obj} /></div>)
+          // _id, priority, addedBy, articleId, text
+          claimsList.map((obj, index) => (
+            <div key={obj._id} style={{ padding: '1%', background: '#77A6F7', borderRadius: '10px' }}>
+              <Claim
+                claim={obj}
+                index={index + 1}
+                setMyClaims={setClaimsList}
+                isEditable={allowEdit}
+              />
+            </div>
+          ))
         }
       </List>
     </Content>

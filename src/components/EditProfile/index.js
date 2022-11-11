@@ -17,25 +17,27 @@ export default function EditProfile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // redirect to home if already logged in
+    // redirect to home if not logged in
     if (!auth) {
-      navigate('/');
+      navigate('/sign-in');
     }
   }, [auth, navigate]);
 
   const onFinish = (values) => {
-    const { id } = auth.data;
-    userActions.editProfile(
-      id,
-      values.firstName,
-      values.lastName,
-      values.email,
-      values.password,
-    )
-      .catch((error) => {
-        message.error(error);
-      });
-    navigate('/');
+    const id = auth?.data.id;
+    if (id) {
+      userActions.editProfile(
+        id,
+        values.firstName,
+        values.lastName,
+        values.email,
+        values.password,
+      )
+        .catch((error) => {
+          message.error(error);
+        });
+      navigate('/');
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -53,10 +55,9 @@ export default function EditProfile() {
           span: 24,
         }}
         initialValues={{
-          firstName: auth.data.firstName,
-          lastName: auth.data.lastName,
-          email: auth.data.email,
-          password: auth.data.password,
+          firstName: auth?.data.firstName ? auth?.data.firstName : '',
+          lastName: auth?.data.lastName ? auth?.data.lastName : '',
+          email: auth?.data.email ? auth?.data.email : '',
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
@@ -73,7 +74,7 @@ export default function EditProfile() {
             },
           ]}
         >
-          <Input defaultValue={auth.data.firstName} />
+          <Input defaultValue={auth?.data.firstName ? auth?.data.firstName : ''} />
         </Form.Item>
 
         <Form.Item
@@ -87,7 +88,7 @@ export default function EditProfile() {
             },
           ]}
         >
-          <Input defaultValue={auth.data.lastName} value={auth.data.lastName} />
+          <Input defaultValue={auth?.data.lastName ? auth?.data.lastName : ''} />
         </Form.Item>
 
         <Form.Item
@@ -101,7 +102,7 @@ export default function EditProfile() {
             },
           ]}
         >
-          <Input defaultValue={auth.data.email} />
+          <Input defaultValue={auth?.data.email ? auth?.data.email : ''} />
         </Form.Item>
 
         <Form.Item
