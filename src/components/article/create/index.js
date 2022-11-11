@@ -46,6 +46,19 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
     >
       <MyTitle headline="Add article" />
       <Form.Item
+        name="title"
+        // eslint-disable-next-line jsx-a11y/label-has-associated-control
+        label={<label>Title</label>}
+        style={{ color: '#000000' }}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
         name="sourceUrl"
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
         label={<label>Source URL</label>}

@@ -62,7 +62,7 @@ export default function Article({
       <Row>
         <Col offset={2} span={20}>
           <a href={articleUrl} style={{ textDecoration: 'none' }}>
-            <MyTitle headline={article?.sourceUrl} />
+            <MyTitle headline={article?.title} />
           </a>
         </Col>
         <Col offset={0} span={2}>
@@ -70,6 +70,11 @@ export default function Article({
         </Col>
       </Row>
       <Row>
+        <Col offset={2} span={4}>
+          <a href={articleUrl} style={{ textDecoration: 'none' }}>
+            <Paragraph style={{ color: 'white' }}>{`Link: ${article?.sourceUrl}`}</Paragraph>
+          </a>
+        </Col>
         <Col offset={2} span={4}>
           <Paragraph style={{ color: 'white' }}>{`Type: ${article?.sourceType}`}</Paragraph>
         </Col>
@@ -96,6 +101,7 @@ export default function Article({
 Article.propTypes = {
   article: PropTypes.shape({
     _id: PropTypes.string,
+    title: PropTypes.string,
     sourceUrl: PropTypes.string,
     text: PropTypes.string,
     sourceType: PropTypes.string,

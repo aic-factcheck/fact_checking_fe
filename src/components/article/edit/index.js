@@ -54,10 +54,22 @@ export default function EditArticle({
         padding: '10px 10px',
       }}
       initialValues={{
+        title: article.title,
         sourceUrl: article.sourceUrl,
         text: article.text,
       }}
     >
+      <Form.Item
+        name="title"
+        label="Title"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
       <Form.Item
         name="sourceUrl"
         label="Source"
@@ -102,6 +114,7 @@ export default function EditArticle({
 EditArticle.propTypes = {
   article: PropTypes.shape({
     _id: PropTypes.string,
+    title: PropTypes.string,
     sourceUrl: PropTypes.string,
     text: PropTypes.string,
     sourceType: PropTypes.string,
