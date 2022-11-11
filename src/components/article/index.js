@@ -16,17 +16,13 @@ export default function Article({
   setMyArticles,
 }) {
   const [open, setOpen] = useState(false);
-  // const [confirmLoading, setConfirmLoading] = useState(false);
+  const articleUrl = `/article/${article?._id}`;
+
   const showModal = () => {
     setOpen(true);
   };
 
   const handleOk = () => {
-    /* setConfirmLoading(true);
-    setTimeout(() => {
-      setOpen(false);
-      setConfirmLoading(false);
-    }, 2000); */
     setOpen(false);
   };
 
@@ -64,7 +60,9 @@ export default function Article({
     >
       <Row>
         <Col offset={2} span={20}>
-          <MyTitle headline={article.sourceUrl} />
+          <a href={articleUrl} style={{ textDecoration: 'none' }}>
+            <MyTitle headline={article?.sourceUrl} />
+          </a>
         </Col>
         <Col offset={0} span={2}>
           {editButton}
@@ -72,22 +70,22 @@ export default function Article({
       </Row>
       <Row>
         <Col offset={2} span={4}>
-          <Paragraph style={{ color: 'white' }}>{`Type: ${article.sourceType}`}</Paragraph>
+          <Paragraph style={{ color: 'white' }}>{`Type: ${article?.sourceType}`}</Paragraph>
         </Col>
         <Col span={4}>
-          <Paragraph style={{ color: 'white' }}>{`Language: ${article.language}`}</Paragraph>
+          <Paragraph style={{ color: 'white' }}>{`Language: ${article?.language}`}</Paragraph>
+        </Col>
+      </Row>
+      <Divider style={{ backgroundColor: 'white', width: '5%' }} />
+      <Row>
+        <Col offset={2} span={20}>
+          <Paragraph style={{ color: 'white' }}>{article?.text}</Paragraph>
         </Col>
       </Row>
       <Divider />
       <Row>
         <Col offset={2} span={20}>
-          <Paragraph style={{ color: 'white' }}>{article.text}</Paragraph>
-        </Col>
-      </Row>
-      <Divider />
-      <Row>
-        <Col offset={2} span={20}>
-          {`Created at: ${article.createdAt.split('T')[0]}` }
+          {`Created at: ${article?.createdAt.split('T')[0]}` }
         </Col>
       </Row>
     </div>

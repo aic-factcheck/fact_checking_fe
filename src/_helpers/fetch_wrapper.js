@@ -1,10 +1,14 @@
 import { useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 // import { history } from '_helpers/history';
-
+// import { createBrowserHistory } from 'history';
 import authAtom from '../_state/auth';
+
+// const history = createBrowserHistory();
 
 export default function useFetchWrapper() {
   const [auth, setAuth] = useRecoilState(authAtom);
+  const navigate = useNavigate();
 
   function authHeader(url) {
     // return auth header with jwt if user is logged in and request is to the api url
@@ -27,7 +31,8 @@ export default function useFetchWrapper() {
           // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
           localStorage.removeItem('user');
           setAuth(null);
-          // history.push('/authentication/wallet-sign-in');
+          navigate('/sign-in');
+          // history.push('/sign-in');
         }
 
         const error = (data && data.message) || response.statusText;

@@ -30,9 +30,12 @@ export default function MyArticles() {
   useEffect(() => {
     // redirect to home if already logged in
     if (!auth) {
-      navigate('/');
+      navigate('/sign-in');
     }
-    fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles`).then((res) => setArticlesList(res)).catch(console.log('api error'));
+    const id = auth?.data.id;
+    if (id) {
+      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/articles`).then((res) => setArticlesList(res)).catch(console.log('api error'));
+    }
   }, [auth, navigate]);
 
   return (

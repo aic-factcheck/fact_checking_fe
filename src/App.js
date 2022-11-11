@@ -15,6 +15,7 @@ import SignUp from './layouts/authentication/sign-up';
 import Logout from './layouts/authentication/logout';
 import Profile from './layouts/profile';
 import CreateArticlePage from './layouts/create-article-page';
+import ReviewArticle from './layouts/review-article';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/logout" element={<Logout />} />
           <Route exact path="/article/create" element={<CreateArticlePage />} />
+          <Route exact path="/article/:articleId" element={<ReviewArticle />} />
         </Routes>
         <Footer />
       </Layout>

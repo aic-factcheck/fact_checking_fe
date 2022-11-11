@@ -21,7 +21,7 @@ export default function EditArticle({
   useEffect(() => {
     // redirect to home if already logged in
     if (!auth) {
-      navigate('/');
+      navigate('/sign-in');
     }
   }, [auth, navigate]);
 
@@ -31,7 +31,7 @@ export default function EditArticle({
     mergedValues.sourceType = 'article';
     const id = article._id;
 
-    fetchWrapper.put(`${process.env.REACT_APP_API_BASE}/articles/${id}`, mergedValues)
+    fetchWrapper.patch(`${process.env.REACT_APP_API_BASE}/articles/${id}`, mergedValues)
       .then(() => {
         message.success('Successfully edited article');
         fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles`).then((res) => setMyArticles(res)).catch(console.log('api error'));
@@ -72,7 +72,7 @@ export default function EditArticle({
       <Form.Item
         label="Language"
       >
-        <Select defaultValue="cz" style={{ width: 120 }} onChange={handleChange}>
+        <Select defaultValue={article.language !== null ? article.language : 'cz'} style={{ width: 120 }} onChange={handleChange}>
           <Option value="cz">Czech</Option>
           <Option value="en">English</Option>
           <Option value="sk">Slovak</Option>

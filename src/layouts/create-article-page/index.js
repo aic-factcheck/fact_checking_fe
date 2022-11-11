@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Layout, Col, Row, List,
 } from 'antd';
+import { useRecoilValue } from 'recoil';
 import CreateClaim from '../../components/claim/create';
 import CreateArticle from '../../components/article/create';
 import Claim from '../../components/claim';
 import Article from '../../components/article';
 import MyTitle from '../../components/MyTitle';
+import authAtom from '../../_state/auth';
 
 const { Content } = Layout;
 
 export default function CreateArticlePage() {
   const [articleSubmited, setArticleSubmited] = useState(false);
+  const navigate = useNavigate();
   const [article, setArticle] = useState({});
   const [claims, setClaims] = useState([]);
-  const allowEdit = true;
+  const allowEdit = false;
+  const auth = useRecoilValue(authAtom);
 
-  useEffect(() => {}, [claims]);
+  useEffect(() => {
+    // redirect to home if already logged in
+    if (!auth) {
+      navigate('/sign-in');
+    }
+  }, [claims]);
 
   const addArticleComponent = (!articleSubmited)
     ? (
@@ -131,7 +141,7 @@ export default function CreateArticlePage() {
                 }}
               >
                 {
-                  claims.map((obj) => <div key={obj._id} style={{ padding: '1%', background: '#77A6F7' }}><Claim {...obj} /></div>)
+                  claims.map((obj, index) => <div key={obj._id} style={{ padding: '1%', background: '#77A6F7' }}><Claim claim={obj} priority={index + 1} isEditable={allowEdit} /></div>)
                 }
               </List>
             </Col>
