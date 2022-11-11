@@ -42,6 +42,7 @@ export default function Article({
           onOk={handleOk}
           // confirmLoading={confirmLoading}
           onCancel={handleCancel}
+          width="80%"
         >
           <EditArticle article={article} setMyArticles={setMyArticles} />
         </Modal>

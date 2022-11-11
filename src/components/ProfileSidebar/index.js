@@ -33,9 +33,6 @@ export default function ProfileSidebar() {
               <Nav.Item>
                 <Nav.Link eventKey="4th" className="whites">Send invitation</Nav.Link>
               </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="5th" className="whites">My statistics</Nav.Link>
-              </Nav.Item>
             </Nav>
           </Col>
           <Col sm={9} style={{ paddingLeft: '0' }}>
@@ -51,9 +48,6 @@ export default function ProfileSidebar() {
               </Tab.Pane>
               <Tab.Pane eventKey="4th">
                 <p> 4 </p>
-              </Tab.Pane>
-              <Tab.Pane eventKey="5th">
-                <p> To be continued:) </p>
               </Tab.Pane>
             </Tab.Content>
           </Col>
