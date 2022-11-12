@@ -9,7 +9,7 @@ import useFetchWrapper from '../../../_helpers/fetch_wrapper';
 import authAtom from '../../../_state/auth';
 
 export default function EditClaim({
-  claim, setMyClaims,
+  claim, setMyClaimsList, claimsList, indexClaim,
 }) {
   const auth = useRecoilValue(authAtom);
   const fetchWrapper = useFetchWrapper();
@@ -24,17 +24,29 @@ export default function EditClaim({
   }, [auth, navigate]);
 
   const onFinish = (values) => {
-    const mergedValues = values;
-    mergedValues.sourceType = 'claim';
+    /* const mergedValues = values;
+    mergedValues.sourceType = 'claim'; */
     const articleid = claim.articleId;
     const claimid = claim._id;
+    const id = auth?.data.id;
 
-    fetchWrapper.patch(`${process.env.REACT_APP_API_BASE}/articles/${articleid}/claims/${claimid}`, mergedValues)
-      .then(() => {
-        message.success('Successfully edited claim');
-        fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/claims`).then((res) => setMyClaims(res)).catch(console.log('api error'));
-      })
-      .catch((e) => message.error(e));
+    if (id) {
+      fetchWrapper.patch(`${process.env.REACT_APP_API_BASE}/articles/${articleid}/claims/${claimid}`, values)
+        .then(() => {
+          message.success('Successfully edited claim');
+          const mergedClaims = [...claimsList];
+
+          if (mergedClaims[indexClaim]?.text) {
+            mergedClaims[indexClaim].text = values.text;
+          }
+
+          setMyClaimsList(mergedClaims);
+          // mergedClaims.sourceType = 'claim';
+          // fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/claims`).then((res)
+          // => setMyClaimsList(res)).catch(console.log('api error'));
+        })
+        .catch((e) => message.error(e));
+    }
   };
 
   return (
@@ -84,9 +96,13 @@ EditClaim.propTypes = {
     language: PropTypes.string,
     createdAt: PropTypes.string,
   }).isRequired,
-  setMyClaims: PropTypes.func,
+  setMyClaimsList: PropTypes.func,
+  claimsList: PropTypes.arrayOf(PropTypes.objectOf),
+  indexClaim: PropTypes.number,
 };
 
 EditClaim.defaultProps = {
-  setMyClaims: () => {},
+  setMyClaimsList: () => {},
+  claimsList: [],
+  indexClaim: 0,
 };

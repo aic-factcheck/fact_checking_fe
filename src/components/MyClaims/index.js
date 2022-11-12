@@ -43,8 +43,9 @@ export default function MyClaims() {
             <div key={obj._id} style={{ padding: '1%', background: '#77A6F7', borderRadius: '10px' }}>
               <Claim
                 claim={obj}
-                index={index + 1}
-                setMyClaims={setClaimsList}
+                index={index}
+                claims={claimsList}
+                setMyClaimsList={setClaimsList}
                 isEditable={allowEdit}
               />
             </div>

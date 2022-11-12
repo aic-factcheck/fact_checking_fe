@@ -11,7 +11,7 @@ import authAtom from '../../../_state/auth';
 const { Option } = Select;
 
 export default function EditArticle({
-  article, setMyArticles,
+  article, setMyArticles, indexEdit, articlesList,
 }) {
   const auth = useRecoilValue(authAtom);
   const fetchWrapper = useFetchWrapper();
@@ -34,7 +34,29 @@ export default function EditArticle({
     fetchWrapper.patch(`${process.env.REACT_APP_API_BASE}/articles/${id}`, mergedValues)
       .then(() => {
         message.success('Successfully edited article');
-        fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles`).then((res) => setMyArticles(res)).catch(console.log('api error'));
+
+        const mergedArticles = [...articlesList];
+
+        if (mergedArticles[indexEdit]?.title) {
+          mergedArticles[indexEdit].title = values.title;
+        }
+
+        if (mergedArticles[indexEdit]?.sourceUrl) {
+          mergedArticles[indexEdit].sourceUrl = values.sourceUrl;
+        }
+
+        if (mergedArticles[indexEdit]?.text) {
+          mergedArticles[indexEdit].text = values.text;
+        }
+
+        if (mergedArticles[indexEdit]?.language) {
+          mergedArticles[indexEdit].language = values.language;
+        }
+
+        setMyArticles(mergedArticles);
+
+        // fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles`).then((res)
+        // => setMyArticles(res)).catch(console.log('api error'));
       })
       .catch((e) => message.error(e));
   };
@@ -122,8 +144,12 @@ EditArticle.propTypes = {
     createdAt: PropTypes.string,
   }).isRequired,
   setMyArticles: PropTypes.func,
+  indexEdit: PropTypes.number,
+  articlesList: PropTypes.arrayOf(PropTypes.objectOf),
 };
 
 EditArticle.defaultProps = {
   setMyArticles: () => {},
+  indexEdit: 0,
+  articlesList: [],
 };

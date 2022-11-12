@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import useFetchWrapper from '../../../_helpers/fetch_wrapper';
 
 export default function CreateClaim({
-  articleSubmited, article, claims, setClaims,
+  articleSubmited, article, claims, setClaims, fontColour,
 }) {
   const fetchWrapper = useFetchWrapper();
   const [claimForm] = Form.useForm();
@@ -36,9 +36,12 @@ export default function CreateClaim({
     >
       <Form.Item
         name="text"
-        // eslint-disable-next-line jsx-a11y/label-has-associated-control
-        label={<label>Claim - A sentence from the article to be fact-checked.</label>}
-        style={{ color: '#000000' }}
+        label={(
+          // eslint-disable-next-line jsx-a11y/label-has-associated-control
+          <label style={{ color: fontColour }}>
+            Claim - A sentence from the article to be fact-checked.
+          </label>
+        )}
         rules={[
           {
             required: true,
@@ -64,4 +67,9 @@ CreateClaim.propTypes = {
   article: PropTypes.shape({
     _id: PropTypes.string,
   }).isRequired,
+  fontColour: PropTypes.string,
+};
+
+CreateClaim.defaultProps = {
+  fontColour: 'white',
 };

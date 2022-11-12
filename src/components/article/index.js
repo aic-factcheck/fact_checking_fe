@@ -14,9 +14,13 @@ export default function Article({
   article,
   isEditable,
   setMyArticles,
+  indexArticle,
+  articles,
 }) {
   const [open, setOpen] = useState(false);
-  const articleUrl = `/article/${article?._id}`;
+  const [readMore, setReadMore] = useState(false);
+  // const articleUrl = `/article/${article?._id}`;
+  // const [readMore, setReadMore] = useState(false);
 
   const showModal = () => {
     setOpen(true);
@@ -44,7 +48,12 @@ export default function Article({
           onCancel={handleCancel}
           width="80%"
         >
-          <EditArticle article={article} setMyArticles={setMyArticles} />
+          <EditArticle
+            article={article}
+            setMyArticles={setMyArticles}
+            articlesList={articles}
+            indexEdit={indexArticle}
+          />
         </Modal>
       </div>
     ) : (
@@ -61,7 +70,7 @@ export default function Article({
     >
       <Row>
         <Col offset={2} span={20}>
-          <a href={articleUrl} style={{ textDecoration: 'none' }}>
+          <a href={`/article/${article?._id}`} style={{ textDecoration: 'none' }}>
             <MyTitle headline={article?.title} />
           </a>
         </Col>
@@ -71,7 +80,7 @@ export default function Article({
       </Row>
       <Row>
         <Col offset={2} span={4}>
-          <a href={articleUrl} style={{ textDecoration: 'none' }}>
+          <a href={`/article/${article?._id}`} style={{ textDecoration: 'none' }}>
             <Paragraph style={{ color: 'white' }}>{`Link: ${article?.sourceUrl}`}</Paragraph>
           </a>
         </Col>
@@ -83,11 +92,39 @@ export default function Article({
         </Col>
       </Row>
       <Divider style={{ backgroundColor: 'white', width: '5%' }} />
-      <Row>
-        <Col offset={2} span={20}>
-          <Paragraph style={{ color: 'white' }}>{article?.text}</Paragraph>
-        </Col>
-      </Row>
+      { article?.text.length > 100 ? (
+        <div>
+          <Row>
+            <Col offset={2} span={20}>
+              <Paragraph style={{ color: 'white' }}>{readMore ? article?.text : `${article?.text.slice(0, 100)} ...`}</Paragraph>
+            </Col>
+          </Row>
+          <Row>
+            <Col offset={2} span={20}>
+              <Paragraph
+                className="buttons"
+                style={{
+                  color: '#00887A',
+                  backgroundColor: 'white',
+                  borderRadius: '10px',
+                  textAlign: 'center',
+                }}
+                onClick={() => setReadMore(!readMore)}
+              >
+                <div>
+                  {readMore ? 'Read less' : 'Read more'}
+                </div>
+              </Paragraph>
+            </Col>
+          </Row>
+        </div>
+      ) : (
+        <Row>
+          <Col offset={2} span={20}>
+            <Paragraph style={{ color: 'white' }} id={`${article?._id}_text`}>{article?.text}</Paragraph>
+          </Col>
+        </Row>
+      )}
       <Divider />
       <Row>
         <Col offset={2} span={20}>
@@ -110,8 +147,12 @@ Article.propTypes = {
   }).isRequired,
   isEditable: PropTypes.bool.isRequired,
   setMyArticles: PropTypes.func,
+  indexArticle: PropTypes.number,
+  articles: PropTypes.arrayOf(PropTypes.objectOf),
 };
 
 Article.defaultProps = {
   setMyArticles: () => {},
+  indexArticle: 0,
+  articles: [],
 };

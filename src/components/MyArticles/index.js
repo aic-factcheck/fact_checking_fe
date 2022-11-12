@@ -46,7 +46,17 @@ export default function MyArticles() {
         }}
       >
         {
-          articlesList.map((obj) => <div key={obj._id} style={{ padding: '1%', background: '#77A6F7', borderRadius: '10px' }}><Article article={obj} isEditable={allowEdit} setMyArticles={setArticlesList} /></div>)
+          articlesList.map((obj, index) => (
+            <div key={obj._id} style={{ padding: '1%', background: '#77A6F7', borderRadius: '10px' }}>
+              <Article
+                article={obj}
+                isEditable={allowEdit}
+                setMyArticles={setArticlesList}
+                articles={articlesList}
+                indexArticle={index}
+              />
+            </div>
+          ))
         }
       </List>
     </Content>

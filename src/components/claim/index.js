@@ -10,22 +10,15 @@ import EditClaim from './edit';
 const { Paragraph } = Typography;
 
 export default function Claim({
-  // eslint-disable-next-line no-unused-vars
-  claim, isEditable, setMyClaims, index,
-  // eslint-disable-next-line no-unused-vars
+  claim, isEditable, setMyClaimsList, index, claims,
 }) {
   const [open, setOpen] = useState(false);
-  // const [confirmLoading, setConfirmLoading] = useState(false);
+
   const showModal = () => {
     setOpen(true);
   };
 
   const handleOk = () => {
-    /* setConfirmLoading(true);
-    setTimeout(() => {
-      setOpen(false);
-      setConfirmLoading(false);
-    }, 2000); */
     setOpen(false);
   };
 
@@ -46,7 +39,12 @@ export default function Claim({
           // confirmLoading={confirmLoading}
           onCancel={handleCancel}
         >
-          <EditClaim claim={claim} setMyArticles={setMyClaims} />
+          <EditClaim
+            claim={claim}
+            setMyClaimsList={setMyClaimsList}
+            claimsList={claims}
+            indexClaim={index}
+          />
         </Modal>
       </div>
     ) : (
@@ -69,7 +67,7 @@ export default function Claim({
     >
       <Row>
         <Col span={4}>
-          {index}
+          {index + 1}
         </Col>
         <Col offset={18} span={2}>
           {editButton}
@@ -137,10 +135,12 @@ Claim.propTypes = {
     // negativeVotes: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
   isEditable: PropTypes.bool.isRequired,
-  setMyClaims: PropTypes.func,
   index: PropTypes.number.isRequired,
+  claims: PropTypes.arrayOf(PropTypes.objectOf),
+  setMyClaimsList: PropTypes.func,
 };
 
 Claim.defaultProps = {
-  setMyClaims: () => {},
+  setMyClaimsList: () => {},
+  claims: [],
 };

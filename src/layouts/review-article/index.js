@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, List } from 'antd';
+import {
+  Layout, List, Row, Col, Button, Modal,
+} from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import authAtom from '../../_state/auth';
@@ -7,6 +9,7 @@ import useFetchWrapper from '../../_helpers/fetch_wrapper';
 import Article from '../../components/article';
 import Claim from '../../components/claim';
 import MyTitle from '../../components/MyTitle';
+import CreateClaim from '../../components/claim/create';
 
 const { Content } = Layout;
 
@@ -20,6 +23,22 @@ export default function ReviewArticle() {
 
   const { articleId } = useParams();
   const allowEdit = false;
+
+  const allowAddClaim = true;
+
+  const [open, setOpen] = useState(false);
+  // const [confirmLoading, setConfirmLoading] = useState(false);
+  const showModal = () => {
+    setOpen(true);
+  };
+
+  const handleOk = () => {
+    setOpen(false);
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     // redirect to home if already logged in
@@ -38,7 +57,30 @@ export default function ReviewArticle() {
       <div style={{ marginBottom: '3%' }}>
         <Article article={article} isEditable={allowEdit} />
       </div>
-      <MyTitle headline="Article claims:" fontcolor="#00887A" />
+      <Row>
+        <Col offset={0} span={22}>
+          <MyTitle headline="Article claims:" fontcolor="#00887A" />
+        </Col>
+        <Col>
+          <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#00887A', color: 'white' }}>
+            Add claim
+          </Button>
+          <Modal
+            title="Add claim"
+            open={open}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+            <CreateClaim
+              setClaims={setClaims}
+              claims={claims}
+              article={article}
+              articleSubmited={allowAddClaim}
+              fontColour="black"
+            />
+          </Modal>
+        </Col>
+      </Row>
       <List
         style={{
           padding: '1%',
@@ -50,7 +92,7 @@ export default function ReviewArticle() {
             <div key={obj._id} style={{ padding: '1%', background: '#77A6F7', borderRadius: '10px' }}>
               <Claim
                 claim={obj}
-                index={index + 1}
+                index={index}
                 isEditable={allowEdit}
               />
             </div>
