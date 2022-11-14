@@ -141,7 +141,7 @@ export default function CreateArticlePage() {
                 }}
               >
                 {
-                  claims.map((obj, index) => <div key={obj._id} style={{ padding: '1%', background: '#77A6F7' }}><Claim claim={obj} priority={index + 1} isEditable={allowEdit} /></div>)
+                  claims.map((obj, index) => <div key={obj._id} style={{ padding: '1%', background: '#77A6F7' }}><Claim claim={obj} index={index} isEditable={allowEdit} /></div>)
                 }
               </List>
             </Col>

@@ -5,7 +5,7 @@ import {
 } from 'antd';
 import { FiEdit } from 'react-icons/fi';
 import EditClaim from './edit';
-// import MyTitle from '../MyTitle';
+import AddReview from '../AddReview';
 
 const { Paragraph } = Typography;
 
@@ -24,6 +24,20 @@ export default function Claim({
 
   const handleCancel = () => {
     setOpen(false);
+  };
+
+  const [openReview, setOpenReview] = useState(false);
+
+  const showModalReview = () => {
+    setOpenReview(true);
+  };
+
+  const handleOkReview = () => {
+    setOpenReview(false);
+  };
+
+  const handleCancelReview = () => {
+    setOpenReview(false);
   };
 
   const editButton = (isEditable)
@@ -48,7 +62,25 @@ export default function Claim({
         </Modal>
       </div>
     ) : (
-      <div />
+      <div>
+        <Button variant="primary" onClick={showModalReview} style={{ backgroundColor: '#77a6f7', color: 'white' }}>
+          Add review
+        </Button>
+        <Modal
+          title="Add review"
+          open={openReview}
+          onOk={handleOkReview}
+          // confirmLoading={confirmLoading}
+          onCancel={handleCancelReview}
+        >
+          <AddReview
+            claim={claim}
+            setMyClaimsList={setMyClaimsList}
+            claimsList={claims}
+            indexClaim={index}
+          />
+        </Modal>
+      </div>
     );
 
   return (

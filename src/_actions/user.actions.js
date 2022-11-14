@@ -15,10 +15,12 @@ export default function useUserActions() {
   function login(email, password) {
     return fetchWrapper.post(`${baseUrl}/auth/login`, { email, password })
       .then((user) => {
+        const now = new Date();
         const saveUser = {
           data: user.user,
           token: user.token,
           at: user.token.accessToken,
+          expiry: now + 900000,
         };
 
         // store user details and jwt token in local storage
@@ -41,10 +43,12 @@ export default function useUserActions() {
       firstName, lastName, email, password, verificationCode,
     })
       .then((user) => {
+        const now = new Date();
         const saveUser = {
           data: user.user,
           token: user.token,
           at: user.token.accessToken,
+          expiry: now + 900000,
         };
 
         // store user details and jwt token in local storage
@@ -67,10 +71,12 @@ export default function useUserActions() {
       firstName, lastName, email, password,
     })
       .then((user) => {
+        const now = new Date();
         const saveUser = {
           data: user,
           token: auth.token,
           at: auth.token.accessToken,
+          expiry: now + 900000,
         };
 
         // store user details and jwt token in local storage
