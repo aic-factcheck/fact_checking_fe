@@ -39,7 +39,7 @@ export default function useUserActions() {
   }
 
   function signup(firstName, lastName, email, password, verificationCode) {
-    return fetchWrapper.post(`${baseUrl}/auth/register-code`, {
+    return fetchWrapper.post(`${baseUrl}/auth/register`, {
       firstName, lastName, email, password, verificationCode,
     })
       .then((user) => {

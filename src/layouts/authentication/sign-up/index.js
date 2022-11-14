@@ -29,7 +29,6 @@ export default function SignUp() {
       values.lastname,
       values.email,
       values.password,
-      values.verification,
     )
       .catch((error) => {
         message.error(error);
@@ -110,24 +109,12 @@ export default function SignUp() {
         </Form.Item>
 
         <Form.Item
-          label="Verification code"
-          name="verification"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your verification code!',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
           name="remember"
           valuePropName="checked"
+          label=""
           wrapperCol={{
-            offset: 8,
-            span: 16,
+            offset: 10,
+            span: 8,
           }}
         >
           <Checkbox>Remember me</Checkbox>
@@ -135,7 +122,7 @@ export default function SignUp() {
 
         <Form.Item
           wrapperCol={{
-            offset: 8,
+            offset: 10,
             span: 16,
           }}
         >

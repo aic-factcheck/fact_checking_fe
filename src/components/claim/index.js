@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  List, Col, Row, Typography, Divider, Button, Modal,
+  Col, Row, Typography, Divider, Button, Modal,
 } from 'antd';
 import { FiEdit } from 'react-icons/fi';
 import EditClaim from './edit';
@@ -84,24 +84,24 @@ export default function Claim({
     );
 
   return (
-    <List.Item
-      title={claim._id}
+    <div
       style={{
-        width: '100%',
-        padding: '1%',
+        padding: '3%',
         backgroundColor: '#00887A',
         color: 'white',
-        display: 'block',
         borderRadius: '10px',
       }}
-      key={claim._id}
-      description={claim._id}
     >
       <Row>
-        <Col span={4}>
-          {index + 1}
+        <Col span={24}>
+          <Paragraph style={{ color: 'white' }}>
+            {claim.text}
+          </Paragraph>
         </Col>
-        <Col offset={18} span={2}>
+      </Row>
+      <Divider />
+      <Row>
+        <Col offset={0} span="auto">
           {editButton}
         </Col>
         {
@@ -112,14 +112,6 @@ export default function Claim({
               <MyTitle headline={articleId} />
             </Col> */
         }
-      </Row>
-      <Divider />
-      <Row>
-        <Col span={24}>
-          <Paragraph style={{ color: 'white' }}>
-            {claim.text}
-          </Paragraph>
-        </Col>
       </Row>
       {/* <Row gutter={[16, 16]}>
         <Title level={5}>Votes: </Title>
@@ -148,7 +140,7 @@ export default function Claim({
           </Col>
         </Row>
       </Row> */}
-    </List.Item>
+    </div>
   );
 }
 

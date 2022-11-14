@@ -38,7 +38,7 @@ export default function Article({
     ? (
       <div>
         <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#77a6f7' }}>
-          <FiEdit size={28} style={{ color: 'white' }} />
+          <FiEdit size={20} style={{ color: 'white' }} />
         </Button>
         <Modal
           title="Edit article"
@@ -69,26 +69,20 @@ export default function Article({
     }}
     >
       <Row>
-        <Col offset={2} span={20}>
+        <Col offset={2} span={19}>
           <a href={`/article/${article?._id}`} style={{ textDecoration: 'none' }}>
             <MyTitle headline={article?.title} />
           </a>
         </Col>
-        <Col offset={0} span={2}>
+        <Col offset={0} span={1}>
           {editButton}
         </Col>
       </Row>
       <Row>
-        <Col offset={2} span={4}>
+        <Col offset={2} span={16}>
           <a href={`/article/${article?._id}`} style={{ textDecoration: 'none' }}>
             <Paragraph style={{ color: 'white' }}>{`Link: ${article?.sourceUrl}`}</Paragraph>
           </a>
-        </Col>
-        <Col offset={2} span={4}>
-          <Paragraph style={{ color: 'white' }}>{`Type: ${article?.sourceType}`}</Paragraph>
-        </Col>
-        <Col span={4}>
-          <Paragraph style={{ color: 'white' }}>{`Language: ${article?.language}`}</Paragraph>
         </Col>
       </Row>
       <Divider style={{ backgroundColor: 'white', width: '5%' }} />
@@ -127,8 +121,14 @@ export default function Article({
       )}
       <Divider />
       <Row>
-        <Col offset={2} span={20}>
+        <Col offset={2} span={6}>
           {`Created at: ${article?.createdAt.split('T')[0]}` }
+        </Col>
+        <Col offset={2} span={4}>
+          <Paragraph style={{ color: 'white' }}>{`Type: ${article?.sourceType}`}</Paragraph>
+        </Col>
+        <Col offset={2} span={5}>
+          <Paragraph style={{ color: 'white' }}>{`Language: ${article?.language}`}</Paragraph>
         </Col>
       </Row>
     </div>

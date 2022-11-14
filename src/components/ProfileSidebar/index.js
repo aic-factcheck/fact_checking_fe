@@ -30,9 +30,6 @@ export default function ProfileSidebar() {
               <Nav.Item>
                 <Nav.Link eventKey="3rd" className="whites">My claims</Nav.Link>
               </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="4th" className="whites">Send invitation</Nav.Link>
-              </Nav.Item>
             </Nav>
           </Col>
           <Col sm={9} style={{ paddingLeft: '0' }}>
@@ -45,9 +42,6 @@ export default function ProfileSidebar() {
               </Tab.Pane>
               <Tab.Pane eventKey="3rd">
                 <MyClaims />
-              </Tab.Pane>
-              <Tab.Pane eventKey="4th">
-                <p> 4 </p>
               </Tab.Pane>
             </Tab.Content>
           </Col>
