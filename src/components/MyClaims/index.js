@@ -26,7 +26,11 @@ export default function MyClaims() {
     }
     const id = auth?.data.id;
     if (id) {
-      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/claims`).then((res) => setClaimsList(res)).catch(console.log('api error'));
+      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/claims`).then((res) => {
+        const claims = res.filter((el) => id === el?.addedBy);
+        console.log('oukej');
+        setClaimsList(claims);
+      }).catch(console.log('api error'));
     }
   }, [auth, navigate]);
 

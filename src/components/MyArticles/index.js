@@ -34,7 +34,10 @@ export default function MyArticles() {
     }
     const id = auth?.data.id;
     if (id) {
-      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/articles`).then((res) => setArticlesList(res)).catch(console.log('api error'));
+      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/articles`).then((res) => {
+        const articles = res.filter((el) => id === el?.addedBy);
+        setArticlesList(articles); console.log('oukej');
+      }).catch(console.log('api error'));
     }
   }, [auth, navigate]);
 
