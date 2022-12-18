@@ -24,6 +24,9 @@ export default function CustomHeader() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto" activeKey={location.pathname}>
             <Nav.Link as={Link} to="/" active={location.pathname === '/'} style={{ color: 'white' }}>Home</Nav.Link>
+            <Nav className="me-auto" activeKey={location.pathname}>
+              <Nav.Link as={Link} to="/articles" active={location.pathname === '/articles'} style={{ color: 'white' }}>Articles</Nav.Link>
+            </Nav>
             <Nav.Link as={Link} to="/article/create" active={location.pathname === '/article/create'} style={{ color: 'white' }}>Add article</Nav.Link>
           </Nav>
           <Nav activeKey={location.pathname}>
@@ -52,7 +55,7 @@ export default function CustomHeader() {
     );
 
   return (
-    <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: '#00887A' }}>
+    <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: '#00887A', fontWeight: 'bold' }}>
       {navItems}
     </Navbar>
   );

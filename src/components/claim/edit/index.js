@@ -26,7 +26,7 @@ export default function EditClaim({
   const onFinish = (values) => {
     /* const mergedValues = values;
     mergedValues.sourceType = 'claim'; */
-    const articleid = claim.articleId;
+    const articleid = claim.article._id;
     const claimid = claim._id;
     const id = auth?.data.id;
 
@@ -89,7 +89,9 @@ export default function EditClaim({
 EditClaim.propTypes = {
   claim: PropTypes.shape({
     _id: PropTypes.string,
-    articleId: PropTypes.string,
+    article: PropTypes.shape({
+      _id: PropTypes.string,
+    }),
     sourceUrl: PropTypes.string,
     text: PropTypes.string,
     sourceType: PropTypes.string,
