@@ -122,7 +122,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
       >
         <Input.TextArea rows={8} id="rawTextData" />
       </Form.Item>
-      <Form.Item wrapperCol={{ span: 22, offset: 4 }}>
+      <Form.Item wrapperCol={{ span: 6, offset: 6 }}>
         <Button type="primary" htmlType="submit" disabled={articleSubmited}>
           Submit article
         </Button>

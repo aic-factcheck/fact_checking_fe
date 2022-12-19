@@ -51,6 +51,7 @@ export default function Article({
           // confirmLoading={confirmLoading}
           onCancel={handleCancel}
           width="80%"
+          footer={[]}
         >
           <EditArticle
             article={article}
@@ -130,13 +131,13 @@ export default function Article({
       <Divider />
       <Row>
         <Col offset={1} span={6}>
-          {`Created at: ${article?.createdAt.split('T')[0]}` }
+          {`Created at : ${article?.createdAt.split('T')[0]}` }
         </Col>
         <Col offset={1} span={4}>
-          <Paragraph style={{ color: 'white' }}>{`Type: ${article?.sourceType}`}</Paragraph>
+          <Paragraph style={{ color: 'white' }}>{`Type : ${article?.sourceType}`}</Paragraph>
         </Col>
         <Col offset={1} span={5}>
-          <Paragraph style={{ color: 'white' }}>{`Language: ${article?.language}`}</Paragraph>
+          <Paragraph style={{ color: 'white' }}>{`Language : ${article?.language}`}</Paragraph>
         </Col>
       </Row>
     </div>

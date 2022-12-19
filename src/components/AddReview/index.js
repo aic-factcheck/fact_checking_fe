@@ -38,8 +38,8 @@ export default function AddReview({
     const claimid = claim?._id;
     if (id) {
       fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles/${articleid}/claims/${claimid}/reviews`).then((res) => {
-        // const reviews = res.filter((el) => claimid === el?.claimId);
-        setReviewsList(res);
+        const reviews = res.filter((el) => claimid === el?.claimId);
+        setReviewsList(reviews);
         console.log('');
       }).catch(console.log(''));
     }
@@ -175,7 +175,7 @@ export default function AddReview({
                 background: '#77A6F7', borderRadius: '10px', textAlign: 'left', paddingLeft: '2%', paddingTop: '0%',
               }}
               >
-                <Col span={3}>
+                <Col span={1}>
                   <Paragraph style={{ color: 'white' }}>
                     {obj.vote === 'positive' && <BiLike /> }
                     {obj.vote === 'negative' && <BiDislike />}

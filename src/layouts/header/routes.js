@@ -1,6 +1,6 @@
 // routes that are used for both with and without auth
 const locSharedRoutes = [{
-  name: 'Home',
+  name: 'Claims',
   link: '/',
   navKey: 1,
   disabled: false,
@@ -10,7 +10,7 @@ const locSharedRoutes = [{
   navKey: 1,
   disabled: false,
 }, {
-  name: 'Add article',
+  name: 'Add',
   link: '/article/create',
   navKey: 1,
   disabled: false,

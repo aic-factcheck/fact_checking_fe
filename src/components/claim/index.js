@@ -56,6 +56,7 @@ export default function Claim({
           onOk={handleOk}
           // confirmLoading={confirmLoading}
           onCancel={handleCancel}
+          footer={[]}
         >
           <EditClaim
             claim={claim}
@@ -68,7 +69,7 @@ export default function Claim({
     ) : (
       <div>
         <Button variant="primary" onClick={showModalReview} style={{ backgroundColor: '#77a6f7', color: 'white' }}>
-          Add review
+          Reviews
         </Button>
         <Modal
           title="Add review"
@@ -102,16 +103,23 @@ export default function Claim({
         <Col span={24}>
           <Paragraph style={{ color: 'white' }}>
             <a href={`/article/${claim?.article?._id}`} className="claims" style={{ color: 'white', textDecorationColor: 'white' }}>
-              {claim.text}
+              {claim?.text}
             </a>
           </Paragraph>
         </Col>
       </Row>
       <Row>
-        <Col span={24}>
+        <Col span={6}>
           <Paragraph style={{ color: 'white', fontSize: '0.5em' }}>
             {
-                claim.addedBy.firstName !== undefined ? `Author : ${claim.addedBy.firstName} ${claim.addedBy.lastName}` : `Author : ${auth?.data.firstName} ${auth?.data.lastName}`
+                claim?.addedBy.firstName !== undefined ? `Author : ${claim?.addedBy.firstName} ${claim?.addedBy.lastName}` : `Author : ${auth?.data.firstName} ${auth?.data.lastName}`
+            }
+          </Paragraph>
+        </Col>
+        <Col span={12}>
+          <Paragraph style={{ color: 'white', fontSize: '0.5em' }}>
+            {
+              `Created at : ${claim?.createdAt}`
             }
           </Paragraph>
         </Col>
@@ -168,6 +176,7 @@ Claim.propTypes = {
     article: PropTypes.shape({
       _id: PropTypes.string,
     }),
+    createdAt: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     // nPositiveVotes: PropTypes.number.isRequired,
     // positiveVotes: PropTypes.arrayOf(PropTypes.string).isRequired,
