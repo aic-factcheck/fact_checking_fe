@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Button, Form, Input, Select, message, Switch, Row, Col,
+  Button, Form, Input, Select, message, Switch,
 } from 'antd';
 import PropTypes from 'prop-types';
 import useFetchWrapper from '../../../_helpers/fetch_wrapper';
@@ -15,13 +15,9 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
 
   const [language, setLanguage] = useState('cz');
 
-  const [form] = Form.useForm();
-  const dataURL = Form.useWatch('urlTextData', form);
-
   const getText = () => {
     const textData = document.getElementById('urlTextData');
-    if (textData !== undefined) {
-      console.log('halo');
+    if (textData !== undefined && textData.value.length > 5) {
       const finalURL = `${process.env.REACT_APP_API_GET_TEXT}?url=${textData.value}`;
       console.log(finalURL);
       fetchWrapper.get(`${finalURL}`)
@@ -37,7 +33,9 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
   };
 
   const onChange = (checked) => {
-    console.log(checked);
+    if (checked) {
+      getText();
+    }
     setLoadFromURL(checked);
   };
 
@@ -97,7 +95,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
           },
         ]}
       >
-        <Input />
+        <Input id="urlTextData" />
       </Form.Item>
       <Form.Item
       // eslint-disable-next-line jsx-a11y/label-has-associated-control
@@ -117,31 +115,6 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
       >
         <Switch checked={loadFromURL} onChange={onChange} />
       </Form.Item>
-      { loadFromURL && (
-      <Form.Item
-        // eslint-disable-next-line jsx-a11y/label-has-associated-control
-        label={<label>URL</label>}
-      >
-        <Row gutter={8}>
-          <Col span={12}>
-            <Form.Item
-              name="urlTextData"
-              noStyle
-              rules={[{ required: true, message: 'Please input the correct URL!' }]}
-            >
-              <Input id="urlTextData" />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Button
-              onClick={() => getText(dataURL)}
-            >
-              Get text
-            </Button>
-          </Col>
-        </Row>
-      </Form.Item>
-      )}
       <Form.Item
         name="text"
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
