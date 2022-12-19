@@ -101,7 +101,7 @@ export default function useUserActions() {
   }
 
   function getArticles() {
-    return fetchWrapper.get(`${baseUrl}/articles`, { }).then((res) => res.json()).catch(console.log('api error'));
+    return fetchWrapper.get(`${baseUrl}/articles`, { }).then((res) => res.json()).catch(console.log(''));
   }
 
   function getAll() {

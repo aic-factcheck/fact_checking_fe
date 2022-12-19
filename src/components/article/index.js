@@ -4,7 +4,9 @@ import {
   Col, Row, Typography, Divider, Modal,
 } from 'antd';
 import { FiEdit } from 'react-icons/fi';
+import { useRecoilValue } from 'recoil';
 import Button from 'react-bootstrap/Button';
+import authAtom from '../../_state/auth';
 import MyTitle from '../MyTitle/index';
 import EditArticle from './edit';
 
@@ -21,6 +23,8 @@ export default function Article({
   const [readMore, setReadMore] = useState(false);
   // const articleUrl = `/article/${article?._id}`;
   // const [readMore, setReadMore] = useState(false);
+
+  const auth = useRecoilValue(authAtom);
 
   const showModal = () => {
     setOpen(true);
@@ -70,7 +74,7 @@ export default function Article({
     >
       <Row>
         <Col offset={2} span={19}>
-          <a href={`/article/${article?._id}`} style={{ textDecoration: 'none' }}>
+          <a href={`/article/${article?._id}`} className="articles" style={{ textDecorationColor: 'white' }}>
             <MyTitle headline={article?.title} />
           </a>
         </Col>
@@ -79,9 +83,13 @@ export default function Article({
         </Col>
       </Row>
       <Row>
-        <Col offset={2} span={16}>
-          <a href={`/article/${article?._id}`} style={{ textDecoration: 'none' }}>
-            <Paragraph style={{ color: 'white' }}>{`Link: ${article?.sourceUrl}`}</Paragraph>
+        <Col offset={2} span={6}>
+          Author :
+          {article?.addedBy.firstName !== undefined ? ` ${article.addedBy.firstName} ${article.addedBy.lastName}` : ` ${auth?.data.firstName} ${auth?.data.lastName}`}
+        </Col>
+        <Col offset={2} span={12}>
+          <a href={`${article?.sourceUrl}`} className="articles" style={{ textDecorationColor: 'white' }}>
+            <Paragraph style={{ color: 'white' }}>{`Link: ${article?.sourceUrl.slice(0, 32)}`}</Paragraph>
           </a>
         </Col>
       </Row>
@@ -144,6 +152,12 @@ Article.propTypes = {
     sourceType: PropTypes.string,
     language: PropTypes.string,
     createdAt: PropTypes.string,
+    addedBy: PropTypes.shape({
+      _id: PropTypes.string,
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      email: PropTypes.string,
+    }),
   }).isRequired,
   isEditable: PropTypes.bool.isRequired,
   setMyArticles: PropTypes.func,

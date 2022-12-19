@@ -47,11 +47,11 @@ export default function ReviewArticle() {
     }
     const id = auth?.data.id;
     if (id) {
-      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles/${articleId}`).then((res) => { setArticle(res); console.log('oukej'); }).catch(console.log('api error'));
-      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles/${articleId}/claims`).then((res) => {
-        const claimsList = res.filter((el) => articleId === el?.articleId);
-        setClaims(claimsList); console.log('oukej');
-      }).catch(console.log('api error'));
+      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles/${articleId}`).then((res1) => { setArticle(res1); console.log(''); }).catch(console.log(''));
+      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles/${articleId}/claims`).then((res2) => {
+        // const claimsList = res.filter((el) => articleId === el?.articleId);
+        setClaims(res2); console.log('');
+      }).catch(console.log(''));
     }
   }, [auth, navigate]);
 

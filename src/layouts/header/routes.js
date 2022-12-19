@@ -5,6 +5,11 @@ const locSharedRoutes = [{
   navKey: 1,
   disabled: false,
 }, {
+  name: 'Articles',
+  link: '/articles',
+  navKey: 1,
+  disabled: false,
+}, {
   name: 'Add article',
   link: '/article/create',
   navKey: 1,

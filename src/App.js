@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 
 import './App.less';
-import Home from './layouts/home';
 import Header from './layouts/header';
 import Footer from './layouts/footer';
 import SignIn from './layouts/authentication/sign-in';
@@ -16,6 +15,8 @@ import Logout from './layouts/authentication/logout';
 import Profile from './layouts/profile';
 import CreateArticlePage from './layouts/create-article-page';
 import ReviewArticle from './layouts/review-article';
+import AllArticles from './layouts/home';
+import Home from './layouts/claims';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/articles" element={<AllArticles />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />

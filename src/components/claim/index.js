@@ -4,8 +4,11 @@ import {
   Col, Row, Typography, Divider, Button, Modal,
 } from 'antd';
 import { FiEdit } from 'react-icons/fi';
+import { useRecoilValue } from 'recoil';
+import authAtom from '../../_state/auth';
 import EditClaim from './edit';
 import AddReview from '../AddReview';
+import MyTitle from '../MyTitle';
 
 const { Paragraph } = Typography;
 
@@ -13,6 +16,7 @@ export default function Claim({
   claim, isEditable, setMyClaimsList, index, claims,
 }) {
   const [open, setOpen] = useState(false);
+  const auth = useRecoilValue(authAtom);
 
   const showModal = () => {
     setOpen(true);
@@ -47,7 +51,7 @@ export default function Claim({
           <FiEdit size={20} style={{ color: 'white' }} />
         </Button>
         <Modal
-          title="Edit article"
+          title="Edit claim"
           open={open}
           onOk={handleOk}
           // confirmLoading={confirmLoading}
@@ -72,6 +76,7 @@ export default function Claim({
           onOk={handleOkReview}
           // confirmLoading={confirmLoading}
           onCancel={handleCancelReview}
+          width="80%"
         >
           <AddReview
             claim={claim}
@@ -92,6 +97,17 @@ export default function Claim({
         borderRadius: '10px',
       }}
     >
+      <Row>
+        <Col span={24}>
+          <Paragraph style={{ color: 'white' }}>
+            <MyTitle
+              headline={
+                claim.addedBy.firstName !== undefined ? `${claim.addedBy.firstName} ${claim.addedBy.lastName}` : `${auth?.data.firstName} ${auth?.data.lastName}`
+              }
+            />
+          </Paragraph>
+        </Col>
+      </Row>
       <Row>
         <Col span={24}>
           <Paragraph style={{ color: 'white' }}>
@@ -148,15 +164,21 @@ Claim.propTypes = {
   claim: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     priority: PropTypes.number.isRequired,
-    addedBy: PropTypes.string.isRequired,
-    articleId: PropTypes.string.isRequired,
+    article: PropTypes.shape({
+      _id: PropTypes.string,
+    }),
     text: PropTypes.string.isRequired,
-    nPositiveVotes: PropTypes.number.isRequired,
+    // nPositiveVotes: PropTypes.number.isRequired,
     // positiveVotes: PropTypes.arrayOf(PropTypes.string).isRequired,
     // nNeutralVotes: PropTypes.number.isRequired,
     // neutralVotes: PropTypes.arrayOf(PropTypes.string).isRequired,
-    nNegativeVotes: PropTypes.number.isRequired,
+    // nNegativeVotes: PropTypes.number.isRequired,
     // negativeVotes: PropTypes.arrayOf(PropTypes.string).isRequired,
+    addedBy: PropTypes.shape({
+      _id: PropTypes.string,
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+    }),
   }).isRequired,
   isEditable: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,

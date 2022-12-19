@@ -53,6 +53,16 @@ a {
   text-decoration: none;
 }
 
+a.articles {
+  text-decoration: none;
+}
+
+a.articles:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+  text-decoration-color: white;
+}
+
 .buttons:hover {
   opacity: 0.5;
 }
