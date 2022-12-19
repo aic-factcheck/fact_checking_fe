@@ -67,14 +67,14 @@ export default function Article({
   return (
     <div style={{
       backgroundColor: '#00887A',
-      padding: '3% 3% 3% 3%',
+      padding: '2% 2% 2% 2%',
       borderRadius: '10px',
       color: 'white',
     }}
     >
       <Row>
-        <Col offset={2} span={19}>
-          <a href={`/article/${article?._id}`} className="articles" style={{ textDecorationColor: 'white' }}>
+        <Col offset={1} span={19}>
+          <a href={`/article/${article?._id}`} className="articles" style={{ color: 'white', textDecorationColor: 'white' }}>
             <MyTitle headline={article?.title} />
           </a>
         </Col>
@@ -83,11 +83,11 @@ export default function Article({
         </Col>
       </Row>
       <Row>
-        <Col offset={2} span={6}>
+        <Col offset={1} span={6}>
           Author :
           {article?.addedBy.firstName !== undefined ? ` ${article.addedBy.firstName} ${article.addedBy.lastName}` : ` ${auth?.data.firstName} ${auth?.data.lastName}`}
         </Col>
-        <Col offset={2} span={12}>
+        <Col offset={1} span={12}>
           <a href={`${article?.sourceUrl}`} className="articles" style={{ textDecorationColor: 'white' }}>
             <Paragraph style={{ color: 'white' }}>{`Link: ${article?.sourceUrl.slice(0, 32)}`}</Paragraph>
           </a>
@@ -97,12 +97,12 @@ export default function Article({
       { article?.text.length > 100 ? (
         <div>
           <Row>
-            <Col offset={2} span={20}>
-              <Paragraph style={{ color: 'white', fontSize: '1.3em' }}>{readMore ? article?.text : `${article?.text.slice(0, 100)} ...`}</Paragraph>
+            <Col offset={1} span={20}>
+              <Paragraph style={{ color: 'white', fontSize: '1.1em' }}>{readMore ? article?.text : `${article?.text.slice(0, 100)} ...`}</Paragraph>
             </Col>
           </Row>
           <Row>
-            <Col offset={2} span={20}>
+            <Col offset={1} span={20}>
               <Paragraph
                 className="buttons"
                 style={{
@@ -122,20 +122,20 @@ export default function Article({
         </div>
       ) : (
         <Row>
-          <Col offset={2} span={20}>
-            <Paragraph style={{ color: 'white', fontSize: '1.3em' }} id={`${article?._id}_text`}>{article?.text}</Paragraph>
+          <Col offset={1} span={20}>
+            <Paragraph style={{ color: 'white', fontSize: '1.1em' }} id={`${article?._id}_text`}>{article?.text}</Paragraph>
           </Col>
         </Row>
       )}
       <Divider />
       <Row>
-        <Col offset={2} span={6}>
+        <Col offset={1} span={6}>
           {`Created at: ${article?.createdAt.split('T')[0]}` }
         </Col>
-        <Col offset={2} span={4}>
+        <Col offset={1} span={4}>
           <Paragraph style={{ color: 'white' }}>{`Type: ${article?.sourceType}`}</Paragraph>
         </Col>
-        <Col offset={2} span={5}>
+        <Col offset={1} span={5}>
           <Paragraph style={{ color: 'white' }}>{`Language: ${article?.language}`}</Paragraph>
         </Col>
       </Row>

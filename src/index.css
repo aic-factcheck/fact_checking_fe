@@ -47,6 +47,8 @@ label{
 
 a:hover {
   opacity: 0.5;
+  text-decoration: underline;
+  text-decoration-color: white;
 }
 
 a {
@@ -65,4 +67,14 @@ a.articles:hover {
 
 .buttons:hover {
   opacity: 0.5;
+}
+
+a.claims {
+  text-decoration: none;
+}
+
+a.claims:hover {
+  opacity: 0.8;
+  text-decoration: underline!important;
+  text-decoration-color: white;
 }

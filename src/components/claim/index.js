@@ -95,13 +95,15 @@ export default function Claim({
         backgroundColor: '#00887A',
         color: 'white',
         borderRadius: '10px',
-        fontSize: '2em',
+        fontSize: '1.8em',
       }}
     >
       <Row>
         <Col span={24}>
           <Paragraph style={{ color: 'white' }}>
-            {claim.text}
+            <a href={`/article/${claim?.article?._id}`} className="claims" style={{ color: 'white', textDecorationColor: 'white' }}>
+              {claim.text}
+            </a>
           </Paragraph>
         </Col>
       </Row>
