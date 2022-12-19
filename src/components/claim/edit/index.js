@@ -43,7 +43,7 @@ export default function EditClaim({
           setMyClaimsList(mergedClaims);
           // mergedClaims.sourceType = 'claim';
           // fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/claims`).then((res)
-          // => setMyClaimsList(res)).catch(console.log('api error'));
+          // => setMyClaimsList(res)).catch(console.log(''));
         })
         .catch((e) => message.error(e));
     }

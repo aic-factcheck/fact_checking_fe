@@ -40,8 +40,8 @@ export default function AddReview({
       fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles/${articleid}/claims/${claimid}/reviews`).then((res) => {
         // const reviews = res.filter((el) => claimid === el?.claimId);
         setReviewsList(res);
-        console.log('oukej');
-      }).catch(console.log('api error'));
+        console.log('');
+      }).catch(console.log(''));
     }
   }, [auth, navigate]);
 
@@ -65,6 +65,9 @@ export default function AddReview({
       fetchWrapper.post(`${process.env.REACT_APP_API_BASE}/articles/${articleid}/claims/${claimid}/reviews`, values)
         .then((res) => {
           const mergedReviews = [...reviewsList];
+          res.key = res._id;
+          res.addedBy.firstName = auth?.data.firstName;
+          res.addedBy.lastName = auth?.data.lastName;
           mergedReviews.push(res);
           message.success('Successfully added new claim');
           claimForm.resetFields(['text']);
@@ -163,7 +166,7 @@ export default function AddReview({
               >
                 <Col span={20}>
                   <Paragraph style={{ color: 'white' }}>
-                    {`${obj.addedBy.firstName} ${obj.addedBy.lastName}`}
+                    {`${obj?.addedBy.firstName} ${obj?.addedBy.lastName}`}
                   </Paragraph>
                 </Col>
               </Row>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Button, Form, Input, Select, message,
+  Button, Form, Input, Select, message, Switch, Row, Col,
 } from 'antd';
 import PropTypes from 'prop-types';
 import useFetchWrapper from '../../../_helpers/fetch_wrapper';
@@ -10,8 +10,36 @@ const { Option } = Select;
 
 export default function CreateArticle({ articleSubmited, setArticleSubmited, setArticle }) {
   const fetchWrapper = useFetchWrapper();
+  // eslint-disable-next-line no-unused-vars
+  const [loadFromURL, setLoadFromURL] = useState(false);
 
   const [language, setLanguage] = useState('cz');
+
+  const [form] = Form.useForm();
+  const dataURL = Form.useWatch('urlTextData', form);
+
+  const getText = () => {
+    const textData = document.getElementById('urlTextData');
+    if (textData !== undefined) {
+      console.log('halo');
+      const finalURL = `${process.env.REACT_APP_API_GET_TEXT}?url=${textData.value}`;
+      console.log(finalURL);
+      fetchWrapper.get(`${finalURL}`)
+        .then((res) => {
+          // eslint-disable-next-line prefer-const
+          let rawTextData = document.getElementById('rawTextData');
+          if (rawTextData !== undefined) {
+            rawTextData.value = res.raw_text;
+          }
+        })
+        .catch(console.log(''));
+    }
+  };
+
+  const onChange = (checked) => {
+    console.log(checked);
+    setLoadFromURL(checked);
+  };
 
   const onFinish = (values) => {
     const mergedValues = values;
@@ -33,8 +61,8 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
 
   return (
     <Form
-      labelCol={{ span: 4 }}
-      wrapperCol={{ span: 20 }}
+      labelCol={{ span: 6 }}
+      wrapperCol={{ span: 18 }}
       name="nest-messages"
       onFinish={onFinish}
       // validateMessages={validateMessages}
@@ -83,11 +111,43 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
         </Select>
       </Form.Item>
       <Form.Item
+        name="fromUrl"
+        // eslint-disable-next-line jsx-a11y/label-has-associated-control
+        label={<label>Load text from URL</label>}
+      >
+        <Switch checked={loadFromURL} onChange={onChange} />
+      </Form.Item>
+      { loadFromURL && (
+      <Form.Item
+        // eslint-disable-next-line jsx-a11y/label-has-associated-control
+        label={<label>URL</label>}
+      >
+        <Row gutter={8}>
+          <Col span={12}>
+            <Form.Item
+              name="urlTextData"
+              noStyle
+              rules={[{ required: true, message: 'Please input the correct URL!' }]}
+            >
+              <Input id="urlTextData" />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Button
+              onClick={() => getText(dataURL)}
+            >
+              Get text
+            </Button>
+          </Col>
+        </Row>
+      </Form.Item>
+      )}
+      <Form.Item
         name="text"
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
         label={<label>Article text</label>}
       >
-        <Input.TextArea rows={8} />
+        <Input.TextArea rows={8} id="rawTextData" />
       </Form.Item>
       <Form.Item wrapperCol={{ span: 22, offset: 4 }}>
         <Button type="primary" htmlType="submit" disabled={articleSubmited}>

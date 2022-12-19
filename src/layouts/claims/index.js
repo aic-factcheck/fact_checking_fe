@@ -23,7 +23,7 @@ export default function Home() {
     }
     const id = auth?.data.id;
     if (id) {
-      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/hot/claims`).then((res) => setClaimsList(res)).catch(console.log('api error'));
+      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/hot/claims`).then((res) => setClaimsList(res)).catch(console.log(''));
     }
   }, [auth, navigate]);
 

@@ -56,7 +56,7 @@ export default function EditArticle({
         setMyArticles(mergedArticles);
 
         // fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles`).then((res)
-        // => setMyArticles(res)).catch(console.log('api error'));
+        // => setMyArticles(res)).catch(console.log(''));
       })
       .catch((e) => message.error(e));
   };

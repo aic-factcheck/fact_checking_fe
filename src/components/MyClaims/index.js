@@ -28,9 +28,9 @@ export default function MyClaims() {
     if (id) {
       fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/claims`).then((res) => {
         // const claims = res.filter((el) => id === el?.addedBy);
-        console.log('oukej');
+        console.log('');
         setClaimsList(res);
-      }).catch(console.log('api error'));
+      }).catch(console.log(''));
     }
   }, [auth, navigate]);
 
