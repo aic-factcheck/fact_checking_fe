@@ -49,8 +49,8 @@ export default function ReviewArticle() {
     if (id) {
       fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles/${articleId}`).then((res1) => { setArticle(res1); console.log(''); }).catch(console.log(''));
       fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles/${articleId}/claims`).then((res2) => {
-        // const claimsList = res.filter((el) => articleId === el?.articleId);
-        setClaims(res2); console.log('');
+        const claimsList = res2.filter((el) => articleId === el?.article._id);
+        setClaims(claimsList); console.log('');
       }).catch(console.log(''));
     }
   }, [auth, navigate]);

@@ -23,11 +23,11 @@ export default function CustomHeader() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto" activeKey={location.pathname}>
-            <Nav.Link as={Link} to="/" active={location.pathname === '/'} style={{ color: 'white' }}>Home</Nav.Link>
+            <Nav.Link as={Link} to="/" active={location.pathname === '/'} style={{ color: 'white' }}>Claims</Nav.Link>
             <Nav className="me-auto" activeKey={location.pathname}>
               <Nav.Link as={Link} to="/articles" active={location.pathname === '/articles'} style={{ color: 'white' }}>Articles</Nav.Link>
             </Nav>
-            <Nav.Link as={Link} to="/article/create" active={location.pathname === '/article/create'} style={{ color: 'white' }}>Add article</Nav.Link>
+            <Nav.Link as={Link} to="/article/create" active={location.pathname === '/article/create'} style={{ color: 'white' }}>Add</Nav.Link>
           </Nav>
           <Nav activeKey={location.pathname}>
             <Nav.Link as={Link} to="/profile" active={location.pathname === '/profile'} style={{ color: 'white' }}>
@@ -44,7 +44,7 @@ export default function CustomHeader() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto" activeKey={location.pathname}>
-            <Nav.Link as={Link} to="/" active={location.pathname === '/'} style={{ color: 'white' }}>Home</Nav.Link>
+            <Nav.Link as={Link} to="/" active={location.pathname === '/'} style={{ color: 'white' }}>Claims</Nav.Link>
           </Nav>
           <Nav activeKey={location.pathname}>
             <Nav.Link as={Link} active={location.pathname === '/sign-in'} to="/sign-in" style={{ color: 'white' }}>Sign In</Nav.Link>
