@@ -8,7 +8,7 @@ import { useRecoilValue } from 'recoil';
 import authAtom from '../../_state/auth';
 import EditClaim from './edit';
 import AddReview from '../AddReview';
-import MyTitle from '../MyTitle';
+// import MyTitle from '../MyTitle';
 
 const { Paragraph } = Typography;
 
@@ -95,19 +95,9 @@ export default function Claim({
         backgroundColor: '#00887A',
         color: 'white',
         borderRadius: '10px',
+        fontSize: '2em',
       }}
     >
-      <Row>
-        <Col span={24}>
-          <Paragraph style={{ color: 'white' }}>
-            <MyTitle
-              headline={
-                claim.addedBy.firstName !== undefined ? `${claim.addedBy.firstName} ${claim.addedBy.lastName}` : `${auth?.data.firstName} ${auth?.data.lastName}`
-              }
-            />
-          </Paragraph>
-        </Col>
-      </Row>
       <Row>
         <Col span={24}>
           <Paragraph style={{ color: 'white' }}>
@@ -115,7 +105,16 @@ export default function Claim({
           </Paragraph>
         </Col>
       </Row>
-      <Divider />
+      <Row>
+        <Col span={24}>
+          <Paragraph style={{ color: 'white', fontSize: '0.5em' }}>
+            {
+                claim.addedBy.firstName !== undefined ? `Author : ${claim.addedBy.firstName} ${claim.addedBy.lastName}` : `Author : ${auth?.data.firstName} ${auth?.data.lastName}`
+            }
+          </Paragraph>
+        </Col>
+      </Row>
+      <Divider style={{ margin: '1%' }} />
       <Row>
         <Col offset={0} span="auto">
           {editButton}

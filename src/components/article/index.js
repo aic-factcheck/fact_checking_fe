@@ -98,7 +98,7 @@ export default function Article({
         <div>
           <Row>
             <Col offset={2} span={20}>
-              <Paragraph style={{ color: 'white' }}>{readMore ? article?.text : `${article?.text.slice(0, 100)} ...`}</Paragraph>
+              <Paragraph style={{ color: 'white', fontSize: '1.3em' }}>{readMore ? article?.text : `${article?.text.slice(0, 100)} ...`}</Paragraph>
             </Col>
           </Row>
           <Row>
@@ -123,7 +123,7 @@ export default function Article({
       ) : (
         <Row>
           <Col offset={2} span={20}>
-            <Paragraph style={{ color: 'white' }} id={`${article?._id}_text`}>{article?.text}</Paragraph>
+            <Paragraph style={{ color: 'white', fontSize: '1.3em' }} id={`${article?._id}_text`}>{article?.text}</Paragraph>
           </Col>
         </Row>
       )}

@@ -15,6 +15,7 @@ export default function CreateClaim({
     fetchWrapper.post(`${process.env.REACT_APP_API_BASE}/articles/${article._id}/claims`, values)
       .then((res) => {
         const mergedClaims = [...claims];
+        res.key = res._id;
         mergedClaims.push(res);
         message.success('Successfully added new claim');
         claimForm.resetFields(['text']);
