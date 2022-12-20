@@ -119,7 +119,7 @@ export default function Claim({
         <Col span={12}>
           <Paragraph style={{ color: 'white', fontSize: '0.5em' }}>
             {
-              claim?.createdAt !== undefined && `Created at : ${new Date(claim.createdAt)}`
+              claim?.createdAt !== undefined && `Created at : ${new Date(claim.createdAt).toGMTString().slice(0, -7)}`
             }
           </Paragraph>
         </Col>

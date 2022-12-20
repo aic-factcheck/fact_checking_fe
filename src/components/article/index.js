@@ -131,7 +131,7 @@ export default function Article({
       <Divider />
       <Row>
         <Col offset={1} span={6}>
-          { article?.createdAt !== undefined && `Created at : ${new Date(article.createdAt)}` }
+          { article?.createdAt !== undefined && `Created at : ${new Date(article.createdAt).toGMTString().slice(0, -7)}` }
         </Col>
         <Col offset={1} span={4}>
           <Paragraph style={{ color: 'white' }}>{`Type : ${article?.sourceType}`}</Paragraph>
