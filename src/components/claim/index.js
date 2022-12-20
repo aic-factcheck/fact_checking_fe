@@ -119,7 +119,7 @@ export default function Claim({
         <Col span={12}>
           <Paragraph style={{ color: 'white', fontSize: '0.5em' }}>
             {
-              `Created at : ${claim?.createdAt}`
+              `Created at : ${Date(claim?.createdAt)}`
             }
           </Paragraph>
         </Col>

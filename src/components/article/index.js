@@ -131,7 +131,7 @@ export default function Article({
       <Divider />
       <Row>
         <Col offset={1} span={6}>
-          {`Created at : ${article?.createdAt.split('T')[0]}` }
+          {`Created at : ${Date(article?.createdAt)}` }
         </Col>
         <Col offset={1} span={4}>
           <Paragraph style={{ color: 'white' }}>{`Type : ${article?.sourceType}`}</Paragraph>
