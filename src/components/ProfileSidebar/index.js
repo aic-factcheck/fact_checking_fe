@@ -14,10 +14,10 @@ export default function ProfileSidebar() {
     <Content
       className="site-layout"
       style={{
-        padding: '1%', borderRadius: '10px', minHeight: '100vh', marginTop: '2%', margin: '4%',
+        padding: '0%', borderRadius: '10px', minHeight: '100vh', marginTop: '2%', margin: '2%',
       }}
     >
-      <Tab.Container id="left-tabs-example" defaultActiveKey="1st">
+      <Tab.Container id="left-tabs-example" defaultActiveKey="1st" style={{ paddingLeft: '0' }}>
         <Row>
           <Col sm={3}>
             <Nav variant="pills" className="flex-column">

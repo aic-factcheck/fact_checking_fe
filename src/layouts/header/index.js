@@ -19,7 +19,7 @@ export default function CustomHeader() {
 
   const navItems = (auth)
     ? (
-      <Container>
+      <Container className="menuContainer">
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto" activeKey={location.pathname}>
@@ -40,7 +40,7 @@ export default function CustomHeader() {
         </Navbar.Collapse>
       </Container>
     ) : (
-      <Container>
+      <Container className="menuContainer">
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto" activeKey={location.pathname}>
