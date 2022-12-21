@@ -144,7 +144,7 @@ export default function Claim({
             Reviews
           </Button>
           <Modal
-            title="Add review"
+            title="Reviews"
             open={openReview}
             onOk={handleOkReview}
             // confirmLoading={confirmLoading}
