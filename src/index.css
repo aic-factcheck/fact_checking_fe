@@ -21,18 +21,6 @@ label{
   color: azure;
 }
 
-[title="Your email"] {
-  color: white !important;
-}
-
-[title="Your password"] {
-  color: white !important;
-}
-
-[title="Remember me"] {
-  color: white !important;
-}
-
 /*a.nav-link {
   color: black !important;
 }*/
@@ -42,13 +30,13 @@ label{
 }
 
 .nav-pills {
-  --bs-nav-pills-link-active-bg: #00887A !important;
+  --bs-nav-pills-link-active-bg: #d86e3d9a !important;
 }
 
 a:hover {
   opacity: 0.5;
   text-decoration: underline;
-  text-decoration-color: white;
+  text-decoration-color: black;
 }
 
 a {
@@ -62,7 +50,7 @@ a.articles {
 a.articles:hover {
   opacity: 0.8;
   text-decoration: underline;
-  text-decoration-color: white;
+  text-decoration-color: black;
 }
 
 .buttons:hover {
@@ -76,7 +64,7 @@ a.claims {
 a.claims:hover {
   opacity: 0.8;
   text-decoration: underline!important;
-  text-decoration-color: white;
+  text-decoration-color: black;
 }
 
 @media all and (orientation:landscape) {
@@ -95,5 +83,10 @@ a.claims:hover {
 
   .menuContainer{
     margin-left: 1%!important;
+  }
+
+  .jj {
+    background-color: #d86e3d9a;
+    background-color: #e2bead9a;
   }
 }

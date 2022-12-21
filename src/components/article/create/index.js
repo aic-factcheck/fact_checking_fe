@@ -70,12 +70,11 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
       }}
       className="defaultForm"
     >
-      <MyTitle headline="Add article" />
+      <MyTitle headline="Add article" fontcolor="#d86e3d9a" />
       <Form.Item
         name="title"
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
-        label={<label>Title</label>}
-        style={{ color: '#000000' }}
+        label="Title"
         rules={[
           {
             required: true,
@@ -87,8 +86,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
       <Form.Item
         name="sourceUrl"
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
-        label={<label>Source URL</label>}
-        style={{ color: '#000000' }}
+        label="Source URL"
         rules={[
           {
             required: true,
@@ -99,7 +97,12 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
       </Form.Item>
       <Form.Item
       // eslint-disable-next-line jsx-a11y/label-has-associated-control
-        label={<label>Language</label>}
+        label="Language"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
       >
         <Select defaultValue="cz" style={{ width: 120, color: '#000000' }} onChange={handleChange}>
           <Option value="cz">Czech</Option>
@@ -111,14 +114,14 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
       <Form.Item
         name="fromUrl"
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
-        label={<label>Load text from URL</label>}
+        label="Load text from URL"
       >
         <Switch checked={loadFromURL} onChange={onChange} />
       </Form.Item>
       <Form.Item
         name="text"
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
-        label={<label>Article text</label>}
+        label="Article text"
       >
         <Input.TextArea rows={8} id="rawTextData" />
       </Form.Item>

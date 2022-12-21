@@ -67,7 +67,6 @@ export default function EditClaim({
         name="text"
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
         label="Claim - A sentence from the claim to be fact-checked"
-        style={{ color: '#000000' }}
         rules={[
           {
             required: true,

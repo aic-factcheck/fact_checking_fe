@@ -44,7 +44,7 @@ export default function MyClaims() {
         {
           // _id, priority, addedBy, articleId, text
           claimsList.map((obj, index) => (
-            <div key={obj._id} style={{ padding: '1%', background: '#77A6F7', borderRadius: '10px' }}>
+            <div key={obj._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
               <Claim
                 claim={obj}
                 index={index}

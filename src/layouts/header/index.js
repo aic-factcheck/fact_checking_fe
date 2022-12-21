@@ -55,7 +55,7 @@ export default function CustomHeader() {
     );
 
   return (
-    <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: '#00887A', fontWeight: 'bold' }}>
+    <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: '#d86e3d9a', fontWeight: 'bold' }}>
       {navItems}
     </Navbar>
   );

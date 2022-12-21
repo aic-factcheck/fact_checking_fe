@@ -22,5 +22,5 @@ MyTitle.propTypes = {
 };
 
 MyTitle.defaultProps = {
-  fontcolor: 'white',
+  fontcolor: 'black',
 };

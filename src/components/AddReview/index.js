@@ -80,7 +80,7 @@ export default function AddReview({
   return (
     <div>
       <Row style={{
-        background: '#00887A', borderRadius: '10px', textAlign: 'center', padding: '1%', paddingTop: '2%',
+        background: '#d86e3d9a', borderRadius: '10px', textAlign: 'center', padding: '1%', paddingTop: '2%',
       }}
       >
         <Col span={24}>
@@ -90,7 +90,7 @@ export default function AddReview({
         </Col>
       </Row>
       <Divider style={{ backgroundColor: 'white', width: '5%' }} />
-      <Title level={5} className="defaultForm" style={{ color: '#00887A', whiteSpace: 'pre-line', textDecoration: 'none' }}>My review :</Title>
+      <Title level={5} className="defaultForm" style={{ color: 'white', whiteSpace: 'pre-line', textDecoration: 'none' }}>My review :</Title>
       <Form
         form={claimForm}
         name="basic"
@@ -150,7 +150,7 @@ export default function AddReview({
         </Form.Item>
       </Form>
       <Divider style={{ backgroundColor: 'white', width: '1%' }} />
-      <Title level={5} className="defaultForm" style={{ color: '#77A6F7', whiteSpace: 'pre-line', textDecoration: 'none' }}>Reviews :</Title>
+      <Title level={5} className="defaultForm" style={{ color: 'white', whiteSpace: 'pre-line', textDecoration: 'none' }}>Reviews :</Title>
       <List
         style={{
           padding: '0%',
@@ -159,48 +159,48 @@ export default function AddReview({
         {
           // _id, priority, addedBy, articleId, text
           reviewsList.map((obj) => (
-            <div key={obj._id} style={{ padding: '1%', background: '#77A6F7', borderRadius: '10px' }}>
+            <div key={obj._id} style={{ padding: '1%', background: '#e2bead9a', borderRadius: '10px' }}>
               <Row style={{
-                background: '#77A6F7', borderRadius: '0px', textAlign: 'left', paddingLeft: '2%', paddingTop: '1%', margin: '0%',
+                borderRadius: '0px', textAlign: 'left', paddingLeft: '2%', paddingTop: '1%', margin: '0%',
               }}
               >
                 <Col span={20}>
-                  <Paragraph style={{ color: 'white' }}>
+                  <Paragraph style={{ color: 'black' }}>
                     {`${obj?.addedBy.firstName} ${obj?.addedBy.lastName}`}
                   </Paragraph>
                 </Col>
               </Row>
-              <Divider style={{ backgroundColor: 'white', width: '0%', margin: '1%' }} />
+              <Divider style={{ backgroundColor: '#e2bead9a', width: '0%', margin: '1%' }} />
               <Row style={{
-                background: '#77A6F7', borderRadius: '10px', textAlign: 'left', paddingLeft: '2%', paddingTop: '0%',
+                borderRadius: '10px', textAlign: 'left', paddingLeft: '2%', paddingTop: '0%',
               }}
               >
                 <Col span={1}>
-                  <Paragraph style={{ color: 'white' }}>
+                  <Paragraph style={{ color: 'black' }}>
                     {obj.vote === 'positive' && <BiLike /> }
                     {obj.vote === 'negative' && <BiDislike />}
                     {obj.vote === 'no_info' && <BiQuestionMark />}
                   </Paragraph>
                 </Col>
                 <Col span={20}>
-                  <Paragraph style={{ color: 'white' }}>
+                  <Paragraph style={{ color: 'black' }}>
                     {obj.text}
                   </Paragraph>
                 </Col>
               </Row>
-              <Divider style={{ backgroundColor: 'white', width: '0%', margin: '1%' }} />
+              <Divider style={{ backgroundColor: '#e2bead9a', width: '0%', margin: '1%' }} />
               <Row style={{
-                background: '#77A6F7', borderRadius: '10px', textAlign: 'left', paddingLeft: '2%', paddingTop: '0%',
+                borderRadius: '10px', textAlign: 'left', paddingLeft: '2%', paddingTop: '0%',
               }}
               >
                 <Col span={20}>
-                  <Paragraph style={{ color: 'white' }}>
+                  <Paragraph style={{ color: 'black' }}>
                     {
                       obj.links.map((objLink, index) => (
                         <div>
                           <p>
                             { `Link ${index + 1} : `}
-                            <a href={`${objLink}`} style={{ color: 'white', textDecoration: 'underline', textDecorationColor: 'white' }}>
+                            <a href={`${objLink}`} style={{ color: 'black', textDecoration: 'underline', textDecorationColor: 'black' }}>
                               { `${objLink.slice(0, 32)}`}
                             </a>
                           </p>
