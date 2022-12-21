@@ -19,7 +19,7 @@ export default function CustomHeader() {
 
   const navItems = (auth)
     ? (
-      <Container className="menuContainer">
+      <Container className="menuContainer" style={{ zIndex: 9999 }}>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto" activeKey={location.pathname}>

@@ -1,9 +1,18 @@
 html, body {
   margin: 0;
-  font-family: sans-serif;
+  /* font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale; */
   color: azure;
+}
+
+body {
+  font-family: 'Cardo', serif;
+}
+ 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
 }
 
 code {
@@ -30,7 +39,7 @@ label{
 }
 
 .nav-pills {
-  --bs-nav-pills-link-active-bg: #d86e3d9a !important;
+  --bs-nav-pills-link-active-bg: #d86e3d !important;
 }
 
 a:hover {
@@ -86,7 +95,7 @@ a.claims:hover {
   }
 
   .jj {
-    background-color: #d86e3d9a;
-    background-color: #e2bead9a;
+    background-color: #d86e3d;
+    background-color: #e2bead;
   }
 }

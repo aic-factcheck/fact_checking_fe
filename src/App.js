@@ -16,7 +16,8 @@ import Profile from './layouts/profile';
 import CreateArticlePage from './layouts/create-article-page';
 import ReviewArticle from './layouts/review-article';
 import AllArticles from './layouts/home';
-import Home from './layouts/claims';
+import ClaimPages from './layouts/claims';
+import LadingPage from './layouts/landing-page';
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
       <Layout style={{ minHeight: '100vh', backgroundColor: '#e2bead9a' }}>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<LadingPage />} />
+          <Route path="/claims" element={<ClaimPages />} />
           <Route path="/articles" element={<AllArticles />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />

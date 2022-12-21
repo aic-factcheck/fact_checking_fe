@@ -43,7 +43,7 @@ export default function Article({
   const editButton = (isEditable)
     ? (
       <div>
-        <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#d86e3d9a' }}>
+        <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#d86e3d' }}>
           <FiEdit size={20} style={{ color: 'white' }} />
         </Button>
         <Modal
