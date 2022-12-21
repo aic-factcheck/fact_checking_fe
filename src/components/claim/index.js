@@ -8,7 +8,7 @@ import { useRecoilValue } from 'recoil';
 import authAtom from '../../_state/auth';
 import EditClaim from './edit';
 import AddReview from '../AddReview';
-// import MyTitle from '../MyTitle';
+import Reviews from '../Reviews';
 
 const { Paragraph } = Typography;
 
@@ -28,6 +28,20 @@ export default function Claim({
 
   const handleCancel = () => {
     setOpen(false);
+  };
+
+  const [openAddReview, setOpenAddReview] = useState(false);
+
+  const showModalAddReview = () => {
+    setOpenAddReview(true);
+  };
+
+  const handleOkAddReview = () => {
+    setOpenAddReview(false);
+  };
+
+  const handleCancelAddReview = () => {
+    setOpenAddReview(false);
   };
 
   const [openReview, setOpenReview] = useState(false);
@@ -68,16 +82,17 @@ export default function Claim({
       </div>
     ) : (
       <div>
-        <Button variant="primary" onClick={showModalReview} style={{ backgroundColor: '#d86e3d9a', color: 'white' }}>
-          Reviews
+        <Button variant="primary" onClick={showModalAddReview} style={{ backgroundColor: '#d86e3d9a', color: 'white' }}>
+          Add review
         </Button>
         <Modal
           title="Add review"
-          open={openReview}
-          onOk={handleOkReview}
+          open={openAddReview}
+          onOk={handleOkAddReview}
           // confirmLoading={confirmLoading}
-          onCancel={handleCancelReview}
+          onCancel={handleCancelAddReview}
           width="80%"
+          footer={[]}
         >
           <AddReview
             claim={claim}
@@ -109,62 +124,43 @@ export default function Claim({
         </Col>
       </Row>
       <Row>
-        <Col span={6}>
+        <Col span={16}>
           <Paragraph style={{ color: 'black', fontSize: '0.5em' }}>
             {
-                claim?.addedBy.firstName !== undefined ? `Author : ${claim?.addedBy.firstName} ${claim?.addedBy.lastName}` : `Author : ${auth?.data.firstName} ${auth?.data.lastName}`
-            }
-          </Paragraph>
-        </Col>
-        <Col span={12}>
-          <Paragraph style={{ color: 'black', fontSize: '0.5em' }}>
-            {
-              claim?.createdAt !== undefined && `Created at : ${new Date(claim.createdAt).toGMTString().slice(0, -7)}`
+                claim?.addedBy.firstName !== undefined && claim?.createdAt !== undefined
+                  ? `${claim?.addedBy.firstName} ${claim?.addedBy.lastName}, ${new Date(claim.createdAt).toGMTString().slice(4).slice(0, -7)}`
+                  : `${auth?.data.firstName} ${auth?.data.lastName}, ${new Date(claim.createdAt).toGMTString().slice(4).slice(0, -7)}`
             }
           </Paragraph>
         </Col>
       </Row>
       <Divider style={{ margin: '1%' }} />
       <Row>
-        <Col offset={0} span="auto">
+        <Col offset={0} span="auto" style={{ marginRight: '1%' }}>
           {editButton}
         </Col>
-        {
-          /* <Col span={12}>
-              {addedBy}
-            </Col>
-            <Col span={8}>
-              <MyTitle headline={articleId} />
-            </Col> */
-        }
+        <Col span="auto">
+          <Button variant="primary" onClick={showModalReview} style={{ backgroundColor: '#d86e3d9a', color: 'white' }}>
+            Reviews
+          </Button>
+          <Modal
+            title="Add review"
+            open={openReview}
+            onOk={handleOkReview}
+            // confirmLoading={confirmLoading}
+            onCancel={handleCancelReview}
+            width="80%"
+            footer={[]}
+          >
+            <Reviews
+              claim={claim}
+              setMyClaimsList={setMyClaimsList}
+              claimsList={claims}
+              indexClaim={index}
+            />
+          </Modal>
+        </Col>
       </Row>
-      {/* <Row gutter={[16, 16]}>
-        <Title level={5}>Votes: </Title>
-        <Row style={{ width: '100%' }}>
-          <Col offset={4} span={8}>
-            Positive
-          </Col>
-          <Col span={8}>
-            {nPositiveVotes}
-          </Col>
-        </Row>
-        <Row style={{ width: '100%' }}>
-          <Col offset={4} span={8}>
-            Neutral
-          </Col>
-          <Col span={8}>
-            {nNeutralVotes}
-          </Col>
-        </Row>
-        <Row style={{ width: '100%' }}>
-          <Col offset={4} span={8}>
-            Negatve
-          </Col>
-          <Col span={8}>
-            {nNegativeVotes}
-          </Col>
-        </Row>
-      </Row> */}
     </div>
   );
 }
