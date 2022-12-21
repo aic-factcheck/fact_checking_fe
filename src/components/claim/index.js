@@ -117,7 +117,7 @@ export default function Claim({
       <Row>
         <Col span={24}>
           <Paragraph style={{ color: 'black' }}>
-            <a href={`/article/${claim?.article?._id}`} className="claims" style={{ color: 'black', textDecorationColor: 'black' }}>
+            <a href={`/article/${claim?.article._id}`} className="claims" style={{ color: 'black', textDecorationColor: 'black' }}>
               {claim?.text}
             </a>
           </Paragraph>

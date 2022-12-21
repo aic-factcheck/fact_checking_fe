@@ -69,8 +69,8 @@ a.claims:hover {
 
 @media all and (orientation:landscape) {
   .content {
-    margin-right: 12%;
-    margin-left: 12%;
+    margin-right: 20%;
+    margin-left: 20%;
   }
 
 }
