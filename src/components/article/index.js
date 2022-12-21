@@ -4,8 +4,10 @@ import {
   Col, Row, Typography, Divider, Modal,
 } from 'antd';
 import { FiEdit } from 'react-icons/fi';
+import { BsFlagFill } from 'react-icons/bs';
 import { useRecoilValue } from 'recoil';
 import Button from 'react-bootstrap/Button';
+import { } from 'flag-icons';
 import authAtom from '../../_state/auth';
 import MyTitle from '../MyTitle/index';
 import EditArticle from './edit';
@@ -84,13 +86,23 @@ export default function Article({
         </Col>
       </Row>
       <Row>
-        <Col offset={1} span={6}>
-          Author :
-          {article?.addedBy.firstName !== undefined ? ` ${article.addedBy.firstName} ${article.addedBy.lastName}` : ` ${auth?.data.firstName} ${auth?.data.lastName}`}
+        <Col offset={1} span="auto">
+          {
+              article?.addedBy.firstName !== undefined && article?.createdAt !== undefined
+                ? `${article?.addedBy.firstName} ${article?.addedBy.lastName}, ${new Date(article.createdAt).toGMTString().slice(4).slice(0, -7)}    `
+                : `${auth?.data.firstName} ${auth?.data.lastName}, ${new Date(article.createdAt).toGMTString().slice(4).slice(0, -7)}    `
+          }
         </Col>
-        <Col offset={1} span={12}>
-          <a href={`${article?.sourceUrl}`} className="articles" style={{ textDecorationColor: 'black' }}>
-            <Paragraph style={{ color: 'black' }}>{`Link: ${article?.sourceUrl.slice(0, 32)}`}</Paragraph>
+        <Col offset={1} span="auto">
+          <a href={`${article?.sourceUrl}`} className="articles" style={{ textDecorationColor: 'black', whiteSpace: 'no-wrap' }}>
+            <Paragraph style={{ color: 'black', whiteSpace: 'no-wrap' }}>
+              {`Link: ${article?.sourceUrl.slice(0, 32)}    ( `}
+              { article?.language === 'sk' && <span className="fi fi-sk" style={{ whiteSpace: 'no-wrap' }} /> }
+              { article?.language === 'cz' && <span className="fi fi-cz" style={{ whiteSpace: 'no-wrap' }} /> }
+              { article?.language === 'en' && <span className="fi fi-gb" style={{ whiteSpace: 'no-wrap' }} /> }
+              { article?.language === 'other' && <BsFlagFill /> }
+              { ' )' }
+            </Paragraph>
           </a>
         </Col>
       </Row>
@@ -128,18 +140,6 @@ export default function Article({
           </Col>
         </Row>
       )}
-      <Divider />
-      <Row>
-        <Col offset={1} span={6}>
-          { article?.createdAt !== undefined && `Created at : ${new Date(article.createdAt).toGMTString().slice(0, -7)}` }
-        </Col>
-        <Col offset={1} span={4}>
-          <Paragraph style={{ color: 'black' }}>{`Type : ${article?.sourceType}`}</Paragraph>
-        </Col>
-        <Col offset={1} span={5}>
-          <Paragraph style={{ color: 'black' }}>{`Language : ${article?.language}`}</Paragraph>
-        </Col>
-      </Row>
     </div>
   );
 }
