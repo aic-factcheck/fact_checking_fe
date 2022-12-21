@@ -28,10 +28,10 @@ export default function Home() {
   }, [auth, navigate]);
 
   return (
-    <Content className="site-layout" style={{ padding: '25px 25px', marginTop: 20 }}>
+    <Content className="content" style={{ padding: '25px 25px', marginTop: 20 }}>
       <List
         style={{
-          padding: '0% 6% 6% 6%',
+          padding: '0% 1% 1% 1%',
         }}
       >
         <MyTitle headline="List of claims" fontcolor="#00887A" />
