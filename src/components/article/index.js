@@ -89,8 +89,8 @@ export default function Article({
         <Col offset={1} span="auto">
           {
               article?.addedBy.firstName !== undefined && article?.createdAt !== undefined
-                ? `${article?.addedBy.firstName} ${article?.addedBy.lastName}, ${new Date(article.createdAt).toGMTString().slice(4).slice(0, -7)}    `
-                : `${auth?.data.firstName} ${auth?.data.lastName}, ${new Date(article.createdAt).toGMTString().slice(4).slice(0, -7)}    `
+                ? `${article?.addedBy.firstName} ${article?.addedBy.lastName}, ${new Date(article?.createdAt).toGMTString().slice(4).slice(0, -7)}    `
+                : `${auth?.data.firstName} ${auth?.data.lastName}, ${new Date(article?.createdAt).toGMTString().slice(4).slice(0, -7)}    `
           }
         </Col>
         <Col offset={1} span="auto">
