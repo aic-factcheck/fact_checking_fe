@@ -41,7 +41,7 @@ export default function Article({
   const editButton = (isEditable)
     ? (
       <div>
-        <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#77a6f7' }}>
+        <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#d86e3d9a' }}>
           <FiEdit size={20} style={{ color: 'white' }} />
         </Button>
         <Modal
@@ -67,15 +67,15 @@ export default function Article({
 
   return (
     <div style={{
-      backgroundColor: '#00887A',
+      backgroundColor: 'white',
       padding: '2% 2% 2% 2%',
       borderRadius: '10px',
-      color: 'white',
+      color: 'black',
     }}
     >
       <Row>
         <Col offset={1} span={19}>
-          <a href={`/article/${article?._id}`} className="articles" style={{ color: 'white', textDecorationColor: 'white' }}>
+          <a href={`/article/${article?._id}`} className="articles" style={{ color: 'black', textDecorationColor: 'black' }}>
             <MyTitle headline={article?.title} />
           </a>
         </Col>
@@ -89,17 +89,17 @@ export default function Article({
           {article?.addedBy.firstName !== undefined ? ` ${article.addedBy.firstName} ${article.addedBy.lastName}` : ` ${auth?.data.firstName} ${auth?.data.lastName}`}
         </Col>
         <Col offset={1} span={12}>
-          <a href={`${article?.sourceUrl}`} className="articles" style={{ textDecorationColor: 'white' }}>
-            <Paragraph style={{ color: 'white' }}>{`Link: ${article?.sourceUrl.slice(0, 32)}`}</Paragraph>
+          <a href={`${article?.sourceUrl}`} className="articles" style={{ textDecorationColor: 'black' }}>
+            <Paragraph style={{ color: 'black' }}>{`Link: ${article?.sourceUrl.slice(0, 32)}`}</Paragraph>
           </a>
         </Col>
       </Row>
-      <Divider style={{ backgroundColor: 'white', width: '5%' }} />
+      <Divider />
       { article?.text.length > 100 ? (
         <div>
           <Row>
             <Col offset={1} span={20}>
-              <Paragraph style={{ color: 'white', fontSize: '1.1em' }}>{readMore ? article?.text : `${article?.text.slice(0, 100)} ...`}</Paragraph>
+              <Paragraph style={{ color: 'black', fontSize: '1.1em' }}>{readMore ? article?.text : `${article?.text.slice(0, 100)} ...`}</Paragraph>
             </Col>
           </Row>
           <Row>
@@ -107,8 +107,8 @@ export default function Article({
               <Paragraph
                 className="buttons"
                 style={{
-                  color: '#00887A',
-                  backgroundColor: 'white',
+                  color: 'white',
+                  backgroundColor: '#d86e3d9a',
                   borderRadius: '10px',
                   textAlign: 'center',
                 }}
@@ -124,7 +124,7 @@ export default function Article({
       ) : (
         <Row>
           <Col offset={1} span={20}>
-            <Paragraph style={{ color: 'white', fontSize: '1.1em' }} id={`${article?._id}_text`}>{article?.text}</Paragraph>
+            <Paragraph style={{ color: 'black', fontSize: '1.1em' }} id={`${article?._id}_text`}>{article?.text}</Paragraph>
           </Col>
         </Row>
       )}
@@ -134,10 +134,10 @@ export default function Article({
           { article?.createdAt !== undefined && `Created at : ${new Date(article.createdAt).toGMTString().slice(0, -7)}` }
         </Col>
         <Col offset={1} span={4}>
-          <Paragraph style={{ color: 'white' }}>{`Type : ${article?.sourceType}`}</Paragraph>
+          <Paragraph style={{ color: 'black' }}>{`Type : ${article?.sourceType}`}</Paragraph>
         </Col>
         <Col offset={1} span={5}>
-          <Paragraph style={{ color: 'white' }}>{`Language : ${article?.language}`}</Paragraph>
+          <Paragraph style={{ color: 'black' }}>{`Language : ${article?.language}`}</Paragraph>
         </Col>
       </Row>
     </div>

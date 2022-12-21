@@ -21,7 +21,7 @@ import Home from './layouts/claims';
 function App() {
   return (
     <BrowserRouter>
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{ minHeight: '100vh', backgroundColor: '#e2bead9a' }}>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />

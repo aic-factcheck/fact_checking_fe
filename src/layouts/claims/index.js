@@ -34,7 +34,7 @@ export default function Home() {
           padding: '0% 1% 1% 1%',
         }}
       >
-        <MyTitle headline="List of claims" fontcolor="#00887A" />
+        <MyTitle headline="List of claims" fontcolor="#d86e3d9a" />
         {
           claimsList.map((obj) => <div key={obj._id} style={{ padding: '1%', borderRadius: '10px' }}><Claim claim={obj} isEditable={allowEdit} setMyClaimsList={setClaimsList} /></div>)
         }

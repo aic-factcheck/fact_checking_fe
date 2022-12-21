@@ -47,7 +47,7 @@ export default function Claim({
   const editButton = (isEditable)
     ? (
       <div>
-        <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#77a6f7' }}>
+        <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#d86e3d9a' }}>
           <FiEdit size={20} style={{ color: 'white' }} />
         </Button>
         <Modal
@@ -68,7 +68,7 @@ export default function Claim({
       </div>
     ) : (
       <div>
-        <Button variant="primary" onClick={showModalReview} style={{ backgroundColor: '#77a6f7', color: 'white' }}>
+        <Button variant="primary" onClick={showModalReview} style={{ backgroundColor: '#d86e3d9a', color: 'white' }}>
           Reviews
         </Button>
         <Modal
@@ -93,16 +93,16 @@ export default function Claim({
     <div
       style={{
         padding: '3%',
-        backgroundColor: '#00887A',
-        color: 'white',
+        backgroundColor: 'white',
+        color: 'black',
         borderRadius: '10px',
         fontSize: '1.8em',
       }}
     >
       <Row>
         <Col span={24}>
-          <Paragraph style={{ color: 'white' }}>
-            <a href={`/article/${claim?.article?._id}`} className="claims" style={{ color: 'white', textDecorationColor: 'white' }}>
+          <Paragraph style={{ color: 'black' }}>
+            <a href={`/article/${claim?.article?._id}`} className="claims" style={{ color: 'black', textDecorationColor: 'black' }}>
               {claim?.text}
             </a>
           </Paragraph>
@@ -110,14 +110,14 @@ export default function Claim({
       </Row>
       <Row>
         <Col span={6}>
-          <Paragraph style={{ color: 'white', fontSize: '0.5em' }}>
+          <Paragraph style={{ color: 'black', fontSize: '0.5em' }}>
             {
                 claim?.addedBy.firstName !== undefined ? `Author : ${claim?.addedBy.firstName} ${claim?.addedBy.lastName}` : `Author : ${auth?.data.firstName} ${auth?.data.lastName}`
             }
           </Paragraph>
         </Col>
         <Col span={12}>
-          <Paragraph style={{ color: 'white', fontSize: '0.5em' }}>
+          <Paragraph style={{ color: 'black', fontSize: '0.5em' }}>
             {
               claim?.createdAt !== undefined && `Created at : ${new Date(claim.createdAt).toGMTString().slice(0, -7)}`
             }

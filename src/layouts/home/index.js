@@ -34,7 +34,7 @@ export default function AllArticles() {
           padding: '0% 1% 1% 1%',
         }}
       >
-        <MyTitle headline="List of articles" fontcolor="#00887A" />
+        <MyTitle headline="List of articles:" fontcolor="#d86e3d9a" />
         {
           articlesList.map((obj) => <div key={obj._id} style={{ padding: '1%', borderRadius: '10px' }}><Article article={obj} isEditable={allowEdit} setMyArticles={setArticlesList} /></div>)
         }

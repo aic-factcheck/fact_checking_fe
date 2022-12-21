@@ -64,7 +64,7 @@ export default function CreateArticlePage() {
             style={{
               minWidth: '40%',
               minHeight: '100%',
-              background: (articleSubmited) ? '#00887A' : '#77A6F7',
+              background: (articleSubmited) ? 'white' : 'white',
               borderRadius: '10px',
               marginBottom: '1%',
             }}
@@ -91,20 +91,20 @@ export default function CreateArticlePage() {
             lg={12}
             xl={12}
             style={{
-              background: '#77A6F7',
+              background: 'white',
               borderRadius: '10px',
               marginBottom: '1%',
             }}
           >
             <div
               style={{
-                background: (articleSubmited) ? '#77A6F7' : '#77A6F7',
+                background: (articleSubmited) ? 'white' : 'white',
                 border: '5px bold',
                 padding: '10px 40px',
                 borderRadius: '10px',
               }}
             >
-              <MyTitle headline="Add claim to article" />
+              <MyTitle headline="Add claim to article" fontcolor="#d86e3d9a" />
               <CreateClaim
                 articleSubmited={articleSubmited}
                 claims={claims}
@@ -121,7 +121,7 @@ export default function CreateArticlePage() {
             lg={12}
             xl={12}
             style={{
-              background: '#77A6F7',
+              background: 'white',
               borderRadius: '10px',
               paddingLeft: '2%',
               paddingTop: '2%',
@@ -134,14 +134,23 @@ export default function CreateArticlePage() {
                 width: '96%',
               }}
             >
-              <MyTitle headline="List of claims:" />
+              <MyTitle headline="List of claims:" fontcolor="#d86e3d9a" />
               <List
                 style={{
                   padding: '1%',
                 }}
               >
                 {
-                  claims.map((obj, index) => <div key={obj._id} style={{ padding: '1%', background: '#77A6F7' }}><Claim claim={obj} index={index} isEditable={allowEdit} /></div>)
+                  claims.map((obj, index) => (
+                    <div
+                      key={obj._id}
+                      style={{
+                        padding: '1%', background: '#e2bead9a', border: '1px solid #e2bead9a', borderRadius: '10px',
+                      }}
+                    >
+                      <Claim claim={obj} index={index} isEditable={allowEdit} />
+                    </div>
+                  ))
                 }
               </List>
             </Col>

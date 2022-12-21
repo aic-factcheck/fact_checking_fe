@@ -56,14 +56,13 @@ export default function SignIn() {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
         style={{
-          paddingTop: '1%', padding: '5%', marginTop: 64, background: '#00887A', borderRadius: '10px',
+          paddingTop: '1%', padding: '5%', marginTop: 64, background: 'white', borderRadius: '10px',
         }}
       >
         <Form.Item
           // eslint-disable-next-line jsx-a11y/label-has-associated-control
           label="Your email"
           name="email"
-          className="whites"
           rules={[
             {
               required: true,
@@ -78,7 +77,6 @@ export default function SignIn() {
           // eslint-disable-next-line jsx-a11y/label-has-associated-control
           label="Your password"
           name="password"
-          className="whites"
           rules={[
             {
               required: true,
@@ -98,7 +96,7 @@ export default function SignIn() {
           }}
         >
           <Checkbox>
-            <div style={{ color: 'white' }}>
+            <div>
               Remember me
             </div>
           </Checkbox>

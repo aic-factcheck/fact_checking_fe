@@ -56,16 +56,16 @@ export default function ReviewArticle() {
   }, [auth, navigate]);
 
   return (
-    <Content className="site-layout" style={{ padding: '0% 6% 6% 6%', marginTop: 20 }}>
+    <Content className="content" style={{ padding: '0% 6% 6% 6%', marginTop: 20 }}>
       <div style={{ marginBottom: '3%' }}>
         <Article article={article} isEditable={allowEdit} />
       </div>
       <Row>
         <Col offset={0} span={22}>
-          <MyTitle headline="Article claims:" fontcolor="#00887A" />
+          <MyTitle headline="Article claims:" fontcolor="#d86e3d9a" />
         </Col>
         <Col>
-          <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#00887A', color: 'white' }}>
+          <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#d86e3d9a', color: 'white' }}>
             Add claim
           </Button>
           <Modal
@@ -92,7 +92,7 @@ export default function ReviewArticle() {
         {
           // _id, priority, addedBy, articleId, text
           claims.map((obj, index) => (
-            <div key={obj._id} style={{ padding: '1%', background: '#77A6F7', borderRadius: '10px' }}>
+            <div key={obj._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
               <Claim
                 claim={obj}
                 index={index}
