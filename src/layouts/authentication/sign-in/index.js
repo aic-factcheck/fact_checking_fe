@@ -98,7 +98,7 @@ export default function SignIn() {
           }}
         >
           <Checkbox>
-            <div style={{ color: '#000000' }}>
+            <div style={{ color: 'white' }}>
               Remember me
             </div>
           </Checkbox>
