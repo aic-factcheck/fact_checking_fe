@@ -43,7 +43,7 @@ export default function Article({
   const editButton = (isEditable)
     ? (
       <div>
-        <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#d86e3d9a' }}>
+        <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#d86e3d' }}>
           <FiEdit size={20} style={{ color: 'white' }} />
         </Button>
         <Modal
@@ -120,7 +120,7 @@ export default function Article({
                 className="buttons"
                 style={{
                   color: 'white',
-                  backgroundColor: '#d86e3d9a',
+                  backgroundColor: '#d86e3d',
                   borderRadius: '10px',
                   textAlign: 'center',
                 }}

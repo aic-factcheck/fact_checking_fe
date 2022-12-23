@@ -104,7 +104,7 @@ export default function CreateArticlePage() {
                 borderRadius: '10px',
               }}
             >
-              <MyTitle headline="Add claim to article" fontcolor="#d86e3d9a" />
+              <MyTitle headline="Add claim to article" fontcolor="#d86e3d" />
               <CreateClaim
                 articleSubmited={articleSubmited}
                 claims={claims}
@@ -134,7 +134,7 @@ export default function CreateArticlePage() {
                 width: '96%',
               }}
             >
-              <MyTitle headline="List of claims:" fontcolor="#d86e3d9a" />
+              <MyTitle headline="List of claims:" fontcolor="#d86e3d" />
               <List
                 style={{
                   padding: '1%',

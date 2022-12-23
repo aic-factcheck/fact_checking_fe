@@ -79,7 +79,7 @@ export default function AddReview({
   return (
     <div>
       <Row style={{
-        background: '#d86e3d9a', borderRadius: '10px', textAlign: 'center', padding: '1%', paddingTop: '2%',
+        background: '#d86e3d', borderRadius: '10px', textAlign: 'center', padding: '1%', paddingTop: '2%',
       }}
       >
         <Col span={24}>
