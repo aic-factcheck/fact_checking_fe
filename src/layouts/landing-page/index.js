@@ -227,7 +227,7 @@ export default function LadingPage() {
                 justifyContent: 'center',
               }}
             >
-              <Col md={4} sm={18}>
+              <Col offset={2} md={4} sm={18}>
                 <Card
                   style={{ width: 300 }}
                   cover={(
