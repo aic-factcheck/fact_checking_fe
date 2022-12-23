@@ -82,6 +82,11 @@ a.claims:hover {
     margin-left: 20%;
   }
 
+  .contentLand {
+    margin-right: 12%;
+    margin-left: 12%;
+  }
+
 }
 
 @media all and (orientation:portrait) {
@@ -94,8 +99,9 @@ a.claims:hover {
     margin-left: 1%!important;
   }
 
-  .jj {
-    background-color: #d86e3d;
-    background-color: #e2bead;
+  Col .contentLand {
+    margin-right: 4%;
+    margin-left: 4%;
   }
+
 }

@@ -9,7 +9,7 @@ import MyTitle from '../../components/MyTitle';
 
 const { Content } = Layout;
 
-export default function Home() {
+export default function ClaimPages() {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
@@ -34,7 +34,7 @@ export default function Home() {
           padding: '0% 1% 1% 1%',
         }}
       >
-        <MyTitle headline="List of claims" fontcolor="#d86e3d9a" />
+        <MyTitle headline="List of claims" fontcolor="#d86e3d" />
         {
           claimsList.map((obj) => <div key={obj._id} style={{ padding: '1%', borderRadius: '10px' }}><Claim claim={obj} isEditable={allowEdit} setMyClaimsList={setClaimsList} /></div>)
         }

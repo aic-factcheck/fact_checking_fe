@@ -61,7 +61,7 @@ export default function Claim({
   const editButton = (isEditable)
     ? (
       <div>
-        <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#d86e3d9a' }}>
+        <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#d86e3d' }}>
           <FiEdit size={20} style={{ color: 'white' }} />
         </Button>
         <Modal
@@ -82,7 +82,7 @@ export default function Claim({
       </div>
     ) : (
       <div>
-        <Button variant="primary" onClick={showModalAddReview} style={{ backgroundColor: '#d86e3d9a', color: 'white' }}>
+        <Button variant="primary" onClick={showModalAddReview} style={{ backgroundColor: '#d86e3d', color: 'white' }}>
           Add review
         </Button>
         <Modal
@@ -140,7 +140,7 @@ export default function Claim({
           {editButton}
         </Col>
         <Col span="auto">
-          <Button variant="primary" onClick={showModalReview} style={{ backgroundColor: '#d86e3d9a', color: 'white' }}>
+          <Button variant="primary" onClick={showModalReview} style={{ backgroundColor: '#d86e3d', color: 'white' }}>
             Reviews
           </Button>
           <Modal

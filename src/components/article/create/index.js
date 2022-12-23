@@ -70,7 +70,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
       }}
       className="defaultForm"
     >
-      <MyTitle headline="Add article" fontcolor="#d86e3d9a" />
+      <MyTitle headline="Add article" fontcolor="#d86e3d" />
       <Form.Item
         name="title"
         // eslint-disable-next-line jsx-a11y/label-has-associated-control

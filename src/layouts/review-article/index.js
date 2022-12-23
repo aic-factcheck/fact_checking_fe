@@ -62,10 +62,10 @@ export default function ReviewArticle() {
       </div>
       <Row>
         <Col offset={0} span={22}>
-          <MyTitle headline="Article claims:" fontcolor="#d86e3d9a" />
+          <MyTitle headline="Article claims:" fontcolor="#d86e3d" />
         </Col>
         <Col>
-          <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#d86e3d9a', color: 'white' }}>
+          <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#d86e3d', color: 'white' }}>
             Add claim
           </Button>
           <Modal

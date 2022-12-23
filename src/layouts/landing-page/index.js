@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Layout, Col, Divider, Row, Typography, Card, Button, Avatar,
+  Layout, Col, Divider, Row, Typography, Card, Avatar,
 } from 'antd';
 import Carousel from 'react-bootstrap/Carousel';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import authAtom from '../../_state/auth';
 import useFetchWrapper from '../../_helpers/fetch_wrapper';
+import Claim from '../../components/claim';
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -35,39 +36,19 @@ export default function LadingPage() {
                 height: '90%',
               }}
             >
-              <Card
+              <Claim
+                claim={obj}
                 style={{
                   width: '100%',
                   minHeight: '250px',
                 }}
-              >
-                <h2>
-                  {obj.text}
-                </h2>
-                <Divider />
-                <p>
-                  {obj.addedBy.firstName}
-                </p>
-                <Divider />
-                <Row>
-                  <Col span={8} offset={2}>
-                    <Button type="primary">
-                      Show reviews
-                    </Button>
-                  </Col>
-                  <Col span={8} offset={4}>
-                    <Button type="primary">
-                      Add review
-                    </Button>
-                  </Col>
-                </Row>
-              </Card>
+              />
             </Carousel.Item>
           )));
         })
         .catch();
     }
-  }, [auth, navigate, fetchWrapper]);
+  }, [auth, navigate]);
 
   return (
     <div>
@@ -76,7 +57,6 @@ export default function LadingPage() {
         alt="background"
         style={{
           position: 'absolute',
-          minHeight: '920px',
           left: 0,
           top: 0,
           zIndex: 1,
@@ -91,7 +71,7 @@ export default function LadingPage() {
         }}
       >
         <Row
-          gutter={16}
+          gutter={24}
           style={{
             margin: '40px',
             zIndex: 5,
@@ -101,8 +81,9 @@ export default function LadingPage() {
             <div
               style={{
                 background: 'white',
-                padding: '90px 24px 90px 24px',
+                padding: '24px 24px 24px 24px',
                 textAlign: 'center',
+                borderRadius: '10px',
               }}
             >
               <Title level={1}>
@@ -133,16 +114,10 @@ export default function LadingPage() {
           }}
         >
           <div
-            style={{
-              margin: '50px 100px 0px 100px',
-            }}
+            className="contentLand"
           >
-            <Row
-              style={{
-                height: '150px',
-              }}
-            >
-              <Col offset={2} span={4}>
+            <Row>
+              <Col offset={2} span={6}>
                 <img
                   src={`${process.env.PUBLIC_URL}/pictures/article_design.jpg`}
                   alt="article"
@@ -152,7 +127,7 @@ export default function LadingPage() {
                   }}
                 />
               </Col>
-              <Col offset={2} span={16}>
+              <Col offset={0} span={14}>
                 <Title level={2}>Article</Title>
                 <p>
                   Article is any text you found on web. Fill the form and your article will be saved
@@ -162,14 +137,10 @@ export default function LadingPage() {
               </Col>
             </Row>
             <Divider />
-            <Row
-              style={{
-                height: '150px',
-              }}
-            >
+            <Row>
               <Col
-                offset={2}
-                span={16}
+                offset={0}
+                span={14}
                 style={{
                   textAlign: 'center',
                 }}
@@ -184,7 +155,7 @@ export default function LadingPage() {
                   add claim that you are curious about.
                 </p>
               </Col>
-              <Col offset={2} span={4}>
+              <Col offset={2} span={6}>
                 <img
                   src={`${process.env.PUBLIC_URL}/pictures/claim_design.jpg`}
                   alt="article"
@@ -196,12 +167,8 @@ export default function LadingPage() {
               </Col>
             </Row>
             <Divider />
-            <Row
-              style={{
-                height: '150px',
-              }}
-            >
-              <Col offset={2} span={4}>
+            <Row>
+              <Col offset={2} span={6}>
                 <img
                   src={`${process.env.PUBLIC_URL}/pictures/review_design.jpg`}
                   alt="article"
@@ -213,8 +180,8 @@ export default function LadingPage() {
                 />
               </Col>
               <Col
-                offset={2}
-                span={16}
+                offset={0}
+                span={14}
               >
                 <Title level={2}>Review</Title>
                 <p>
@@ -230,9 +197,7 @@ export default function LadingPage() {
 
           {/* About us */}
           <div
-            style={{
-              margin: '50px 100px 0px 100px',
-            }}
+            className="contentLand"
           >
             <Row
               style={{
@@ -242,13 +207,13 @@ export default function LadingPage() {
             >
               <Title level={1}>Our mission</Title>
               <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                Lorem Ipsum has been the industry standard dummy text ever since the 1500s,
-                when an unknown printer took a galley of type and scrambled it to make a book.
-                It has survived not only five centuries, but also the leap into typesetting,
-                remaining essentially unchanged. It was popularised in the 1960s with the release of
-                Letraset sheets containing Lorem Ipsum passages, and more recently publishing
-                software like Aldus PageMaker including versions of Lorem Ipsum.
+                We - creators of Fact-Check, believe that decisions we make should be made
+                independently, without leaning to any particular political party, country,
+                religion, etc. That is why we created this web - to gather information
+                from people and let our custom AI program
+                decide. Our program uses advanced technologies to extract data from the internet and
+                help you make unbiased decisions. We are currently trying to gather data from users
+                and this data will be used in our AI.
               </p>
             </Row>
             <Divider />

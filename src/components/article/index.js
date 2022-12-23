@@ -120,7 +120,7 @@ export default function Article({
                 className="buttons"
                 style={{
                   color: 'white',
-                  backgroundColor: '#d86e3d9a',
+                  backgroundColor: '#d86e3d',
                   borderRadius: '10px',
                   textAlign: 'center',
                 }}

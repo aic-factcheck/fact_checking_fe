@@ -23,7 +23,8 @@ export default function CustomHeader() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto" activeKey={location.pathname}>
-            <Nav.Link as={Link} to="/" active={location.pathname === '/'} style={{ color: 'white' }}>Claims</Nav.Link>
+            <Nav.Link as={Link} to="/" active={location.pathname === '/'} style={{ color: 'white' }}>About us</Nav.Link>
+            <Nav.Link as={Link} to="/claims" active={location.pathname === '/claims'} style={{ color: 'white' }}>Claims</Nav.Link>
             <Nav className="me-auto" activeKey={location.pathname}>
               <Nav.Link as={Link} to="/articles" active={location.pathname === '/articles'} style={{ color: 'white' }}>Articles</Nav.Link>
             </Nav>
@@ -44,7 +45,7 @@ export default function CustomHeader() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto" activeKey={location.pathname}>
-            <Nav.Link as={Link} to="/" active={location.pathname === '/'} style={{ color: 'white' }}>Claims</Nav.Link>
+            <Nav.Link as={Link} to="/" active={location.pathname === '/'} style={{ color: 'white' }}>About us</Nav.Link>
           </Nav>
           <Nav activeKey={location.pathname}>
             <Nav.Link as={Link} active={location.pathname === '/sign-in'} to="/sign-in" style={{ color: 'white' }}>Sign In</Nav.Link>
@@ -55,7 +56,7 @@ export default function CustomHeader() {
     );
 
   return (
-    <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: '#d86e3d9a', fontWeight: 'bold' }}>
+    <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: '#d86e3d', fontWeight: 'bold' }}>
       {navItems}
     </Navbar>
   );
