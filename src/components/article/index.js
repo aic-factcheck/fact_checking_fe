@@ -94,7 +94,7 @@ export default function Article({
           }
         </Col>
         <Col offset={1} span="auto">
-          <a href={`${article?.sourceUrl}`} className="articles" style={{ textDecorationColor: 'black', whiteSpace: 'no-wrap' }}>
+          <a href={`${article?.sourceUrl}`} className="articles" target="_blank" rel="noreferrer" style={{ textDecorationColor: 'black', whiteSpace: 'no-wrap' }}>
             <Paragraph style={{ color: 'black', whiteSpace: 'no-wrap' }}>
               {`Link: ${article?.sourceUrl.slice(0, 32)}    ( `}
               { article?.language === 'sk' && <span className="fi fi-sk" style={{ whiteSpace: 'no-wrap' }} /> }

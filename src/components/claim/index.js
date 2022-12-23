@@ -135,12 +135,12 @@ export default function Claim({
         </Col>
       </Row>
       <Divider style={{ margin: '1%' }} />
-      <Row>
-        <Col offset={0} span="auto" style={{ marginRight: '1%' }}>
+      <Row style={{ zIndex: '99' }}>
+        <Col offset={0} span="auto" style={{ marginRight: '1%', zIndex: '99' }}>
           {editButton}
         </Col>
         <Col span="auto">
-          <Button variant="primary" onClick={showModalReview} style={{ backgroundColor: '#d86e3d', color: 'white' }}>
+          <Button variant="primary" onClick={showModalReview} style={{ backgroundColor: '#d86e3d', color: 'white', zIndex: '99' }}>
             Reviews
           </Button>
           <Modal
