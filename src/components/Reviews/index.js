@@ -60,7 +60,12 @@ export default function Reviews({
         {
           // _id, priority, addedBy, articleId, text
           reviewsList.map((obj) => (
-            <div key={obj._id} style={{ padding: '1%', background: '#e2bead9a', borderRadius: '10px' }}>
+            <div
+              key={obj._id}
+              style={{
+                padding: '1%', background: '#e2bead9a', borderRadius: '10px', margin: '1%',
+              }}
+            >
               <Row style={{
                 borderRadius: '0px', textAlign: 'left', paddingLeft: '2%', paddingTop: '1%', margin: '0%',
               }}
