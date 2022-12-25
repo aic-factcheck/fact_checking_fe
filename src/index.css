@@ -87,6 +87,14 @@ a.claims:hover {
     margin-left: 12%;
   }
 
+  img.myUserIcon{
+    padding-left: 20%;
+  }
+
+  .reviewsModal {
+    width: 40%;
+  }
+
 }
 
 @media all and (orientation:portrait) {
@@ -102,6 +110,14 @@ a.claims:hover {
   Col .contentLand {
     margin-right: 4%;
     margin-left: 4%;
+  }
+
+  .reviewsModal {
+    width: 85%;
+  }
+
+  .gggg {
+    color: #e6cec488;
   }
 
 }
