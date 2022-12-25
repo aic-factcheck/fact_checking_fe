@@ -91,7 +91,7 @@ export default function Claim({
           onOk={handleOkAddReview}
           // confirmLoading={confirmLoading}
           onCancel={handleCancelAddReview}
-          width="80%"
+          className="reviewsModal"
           footer={[]}
         >
           <AddReview
@@ -149,7 +149,7 @@ export default function Claim({
             onOk={handleOkReview}
             // confirmLoading={confirmLoading}
             onCancel={handleCancelReview}
-            width="80%"
+            className="reviewsModal"
             footer={[]}
           >
             <Reviews

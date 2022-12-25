@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Row, Col, Typography, Divider, List,
+  Row, Col, Typography, Divider, List, Tooltip,
 } from 'antd';
 import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
@@ -45,7 +45,7 @@ export default function Reviews({
       }}
       >
         <Col span={24}>
-          <Paragraph style={{ color: 'white' }}>
+          <Paragraph style={{ color: 'white', fontWeight: 'bold' }}>
             {claim.text}
           </Paragraph>
         </Col>
@@ -60,63 +60,75 @@ export default function Reviews({
         {
           // _id, priority, addedBy, articleId, text
           reviewsList.map((obj) => (
-            <div
-              key={obj._id}
-              style={{
-                padding: '1%', background: '#e2bead9a', borderRadius: '10px', margin: '1%',
-              }}
-            >
-              <Row style={{
-                borderRadius: '0px', textAlign: 'left', paddingLeft: '2%', paddingTop: '1%', margin: '0%',
-              }}
-              >
-                <Col span={20}>
-                  <Paragraph style={{ color: 'black' }}>
-                    {`${obj?.addedBy.firstName} ${obj?.addedBy.lastName}`}
-                  </Paragraph>
-                </Col>
-              </Row>
-              <Divider style={{ backgroundColor: '#e2bead9a', width: '0%', margin: '1%' }} />
-              <Row style={{
-                borderRadius: '10px', textAlign: 'left', paddingLeft: '2%', paddingTop: '0%',
-              }}
-              >
-                <Col span={1}>
-                  <Paragraph style={{ color: 'black' }}>
-                    {obj.vote === 'positive' && <BiLike /> }
-                    {obj.vote === 'negative' && <BiDislike />}
-                    {obj.vote === 'no_info' && <BiQuestionMark />}
-                  </Paragraph>
-                </Col>
-                <Col span={20}>
-                  <Paragraph style={{ color: 'black' }}>
-                    {obj.text}
-                  </Paragraph>
-                </Col>
-              </Row>
-              <Divider style={{ backgroundColor: '#e2bead9a', width: '0%', margin: '1%' }} />
-              <Row style={{
-                borderRadius: '10px', textAlign: 'left', paddingLeft: '2%', paddingTop: '0%',
-              }}
-              >
-                <Col span={20}>
-                  <Paragraph style={{ color: 'black' }}>
-                    {
-                      obj.links.map((objLink, index) => (
-                        <div>
-                          <p>
-                            { `Link ${index + 1} : `}
-                            <a href={`${objLink}`} style={{ color: 'black', textDecoration: 'underline', textDecorationColor: 'black' }}>
-                              { `${objLink.slice(0, 32)}`}
-                            </a>
-                          </p>
-                        </div>
-                      ))
-                    }
-                  </Paragraph>
-                </Col>
-              </Row>
-            </div>
+            <Row>
+              <Col span={1} style={{ marginTop: '2%', marginRight: '0%' }}>
+                <Row justify="end">
+                  <img
+                    src={`${process.env.PUBLIC_URL}/user.svg`}
+                    alt="user"
+                    className="myUserIcon"
+                  />
+                </Row>
+              </Col>
+              <Col span={22} style={{ marginBottom: '0%' }}>
+                <div
+                  key={obj._id}
+                  style={{
+                    padding: '1%', background: '#e6cec488', borderRadius: '10px', margin: '1%',
+                  }}
+                >
+                  <Row style={{
+                    borderRadius: '10px', textAlign: 'left', paddingLeft: '2%', paddingTop: '0%', fontWeight: 'bold',
+                  }}
+                  >
+                    <Col span={20}>
+                      <Paragraph style={{ color: 'black', margin: '0%' }}>
+                        <p style={{ display: 'inline' }}>
+                          {`${obj?.addedBy.firstName} ${obj?.addedBy.lastName}`}
+                          {obj.vote === 'positive' && <BiLike style={{ marginLeft: '7px' }} /> }
+                          {obj.vote === 'negative' && <BiDislike style={{ marginLeft: '7px' }} />}
+                          {obj.vote === 'no_info' && <BiQuestionMark style={{ marginLeft: '7px' }} />}
+                        </p>
+                      </Paragraph>
+                    </Col>
+                  </Row>
+                  <Row style={{
+                    borderRadius: '10px', textAlign: 'left', paddingLeft: '2%', paddingTop: '0%',
+                  }}
+                  >
+                    <Col span={20}>
+                      <Paragraph style={{ color: 'black', margin: '0%' }}>
+                        {obj.text}
+                      </Paragraph>
+                    </Col>
+                  </Row>
+                  <Row style={{
+                    borderRadius: '10px', textAlign: 'left', paddingLeft: '2%', paddingTop: '0%',
+                  }}
+                  >
+                    <Col span={20}>
+                      <Paragraph style={{ color: 'black', margin: '0%' }}>
+                        <ul>
+                          {
+                            obj.links.map((objLink, index) => (
+                              <li style={{ display: 'inline-block', margin: '0' }}>
+                                <Tooltip title={`${objLink}`}>
+                                  <span>
+                                    <a href={`${objLink}`} style={{ color: 'black', textDecoration: 'underline', textDecorationColor: 'black' }}>
+                                      { `Link ${index + 1} `}
+                                    </a>
+                                  </span>
+                                </Tooltip>
+                              </li>
+                            ))
+                          }
+                        </ul>
+                      </Paragraph>
+                    </Col>
+                  </Row>
+                </div>
+              </Col>
+            </Row>
           ))
         }
       </List>
