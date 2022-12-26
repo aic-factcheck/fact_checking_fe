@@ -52,29 +52,20 @@ export default function LadingPage() {
 
   return (
     <div>
-      <img
-        src={`${process.env.PUBLIC_URL}/pictures/orange-wave-bg.svg`}
-        alt="background"
-        style={{
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          zIndex: 1,
-        }}
-      />
       <Layout
         style={{
           backgroundColor: 'white',
           minHeight: 'calc(100% - 48px)',
-          padding: '24px 24px 24px 24px',
+          padding: '0px 0px 24px 0px',
           height: '100%',
         }}
       >
         <Row
           gutter={24}
           style={{
-            margin: '40px',
+            margin: '0px',
             zIndex: 5,
+            backgroundColor: '#d86e3d',
           }}
         >
           <Col className="gutter-row" md={10} sm={24}>
@@ -84,6 +75,7 @@ export default function LadingPage() {
                 padding: '24px 24px 24px 24px',
                 textAlign: 'center',
                 borderRadius: '10px',
+                margin: '3%',
               }}
             >
               <Title level={1}>
@@ -98,7 +90,7 @@ export default function LadingPage() {
             <Carousel
               autoPlay
               style={{
-                margin: 0,
+                margin: '3%',
                 height: '100%',
                 textAlign: 'center',
               }}
@@ -111,12 +103,13 @@ export default function LadingPage() {
           style={{
             overflowX: 'hidden',
             overflowY: 'auto',
+            margin: '5%',
           }}
         >
           <div
             className="contentLand"
           >
-            <Row>
+            <Row style={{ margin: '3%' }}>
               <Col offset={2} span={6}>
                 <img
                   src={`${process.env.PUBLIC_URL}/pictures/article_design.jpg`}
