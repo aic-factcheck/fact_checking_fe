@@ -15,7 +15,7 @@ import Logout from './layouts/authentication/logout';
 import Profile from './layouts/profile';
 import CreateArticlePage from './layouts/create-article-page';
 import ReviewArticle from './layouts/review-article';
-import AllArticles from './layouts/home';
+import AllArticles from './layouts/articles';
 import ClaimPages from './layouts/claims';
 import LadingPage from './layouts/landing-page';
 
