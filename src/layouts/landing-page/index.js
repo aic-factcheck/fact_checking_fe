@@ -30,7 +30,6 @@ export default function LadingPage() {
           setSliderClaimsList(res.slice(0, 8).map((obj) => (
             <Carousel.Item
               key={obj._id}
-              interval={3000}
               style={{
                 padding: '15px 11% 0 11%',
                 height: '90%',
@@ -89,6 +88,8 @@ export default function LadingPage() {
           <Col className="gutter-row" md={14} sm={24}>
             <Carousel
               autoPlay
+              variant="dark"
+              interval={4000}
               style={{
                 margin: '3%',
                 height: '100%',
@@ -211,7 +212,12 @@ export default function LadingPage() {
             </Row>
             <Divider />
 
-            <Row>
+            <Row
+              style={{
+                textAlign: 'center',
+                justifyContent: 'center',
+              }}
+            >
               <Title level={1}>Our team</Title>
             </Row>
             <Row
@@ -278,6 +284,17 @@ export default function LadingPage() {
           </div>
         </Content>
       </Layout>
+      {/* <img
+        src={`${process.env.PUBLIC_URL}/pictures/bottom-wave-bg.svg`}
+        alt="background"
+        style={{
+          position: 'sticky',
+          left: 0,
+          bottom: 0,
+          width: '100%',
+          zIndex: 1,
+        }}
+      /> */}
       <div style={{ display: 'none' }}>
         <a href="http://www.freepik.com">Designed by vectorjuice / Freepik</a>
         <a href="https://www.freepik.com/free-vector/organic-flat-feedback-concept-illustrated_13862360.htm#query=review%20design&position=18&from_view=search&track=sph">Freepik</a>
