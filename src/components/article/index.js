@@ -17,9 +17,7 @@ const { Paragraph } = Typography;
 export default function Article({
   article,
   isEditable,
-  setMyArticles,
   indexArticle,
-  articles,
 }) {
   const [open, setOpen] = useState(false);
   const [readMore, setReadMore] = useState(false);
@@ -57,8 +55,6 @@ export default function Article({
         >
           <EditArticle
             article={article}
-            setMyArticles={setMyArticles}
-            articlesList={articles}
             indexEdit={indexArticle}
           />
         </Modal>
@@ -88,9 +84,9 @@ export default function Article({
       <Row>
         <Col offset={1} span="auto">
           {
-              article?.addedBy.firstName !== undefined && article?.createdAt !== undefined
-                ? `${article?.addedBy.firstName} ${article?.addedBy.lastName}, ${new Date(article?.createdAt).toGMTString().slice(4).slice(0, -7)}    `
-                : `${auth?.data.firstName} ${auth?.data.lastName}, ${new Date(article?.createdAt).toGMTString().slice(4).slice(0, -7)}    `
+              article?.addedBy?.firstName !== undefined && article?.createdAt !== undefined
+                ? `${article?.addedBy?.firstName} ${article?.addedBy.lastName}, ${new Date(article?.createdAt).toGMTString().slice(4).slice(0, -7)}    `
+                : `${auth?.data?.firstName} ${auth?.data.lastName}, ${new Date(article?.createdAt).toGMTString().slice(4).slice(0, -7)}    `
           }
         </Col>
         <Col offset={1} span="auto">
@@ -161,13 +157,9 @@ Article.propTypes = {
     }),
   }).isRequired,
   isEditable: PropTypes.bool.isRequired,
-  setMyArticles: PropTypes.func,
   indexArticle: PropTypes.number,
-  articles: PropTypes.arrayOf(PropTypes.objectOf),
 };
 
 Article.defaultProps = {
-  setMyArticles: () => {},
   indexArticle: 0,
-  articles: [],
 };

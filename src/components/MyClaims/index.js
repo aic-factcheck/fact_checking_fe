@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Layout, List,
 } from 'antd';
 
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 
 import authAtom from '../../_state/auth';
+import myClaims from '../../_state/usersClaims';
 import useFetchWrapper from '../../_helpers/fetch_wrapper';
 import Claim from '../claim';
 
@@ -16,8 +17,9 @@ export default function MyClaims() {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
-  const [claimsList, setClaimsList] = useState([]);
   const allowEdit = true;
+
+  const [myClaimsList, setMyClaimsList] = useRecoilState(myClaims);
 
   useEffect(() => {
     // redirect to home if already logged in
@@ -25,14 +27,20 @@ export default function MyClaims() {
       navigate('/sign-in');
     }
     const id = auth?.data.id;
-    if (id) {
-      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/claims`).then((res) => {
-        const claims = res.filter((el) => id === el?.addedBy._id);
-        console.log('');
-        setClaimsList(claims);
-      }).catch(console.log(''));
+
+    if (!myClaimsList) {
+      console.log('nope');
+      if (id) {
+        fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/claims`).then((res) => {
+          const claims = res.filter((el) => id === el?.addedBy._id);
+          console.log('');
+          setMyClaimsList(claims);
+        }).catch(console.log(''));
+      }
+    } else {
+      console.log('yeah');
     }
-  }, [auth, navigate]);
+  }, [auth, navigate, myClaimsList]);
 
   return (
     <Content className="site-layout" style={{ paddingLeft: '0%', padding: '1%' }}>
@@ -43,13 +51,11 @@ export default function MyClaims() {
       >
         {
           // _id, priority, addedBy, articleId, text
-          claimsList.map((obj, index) => (
-            <div key={obj._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
+          myClaimsList?.map((obj, index) => (
+            <div key={obj?._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
               <Claim
                 claim={obj}
                 index={index}
-                claims={claimsList}
-                setMyClaimsList={setClaimsList}
                 isEditable={allowEdit}
               />
             </div>

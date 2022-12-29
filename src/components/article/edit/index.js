@@ -4,19 +4,21 @@ import {
   Button, Form, Input, Select, message,
 } from 'antd';
 import PropTypes from 'prop-types';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import useFetchWrapper from '../../../_helpers/fetch_wrapper';
+import myArticles from '../../../_state/usersArticles';
 import authAtom from '../../../_state/auth';
 
 const { Option } = Select;
 
 export default function EditArticle({
-  article, setMyArticles, indexEdit, articlesList,
+  article, indexEdit,
 }) {
   const auth = useRecoilValue(authAtom);
   const fetchWrapper = useFetchWrapper();
   const navigate = useNavigate();
   const [language, setLanguage] = useState('cz');
+  const [myArticlesList, setMyArticlesList] = useRecoilState(myArticles);
 
   useEffect(() => {
     // redirect to home if already logged in
@@ -35,25 +37,29 @@ export default function EditArticle({
       .then(() => {
         message.success('Successfully edited article');
 
-        const mergedArticles = [...articlesList];
+        // eslint-disable-next-line prefer-const
+        let articleToEdit = { ...myArticlesList[indexEdit] };
 
-        if (mergedArticles[indexEdit]?.title) {
-          mergedArticles[indexEdit].title = values.title;
+        if (articleToEdit?.title) {
+          articleToEdit.title = values.title;
         }
 
-        if (mergedArticles[indexEdit]?.sourceUrl) {
-          mergedArticles[indexEdit].sourceUrl = values.sourceUrl;
+        if (articleToEdit?.sourceUrl) {
+          articleToEdit.sourceUrl = values.sourceUrl;
         }
 
-        if (mergedArticles[indexEdit]?.text) {
-          mergedArticles[indexEdit].text = values.text;
+        if (articleToEdit?.text) {
+          articleToEdit.text = values.text;
         }
 
-        if (mergedArticles[indexEdit]?.language) {
-          mergedArticles[indexEdit].language = values.language;
+        if (articleToEdit?.language) {
+          articleToEdit.language = values.language;
         }
 
-        setMyArticles(mergedArticles);
+        // eslint-disable-next-line max-len
+        const mergedArticles = [...myArticlesList.slice(0, indexEdit), articleToEdit, ...myArticlesList.slice(indexEdit + 1)];
+
+        setMyArticlesList(mergedArticles);
 
         // fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles`).then((res)
         // => setMyArticles(res)).catch(console.log(''));
@@ -143,13 +149,9 @@ EditArticle.propTypes = {
     language: PropTypes.string,
     createdAt: PropTypes.string,
   }).isRequired,
-  setMyArticles: PropTypes.func,
   indexEdit: PropTypes.number,
-  articlesList: PropTypes.arrayOf(PropTypes.objectOf),
 };
 
 EditArticle.defaultProps = {
-  setMyArticles: () => {},
   indexEdit: 0,
-  articlesList: [],
 };

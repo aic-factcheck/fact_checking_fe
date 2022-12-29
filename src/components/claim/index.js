@@ -13,7 +13,7 @@ import Reviews from '../Reviews';
 const { Paragraph } = Typography;
 
 export default function Claim({
-  claim, isEditable, setMyClaimsList, index, claims,
+  claim, isEditable, index,
 }) {
   const [open, setOpen] = useState(false);
   const auth = useRecoilValue(authAtom);
@@ -74,8 +74,6 @@ export default function Claim({
         >
           <EditClaim
             claim={claim}
-            setMyClaimsList={setMyClaimsList}
-            claimsList={claims}
             indexClaim={index}
           />
         </Modal>
@@ -96,8 +94,6 @@ export default function Claim({
         >
           <AddReview
             claim={claim}
-            setMyClaimsList={setMyClaimsList}
-            claimsList={claims}
             indexClaim={index}
           />
         </Modal>
@@ -154,8 +150,6 @@ export default function Claim({
           >
             <Reviews
               claim={claim}
-              setMyClaimsList={setMyClaimsList}
-              claimsList={claims}
               indexClaim={index}
             />
           </Modal>
@@ -188,11 +182,7 @@ Claim.propTypes = {
   }).isRequired,
   isEditable: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
-  claims: PropTypes.arrayOf(PropTypes.objectOf),
-  setMyClaimsList: PropTypes.func,
 };
 
 Claim.defaultProps = {
-  setMyClaimsList: () => {},
-  claims: [],
 };
