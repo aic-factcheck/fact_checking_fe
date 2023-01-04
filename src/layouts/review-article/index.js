@@ -73,6 +73,7 @@ export default function ReviewArticle() {
             open={open}
             onOk={handleOk}
             onCancel={handleCancel}
+            footer={[]}
           >
             <CreateClaim
               setClaims={setClaims}

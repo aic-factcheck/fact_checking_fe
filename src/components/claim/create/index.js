@@ -3,15 +3,31 @@ import {
   Button, Form, Input, message,
 } from 'antd';
 import PropTypes from 'prop-types';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import useFetchWrapper from '../../../_helpers/fetch_wrapper';
+import myClaims from '../../../_state/usersClaims';
+import authAtom from '../../../_state/auth';
 
 export default function CreateClaim({
   articleSubmited, article, claims, setClaims,
 }) {
   const fetchWrapper = useFetchWrapper();
   const [claimForm] = Form.useForm();
+  const auth = useRecoilValue(authAtom);
+  const [myClaimsList, setMyClaimsList] = useRecoilState(myClaims);
 
   const onFinish = (values) => {
+    const newClaim = {
+      article: {
+        _id: article._id,
+      },
+      createdAt: new Date(),
+      addedBy: {
+        firstName: auth?.data.firstName,
+        lastName: auth?.data.lastName,
+      },
+    };
+
     fetchWrapper.post(`${process.env.REACT_APP_API_BASE}/articles/${article._id}/claims`, values)
       .then((res) => {
         const mergedClaims = [...claims];
@@ -20,6 +36,8 @@ export default function CreateClaim({
         message.success('Successfully added new claim');
         claimForm.resetFields(['text']);
         setClaims(mergedClaims);
+        const mergedMyClaims = [...myClaimsList, newClaim];
+        setMyClaimsList(mergedMyClaims);
       })
       .catch((e) => message.error(e));
   };

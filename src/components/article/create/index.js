@@ -3,6 +3,8 @@ import {
   Button, Form, Input, Select, message, Switch,
 } from 'antd';
 import PropTypes from 'prop-types';
+import { useRecoilState } from 'recoil';
+import myArticles from '../../../_state/usersArticles';
 import useFetchWrapper from '../../../_helpers/fetch_wrapper';
 import MyTitle from '../../MyTitle/index';
 
@@ -14,6 +16,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
   const [loadFromURL, setLoadFromURL] = useState(false);
 
   const [language, setLanguage] = useState('cz');
+  const [myArticlesList, setMyArticlesList] = useRecoilState(myArticles);
 
   const getText = () => {
     const textData = document.getElementById('urlTextData');
@@ -43,10 +46,13 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
     const mergedValues = values;
     mergedValues.language = language;
     mergedValues.sourceType = 'article';
+    mergedValues.createdAt = new Date();
 
     fetchWrapper.post(`${process.env.REACT_APP_API_BASE}/articles`, mergedValues)
       .then((res) => {
         message.success('Successfully added new article');
+        const mergedArticles = [...myArticlesList, mergedValues];
+        setMyArticlesList(mergedArticles);
         setArticle(res);
         setArticleSubmited(true);
       })
