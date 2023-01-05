@@ -92,7 +92,7 @@ export default function ReviewArticle() {
       >
         {
           // _id, priority, addedBy, articleId, text
-          claims.map((obj, index) => (
+          claims.sort((a, b) => ((a.createdAt < b.createdAt) ? 1 : -1)).map((obj, index) => (
             <div key={obj._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
               <Claim
                 claim={obj}

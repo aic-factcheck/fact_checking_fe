@@ -29,7 +29,6 @@ export default function MyClaims() {
     const id = auth?.data.id;
 
     if (!myClaimsList) {
-      console.log('nope');
       if (id) {
         fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/claims`).then((res) => {
           const claims = res.filter((el) => id === el?.addedBy._id);
@@ -37,10 +36,8 @@ export default function MyClaims() {
           setMyClaimsList(claims);
         }).catch(console.log(''));
       }
-    } else {
-      console.log('yeah');
     }
-  }, [auth, navigate, myClaimsList]);
+  }, [auth, navigate, myClaimsList, setMyClaimsList]);
 
   return (
     <Content className="site-layout" style={{ paddingLeft: '0%', padding: '1%' }}>
