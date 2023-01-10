@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Col, Row, Typography, Divider, Modal,
+  Col, Row, Typography, Divider, Modal, Button,
 } from 'antd';
-import { FiEdit } from 'react-icons/fi';
+import { EditOutlined } from '@ant-design/icons';
 import { BsFlagFill } from 'react-icons/bs';
 import { useRecoilValue } from 'recoil';
-import Button from 'react-bootstrap/Button';
 import { } from 'flag-icons';
 import authAtom from '../../_state/auth';
 import MyTitle from '../MyTitle/index';
@@ -41,8 +40,8 @@ export default function Article({
   const editButton = (isEditable)
     ? (
       <div>
-        <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#d86e3d' }}>
-          <FiEdit size={20} style={{ color: 'white' }} />
+        <Button variant="primary" onClick={showModal} icon={<EditOutlined />}>
+          Edit
         </Button>
         <Modal
           title="Edit article"
@@ -115,15 +114,15 @@ export default function Article({
               <Paragraph
                 className="buttons"
                 style={{
-                  color: 'white',
-                  backgroundColor: '#d86e3d',
                   borderRadius: '10px',
                   textAlign: 'center',
                 }}
                 onClick={() => setReadMore(!readMore)}
               >
                 <div>
-                  {readMore ? 'Read less' : 'Read more'}
+                  <Button shape="round">
+                    {readMore ? 'Read less' : 'Read more'}
+                  </Button>
                 </div>
               </Paragraph>
             </Col>
