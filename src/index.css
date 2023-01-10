@@ -76,6 +76,11 @@ a.claims:hover {
   text-decoration-color: black;
 }
 
+.anticon {
+  display: inline-flex!important;
+  align-items: center!important;
+}
+
 @media all and (orientation:landscape) {
   .content {
     margin-right: 20%;

@@ -4,6 +4,7 @@ import {
 } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import { PlusCircleOutlined } from '@ant-design/icons';
 import authAtom from '../../_state/auth';
 import useFetchWrapper from '../../_helpers/fetch_wrapper';
 import Article from '../../components/article';
@@ -61,11 +62,11 @@ export default function ReviewArticle() {
         <Article article={article} isEditable={allowEdit} />
       </div>
       <Row>
-        <Col offset={0} span={22}>
+        <Col offset={0} span={20}>
           <MyTitle headline="Article claims:" fontcolor="#d86e3d" />
         </Col>
         <Col>
-          <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#d86e3d', color: 'white' }}>
+          <Button variant="primary" shape="round" size="large" onClick={showModal} style={{ backgroundColor: '#d86e3d', color: 'white' }} icon={<PlusCircleOutlined />}>
             Add claim
           </Button>
           <Modal
@@ -73,6 +74,7 @@ export default function ReviewArticle() {
             open={open}
             onOk={handleOk}
             onCancel={handleCancel}
+            footer={[]}
           >
             <CreateClaim
               setClaims={setClaims}
@@ -91,7 +93,7 @@ export default function ReviewArticle() {
       >
         {
           // _id, priority, addedBy, articleId, text
-          claims.map((obj, index) => (
+          claims.sort((a, b) => ((a.createdAt < b.createdAt) ? 1 : -1)).map((obj, index) => (
             <div key={obj._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
               <Claim
                 claim={obj}

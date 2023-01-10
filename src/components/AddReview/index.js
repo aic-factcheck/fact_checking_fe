@@ -68,7 +68,7 @@ export default function AddReview({
           res.addedBy.firstName = auth?.data.firstName;
           res.addedBy.lastName = auth?.data.lastName;
           mergedReviews.push(res);
-          message.success('Successfully added new claim');
+          message.success('Successfully added new review');
           claimForm.resetFields(['text']);
           setReviewsList(mergedReviews);
         })

@@ -110,12 +110,12 @@ export default function Reviews({
                       <Paragraph style={{ color: 'black', margin: '0%' }}>
                         <ul>
                           {
-                            obj.links.map((objLink, index) => (
+                            obj.links.map((objLink) => (
                               <li style={{ display: 'inline-block', margin: '0' }}>
                                 <Tooltip title={`${objLink}`}>
                                   <span>
                                     <a href={`${objLink}`} style={{ color: 'black', textDecoration: 'underline', textDecorationColor: 'black' }}>
-                                      { `Link ${index + 1} `}
+                                      { `${objLink.substring(0, 20)}`}
                                     </a>
                                   </span>
                                 </Tooltip>

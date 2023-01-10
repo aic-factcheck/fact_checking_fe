@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {
   Col, Row, Typography, Divider, Button, Modal,
 } from 'antd';
-import { FiEdit } from 'react-icons/fi';
 import { useRecoilValue } from 'recoil';
+import { PlusCircleOutlined, ReadOutlined, EditOutlined } from '@ant-design/icons';
 import authAtom from '../../_state/auth';
 import EditClaim from './edit';
 import AddReview from '../AddReview';
@@ -13,7 +13,7 @@ import Reviews from '../Reviews';
 const { Paragraph } = Typography;
 
 export default function Claim({
-  claim, isEditable, setMyClaimsList, index, claims,
+  claim, isEditable, index,
 }) {
   const [open, setOpen] = useState(false);
   const auth = useRecoilValue(authAtom);
@@ -61,8 +61,8 @@ export default function Claim({
   const editButton = (isEditable)
     ? (
       <div>
-        <Button variant="primary" onClick={showModal} style={{ backgroundColor: '#d86e3d' }}>
-          <FiEdit size={20} style={{ color: 'white' }} />
+        <Button onClick={showModal} icon={<EditOutlined />}>
+          Edit
         </Button>
         <Modal
           title="Edit claim"
@@ -74,16 +74,14 @@ export default function Claim({
         >
           <EditClaim
             claim={claim}
-            setMyClaimsList={setMyClaimsList}
-            claimsList={claims}
             indexClaim={index}
           />
         </Modal>
       </div>
     ) : (
       <div>
-        <Button variant="primary" onClick={showModalAddReview} style={{ backgroundColor: '#d86e3d', color: 'white' }}>
-          Add review
+        <Button onClick={showModalAddReview} icon={<PlusCircleOutlined />}>
+          Review
         </Button>
         <Modal
           title="Add review"
@@ -96,8 +94,6 @@ export default function Claim({
         >
           <AddReview
             claim={claim}
-            setMyClaimsList={setMyClaimsList}
-            claimsList={claims}
             indexClaim={index}
           />
         </Modal>
@@ -136,11 +132,11 @@ export default function Claim({
       </Row>
       <Divider style={{ margin: '1%' }} />
       <Row style={{ zIndex: '99' }}>
-        <Col offset={0} span="auto" style={{ marginRight: '1%', zIndex: '99' }}>
+        <Col offset={0} style={{ marginRight: '1%', zIndex: '99' }}>
           {editButton}
         </Col>
-        <Col span="auto">
-          <Button variant="primary" onClick={showModalReview} style={{ backgroundColor: '#d86e3d', color: 'white', zIndex: '99' }}>
+        <Col>
+          <Button onClick={showModalReview} style={{ zIndex: '99' }} icon={<ReadOutlined />}>
             Reviews
           </Button>
           <Modal
@@ -154,8 +150,6 @@ export default function Claim({
           >
             <Reviews
               claim={claim}
-              setMyClaimsList={setMyClaimsList}
-              claimsList={claims}
               indexClaim={index}
             />
           </Modal>
@@ -188,11 +182,7 @@ Claim.propTypes = {
   }).isRequired,
   isEditable: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
-  claims: PropTypes.arrayOf(PropTypes.objectOf),
-  setMyClaimsList: PropTypes.func,
 };
 
 Claim.defaultProps = {
-  setMyClaimsList: () => {},
-  claims: [],
 };

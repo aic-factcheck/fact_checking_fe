@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Layout, List,
 } from 'antd';
 
-import { useRecoilValue } from 'recoil';
-
+import { useRecoilValue, useRecoilState } from 'recoil';
+import myArticles from '../../_state/usersArticles';
 import authAtom from '../../_state/auth';
+
 import Article from '../article';
 import useFetchWrapper from '../../_helpers/fetch_wrapper';
 
@@ -16,30 +17,26 @@ export default function MyArticles() {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
-  const [articlesList, setArticlesList] = useState([]);
-  const allowEdit = true;
+  const [myArticlesList, setMyArticlesList] = useRecoilState(myArticles);
 
-  /* function add(id) {
-    articlesList.forEach((a) => {
-      if (a._id === id) {
-        a.sourceURL = 'sss';
-      }
-    });
-  } */
+  const allowEdit = true;
 
   useEffect(() => {
     // redirect to home if already logged in
     if (!auth) {
       navigate('/sign-in');
     }
-    const id = auth?.data.id;
-    if (id) {
-      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/articles`).then((res) => {
-        const articles = res.filter((el) => id === el?.addedBy._id);
-        setArticlesList(articles); console.log('');
-      }).catch(console.log(''));
+
+    if (!myArticlesList) {
+      const id = auth?.data.id;
+      if (id) {
+        fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/articles`).then((res) => {
+          const articles = res.filter((el) => id === el?.addedBy._id);
+          setMyArticlesList(articles);
+        }).catch(console.log(''));
+      }
     }
-  }, [auth, navigate]);
+  }, [auth, navigate, myArticlesList]);
 
   return (
     <Content className="site-layout" style={{ paddingLeft: '0%', padding: '1%' }}>
@@ -49,13 +46,11 @@ export default function MyArticles() {
         }}
       >
         {
-          articlesList.map((obj, index) => (
-            <div key={obj._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
+          myArticlesList?.map((obj, index) => (
+            <div key={obj?._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
               <Article
                 article={obj}
                 isEditable={allowEdit}
-                setMyArticles={setArticlesList}
-                articles={articlesList}
                 indexArticle={index}
               />
             </div>

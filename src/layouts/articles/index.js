@@ -36,7 +36,7 @@ export default function AllArticles() {
       >
         <MyTitle headline="List of articles:" fontcolor="#d86e3d" />
         {
-          articlesList.map((obj) => <div key={obj._id} style={{ padding: '1%', borderRadius: '10px' }}><Article article={obj} isEditable={allowEdit} setMyArticles={setArticlesList} /></div>)
+          articlesList.sort((a, b) => ((a.createdAt < b.createdAt) ? 1 : -1)).map((obj) => <div key={obj._id} style={{ padding: '1%', borderRadius: '10px' }}><Article article={obj} isEditable={allowEdit} setMyArticles={setArticlesList} /></div>)
         }
       </List>
     </Content>

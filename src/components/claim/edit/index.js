@@ -4,17 +4,19 @@ import {
   Button, Form, Input, message,
 } from 'antd';
 import PropTypes from 'prop-types';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import useFetchWrapper from '../../../_helpers/fetch_wrapper';
+import myClaims from '../../../_state/usersClaims';
 import authAtom from '../../../_state/auth';
 
 export default function EditClaim({
-  claim, setMyClaimsList, claimsList, indexClaim,
+  claim, indexClaim,
 }) {
   const auth = useRecoilValue(authAtom);
   const fetchWrapper = useFetchWrapper();
   const navigate = useNavigate();
   const [claimForm] = Form.useForm();
+  const [myClaimsList, setMyClaimsList] = useRecoilState(myClaims);
 
   useEffect(() => {
     // redirect to home if already logged in
@@ -24,8 +26,6 @@ export default function EditClaim({
   }, [auth, navigate]);
 
   const onFinish = (values) => {
-    /* const mergedValues = values;
-    mergedValues.sourceType = 'claim'; */
     const articleid = claim.article._id;
     const claimid = claim._id;
     const id = auth?.data.id;
@@ -34,11 +34,15 @@ export default function EditClaim({
       fetchWrapper.patch(`${process.env.REACT_APP_API_BASE}/articles/${articleid}/claims/${claimid}`, values)
         .then(() => {
           message.success('Successfully edited claim');
-          const mergedClaims = [...claimsList];
+          // eslint-disable-next-line prefer-const
+          let claimToEdit = { ...myClaimsList[indexClaim] };
 
-          if (mergedClaims[indexClaim]?.text) {
-            mergedClaims[indexClaim].text = values.text;
+          if (claimToEdit?.text) {
+            claimToEdit.text = values.text;
           }
+
+          // eslint-disable-next-line max-len
+          const mergedClaims = [...myClaimsList.slice(0, indexClaim), claimToEdit, ...myClaimsList.slice(indexClaim + 1)];
 
           setMyClaimsList(mergedClaims);
           // mergedClaims.sourceType = 'claim';
@@ -97,13 +101,9 @@ EditClaim.propTypes = {
     language: PropTypes.string,
     createdAt: PropTypes.string,
   }).isRequired,
-  setMyClaimsList: PropTypes.func,
-  claimsList: PropTypes.arrayOf(PropTypes.objectOf),
   indexClaim: PropTypes.number,
 };
 
 EditClaim.defaultProps = {
-  setMyClaimsList: () => {},
-  claimsList: [],
   indexClaim: 0,
 };
