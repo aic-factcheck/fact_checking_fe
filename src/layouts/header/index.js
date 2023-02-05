@@ -20,6 +20,15 @@ export default function CustomHeader() {
   const navItems = (auth)
     ? (
       <Container className="menuContainer" style={{ zIndex: 9999 }}>
+        <Navbar.Brand href="#home">
+          <img
+            src={`${process.env.PUBLIC_URL}/logo.png`}
+            width="40"
+            height="40"
+            className="d-inline-block align-top"
+            alt="Fact checking app logo"
+          />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto" activeKey={location.pathname}>

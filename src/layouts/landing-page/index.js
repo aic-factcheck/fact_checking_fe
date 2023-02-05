@@ -65,7 +65,9 @@ export default function LadingPage() {
             margin: '0px',
             zIndex: 5,
             backgroundColor: '#d86e3d',
+            minHeight: '500px',
           }}
+          align="middle"
         >
           <Col className="gutter-row" md={10} sm={24}>
             <div
@@ -74,7 +76,8 @@ export default function LadingPage() {
                 padding: '24px 24px 24px 24px',
                 textAlign: 'center',
                 borderRadius: '10px',
-                margin: '3%',
+                margin: 'auto',
+                maxWidth: '500px',
               }}
             >
               <Title level={1}>
@@ -91,7 +94,7 @@ export default function LadingPage() {
               variant="dark"
               interval={4000}
               style={{
-                margin: '3%',
+                margin: 'auto',
                 height: '100%',
                 textAlign: 'center',
               }}
@@ -233,13 +236,13 @@ export default function LadingPage() {
                     <img
                       style={{ width: 'auto', height: '180px', margin: 'auto' }}
                       alt="example"
-                      src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.6435-9/65644073_2359225074137529_2376627437506134016_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=174925&_nc_ohc=kGPRba322-gAX91-poM&_nc_ht=scontent-vie1-1.xx&oh=00_AfAaLnJjm0PmYrqP-pW7v7cIBMnTn5F3skekxC2iQkOL4g&oe=63CB0B83"
+                      src={`${process.env.PUBLIC_URL}/pictures/team/roman_butora.png`}
                     />
                   )}
                 >
                   <Card.Meta
                     avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                    title="Roman Bútora"
+                    title="Bc. Roman Bútora"
                     description="Frontend developer"
                   />
                 </Card>
@@ -251,13 +254,13 @@ export default function LadingPage() {
                     <img
                       style={{ width: 'auto', height: '180px', margin: 'auto' }}
                       alt="example"
-                      src="https://scontent-vie1-1.xx.fbcdn.net/v/t39.30808-6/236010137_5083716218322104_3918665992526365160_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=RlcoQioepIkAX9Z82Ff&_nc_ht=scontent-vie1-1.xx&oh=00_AfBvmrPi1RliHjtJ1yKn3NvVbshrOA4IVPpzaDA1Jy1cTQ&oe=63A82ABD"
+                      src={`${process.env.PUBLIC_URL}/pictures/team/rastislav_kopal.png`}
                     />
                   )}
                 >
                   <Card.Meta
                     avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                    title="Rastislav Kopál"
+                    title="Bc. Rastislav Kopál"
                     description="Backend developer"
                   />
                 </Card>
@@ -269,7 +272,7 @@ export default function LadingPage() {
                     <img
                       style={{ width: 'auto', height: '180px', margin: 'auto' }}
                       alt="example"
-                      src="https://cs.felk.cvut.cz/upload/persons/8141cd3ca5208fc07fdae8a34e2e5fbb09c0842e.jpg"
+                      src={`${process.env.PUBLIC_URL}/pictures/team/jan_drchal.png`}
                     />
                   )}
                 >
