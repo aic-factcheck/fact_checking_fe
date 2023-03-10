@@ -1,10 +1,14 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Col, Row, Typography, Divider, Modal, Button,
+  Col, Row, Typography, Divider, Modal, Button, Tooltip,
 } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import { BsFlagFill } from 'react-icons/bs';
+// eslint-disable-next-line no-unused-vars
+import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
 import { useRecoilValue } from 'recoil';
 import { } from 'flag-icons';
 import authAtom from '../../_state/auth';
@@ -37,6 +41,15 @@ export default function Article({
     setOpen(false);
   };
 
+  const [clicked, setClicked] = useState(false);
+  //  const clickHandler = () => { setClicked(current => !current); }
+
+  // eslint-disable-next-line no-unused-vars
+  const saveArticle = (starId) => {
+    // const starElement = document.getElementById(starId);
+    setClicked((current) => !current);
+  };
+
   const editButton = (isEditable)
     ? (
       <div>
@@ -59,7 +72,13 @@ export default function Article({
         </Modal>
       </div>
     ) : (
-      <div />
+      <button className="save-for-later" type="submit">
+        <Tooltip placement="top" title={clicked ? 'Unsave' : 'Save'} id={`text_save_${article?._id}`}>
+          <span className="star" id={`save_${article?._id}`} onClick={() => saveArticle(`save_${article?._id}`)}>
+            {clicked ? <AiFillStar /> : <AiOutlineStar /> }
+          </span>
+        </Tooltip>
+      </button>
     );
 
   return (
@@ -76,7 +95,7 @@ export default function Article({
             <MyTitle headline={article?.title} />
           </a>
         </Col>
-        <Col offset={0} span={1}>
+        <Col offset={1} span={2}>
           {editButton}
         </Col>
       </Row>

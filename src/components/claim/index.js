@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState /* useEffect */ } from 'react';
 import PropTypes from 'prop-types';
 import {
   Col, Row, Typography, Divider, Button, Modal,
 } from 'antd';
 import { useRecoilValue } from 'recoil';
-import { PlusCircleOutlined, ReadOutlined, EditOutlined } from '@ant-design/icons';
+import {
+  PlusCircleOutlined, ReadOutlined, EditOutlined, CheckOutlined, CloseOutlined,
+} from '@ant-design/icons';
 import authAtom from '../../_state/auth';
 import EditClaim from './edit';
 import AddReview from '../AddReview';
@@ -58,10 +60,32 @@ export default function Claim({
     setOpenReview(false);
   };
 
+  /* const isLandscape = () => window.matchMedia('(orientation:landscape)').matches;
+  const [orientation, setOrientation] = useState(isLandscape() ? 'landscape' : 'portrait');
+  const onWindowResize = () => {
+    clearTimeout(window.resizeLag);
+    window.resizeLag = setTimeout(() => {
+      delete window.resizeLag;
+      setOrientation(isLandscape() ? 'landscape' : 'portrait')
+    }, 200);
+  };
+
+  useEffect(() => (
+    onWindowResize();
+    window.addEventListener('resize', onWindowResize),
+    () => window.removeEventListener('resize', onWindowResize)
+  ),[]) */
+
   const editButton = (isEditable)
     ? (
       <div>
-        <Button onClick={showModal} icon={<EditOutlined />}>
+        <Button
+          block
+          onClick={showModal}
+          icon={<EditOutlined />}
+          className="buttons"
+          style={{ border: 'none' }}
+        >
           Edit
         </Button>
         <Modal
@@ -80,7 +104,16 @@ export default function Claim({
       </div>
     ) : (
       <div>
-        <Button onClick={showModalAddReview} icon={<PlusCircleOutlined />}>
+        <Button
+          block
+          onClick={showModalAddReview}
+          icon={<PlusCircleOutlined />}
+          className="buttons"
+          style={{
+            zIndex: '99',
+            border: 'none',
+          }}
+        >
           Review
         </Button>
         <Modal
@@ -120,8 +153,8 @@ export default function Claim({
         </Col>
       </Row>
       <Row>
-        <Col span={16}>
-          <Paragraph style={{ color: 'black', fontSize: '0.5em' }}>
+        <Col span={16} offset={0}>
+          <Paragraph style={{ color: 'black', fontSize: '0.5em', textAlign: 'left' }}>
             {
                 claim?.addedBy.firstName !== undefined && claim?.createdAt !== undefined
                   ? `${claim?.addedBy.firstName} ${claim?.addedBy.lastName}, ${new Date(claim.createdAt).toGMTString().slice(4).slice(0, -7)}`
@@ -130,13 +163,50 @@ export default function Claim({
           </Paragraph>
         </Col>
       </Row>
-      <Divider style={{ margin: '1%' }} />
-      <Row style={{ zIndex: '99' }}>
-        <Col offset={0} style={{ marginRight: '1%', zIndex: '99' }}>
+      <Row>
+        <Col span={16} offset={0}>
+          <Paragraph style={{ color: 'black', fontSize: '0.5em', textAlign: 'left' }}>
+            17 ✔️ 5 ❌
+          </Paragraph>
+        </Col>
+      </Row>
+      <Divider style={{ margin: '0%' }} />
+      <Row>
+        <Col
+          style={{
+            color: 'black', fontStyle: 'italic', zIndex: '99',
+          }}
+          offset={0}
+          span={5}
+        >
+          <Button block className="reactions" style={{ borderRadius: '10px 0px 0px 10px' }}>
+            <CheckOutlined />
+            True
+          </Button>
+        </Col>
+        <Col
+          style={{
+            color: 'black', fontStyle: 'italic', zIndex: '99',
+          }}
+          offset={0}
+          span={5}
+        >
+          <Button block className="reactions" style={{ borderRadius: '0px 10px 10px 0px' }}>
+            <CloseOutlined />
+            False
+          </Button>
+        </Col>
+        <Col offset={0} style={{ zIndex: '99' }} span={7}>
           {editButton}
         </Col>
-        <Col>
-          <Button onClick={showModalReview} style={{ zIndex: '99' }} icon={<ReadOutlined />}>
+        <Col span={7} offset={0}>
+          <Button
+            block
+            onClick={showModalReview}
+            icon={<ReadOutlined />}
+            className="buttons"
+            style={{ border: 'none' }}
+          >
             Reviews
           </Button>
           <Modal

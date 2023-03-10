@@ -22,7 +22,7 @@ import LadingPage from './layouts/landing-page';
 function App() {
   return (
     <BrowserRouter>
-      <Layout style={{ minHeight: '100vh', backgroundColor: '#e2bead9a' }}>
+      <Layout style={{ minHeight: '100vh' }}>
         <Header />
         <Routes>
           <Route path="/" element={<LadingPage />} />

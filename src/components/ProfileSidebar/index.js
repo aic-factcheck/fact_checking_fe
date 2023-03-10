@@ -6,6 +6,7 @@ import {
 import EditProfile from '../EditProfile';
 import MyArticles from '../MyArticles';
 import MyClaims from '../MyClaims';
+import Scoreboard from '../Scoreboard';
 
 const { Content } = Layout;
 
@@ -22,25 +23,31 @@ export default function ProfileSidebar() {
           <Col sm={3}>
             <Nav variant="pills" className="flex-column">
               <Nav.Item>
-                <Nav.Link eventKey="1st" className="whites">Edit profile</Nav.Link>
+                <Nav.Link eventKey="1st" className="whites">Scoreboard</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="2nd" className="whites">My articles</Nav.Link>
+                <Nav.Link eventKey="2nd" className="whites">Edit profile</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="3rd" className="whites">My claims</Nav.Link>
+                <Nav.Link eventKey="3rd" className="whites">My articles</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="4th" className="whites">My claims</Nav.Link>
               </Nav.Item>
             </Nav>
           </Col>
           <Col sm={9} style={{ paddingLeft: '0' }}>
             <Tab.Content>
               <Tab.Pane eventKey="1st">
-                <EditProfile />
+                <Scoreboard />
               </Tab.Pane>
               <Tab.Pane eventKey="2nd">
-                <MyArticles />
+                <EditProfile />
               </Tab.Pane>
               <Tab.Pane eventKey="3rd">
+                <MyArticles />
+              </Tab.Pane>
+              <Tab.Pane eventKey="4th">
                 <MyClaims />
               </Tab.Pane>
             </Tab.Content>

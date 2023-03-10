@@ -34,7 +34,7 @@ export default function ClaimPages() {
           padding: '0% 1% 1% 1%',
         }}
       >
-        <MyTitle headline="List of claims" fontcolor="#d86e3d" />
+        <MyTitle headline="Hottest claims" fontcolor="#d86e3d" />
         {
           claimsList.sort((a, b) => ((a.createdAt < b.createdAt) ? 1 : -1)).map((obj) => <div key={obj._id} style={{ padding: '1%', borderRadius: '10px' }}><Claim claim={obj} isEditable={allowEdit} setMyClaimsList={setClaimsList} /></div>)
         }

@@ -121,10 +121,7 @@ export default function CreateArticlePage() {
             lg={12}
             xl={12}
             style={{
-              background: 'white',
               borderRadius: '10px',
-              paddingLeft: '2%',
-              paddingTop: '2%',
               minWidth: '360px',
               width: '100%',
             }}
@@ -134,7 +131,7 @@ export default function CreateArticlePage() {
                 width: '96%',
               }}
             >
-              <MyTitle headline="List of claims:" fontcolor="#d86e3d" />
+              <MyTitle headline="My claims" fontcolor="#d86e3d" />
               <List
                 style={{
                   padding: '1%',
@@ -145,7 +142,7 @@ export default function CreateArticlePage() {
                     <div
                       key={obj._id}
                       style={{
-                        padding: '1%', background: '#e2bead9a', border: '1px solid #e2bead9a', borderRadius: '10px',
+                        marginBottom: '1%', background: 'none', borderRadius: '10px',
                       }}
                     >
                       <Claim claim={obj} index={index} isEditable={allowEdit} />

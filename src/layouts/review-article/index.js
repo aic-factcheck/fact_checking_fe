@@ -57,7 +57,7 @@ export default function ReviewArticle() {
   }, [auth, navigate]);
 
   return (
-    <Content className="content" style={{ padding: '0% 6% 6% 6%', marginTop: 20 }}>
+    <Content className="content" style={{ padding: '0% 2% 2% 2%', marginTop: 20 }}>
       <div style={{ marginBottom: '3%' }}>
         <Article article={article} isEditable={allowEdit} />
       </div>

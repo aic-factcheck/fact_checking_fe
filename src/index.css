@@ -81,15 +81,65 @@ a.claims:hover {
   align-items: center!important;
 }
 
+.reactions:hover {
+  opacity: 0.6;
+}
+
+/* Default styles */
+.save-for-later {
+  display: inline-block;
+  position: relative;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+}
+
+/* Star icon */
+.save-for-later .star {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+  transition: transform 0.2s;
+}
+
+/* Button text */
+.save-for-later .text {
+  color: black;
+  visibility: hidden;
+}
+
+
+/* Button hover styles */
+.save-for-later:hover .star + .text {
+  visibility: visible;
+}
+
+
+/* Button active styles */
+
+
+/* Button active styles for the star icon only */
+.save-for-later:active .star {
+  transform: scale(1.2);
+}
+
+/* Button clicked styles */
+
+.save-for-later.clicked .star:active {
+  transform: scale(1.2);
+}
+
+
 @media all and (orientation:landscape) {
   .content {
-    margin-right: 20%;
-    margin-left: 20%;
+    margin-right: 30%;
+    margin-left: 30%;
   }
 
   .contentLand {
-    margin-right: 12%;
-    margin-left: 12%;
+    margin-right: 16%;
+    margin-left: 16%;
   }
 
   img.myUserIcon{
@@ -100,6 +150,10 @@ a.claims:hover {
     width: 40%;
   }
 
+}
+
+.ant-btn .reactions {
+  padding: 0px 0px
 }
 
 @media all and (orientation:portrait) {
@@ -119,10 +173,6 @@ a.claims:hover {
 
   .reviewsModal {
     width: 85%;
-  }
-
-  .gggg {
-    color: #e6cec488;
   }
 
 }

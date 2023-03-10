@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Row, Col, Typography, Divider, List, Tooltip,
+  Row, Col, Typography, Divider, List, Tooltip, Button,
 } from 'antd';
 import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
-import { BiLike, BiDislike, BiQuestionMark } from 'react-icons/bi';
+import { BiQuestionMark } from 'react-icons/bi';
+import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import useFetchWrapper from '../../_helpers/fetch_wrapper';
 import authAtom from '../../_state/auth';
 
@@ -74,7 +76,7 @@ export default function Reviews({
                 <div
                   key={obj._id}
                   style={{
-                    padding: '1%', background: '#e6cec488', borderRadius: '10px', margin: '1%',
+                    padding: '1%', background: '#F2F2F2', borderRadius: '10px', margin: '1%',
                   }}
                 >
                   <Row style={{
@@ -85,8 +87,8 @@ export default function Reviews({
                       <Paragraph style={{ color: 'black', margin: '0%' }}>
                         <p style={{ display: 'inline' }}>
                           {`${obj?.addedBy.firstName} ${obj?.addedBy.lastName}`}
-                          {obj.vote === 'positive' && <BiLike style={{ marginLeft: '7px' }} /> }
-                          {obj.vote === 'negative' && <BiDislike style={{ marginLeft: '7px' }} />}
+                          {obj.vote === 'positive' && <CheckOutlined style={{ marginLeft: '7px' }} /> }
+                          {obj.vote === 'negative' && <CloseOutlined style={{ marginLeft: '7px' }} />}
                           {obj.vote === 'no_info' && <BiQuestionMark style={{ marginLeft: '7px' }} />}
                         </p>
                       </Paragraph>
@@ -106,7 +108,7 @@ export default function Reviews({
                     borderRadius: '10px', textAlign: 'left', paddingLeft: '2%', paddingTop: '0%',
                   }}
                   >
-                    <Col span={20}>
+                    <Col span={16}>
                       <Paragraph style={{ color: 'black', margin: '0%' }}>
                         <ul>
                           {
@@ -124,6 +126,60 @@ export default function Reviews({
                           }
                         </ul>
                       </Paragraph>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col
+                      style={{
+                        color: 'black', fontStyle: 'italic', zIndex: '99',
+                      }}
+                      offset={1}
+                      span={10}
+                    >
+                      <AiOutlineLike style={{ marginLeft: '3%', marginRight: '1%' }} />
+                      1
+                      <BiQuestionMark style={{ marginLeft: '7%', marginRight: '1%' }} />
+                      5
+                      <AiOutlineDislike style={{ marginLeft: '7%', marginRight: '1%' }} />
+                      6
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col
+                      style={{
+                        color: 'black', fontStyle: 'italic', zIndex: '99',
+                      }}
+                      offset={1}
+                      span={7}
+                    >
+                      <Button block className="reactions" style={{ borderRadius: '10px 0px 0px 10px', border: 'none' }}>
+                        <AiOutlineLike style={{ marginRight: '2%' }} />
+                        Agree
+                      </Button>
+                    </Col>
+                    <Col
+                      style={{
+                        color: 'black', fontStyle: 'italic', zIndex: '99',
+                      }}
+                      offset={0}
+                      span={7}
+                    >
+                      <Button block className="reactions" style={{ border: 'none' }}>
+                        <BiQuestionMark style={{ marginRight: '2%' }} />
+                        Miss info
+                      </Button>
+                    </Col>
+                    <Col
+                      style={{
+                        color: 'black', fontStyle: 'italic', zIndex: '99',
+                      }}
+                      offset={0}
+                      span={7}
+                    >
+                      <Button block className="reactions" style={{ borderRadius: '0px 10px 10px 0px', border: 'none' }}>
+                        <AiOutlineDislike style={{ marginRight: '2%' }} />
+                        Disagree
+                      </Button>
                     </Col>
                   </Row>
                 </div>
