@@ -10,6 +10,7 @@ import { BsFlagFill } from 'react-icons/bs';
 // eslint-disable-next-line no-unused-vars
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
 import { useRecoilValue } from 'recoil';
+import { useTranslation } from 'react-i18next';
 import { } from 'flag-icons';
 import authAtom from '../../_state/auth';
 import MyTitle from '../MyTitle/index';
@@ -24,6 +25,7 @@ export default function Article({
 }) {
   const [open, setOpen] = useState(false);
   const [readMore, setReadMore] = useState(false);
+  const { t } = useTranslation();
   // const articleUrl = `/article/${article?._id}`;
   // const [readMore, setReadMore] = useState(false);
 
@@ -54,10 +56,10 @@ export default function Article({
     ? (
       <div>
         <Button variant="primary" onClick={showModal} icon={<EditOutlined />}>
-          Edit
+          {t('edit')}
         </Button>
         <Modal
-          title="Edit article"
+          title={t('edit')}
           open={open}
           onOk={handleOk}
           // confirmLoading={confirmLoading}
@@ -73,7 +75,7 @@ export default function Article({
       </div>
     ) : (
       <button className="save-for-later" type="submit">
-        <Tooltip placement="top" title={clicked ? 'Unsave' : 'Save'} id={`text_save_${article?._id}`}>
+        <Tooltip placement="top" title={clicked ? t('unsave') : t('save')} id={`text_save_${article?._id}`}>
           <span className="star" id={`save_${article?._id}`} onClick={() => saveArticle(`save_${article?._id}`)}>
             {clicked ? <AiFillStar /> : <AiOutlineStar /> }
           </span>
@@ -107,10 +109,12 @@ export default function Article({
                 : `${auth?.data?.firstName} ${auth?.data.lastName}, ${new Date(article?.createdAt).toGMTString().slice(4).slice(0, -7)}    `
           }
         </Col>
+      </Row>
+      <Row>
         <Col offset={1} span="auto">
           <a href={`${article?.sourceUrl}`} className="articles" target="_blank" rel="noreferrer" style={{ textDecorationColor: 'black', whiteSpace: 'no-wrap' }}>
             <Paragraph style={{ color: 'black', whiteSpace: 'no-wrap' }}>
-              {`Link: ${article?.sourceUrl.slice(0, 32)}    ( `}
+              {`${article?.sourceUrl.slice(0, 32)}    ( `}
               { article?.language === 'sk' && <span className="fi fi-sk" style={{ whiteSpace: 'no-wrap' }} /> }
               { article?.language === 'cz' && <span className="fi fi-cz" style={{ whiteSpace: 'no-wrap' }} /> }
               { article?.language === 'en' && <span className="fi fi-gb" style={{ whiteSpace: 'no-wrap' }} /> }
@@ -120,7 +124,7 @@ export default function Article({
           </a>
         </Col>
       </Row>
-      <Divider />
+      <Divider style={{ marginTop: '0%', marginBottom: '2%' }} />
       { article?.text.length > 100 ? (
         <div>
           <Row>

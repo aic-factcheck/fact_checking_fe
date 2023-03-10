@@ -4,6 +4,7 @@ import {
   Layout, Col, Row, List,
 } from 'antd';
 import { useRecoilValue } from 'recoil';
+import { useTranslation } from 'react-i18next';
 import CreateClaim from '../../components/claim/create';
 import CreateArticle from '../../components/article/create';
 import Claim from '../../components/claim';
@@ -16,6 +17,7 @@ const { Content } = Layout;
 export default function CreateArticlePage() {
   const [articleSubmited, setArticleSubmited] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [article, setArticle] = useState({});
   const [claims, setClaims] = useState([]);
   const allowEdit = false;
@@ -104,7 +106,7 @@ export default function CreateArticlePage() {
                 borderRadius: '10px',
               }}
             >
-              <MyTitle headline="Add claim to article" fontcolor="#d86e3d" />
+              <MyTitle headline={t('add_claim')} fontcolor="#d86e3d" />
               <CreateClaim
                 articleSubmited={articleSubmited}
                 claims={claims}
@@ -131,7 +133,7 @@ export default function CreateArticlePage() {
                 width: '96%',
               }}
             >
-              <MyTitle headline="My claims" fontcolor="#d86e3d" />
+              <MyTitle headline={t('my_claims')} fontcolor="#d86e3d" />
               <List
                 style={{
                   padding: '1%',

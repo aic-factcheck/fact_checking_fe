@@ -5,6 +5,7 @@ import {
 import Carousel from 'react-bootstrap/Carousel';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import { useTranslation } from 'react-i18next';
 import authAtom from '../../_state/auth';
 import useFetchWrapper from '../../_helpers/fetch_wrapper';
 import Claim from '../../components/claim';
@@ -16,6 +17,7 @@ export default function LadingPage() {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
+  const { t } = useTranslation();
   const [sliderClaimsList, setSliderClaimsList] = useState([]);
 
   useEffect(() => {
@@ -78,10 +80,10 @@ export default function LadingPage() {
               }}
             >
               <Title level={1}>
-                Let&apos;s Make the World a Better Place
+                {t('lets_make_world_better')}
               </Title>
               <Title level={5}>
-                With your help, we can try to avoid the spread of misinformation.
+                {t('lets_make_additional')}
               </Title>
             </div>
           </Col>
@@ -122,11 +124,9 @@ export default function LadingPage() {
                 />
               </Col>
               <Col offset={0} span={14}>
-                <Title level={2}>Article</Title>
+                <Title level={2}>{t('articles')}</Title>
                 <p>
-                  Article is any text you found on web. Fill the form and your article will be saved
-                  and displayed on &apos;Articles&apos; page. You can edit the article even after
-                  submitting in your profile section.
+                  {t('article_explain')}
                 </p>
               </Col>
             </Row>
@@ -139,14 +139,9 @@ export default function LadingPage() {
                   textAlign: 'center',
                 }}
               >
-                <Title level={2}>Claim</Title>
+                <Title level={2}>{t('claims')}</Title>
                 <p>
-                  Claim is a part of article, which you are not sure whether it is true. You
-                  can add claim right after submitting your article. You can also add claims
-                  to articles added by other users. Just click on &apos;Articles&apos;, find
-                  article and click on the article title. You will see the whole article with
-                  all claims associated to the article. Click on &apos;Add claim&apos; and
-                  add claim that you are curious about.
+                  {t('claim_explain')}
                 </p>
               </Col>
               <Col offset={2} span={6}>
@@ -177,12 +172,9 @@ export default function LadingPage() {
                 offset={0}
                 span={14}
               >
-                <Title level={2}>Review</Title>
+                <Title level={2}>{t('reviews')}</Title>
                 <p>
-                  Review is a review associated to particular claim. As a user, you can only
-                  add one review to one claim. You can look for any claim in &apos;Claims&apos;
-                  section and submit your opinion. Your opinion should be based on data, so
-                  do not forget to add links in form.
+                  {t('review_explain')}
                 </p>
               </Col>
             </Row>
@@ -199,15 +191,9 @@ export default function LadingPage() {
                 justifyContent: 'center',
               }}
             >
-              <Title level={1}>Our mission</Title>
+              <Title level={1}>{t('mission')}</Title>
               <p>
-                We - creators of Fact-Check, believe that decisions we make should be made
-                independently, without leaning to any particular political party, country,
-                religion, etc. That is why we created this web - to gather information
-                from people and let our custom AI program
-                decide. Our program uses advanced technologies to extract data from the internet and
-                help you make unbiased decisions. We are currently trying to gather data from users
-                and this data will be used in our AI.
+                {t('mission_explain')}
               </p>
             </Row>
             <Divider />
@@ -218,7 +204,7 @@ export default function LadingPage() {
                 justifyContent: 'center',
               }}
             >
-              <Title level={1}>Our team</Title>
+              <Title level={1}>{t('our_team')}</Title>
             </Row>
             <Row
               style={{

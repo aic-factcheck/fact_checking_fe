@@ -5,6 +5,7 @@ import {
 } from 'antd';
 import PropTypes from 'prop-types';
 import { useRecoilValue, useRecoilState } from 'recoil';
+import { useTranslation } from 'react-i18next';
 import useFetchWrapper from '../../../_helpers/fetch_wrapper';
 import myClaims from '../../../_state/usersClaims';
 import authAtom from '../../../_state/auth';
@@ -15,6 +16,7 @@ export default function EditClaim({
   const auth = useRecoilValue(authAtom);
   const fetchWrapper = useFetchWrapper();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [claimForm] = Form.useForm();
   const [myClaimsList, setMyClaimsList] = useRecoilState(myClaims);
 
@@ -70,7 +72,7 @@ export default function EditClaim({
       <Form.Item
         name="text"
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
-        label="Claim - A sentence from the claim to be fact-checked"
+        label={t('claim_add_explain')}
         rules={[
           {
             required: true,
@@ -82,7 +84,7 @@ export default function EditClaim({
 
       <Form.Item wrapperCol={{ offset: 0, span: 22 }}>
         <Button type="primary" htmlType="submit">
-          Edit claim
+          {t('save')}
         </Button>
       </Form.Item>
     </Form>

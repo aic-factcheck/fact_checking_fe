@@ -5,6 +5,7 @@ import {
 } from 'antd';
 import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
+import { useTranslation } from 'react-i18next';
 import useFetchWrapper from '../../_helpers/fetch_wrapper';
 import authAtom from '../../_state/auth';
 // eslint-disable-next-line
@@ -21,8 +22,9 @@ export default function AddReview({
   const auth = useRecoilValue(authAtom);
   const fetchWrapper = useFetchWrapper();
   const navigate = useNavigate();
-  const [claimForm] = Form.useForm();
+  const { t } = useTranslation();
 
+  const [claimForm] = Form.useForm();
   const [reviewsList, setReviewsList] = useState([]);
   const [vote, setVote] = useState('positive');
   const [linksList, setLinksList] = useState([]);
@@ -103,7 +105,7 @@ export default function AddReview({
         <Form.Item
           name="text"
             // eslint-disable-next-line jsx-a11y/label-has-associated-control
-          label="Review text"
+          label={t('review_text')}
           style={{ color: '#000000' }}
           rules={[{
             required: true,
@@ -115,7 +117,7 @@ export default function AddReview({
         <Form.Item
           name="links"
             // eslint-disable-next-line jsx-a11y/label-has-associated-control
-          label="Review links"
+          label={t('review_links')}
           style={{ color: '#000000' }}
           rules={[{
             required: true,
@@ -132,19 +134,19 @@ export default function AddReview({
 
         <Form.Item
       // eslint-disable-next-line jsx-a11y/label-has-associated-control
-          label="Review overall trust"
+          label={t('review_overall_trust')}
           name="vote"
         >
           <Select defaultValue="positive" onChange={handleChange}>
-            <Option value="positive">Positive</Option>
-            <Option value="negative">Negative</Option>
-            <Option value="no_info">Not enough info</Option>
+            <Option value="positive">{t('positive')}</Option>
+            <Option value="negative">{t('negative')}</Option>
+            <Option value="no_info">{t('not_enough_info')}</Option>
           </Select>
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 0, span: 22 }}>
           <Button type="primary" htmlType="submit">
-            Add review
+            {t('add')}
           </Button>
         </Form.Item>
       </Form>

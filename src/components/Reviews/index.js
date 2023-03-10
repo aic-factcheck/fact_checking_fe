@@ -12,7 +12,6 @@ import useFetchWrapper from '../../_helpers/fetch_wrapper';
 import authAtom from '../../_state/auth';
 
 const { Paragraph } = Typography;
-const { Title } = Typography;
 
 export default function Reviews({
   claim,
@@ -52,8 +51,7 @@ export default function Reviews({
           </Paragraph>
         </Col>
       </Row>
-      <Divider style={{ backgroundColor: 'white', width: '5%' }} />
-      <Title level={5} className="defaultForm" style={{ color: 'white', whiteSpace: 'pre-line', textDecoration: 'none' }}>Reviews :</Title>
+      <Divider style={{ backgroundColor: 'white', width: '0%' }} />
       <List
         style={{
           padding: '0%',

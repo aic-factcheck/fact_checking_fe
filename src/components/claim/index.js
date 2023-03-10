@@ -4,6 +4,7 @@ import {
   Col, Row, Typography, Divider, Button, Modal,
 } from 'antd';
 import { useRecoilValue } from 'recoil';
+import { useTranslation } from 'react-i18next';
 import {
   PlusCircleOutlined, ReadOutlined, EditOutlined, CheckOutlined, CloseOutlined,
 } from '@ant-design/icons';
@@ -19,6 +20,7 @@ export default function Claim({
 }) {
   const [open, setOpen] = useState(false);
   const auth = useRecoilValue(authAtom);
+  const { t } = useTranslation();
 
   const showModal = () => {
     setOpen(true);
@@ -86,10 +88,10 @@ export default function Claim({
           className="buttons"
           style={{ border: 'none' }}
         >
-          Edit
+          {t('edit')}
         </Button>
         <Modal
-          title="Edit claim"
+          title={t('edit')}
           open={open}
           onOk={handleOk}
           // confirmLoading={confirmLoading}
@@ -114,10 +116,10 @@ export default function Claim({
             border: 'none',
           }}
         >
-          Review
+          {t('add')}
         </Button>
         <Modal
-          title="Add review"
+          title={t('add')}
           open={openAddReview}
           onOk={handleOkAddReview}
           // confirmLoading={confirmLoading}
@@ -181,7 +183,7 @@ export default function Claim({
         >
           <Button block className="reactions" style={{ borderRadius: '10px 0px 0px 10px' }}>
             <CheckOutlined />
-            True
+            {t('true')}
           </Button>
         </Col>
         <Col
@@ -193,7 +195,7 @@ export default function Claim({
         >
           <Button block className="reactions" style={{ borderRadius: '0px 10px 10px 0px' }}>
             <CloseOutlined />
-            False
+            {t('false')}
           </Button>
         </Col>
         <Col offset={0} style={{ zIndex: '99' }} span={7}>
@@ -207,10 +209,10 @@ export default function Claim({
             className="buttons"
             style={{ border: 'none' }}
           >
-            Reviews
+            {t('reviews')}
           </Button>
           <Modal
-            title="Reviews"
+            title={t('reviews')}
             open={openReview}
             onOk={handleOkReview}
             // confirmLoading={confirmLoading}

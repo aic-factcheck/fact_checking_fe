@@ -5,6 +5,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { useTranslation } from 'react-i18next';
 import myArticles from '../../../_state/usersArticles';
 import useFetchWrapper from '../../../_helpers/fetch_wrapper';
 import MyTitle from '../../MyTitle/index';
@@ -16,6 +17,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
   const fetchWrapper = useFetchWrapper();
   // eslint-disable-next-line no-unused-vars
   const [loadFromURL, setLoadFromURL] = useState(false);
+  const { t } = useTranslation();
   const [language, setLanguage] = useState('cz');
   const navigate = useNavigate();
   const [myArticlesList, setMyArticlesList] = useRecoilState(myArticles);
@@ -111,11 +113,11 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
       }}
       className="defaultForm"
     >
-      <MyTitle headline="Add article" fontcolor="#d86e3d" />
+      <MyTitle headline={t('add_article')} fontcolor="#d86e3d" />
       <Form.Item
         name="title"
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
-        label="Title"
+        label={t('title')}
         rules={[
           {
             required: true,
@@ -127,7 +129,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
       <Form.Item
         name="sourceUrl"
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
-        label="Source URL"
+        label={t('source_url')}
         rules={[
           {
             required: true,
@@ -138,7 +140,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
       </Form.Item>
       <Form.Item
       // eslint-disable-next-line jsx-a11y/label-has-associated-control
-        label="Language"
+        label={t('language')}
         rules={[
           {
             required: true,
@@ -146,29 +148,29 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
         ]}
       >
         <Select defaultValue="cz" style={{ width: 120, color: '#000000' }} onChange={handleChange}>
-          <Option value="cz">Czech</Option>
-          <Option value="en">English</Option>
-          <Option value="sk">Slovak</Option>
-          <Option value="other">Other</Option>
+          <Option value="cz">{t('czech')}</Option>
+          <Option value="en">{t('english')}</Option>
+          <Option value="sk">{t('slovak')}</Option>
+          <Option value="other">{t('other')}</Option>
         </Select>
       </Form.Item>
       <Form.Item
         name="fromUrl"
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
-        label="Load text from URL"
+        label={t('load_text_from_url')}
       >
         <Switch checked={loadFromURL} onChange={onChange} />
       </Form.Item>
       <Form.Item
         name="text"
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
-        label="Article text"
+        label={t('article_text')}
       >
         <Input.TextArea rows={8} id="rawTextData" />
       </Form.Item>
       <Form.Item wrapperCol={{ span: 6, offset: 6 }}>
         <Button type="primary" htmlType="submit" disabled={articleSubmited}>
-          Submit article
+          {t('submit')}
         </Button>
       </Form.Item>
     </Form>

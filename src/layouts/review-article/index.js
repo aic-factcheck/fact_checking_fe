@@ -4,6 +4,7 @@ import {
 } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import { useTranslation } from 'react-i18next';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import authAtom from '../../_state/auth';
 import useFetchWrapper from '../../_helpers/fetch_wrapper';
@@ -18,6 +19,7 @@ export default function ReviewArticle() {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
+  const { t } = useTranslation();
 
   const [article, setArticle] = useState();
   const [claims, setClaims] = useState([]);
@@ -63,14 +65,14 @@ export default function ReviewArticle() {
       </div>
       <Row>
         <Col offset={0} span={20}>
-          <MyTitle headline="Article claims:" fontcolor="#d86e3d" />
+          <MyTitle headline={t('claims')} fontcolor="#d86e3d" />
         </Col>
         <Col>
           <Button variant="primary" shape="round" size="large" onClick={showModal} style={{ backgroundColor: '#d86e3d', color: 'white' }} icon={<PlusCircleOutlined />}>
-            Add claim
+            {t('add_claim')}
           </Button>
           <Modal
-            title="Add claim"
+            title={t('add_claim')}
             open={open}
             onOk={handleOk}
             onCancel={handleCancel}

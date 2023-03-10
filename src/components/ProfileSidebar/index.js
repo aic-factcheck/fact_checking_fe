@@ -3,6 +3,7 @@ import { Layout } from 'antd';
 import {
   Tab, Row, Col, Nav,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import EditProfile from '../EditProfile';
 import MyArticles from '../MyArticles';
 import MyClaims from '../MyClaims';
@@ -11,6 +12,8 @@ import Scoreboard from '../Scoreboard';
 const { Content } = Layout;
 
 export default function ProfileSidebar() {
+  const { t } = useTranslation();
+
   return (
     <Content
       className="site-layout"
@@ -23,16 +26,16 @@ export default function ProfileSidebar() {
           <Col sm={3}>
             <Nav variant="pills" className="flex-column">
               <Nav.Item>
-                <Nav.Link eventKey="1st" className="whites">Scoreboard</Nav.Link>
+                <Nav.Link eventKey="1st" className="whites">{t('score')}</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="2nd" className="whites">Edit profile</Nav.Link>
+                <Nav.Link eventKey="2nd" className="whites">{t('edit_profile')}</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="3rd" className="whites">My articles</Nav.Link>
+                <Nav.Link eventKey="3rd" className="whites">{t('my_articles')}</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="4th" className="whites">My claims</Nav.Link>
+                <Nav.Link eventKey="4th" className="whites">{t('my_claims')}</Nav.Link>
               </Nav.Item>
             </Nav>
           </Col>

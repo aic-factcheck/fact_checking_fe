@@ -5,6 +5,7 @@ import {
 } from 'antd';
 import PropTypes from 'prop-types';
 import { useRecoilValue, useRecoilState } from 'recoil';
+import { useTranslation } from 'react-i18next';
 import useFetchWrapper from '../../../_helpers/fetch_wrapper';
 import myArticles from '../../../_state/usersArticles';
 import authAtom from '../../../_state/auth';
@@ -17,6 +18,7 @@ export default function EditArticle({
   const auth = useRecoilValue(authAtom);
   const fetchWrapper = useFetchWrapper();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [language, setLanguage] = useState('cz');
   const [myArticlesList, setMyArticlesList] = useRecoilState(myArticles);
 
@@ -89,7 +91,7 @@ export default function EditArticle({
     >
       <Form.Item
         name="title"
-        label="Title"
+        label={t('title')}
         rules={[
           {
             required: true,
@@ -100,7 +102,7 @@ export default function EditArticle({
       </Form.Item>
       <Form.Item
         name="sourceUrl"
-        label="Source"
+        label={t('source_url')}
         rules={[
           {
             required: true,
@@ -110,18 +112,18 @@ export default function EditArticle({
         <Input />
       </Form.Item>
       <Form.Item
-        label="Language"
+        label={t('language')}
       >
         <Select defaultValue={article.language !== null ? article.language : 'cz'} style={{ width: 120 }} onChange={handleChange}>
-          <Option value="cz">Czech</Option>
-          <Option value="en">English</Option>
-          <Option value="sk">Slovak</Option>
-          <Option value="other">Other</Option>
+          <Option value="cz">{t('czech')}</Option>
+          <Option value="en">{t('english')}</Option>
+          <Option value="sk">{t('slovak')}</Option>
+          <Option value="other">{t('other')}</Option>
         </Select>
       </Form.Item>
       <Form.Item
         name="text"
-        label="Article"
+        label={t('article_text')}
         rules={[
           {
             required: true,
@@ -132,7 +134,7 @@ export default function EditArticle({
       </Form.Item>
       <Form.Item wrapperCol={{ span: 22, offset: 4 }}>
         <Button type="primary" htmlType="submit" disabled={false}>
-          Submit article
+          {t('save')}
         </Button>
       </Form.Item>
     </Form>

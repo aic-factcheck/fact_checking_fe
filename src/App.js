@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Layout } from 'antd';
 import {
   BrowserRouter,
@@ -23,19 +23,21 @@ function App() {
   return (
     <BrowserRouter>
       <Layout style={{ minHeight: '100vh' }}>
-        <Header />
-        <Routes>
-          <Route path="/" element={<LadingPage />} />
-          <Route path="/claims" element={<ClaimPages />} />
-          <Route path="/articles" element={<AllArticles />} />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/article/create" element={<CreateArticlePage />} />
-          <Route path="/article/:articleId" element={<ReviewArticle />} />
-        </Routes>
-        <Footer />
+        <Suspense fallback={null}>
+          <Header />
+          <Routes>
+            <Route path="/" element={<LadingPage />} />
+            <Route path="/claims" element={<ClaimPages />} />
+            <Route path="/articles" element={<AllArticles />} />
+            <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/article/create" element={<CreateArticlePage />} />
+            <Route path="/article/:articleId" element={<ReviewArticle />} />
+          </Routes>
+          <Footer />
+        </Suspense>
       </Layout>
     </BrowserRouter>
   );
