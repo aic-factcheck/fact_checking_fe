@@ -131,7 +131,7 @@ export default function Reviews({
                       style={{
                         color: 'black', fontStyle: 'italic', zIndex: '99',
                       }}
-                      offset={1}
+                      offset={0}
                       span={10}
                     >
                       <AiOutlineLike style={{ marginLeft: '3%', marginRight: '1%' }} />
@@ -147,8 +147,8 @@ export default function Reviews({
                       style={{
                         color: 'black', fontStyle: 'italic', zIndex: '99',
                       }}
-                      offset={1}
-                      span={7}
+                      offset={0}
+                      span={8}
                     >
                       <Button block className="reactions" style={{ borderRadius: '10px 0px 0px 10px', border: 'none' }}>
                         <AiOutlineLike style={{ marginRight: '2%' }} />
@@ -160,7 +160,7 @@ export default function Reviews({
                         color: 'black', fontStyle: 'italic', zIndex: '99',
                       }}
                       offset={0}
-                      span={7}
+                      span={8}
                     >
                       <Button block className="reactions" style={{ border: 'none' }}>
                         <BiQuestionMark style={{ marginRight: '2%' }} />
@@ -172,7 +172,7 @@ export default function Reviews({
                         color: 'black', fontStyle: 'italic', zIndex: '99',
                       }}
                       offset={0}
-                      span={7}
+                      span={8}
                     >
                       <Button block className="reactions" style={{ borderRadius: '0px 10px 10px 0px', border: 'none' }}>
                         <AiOutlineDislike style={{ marginRight: '2%' }} />

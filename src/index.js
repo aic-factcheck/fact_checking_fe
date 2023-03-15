@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
-import './index.css';
+import './index.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';

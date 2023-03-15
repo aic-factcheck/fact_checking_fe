@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 
 import './App.less';
-import Header from './layouts/header';
 import Footer from './layouts/footer';
 import SignIn from './layouts/authentication/sign-in';
 import SignUp from './layouts/authentication/sign-up';
@@ -18,24 +17,29 @@ import ReviewArticle from './layouts/review-article';
 import AllArticles from './layouts/articles';
 import ClaimPages from './layouts/claims';
 import LadingPage from './layouts/landing-page';
+import CustomHeader from './layouts/header';
+
+const { Content } = Layout;
 
 function App() {
   return (
     <BrowserRouter>
       <Layout style={{ minHeight: '100vh' }}>
         <Suspense fallback={null}>
-          <Header />
-          <Routes>
-            <Route path="/" element={<LadingPage />} />
-            <Route path="/claims" element={<ClaimPages />} />
-            <Route path="/articles" element={<AllArticles />} />
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/logout" element={<Logout />} />
-            <Route path="/article/create" element={<CreateArticlePage />} />
-            <Route path="/article/:articleId" element={<ReviewArticle />} />
-          </Routes>
+          <CustomHeader />
+          <Content>
+            <Routes>
+              <Route path="/" element={<LadingPage />} />
+              <Route path="/claims" element={<ClaimPages />} />
+              <Route path="/articles" element={<AllArticles />} />
+              <Route path="/sign-in" element={<SignIn />} />
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/logout" element={<Logout />} />
+              <Route path="/article/create" element={<CreateArticlePage />} />
+              <Route path="/article/:articleId" element={<ReviewArticle />} />
+            </Routes>
+          </Content>
           <Footer />
         </Suspense>
       </Layout>

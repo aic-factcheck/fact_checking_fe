@@ -47,5 +47,14 @@
     "mission_explain": "My, tvůrci Fact-Check, věříme, že rozhodnutí, která děláme, by měla být činěna nezávisle, bez příklonu k určité politické straně, zemi, náboženství ... a proto jsme vytvořili tento web - abychom shromažďovali informace od lidí a nechali rozhodnout náš vlastní program s umělou inteligencí. Náš program využívá pokročilé technologie k získávání dat z internetu a pomáhá vám činit nestranná rozhodnutí. V současné době se snažíme shromažďovat data od uživatelů a tato data budou použita na učení naší umělé inteligence.",
     "our_team": "Náš tím",
     "lets_make_world_better": "UDĚLEJME SVĚT LEPŠÍM MÍSTEM",
-    "lets_make_additional": "S VAŠÍ POMOCÍ SE MŮŽEME POKUSIT ZABRÁNIT ŠÍŘENÍ DEZINFORMACÍ."
+    "lets_make_additional": "S VAŠÍ POMOCÍ SE MŮŽEME POKUSIT ZABRÁNIT ŠÍŘENÍ DEZINFORMACÍ.",
+    "password": "Heslo",
+    "remember_me": "Zapamatovat údaje",
+    "not_registered_question": "Nejste zaregistrovaný?",
+    "register": "Registrovat",
+    "please_first": "Zadejte Vaše krstní jméno!",
+    "please_last": "Zadejte Vaše druhé jméno!",
+    "please_mail": "Zadejte Váš email!",
+    "please_pass": "Zadejte Vaše helo!",
+    "profile": "Profil"
 }

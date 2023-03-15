@@ -47,5 +47,14 @@
     "mission_explain": "We - creators of Fact-Check, believe that decisions we make should be made independently, without leaning to any particular political party, country, religion, etc. That is why we created this web - to gather information from people and let our custom AI program decide. Our program uses advanced technologies to extract data from the internet and help you make unbiased decisions. We are currently trying to gather data from users and this data will be used in our AI.",
     "our_team": "Our team",
     "lets_make_world_better": "LET'S MAKE THE WORLD A BETTER PLACE",
-    "lets_make_additional": "WITH YOUR HELP, WE CAN TRY TO AVOID THE SPREAD OF MISINFORMATION."
+    "lets_make_additional": "WITH YOUR HELP, WE CAN TRY TO AVOID THE SPREAD OF MISINFORMATION.",
+    "password": "Password",
+    "remember_me": "Remember me",
+    "not_registered_question": "Not registered?",
+    "register": "Register",
+    "please_first": "Please input your first name!",
+    "please_last": "Please input your last name!",
+    "please_mail": "Please input your email!",
+    "please_pass": "Please input your password!",
+    "profile": "Profile"
 }

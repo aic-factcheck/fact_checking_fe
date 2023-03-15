@@ -63,11 +63,11 @@ export default function ReviewArticle() {
       <div style={{ marginBottom: '3%' }}>
         <Article article={article} isEditable={allowEdit} />
       </div>
-      <Row>
-        <Col offset={0} span={20}>
+      <Row justify="space-between" align="bottom">
+        <Col span={12}>
           <MyTitle headline={t('claims')} fontcolor="#d86e3d" />
         </Col>
-        <Col>
+        <Col span={12} flex="0">
           <Button variant="primary" shape="round" size="large" onClick={showModal} style={{ backgroundColor: '#d86e3d', color: 'white' }} icon={<PlusCircleOutlined />}>
             {t('add_claim')}
           </Button>
