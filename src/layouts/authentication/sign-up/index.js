@@ -128,18 +128,6 @@ export default function SignUp() {
             </Form.Item>
 
             <Form.Item
-              name="remember"
-              valuePropName="checked"
-              label=""
-              wrapperCol={{
-                offset: 0,
-                span: 24,
-              }}
-            >
-              <Checkbox>{t('remember_me')}</Checkbox>
-            </Form.Item>
-
-            <Form.Item
               wrapperCol={{
                 offset: 0,
                 span: 24,

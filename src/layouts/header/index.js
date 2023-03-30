@@ -119,7 +119,14 @@ export default function CustomHeader() {
     );
 
   return (
-    <Navbar width="100%" collapseOnSelect expand="md" style={{ backgroundColor: '#d86e3d', fontWeight: 'bold' }}>
+    <Navbar
+      width="100%"
+      collapseOnSelect
+      expand="md"
+      style={{
+        backgroundColor: '#d86e3d', fontWeight: 'bold', color: 'white', fontSize: 'medium',
+      }}
+    >
       {navItems}
     </Navbar>
   );

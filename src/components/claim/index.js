@@ -12,6 +12,7 @@ import authAtom from '../../_state/auth';
 import EditClaim from './edit';
 import AddReview from '../AddReview';
 import Reviews from '../Reviews';
+import MyTitle from '../MyTitle/index';
 
 const { Paragraph } = Typography;
 
@@ -149,14 +150,14 @@ export default function Claim({
         <Col span={24}>
           <Paragraph style={{ color: 'black' }}>
             <a href={`/article/${claim?.article._id}`} className="claims" style={{ color: 'black', textDecorationColor: 'black' }}>
-              {claim?.text}
+              <MyTitle headline={claim?.text} />
             </a>
           </Paragraph>
         </Col>
       </Row>
       <Row>
         <Col span={16} offset={0}>
-          <Paragraph style={{ color: 'black', fontSize: '0.5em', textAlign: 'left' }}>
+          <Paragraph style={{ color: 'black', textAlign: 'left' }}>
             {
                 claim?.addedBy.firstName !== undefined && claim?.createdAt !== undefined
                   ? `${claim?.addedBy.firstName} ${claim?.addedBy.lastName}, ${new Date(claim.createdAt).toGMTString().slice(4).slice(0, -7)}`
@@ -167,7 +168,7 @@ export default function Claim({
       </Row>
       <Row>
         <Col span={16} offset={0}>
-          <Paragraph style={{ color: 'black', fontSize: '0.5em', textAlign: 'left' }}>
+          <Paragraph style={{ color: 'black', textAlign: 'left' }}>
             17 ✔️ 5 ❌
           </Paragraph>
         </Col>

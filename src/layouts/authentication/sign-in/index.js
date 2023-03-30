@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Layout, Button, Checkbox, Form, Input, message, Row, Col, Divider,
+  Layout, Button, Form, Input, message, Row, Col, Divider,
 } from 'antd';
 
 import { useRecoilValue } from 'recoil';
@@ -106,22 +106,6 @@ export default function SignIn() {
               style={{ margin: '2%' }}
             >
               <Input.Password placeholder={t('password')} />
-            </Form.Item>
-
-            <Form.Item
-              name="remember"
-              valuePropName="checked"
-              wrapperCol={{
-                offset: 0,
-                span: 16,
-              }}
-              style={{ margin: '2%' }}
-            >
-              <Checkbox>
-                <div>
-                  {t('remember_me')}
-                </div>
-              </Checkbox>
             </Form.Item>
 
             <Form.Item

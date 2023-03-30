@@ -6,6 +6,7 @@ import {
   Route,
 } from 'react-router-dom';
 
+import 'antd/dist/reset.css';
 import './App.less';
 import Footer from './layouts/footer';
 import SignIn from './layouts/authentication/sign-in';

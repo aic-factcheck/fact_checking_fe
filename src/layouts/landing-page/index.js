@@ -38,6 +38,7 @@ export default function LadingPage() {
               }}
             >
               <Claim
+                isEditable={false}
                 claim={obj}
                 style={{
                   width: '100%',
@@ -212,14 +213,13 @@ export default function LadingPage() {
                 justifyContent: 'center',
               }}
             >
-              <Col offset={2} md={4} sm={18}>
+              <Col offset={1} md={6} sm={18}>
                 <Card
-                  style={{ width: 300 }}
                   cover={(
                     <img
                       style={{ width: 'auto', height: '180px', margin: 'auto' }}
                       alt="example"
-                      src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.6435-9/65644073_2359225074137529_2376627437506134016_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=174925&_nc_ohc=kGPRba322-gAX91-poM&_nc_ht=scontent-vie1-1.xx&oh=00_AfAaLnJjm0PmYrqP-pW7v7cIBMnTn5F3skekxC2iQkOL4g&oe=63CB0B83"
+                      src={`${process.env.PUBLIC_URL}/pictures/romaan.png`}
                     />
                   )}
                 >
@@ -230,14 +230,13 @@ export default function LadingPage() {
                   />
                 </Card>
               </Col>
-              <Col offset={2} md={4} sm={18}>
+              <Col offset={1} md={6} sm={18}>
                 <Card
-                  style={{ width: 300 }}
                   cover={(
                     <img
                       style={{ width: 'auto', height: '180px', margin: 'auto' }}
                       alt="example"
-                      src="https://scontent-vie1-1.xx.fbcdn.net/v/t39.30808-6/236010137_5083716218322104_3918665992526365160_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=RlcoQioepIkAX9Z82Ff&_nc_ht=scontent-vie1-1.xx&oh=00_AfBvmrPi1RliHjtJ1yKn3NvVbshrOA4IVPpzaDA1Jy1cTQ&oe=63A82ABD"
+                      src={`${process.env.PUBLIC_URL}/pictures/rastooo.png`}
                     />
                   )}
                 >
@@ -248,9 +247,8 @@ export default function LadingPage() {
                   />
                 </Card>
               </Col>
-              <Col offset={2} md={4} sm={18}>
+              <Col offset={1} md={6} sm={18}>
                 <Card
-                  style={{ width: 300 }}
                   cover={(
                     <img
                       style={{ width: 'auto', height: '180px', margin: 'auto' }}
