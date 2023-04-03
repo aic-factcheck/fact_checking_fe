@@ -6,32 +6,31 @@ import {
 import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import {
-  PlusCircleOutlined, ReadOutlined, EditOutlined, CheckOutlined, CloseOutlined,
+  PlusCircleOutlined, ReadOutlined, EditOutlined, UpCircleOutlined, DownCircleOutlined,
 } from '@ant-design/icons';
 import authAtom from '../../_state/auth';
 import EditClaim from './edit';
 import AddReview from '../AddReview';
 import Reviews from '../Reviews';
 import MyTitle from '../MyTitle/index';
+import useUserActions from '../../_actions/user.actions';
 
 const { Paragraph } = Typography;
 
 export default function Claim({
   claim, isEditable, index,
 }) {
-  const [open, setOpen] = useState(false);
   const auth = useRecoilValue(authAtom);
+  const userActions = useUserActions();
   const { t } = useTranslation();
+
+  const [open, setOpen] = useState(false);
 
   const showModal = () => {
     setOpen(true);
   };
 
   const handleOk = () => {
-    setOpen(false);
-  };
-
-  const handleCancel = () => {
     setOpen(false);
   };
 
@@ -45,10 +44,6 @@ export default function Claim({
     setOpenAddReview(false);
   };
 
-  const handleCancelAddReview = () => {
-    setOpenAddReview(false);
-  };
-
   const [openReview, setOpenReview] = useState(false);
 
   const showModalReview = () => {
@@ -59,25 +54,17 @@ export default function Claim({
     setOpenReview(false);
   };
 
-  const handleCancelReview = () => {
-    setOpenReview(false);
+  const [upvote, setUpvote] = useState(claim?.nPositiveVotes);
+
+  const addUpVote = (claimId) => {
+    userActions.voteClaim(claimId, upvote, setUpvote, 1).catch();
   };
 
-  /* const isLandscape = () => window.matchMedia('(orientation:landscape)').matches;
-  const [orientation, setOrientation] = useState(isLandscape() ? 'landscape' : 'portrait');
-  const onWindowResize = () => {
-    clearTimeout(window.resizeLag);
-    window.resizeLag = setTimeout(() => {
-      delete window.resizeLag;
-      setOrientation(isLandscape() ? 'landscape' : 'portrait')
-    }, 200);
-  };
+  const [downvote, setDownvote] = useState(claim?.nNegativeVotes);
 
-  useEffect(() => (
-    onWindowResize();
-    window.addEventListener('resize', onWindowResize),
-    () => window.removeEventListener('resize', onWindowResize)
-  ),[]) */
+  const addDownVote = (claimId) => {
+    userActions.voteClaim(claimId, downvote, setDownvote, -1).catch();
+  };
 
   const editButton = (isEditable)
     ? (
@@ -96,7 +83,7 @@ export default function Claim({
           open={open}
           onOk={handleOk}
           // confirmLoading={confirmLoading}
-          onCancel={handleCancel}
+          onCancel={handleOk}
           footer={[]}
         >
           <EditClaim
@@ -124,7 +111,7 @@ export default function Claim({
           open={openAddReview}
           onOk={handleOkAddReview}
           // confirmLoading={confirmLoading}
-          onCancel={handleCancelAddReview}
+          onCancel={handleOkAddReview}
           className="reviewsModal"
           footer={[]}
         >
@@ -169,7 +156,13 @@ export default function Claim({
       <Row>
         <Col span={16} offset={0}>
           <Paragraph style={{ color: 'black', textAlign: 'left' }}>
-            17 ✔️ 5 ❌
+            <UpCircleOutlined />
+            {' '}
+            {upvote}
+            {' '}
+            <DownCircleOutlined style={{ marginLeft: '1%' }} />
+            {' '}
+            {downvote}
           </Paragraph>
         </Col>
       </Row>
@@ -182,9 +175,9 @@ export default function Claim({
           offset={0}
           span={5}
         >
-          <Button block className="reactions" style={{ borderRadius: '10px 0px 0px 10px' }}>
-            <CheckOutlined />
-            {t('true')}
+          <Button block className="reactions" style={{ borderRadius: '10px 0px 0px 10px' }} onClick={() => addUpVote(claim?._id)}>
+            <UpCircleOutlined />
+            {t('upvote')}
           </Button>
         </Col>
         <Col
@@ -194,9 +187,9 @@ export default function Claim({
           offset={0}
           span={5}
         >
-          <Button block className="reactions" style={{ borderRadius: '0px 10px 10px 0px' }}>
-            <CloseOutlined />
-            {t('false')}
+          <Button block className="reactions" style={{ borderRadius: '0px 10px 10px 0px' }} onClick={() => addDownVote(claim?._id)}>
+            <DownCircleOutlined />
+            {t('downvote')}
           </Button>
         </Col>
         <Col offset={0} style={{ zIndex: '99' }} span={7}>
@@ -217,13 +210,14 @@ export default function Claim({
             open={openReview}
             onOk={handleOkReview}
             // confirmLoading={confirmLoading}
-            onCancel={handleCancelReview}
+            onCancel={handleOkReview}
             className="reviewsModal"
             footer={[]}
           >
             <Reviews
               claim={claim}
               indexClaim={index}
+              updated={showModalReview}
             />
           </Modal>
         </Col>
@@ -241,12 +235,8 @@ Claim.propTypes = {
     }),
     createdAt: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-    // nPositiveVotes: PropTypes.number.isRequired,
-    // positiveVotes: PropTypes.arrayOf(PropTypes.string).isRequired,
-    // nNeutralVotes: PropTypes.number.isRequired,
-    // neutralVotes: PropTypes.arrayOf(PropTypes.string).isRequired,
-    // nNegativeVotes: PropTypes.number.isRequired,
-    // negativeVotes: PropTypes.arrayOf(PropTypes.string).isRequired,
+    nPositiveVotes: PropTypes.number.isRequired,
+    nNegativeVotes: PropTypes.number.isRequired,
     addedBy: PropTypes.shape({
       _id: PropTypes.string,
       firstName: PropTypes.string,

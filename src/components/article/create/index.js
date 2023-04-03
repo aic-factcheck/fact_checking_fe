@@ -18,7 +18,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
   // eslint-disable-next-line no-unused-vars
   const [loadFromURL, setLoadFromURL] = useState(false);
   const { t } = useTranslation();
-  const [language, setLanguage] = useState('cz');
+  const [lang, setLanguage] = useState('cz');
   const navigate = useNavigate();
   const [myArticlesList, setMyArticlesList] = useRecoilState(myArticles);
   const auth = useRecoilValue(authAtom);
@@ -66,7 +66,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
 
   const onFinish = (values) => {
     const mergedValues = values;
-    mergedValues.language = language;
+    mergedValues.lang = lang;
     mergedValues.sourceType = 'article';
 
     const newArticle = {
@@ -74,7 +74,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
       title: values.title,
       sourceUrl: values.sourceUrl,
       // eslint-disable-next-line object-shorthand
-      language: language,
+      lang: lang,
       text: values.text,
       sourceType: 'article',
       addedBy: {

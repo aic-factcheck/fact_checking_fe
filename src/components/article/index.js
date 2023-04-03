@@ -15,6 +15,7 @@ import { } from 'flag-icons';
 import authAtom from '../../_state/auth';
 import MyTitle from '../MyTitle/index';
 import EditArticle from './edit';
+import useUserActions from '../../_actions/user.actions';
 
 const { Paragraph } = Typography;
 
@@ -23,6 +24,7 @@ export default function Article({
   isEditable,
   indexArticle,
 }) {
+  const userActions = useUserActions();
   const [open, setOpen] = useState(false);
   const [readMore, setReadMore] = useState(false);
   const { t } = useTranslation();
@@ -43,13 +45,10 @@ export default function Article({
     setOpen(false);
   };
 
-  const [clicked, setClicked] = useState(false);
-  //  const clickHandler = () => { setClicked(current => !current); }
+  const [saved, setSaved] = useState(article?.isSavedByUser);
 
-  // eslint-disable-next-line no-unused-vars
   const saveArticle = (starId) => {
-    // const starElement = document.getElementById(starId);
-    setClicked((current) => !current);
+    userActions.saveUnsaveArticle(saved, starId, setSaved).catch();
   };
 
   const editButton = (isEditable)
@@ -75,9 +74,9 @@ export default function Article({
       </div>
     ) : (
       <button className="save-for-later" type="submit">
-        <Tooltip placement="top" title={clicked ? t('unsave') : t('save')} id={`text_save_${article?._id}`}>
-          <span className="star" id={`save_${article?._id}`} onClick={() => saveArticle(`save_${article?._id}`)}>
-            {clicked ? <AiFillStar /> : <AiOutlineStar /> }
+        <Tooltip placement="top" title={saved ? t('unsave') : t('save')} id={`text_save_${article?._id}`}>
+          <span className="star" id={`save_${article?._id}`} onClick={() => saveArticle(`${article?._id}`)}>
+            {saved ? <AiFillStar /> : <AiOutlineStar /> }
           </span>
         </Tooltip>
       </button>
@@ -115,10 +114,10 @@ export default function Article({
           <a href={`${article?.sourceUrl}`} className="articles" target="_blank" rel="noreferrer" style={{ textDecorationColor: 'black', whiteSpace: 'no-wrap' }}>
             <Paragraph style={{ color: 'black', whiteSpace: 'no-wrap' }}>
               {`${article?.sourceUrl.slice(0, 32)}    ( `}
-              { article?.language === 'sk' && <span className="fi fi-sk" style={{ whiteSpace: 'no-wrap' }} /> }
-              { article?.language === 'cz' && <span className="fi fi-cz" style={{ whiteSpace: 'no-wrap' }} /> }
-              { article?.language === 'en' && <span className="fi fi-gb" style={{ whiteSpace: 'no-wrap' }} /> }
-              { article?.language === 'other' && <BsFlagFill /> }
+              { article?.lang === 'sk' && <span className="fi fi-sk" style={{ whiteSpace: 'no-wrap' }} /> }
+              { article?.lang === 'cz' && <span className="fi fi-cz" style={{ whiteSpace: 'no-wrap' }} /> }
+              { article?.lang === 'en' && <span className="fi fi-gb" style={{ whiteSpace: 'no-wrap' }} /> }
+              { article?.lang === 'other' && <BsFlagFill /> }
               { ' )' }
             </Paragraph>
           </a>
@@ -169,7 +168,7 @@ Article.propTypes = {
     sourceUrl: PropTypes.string,
     text: PropTypes.string,
     sourceType: PropTypes.string,
-    language: PropTypes.string,
+    lang: PropTypes.string,
     createdAt: PropTypes.string,
     addedBy: PropTypes.shape({
       _id: PropTypes.string,
@@ -177,6 +176,7 @@ Article.propTypes = {
       lastName: PropTypes.string,
       email: PropTypes.string,
     }),
+    isSavedByUser: PropTypes.bool,
   }).isRequired,
   isEditable: PropTypes.bool.isRequired,
   indexArticle: PropTypes.number,

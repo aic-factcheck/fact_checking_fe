@@ -1,12 +1,11 @@
 import React, { Suspense } from 'react';
-import { Layout } from 'antd';
+import { Layout, ConfigProvider } from 'antd';
 import {
   BrowserRouter,
   Routes,
   Route,
 } from 'react-router-dom';
 
-import 'antd/dist/reset.css';
 import './App.less';
 import Footer from './layouts/footer';
 import SignIn from './layouts/authentication/sign-in';
@@ -29,17 +28,25 @@ function App() {
         <Suspense fallback={null}>
           <CustomHeader />
           <Content>
-            <Routes>
-              <Route path="/" element={<LadingPage />} />
-              <Route path="/claims" element={<ClaimPages />} />
-              <Route path="/articles" element={<AllArticles />} />
-              <Route path="/sign-in" element={<SignIn />} />
-              <Route path="/sign-up" element={<SignUp />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/logout" element={<Logout />} />
-              <Route path="/article/create" element={<CreateArticlePage />} />
-              <Route path="/article/:articleId" element={<ReviewArticle />} />
-            </Routes>
+            <ConfigProvider
+              theme={{
+                token: {
+                  colorPrimary: '#d86e3d',
+                },
+              }}
+            >
+              <Routes>
+                <Route path="/" element={<LadingPage />} />
+                <Route path="/claims" element={<ClaimPages />} />
+                <Route path="/articles" element={<AllArticles />} />
+                <Route path="/sign-in" element={<SignIn />} />
+                <Route path="/sign-up" element={<SignUp />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/logout" element={<Logout />} />
+                <Route path="/article/create" element={<CreateArticlePage />} />
+                <Route path="/article/:articleId" element={<ReviewArticle />} />
+              </Routes>
+            </ConfigProvider>
           </Content>
           <Footer />
         </Suspense>

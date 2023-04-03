@@ -79,6 +79,14 @@ export default function CustomHeader() {
               >
                 <span className="fi fi-cz" style={{ whiteSpace: 'no-wrap' }} />
               </Button>
+              <Button
+                onClick={() => i18next.changeLanguage('sk')}
+                style={{
+                  background: 'none', border: 'none', alignItems: 'flex-end', display: 'inline-flex',
+                }}
+              >
+                <span className="fi fi-sk" style={{ whiteSpace: 'no-wrap' }} />
+              </Button>
             </Nav.Item>
 
           </Nav>

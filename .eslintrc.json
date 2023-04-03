@@ -32,7 +32,14 @@
           }
         ],
         "react/jsx-props-no-spreading": "off",
-        "linebreak-style": 0
+        "linebreak-style": 0,
+        "import/no-cycle": [
+            "error",
+            {
+              "maxDepth": 10,
+              "ignoreExternal": true
+            }
+          ]
     },
     "settings": {
         "import/resolver": {

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Layout, Button, Checkbox, Form, Input, message, Row, Col,
+  Layout, Button, Form, Input, message, Row, Col,
 } from 'antd';
 
 import { useRecoilValue } from 'recoil';

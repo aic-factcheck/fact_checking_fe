@@ -108,6 +108,33 @@ export default function useUserActions() {
     return fetchWrapper.get(`${baseUrl}/users`).then(setUsers);
   }
 
+  function saveUnsaveArticle(saved, articleId, setSaved) {
+    if (!saved) {
+      return fetchWrapper.post(`${process.env.REACT_APP_API_BASE}/save?articleId=${articleId}`).then(setSaved((current) => !current)).catch((err) => {
+        console.log(err);
+        setSaved((current) => !current);
+      });
+    }
+    return fetchWrapper.delete(`${process.env.REACT_APP_API_BASE}/save?articleId=${articleId}`).then(setSaved((current) => !current)).catch((err) => {
+      console.log(err);
+      setSaved((current) => !current);
+    });
+  }
+
+  function voteClaim(idClaim, upvotes, setVotes, rating) {
+    return fetchWrapper.post(`${process.env.REACT_APP_API_BASE}/vote?claimId=${idClaim}`, { rating }).then(setVotes(upvotes + 1)).catch((err) => {
+      console.log(err);
+      setVotes(upvotes);
+    });
+  }
+
+  function voteReview(idReview, upvotes, setVotes, rating) {
+    return fetchWrapper.post(`${process.env.REACT_APP_API_BASE}/vote?reviewId=${idReview}`, { rating }).then(setVotes(upvotes + 1)).catch((err) => {
+      console.log(err);
+      setVotes(upvotes);
+    });
+  }
+
   return {
     login,
     logout,
@@ -115,5 +142,8 @@ export default function useUserActions() {
     signup,
     editProfile,
     getArticles,
+    saveUnsaveArticle,
+    voteClaim,
+    voteReview,
   };
 }

@@ -19,7 +19,7 @@ export default function EditArticle({
   const fetchWrapper = useFetchWrapper();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [language, setLanguage] = useState('cz');
+  const [lang, setLanguage] = useState('cz');
   const [myArticlesList, setMyArticlesList] = useRecoilState(myArticles);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function EditArticle({
 
   const onFinish = (values) => {
     const mergedValues = values;
-    mergedValues.language = language;
+    mergedValues.lang = lang;
     mergedValues.sourceType = 'article';
     const id = article._id;
 
@@ -54,8 +54,8 @@ export default function EditArticle({
           articleToEdit.text = values.text;
         }
 
-        if (articleToEdit?.language) {
-          articleToEdit.language = values.language;
+        if (articleToEdit?.lang) {
+          articleToEdit.lang = values.lang;
         }
 
         // eslint-disable-next-line max-len
@@ -114,7 +114,7 @@ export default function EditArticle({
       <Form.Item
         label={t('language')}
       >
-        <Select defaultValue={article.language !== null ? article.language : 'cz'} style={{ width: 120 }} onChange={handleChange}>
+        <Select defaultValue={article.lang !== null ? article.lang : 'cz'} style={{ width: 120 }} onChange={handleChange}>
           <Option value="cz">{t('czech')}</Option>
           <Option value="en">{t('english')}</Option>
           <Option value="sk">{t('slovak')}</Option>
@@ -148,7 +148,7 @@ EditArticle.propTypes = {
     sourceUrl: PropTypes.string,
     text: PropTypes.string,
     sourceType: PropTypes.string,
-    language: PropTypes.string,
+    lang: PropTypes.string,
     createdAt: PropTypes.string,
   }).isRequired,
   indexEdit: PropTypes.number,

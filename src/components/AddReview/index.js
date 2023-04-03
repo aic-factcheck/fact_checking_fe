@@ -161,7 +161,7 @@ AddReview.propTypes = {
     sourceUrl: PropTypes.string,
     text: PropTypes.string,
     sourceType: PropTypes.string,
-    language: PropTypes.string,
+    lang: PropTypes.string,
     createdAt: PropTypes.string,
   }).isRequired,
 };

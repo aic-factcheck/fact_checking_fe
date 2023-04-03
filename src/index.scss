@@ -56,6 +56,10 @@ a.articles {
   text-decoration: none;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 a.articles:hover {
   opacity: 0.8;
   text-decoration: underline;
@@ -157,8 +161,17 @@ a.claims:hover {
 
 }
 
+.ant-btn-primary {
+  background-color: #d86e3d;
+}
+
+.ant-btn-primary:hover {
+  background-color: #d86e3d;
+}
+
 .ant-btn .reactions {
-  padding: 0px 0px
+  padding: 0px 0px;
+  background: '#d86e3d'
 }
 
 @media all and (orientation:portrait) {
