@@ -27,7 +27,7 @@ const columns = [
     dataIndex: 'name',
   },
   {
-    title: 'Saved Score',
+    title: 'Articles Score',
     dataIndex: 'nArticles',
     sorter: {
       compare: (a, b) => a.chinese - b.chinese,
@@ -35,7 +35,7 @@ const columns = [
     },
   },
   {
-    title: 'Liked Score',
+    title: 'Claims Score',
     dataIndex: 'nClaims',
     sorter: {
       compare: (a, b) => a.math - b.math,
@@ -43,7 +43,7 @@ const columns = [
     },
   },
   {
-    title: 'Agreed Score',
+    title: 'Reviews Score',
     dataIndex: 'nReviews',
     sorter: {
       compare: (a, b) => a.english - b.english,

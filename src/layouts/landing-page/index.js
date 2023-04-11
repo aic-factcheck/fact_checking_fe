@@ -47,7 +47,9 @@ export default function LadingPage() {
             margin: '0px',
             zIndex: 5,
             backgroundColor: '#d86e3d',
+            minHeight: '500px',
           }}
+          align="middle"
         >
           <Col className="gutter-row" md={10} sm={24}>
             <div
@@ -56,7 +58,8 @@ export default function LadingPage() {
                 padding: '24px 24px 24px 24px',
                 textAlign: 'center',
                 borderRadius: '10px',
-                margin: '3%',
+                margin: 'auto',
+                maxWidth: '500px',
               }}
             >
               <Title level={1}>
@@ -73,7 +76,7 @@ export default function LadingPage() {
               variant="dark"
               interval={4000}
               style={{
-                margin: '3%',
+                margin: 'auto',
                 height: '100%',
                 textAlign: 'center',
               }}
@@ -223,7 +226,7 @@ export default function LadingPage() {
                 >
                   <Card.Meta
                     avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                    title="Roman Bútora"
+                    title="Bc. Roman Bútora"
                     description="Frontend developer"
                   />
                 </Card>
@@ -240,7 +243,7 @@ export default function LadingPage() {
                 >
                   <Card.Meta
                     avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                    title="Rastislav Kopál"
+                    title="Bc. Rastislav Kopál"
                     description="Backend developer"
                   />
                 </Card>
@@ -251,7 +254,7 @@ export default function LadingPage() {
                     <img
                       style={{ width: 'auto', height: '180px', margin: 'auto' }}
                       alt="example"
-                      src="https://cs.felk.cvut.cz/upload/persons/8141cd3ca5208fc07fdae8a34e2e5fbb09c0842e.jpg"
+                      src={`${process.env.PUBLIC_URL}/pictures/team/jan_drchal.png`}
                     />
                   )}
                 >
