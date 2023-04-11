@@ -83,15 +83,19 @@ export default function CustomHeader() {
         </Navbar.Collapse>
       </Container>
     ) : (
-      <Container fluid width="100%" style={{ zIndex: 9999, margin: '0px' }}>
+      <Container fluid width="100%" style={{ zIndex: 1 }}>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Brand className="mx-auto" href="/" style={{ color: 'white', margin: '0px' }}>
-          <img
-            alt=""
-            src={`${process.env.PUBLIC_URL}/pictures/logo_white_newfont.png`}
-            className="d-inline-block align-top"
-          />
-          {' '}
+          <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+            <img
+              alt=""
+              src={`${process.env.PUBLIC_URL}/pictures/image44.png`}
+              width="120"
+              height="32"
+              className="d-inline-block align-top"
+            />
+            {' '}
+          </Link>
         </Navbar.Brand>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto" activeKey={location.pathname}>
