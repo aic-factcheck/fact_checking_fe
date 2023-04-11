@@ -23,13 +23,6 @@ export default function CreateArticlePage() {
   const allowEdit = false;
   const auth = useRecoilValue(authAtom);
 
-  useEffect(() => {
-    // redirect to home if already logged in
-    if (!auth) {
-      navigate('/sign-in');
-    }
-  }, [claims]);
-
   const addArticleComponent = (!articleSubmited)
     ? (
       <CreateArticle
@@ -40,6 +33,13 @@ export default function CreateArticlePage() {
     ) : (
       <Article article={article} isEditable={allowEdit} />
     );
+
+  useEffect(() => {
+    // redirect to home if already logged in
+    if (!auth) {
+      navigate('/sign-in');
+    }
+  }, []);
 
   return (
     <Content className="site-layout" style={{ padding: '1% 2% 2% 2%', borderRadius: '10px', minHeight: '100vh' }}>

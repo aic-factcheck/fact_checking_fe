@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Col, Row, Typography, Divider, Modal, Button, Tooltip,
@@ -12,6 +12,7 @@ import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
 import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import { } from 'flag-icons';
+import { Link } from 'react-router-dom';
 import authAtom from '../../_state/auth';
 import MyTitle from '../MyTitle/index';
 import EditArticle from './edit';
@@ -50,6 +51,10 @@ export default function Article({
   const saveArticle = (starId) => {
     userActions.saveUnsaveArticle(saved, starId, setSaved).catch();
   };
+
+  useEffect(() => {
+    setSaved(article?.isSavedByUser);
+  }, [article?.isSavedByUser]);
 
   const editButton = (isEditable)
     ? (
@@ -92,9 +97,9 @@ export default function Article({
     >
       <Row>
         <Col offset={1} span={19}>
-          <a href={`/article/${article?._id}`} className="articles" style={{ color: 'black', textDecorationColor: 'black' }}>
+          <Link to={`/article/${article?._id}`} className="articles" style={{ color: 'black', textDecorationColor: 'black' }}>
             <MyTitle headline={article?.title} />
-          </a>
+          </Link>
         </Col>
         <Col offset={1} span={2}>
           {editButton}

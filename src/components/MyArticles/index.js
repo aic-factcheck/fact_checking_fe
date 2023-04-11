@@ -9,14 +9,14 @@ import myArticles from '../../_state/usersArticles';
 import authAtom from '../../_state/auth';
 
 import Article from '../article';
-import useFetchWrapper from '../../_helpers/fetch_wrapper';
+import useUserActions from '../../_actions/user.actions';
 
 const { Content } = Layout;
 
 export default function MyArticles() {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
-  const fetchWrapper = useFetchWrapper();
+  const userActions = useUserActions();
   const [myArticlesList, setMyArticlesList] = useRecoilState(myArticles);
 
   const allowEdit = true;
@@ -30,10 +30,7 @@ export default function MyArticles() {
     if (!myArticlesList) {
       const id = auth?.data.id;
       if (id) {
-        fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/articles`).then((res) => {
-          const articles = res.filter((el) => id === el?.addedBy._id);
-          setMyArticlesList(articles);
-        }).catch(console.log(''));
+        userActions.getMyArticles(id, setMyArticlesList);
       }
     }
   }, [auth, navigate, myArticlesList]);

@@ -3,6 +3,7 @@ import {
   Row, Col, Typography, Divider, Tooltip, Button,
 } from 'antd';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { BiQuestionMark } from 'react-icons/bi';
 import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
@@ -14,6 +15,7 @@ export default function Review({
   review,
 }) {
   const userActions = useUserActions();
+  const { t } = useTranslation();
 
   const [upvote, setUpvote] = useState(review?.nPositiveVotes);
 
@@ -112,7 +114,7 @@ export default function Review({
               >
                 <Button block className="reactions" style={{ borderRadius: '10px 0px 0px 10px', border: 'none', background: '#F2F2F2' }} onClick={() => addUpVote()}>
                   <AiOutlineLike style={{ marginRight: '2%' }} />
-                  {`Agree(${upvote})`}
+                  {`${t('agree')}(${upvote})`}
                 </Button>
               </Col>
               <Col
@@ -124,7 +126,7 @@ export default function Review({
               >
                 <Button block className="reactions" style={{ border: 'none', background: '#F2F2F2' }} onClick={() => addNeutralVote()}>
                   <BiQuestionMark style={{ marginRight: '2%' }} />
-                  {`Miss info(${neutralvote})`}
+                  {`${t('miss_info')}(${neutralvote})`}
                 </Button>
               </Col>
               <Col
@@ -136,7 +138,7 @@ export default function Review({
               >
                 <Button block className="reactions" style={{ borderRadius: '0px 10px 10px 0px', border: 'none', background: '#F2F2F2' }} onClick={() => addDownVote()}>
                   <AiOutlineDislike style={{ marginRight: '2%' }} />
-                  {`Disagree(${downvote})`}
+                  {`${t('disagree')}(${downvote})`}
                 </Button>
               </Col>
             </Row>

@@ -5,7 +5,7 @@ import {
 } from 'antd';
 import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
-import useFetchWrapper from '../../_helpers/fetch_wrapper';
+import useUserActions from '../../_actions/user.actions';
 import authAtom from '../../_state/auth';
 import Review from '../Review';
 
@@ -15,8 +15,8 @@ export default function Reviews({
   claim, updated,
 }) {
   const auth = useRecoilValue(authAtom);
-  const fetchWrapper = useFetchWrapper();
   const navigate = useNavigate();
+  const userActions = useUserActions();
 
   const [reviewsList, setReviewsList] = useState([]);
 
@@ -29,10 +29,7 @@ export default function Reviews({
     const articleid = claim?.article._id;
     const claimid = claim?._id;
     if (id) {
-      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles/${articleid}/claims/${claimid}/reviews`).then((res) => {
-        const reviews = res.filter((el) => claimid === el?.claimId);
-        setReviewsList(reviews);
-      }).catch(console.log(''));
+      userActions.getReviews(articleid, claimid, setReviewsList);
     }
   }, [auth, navigate, updated]);
 

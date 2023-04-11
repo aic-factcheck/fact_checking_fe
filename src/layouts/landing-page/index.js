@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import authAtom from '../../_state/auth';
-import useFetchWrapper from '../../_helpers/fetch_wrapper';
+import useUserActions from '../../_actions/user.actions';
 import Claim from '../../components/claim';
 
 const { Title } = Typography;
@@ -16,9 +16,9 @@ const { Content } = Layout;
 export default function LadingPage() {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
-  const fetchWrapper = useFetchWrapper();
+  const userActions = useUserActions();
   const { t } = useTranslation();
-  const [sliderClaimsList, setSliderClaimsList] = useState([]);
+  const [claimsList, setClaimsList] = useState([]);
 
   useEffect(() => {
     // redirect to home if already logged in
@@ -27,28 +27,7 @@ export default function LadingPage() {
     }
     const id = auth?.data.id;
     if (id) {
-      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/hot/claims`)
-        .then((res) => {
-          setSliderClaimsList(res.slice(0, 8).map((obj) => (
-            <Carousel.Item
-              key={obj._id}
-              style={{
-                padding: '15px 11% 0 11%',
-                height: '90%',
-              }}
-            >
-              <Claim
-                isEditable={false}
-                claim={obj}
-                style={{
-                  width: '100%',
-                  minHeight: '250px',
-                }}
-              />
-            </Carousel.Item>
-          )));
-        })
-        .catch();
+      userActions.getClaims(setClaimsList);
     }
   }, [auth, navigate]);
 
@@ -99,7 +78,26 @@ export default function LadingPage() {
                 textAlign: 'center',
               }}
             >
-              {sliderClaimsList}
+              {
+                claimsList?.slice(0, 8).map((obj) => (
+                  <Carousel.Item
+                    key={obj._id}
+                    style={{
+                      padding: '15px 11% 0 11%',
+                      height: '90%',
+                    }}
+                  >
+                    <Claim
+                      isEditable={false}
+                      claim={obj}
+                      style={{
+                        width: '100%',
+                        minHeight: '250px',
+                      }}
+                    />
+                  </Carousel.Item>
+                ))
+              }
             </Carousel>
           </Col>
         </Row>
@@ -113,6 +111,18 @@ export default function LadingPage() {
           <div
             className="contentLand"
           >
+            <Row
+              style={{
+                textAlign: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Title level={1}>{t('mission')}</Title>
+              <p>
+                {t('mission_explain')}
+              </p>
+            </Row>
+            <Divider />
             <Row style={{ margin: '3%' }}>
               <Col offset={2} span={6}>
                 <img
@@ -186,18 +196,6 @@ export default function LadingPage() {
           <div
             className="contentLand"
           >
-            <Row
-              style={{
-                textAlign: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Title level={1}>{t('mission')}</Title>
-              <p>
-                {t('mission_explain')}
-              </p>
-            </Row>
-            <Divider />
 
             <Row
               style={{

@@ -16,14 +16,15 @@ export default function ProfileSidebar() {
 
   return (
     <Content
-      className="site-layout"
       style={{
         padding: '0%', borderRadius: '10px', minHeight: '100vh', marginTop: '2%', margin: '2%',
       }}
     >
-      <Tab.Container id="left-tabs-example" defaultActiveKey="1st" style={{ paddingLeft: '0' }}>
+      <Tab.Container
+        defaultActiveKey="1st"
+      >
         <Row>
-          <Col sm={3}>
+          <Col sm={2}>
             <Nav variant="pills" className="flex-column">
               <Nav.Item>
                 <Nav.Link eventKey="1st" className="whites">{t('score')}</Nav.Link>
@@ -39,21 +40,25 @@ export default function ProfileSidebar() {
               </Nav.Item>
             </Nav>
           </Col>
-          <Col sm={9} style={{ paddingLeft: '0' }}>
-            <Tab.Content>
-              <Tab.Pane eventKey="1st">
-                <Scoreboard />
-              </Tab.Pane>
-              <Tab.Pane eventKey="2nd">
-                <EditProfile />
-              </Tab.Pane>
-              <Tab.Pane eventKey="3rd">
-                <MyArticles />
-              </Tab.Pane>
-              <Tab.Pane eventKey="4th">
-                <MyClaims />
-              </Tab.Pane>
-            </Tab.Content>
+          <Col sm={9} xl={9} style={{ marginLeft: '1%' }}>
+            <Row className="justify-content-center">
+              <Col sm={9} xl={8} style={{ paddingLeft: '0' }}>
+                <Tab.Content>
+                  <Tab.Pane eventKey="1st">
+                    <Scoreboard />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="2nd">
+                    <EditProfile />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="3rd">
+                    <MyArticles />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="4th">
+                    <MyClaims />
+                  </Tab.Pane>
+                </Tab.Content>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Tab.Container>

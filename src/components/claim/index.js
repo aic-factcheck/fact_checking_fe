@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import {
   PlusCircleOutlined, ReadOutlined, EditOutlined, UpCircleOutlined, DownCircleOutlined,
 } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 import authAtom from '../../_state/auth';
 import EditClaim from './edit';
 import AddReview from '../AddReview';
@@ -104,10 +105,10 @@ export default function Claim({
             border: 'none',
           }}
         >
-          {t('add')}
+          {t('add_review')}
         </Button>
         <Modal
-          title={t('add')}
+          title={t('add_review')}
           open={openAddReview}
           onOk={handleOkAddReview}
           // confirmLoading={confirmLoading}
@@ -136,9 +137,9 @@ export default function Claim({
       <Row>
         <Col span={24}>
           <Paragraph style={{ color: 'black' }}>
-            <a href={`/article/${claim?.article._id}`} className="claims" style={{ color: 'black', textDecorationColor: 'black' }}>
+            <Link to={`/article/${claim?.article._id}`} className="claims" style={{ color: 'black', textDecorationColor: 'black' }}>
               <MyTitle headline={claim?.text} />
-            </a>
+            </Link>
           </Paragraph>
         </Col>
       </Row>

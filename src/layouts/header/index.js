@@ -10,7 +10,11 @@ import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  Col, Row,
+} from 'antd';
 import authAtom from '../../_state/auth';
 
 export default function CustomHeader() {
@@ -22,44 +26,30 @@ export default function CustomHeader() {
 
   const navItems = (auth)
     ? (
-      <Container fluid width="100%" style={{ zIndex: 9999 }}>
-        <Dropdown style={{ background: 'none', border: '0px solid red' }}>
-          <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary" style={{ background: 'none', border: '0px' }}>
-            <Button className="rounded-circle" size="sm" style={{ background: 'white', border: '0px' }}>
-              <img
-                src={`${process.env.PUBLIC_URL}/user.svg`}
-                alt="user"
-                style={{ paddingLeft: '0%' }}
-                width="30px"
-              />
-            </Button>
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu variant="light">
-            <Dropdown.Item href="/profile">
-              <UserOutlined />
-              {'     '}
-              {t('profile')}
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item href="/logout">
-              <LogoutOutlined />
-              {'     '}
-              {t('logout')}
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-
-        <Navbar.Brand href="/" style={{ color: 'white' }}>
-          Fact Check
-        </Navbar.Brand>
+      <Container fluid width="100%" style={{ zIndex: 1 }}>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
+        <Navbar.Brand className="mx-auto" href="/" style={{ color: 'white', margin: '0px' }}>
+          <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+            <img
+              alt=""
+              src={`${process.env.PUBLIC_URL}/pictures/image44.png`}
+              width="120"
+              height="32"
+              className="d-inline-block align-top"
+            />
+            {' '}
+          </Link>
+        </Navbar.Brand>
+        <Navbar.Collapse id="responsive-navbar-nav" style={{ paddingRight: '10px' }}>
           <Nav className="me-auto" activeKey={location.pathname}>
-            <Nav.Link as={Link} to="/claims" active={location.pathname === '/claims'} style={{ color: 'white' }}>{t('claims')}</Nav.Link>
-            <Nav className="me-auto" activeKey={location.pathname}>
-              <Nav.Link as={Link} to="/articles" active={location.pathname === '/articles'} style={{ color: 'white' }}>{t('articles')}</Nav.Link>
-            </Nav>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              <Nav.Link as={Link} to="/claims" active={location.pathname === '/claims'} style={{ color: 'white', fontWeight: '500' }}>{t('claims')}</Nav.Link>
+            </Link>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              <Nav className="me-auto" activeKey={location.pathname}>
+                <Nav.Link as={Link} to="/articles" active={location.pathname === '/articles'} style={{ color: 'white', fontWeight: '500' }}>{t('articles')}</Nav.Link>
+              </Nav>
+            </Link>
           </Nav>
           <Nav activeKey={location.pathname} style={{ float: 'left' }}>
             <Nav.Item style={{ color: 'white' }}>
@@ -94,10 +84,15 @@ export default function CustomHeader() {
       </Container>
     ) : (
       <Container fluid width="100%" style={{ zIndex: 9999, margin: '0px' }}>
-        <Navbar.Brand href="/" style={{ color: 'white' }}>
-          Fact Check
-        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Brand className="mx-auto" href="/" style={{ color: 'white', margin: '0px' }}>
+          <img
+            alt=""
+            src={`${process.env.PUBLIC_URL}/pictures/logo_white_newfont.png`}
+            className="d-inline-block align-top"
+          />
+          {' '}
+        </Navbar.Brand>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto" activeKey={location.pathname}>
             {' '}
@@ -120,22 +115,80 @@ export default function CustomHeader() {
               >
                 <span className="fi fi-cz" style={{ whiteSpace: 'no-wrap' }} />
               </Button>
+              <Button
+                onClick={() => i18next.changeLanguage('sk')}
+                style={{
+                  background: 'none', border: 'none', alignItems: 'flex-end', display: 'inline-flex',
+                }}
+              >
+                <span className="fi fi-sk" style={{ whiteSpace: 'no-wrap' }} />
+              </Button>
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>
       </Container>
     );
 
-  return (
-    <Navbar
-      width="100%"
-      collapseOnSelect
-      expand="md"
-      style={{
-        backgroundColor: '#d86e3d', fontWeight: 'bold', color: 'white', fontSize: 'medium',
+  const profileIsLoggedIn = (auth)
+    ? (
+      <Dropdown style={{
+        background: 'none', border: '0px solid red', backgroundColor: 'none', position: 'sticky', zIndex: '7',
       }}
-    >
-      {navItems}
-    </Navbar>
+      >
+        <DropdownButton
+          id="dropdown-button-dark-example1"
+          variant="link"
+          style={{
+            background: 'none', border: '0px', backgroundColor: 'none', color: 'white',
+          }}
+          title={(
+            <Button className="rounded-circle" size="sm" style={{ background: 'white', border: '0px' }}>
+              <img
+                src={`${process.env.PUBLIC_URL}/user.svg`}
+                alt="user"
+                style={{ paddingLeft: '0%' }}
+                width="28px"
+              />
+            </Button>
+)}
+          align="end"
+        >
+          <Link to="/profile" style={{ textDecoration: 'none' }}>
+            <Dropdown.Item href="/profile">
+              <UserOutlined />
+              {'     '}
+              {t('profile')}
+            </Dropdown.Item>
+          </Link>
+          <Dropdown.Divider />
+          <Link to="/logout" style={{ textDecoration: 'none' }}>
+            <Dropdown.Item href="/logout">
+              <LogoutOutlined />
+              {'     '}
+              {t('logout')}
+            </Dropdown.Item>
+          </Link>
+        </DropdownButton>
+      </Dropdown>
+    ) : (<div> </div>);
+
+  return (
+    <Row style={{ width: '100%', background: '#d86e3d' }}>
+      <Col xs={20} sm={21} md={21} lg={23} xl={23}>
+        <Navbar
+          width="100%"
+          collapseOnSelect
+          expand="md"
+          style={{
+            backgroundColor: '#d86e3d', fontWeight: 'bold', color: 'white', fontSize: 'medium',
+          }}
+        >
+          {navItems}
+        </Navbar>
+      </Col>
+      <Col>
+        {profileIsLoggedIn}
+      </Col>
+    </Row>
   );
 }

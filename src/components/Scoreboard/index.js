@@ -1,15 +1,21 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import {
   Row, Col,
   Table, Divider,
 } from 'antd';
-import { AiFillStar } from 'react-icons/ai';
+import { AiFillStar, AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
+import { useTranslation } from 'react-i18next';
+import {
+  UpCircleOutlined, DownCircleOutlined,
+} from '@ant-design/icons';
+import { BiQuestionMark } from 'react-icons/bi';
 import authAtom from '../../_state/auth';
 import MyTitle from '../MyTitle';
+import useUserActions from '../../_actions/user.actions';
 
 const columns = [
   {
@@ -22,7 +28,7 @@ const columns = [
   },
   {
     title: 'Saved Score',
-    dataIndex: 'chinese',
+    dataIndex: 'nArticles',
     sorter: {
       compare: (a, b) => a.chinese - b.chinese,
       multiple: 3,
@@ -30,7 +36,7 @@ const columns = [
   },
   {
     title: 'Liked Score',
-    dataIndex: 'math',
+    dataIndex: 'nClaims',
     sorter: {
       compare: (a, b) => a.math - b.math,
       multiple: 2,
@@ -38,52 +44,32 @@ const columns = [
   },
   {
     title: 'Agreed Score',
-    dataIndex: 'english',
+    dataIndex: 'nReviews',
     sorter: {
       compare: (a, b) => a.english - b.english,
       multiple: 1,
     },
   },
 ];
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    chinese: 98,
-    math: 60,
-    english: 70,
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    chinese: 98,
-    math: 66,
-    english: 89,
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    chinese: 98,
-    math: 90,
-    english: 70,
-  },
-  {
-    key: '4',
-    name: 'Jim Red',
-    chinese: 88,
-    math: 99,
-    english: 89,
-  },
-];
 
 export default function Scoreboard() {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const userActions = useUserActions();
+
+  const [stats, setStats] = useState();
+  const [leaderboard, setLeaderboard] = useState([]);
 
   useEffect(() => {
     // redirect to home if already logged in
     if (!auth) {
       navigate('/sign-in');
+    }
+    const id = auth?.data.id;
+    if (id) {
+      userActions.getUserStats(setStats);
+      userActions.getLeaderboard(setLeaderboard);
     }
   }, [auth, navigate]);
 
@@ -94,67 +80,79 @@ export default function Scoreboard() {
           <img alt="leaders" width="100%" src={`${process.env.PUBLIC_URL}/pictures/trophy.png`} />
         </Col>
 
-        <Col span={16}>
+        <Col span={21}>
           <Row>
-            Your rank : 12
+            <MyTitle headline={`${t('your_rank')} :  ${stats?.articles?.total}`} fontcolor="white" />
           </Row>
           <Divider style={{ margin: '2%' }} />
           <Row>
-            <Col sm={6}>
+            <Col span={12}>
               <Row>
-                <Col>
+                <Col offset={1}>
                   <AiFillStar />
-                  {' '}
-                  12
+                </Col>
+                <Col span={1} style={{ marginLeft: '2%' }}>
+                  {stats?.articles?.nSaved}
                 </Col>
                 <Col offset={1}>
-                  saved your articles
+                  {`  ${t('saved_your_articles')}`}
                 </Col>
               </Row>
               <Row>
-                <Col>
-                  ✔️
-                  {' '}
-                  12
+                <Col offset={1}>
+                  <UpCircleOutlined />
+                </Col>
+                <Col span={1} style={{ marginLeft: '2%' }}>
+                  {stats?.claims?.nPositiveVotes}
                 </Col>
                 <Col offset={1}>
-                  liked your claims
+                  {`  ${t('liked_your_claims')}`}
                 </Col>
               </Row>
               <Row>
-                <Col style={{ marginRight: '2%' }}>
-                  &#128077; 5
+                <Col offset={1}>
+                  <AiOutlineLike />
+                </Col>
+                <Col span={1} style={{ marginLeft: '2%' }}>
+                  {stats?.reviews?.nPositiveVotes}
                 </Col>
                 <Col offset={1}>
-                  agreed your reviews
+                  {`  ${t('agreed_your_reviews')}`}
                 </Col>
               </Row>
             </Col>
-            <Col sm={9}>
+            <Col span={12}>
               <Row>
-                <Col>
-                  ❌
-                  {' '}
-                  12
+                <Col offset={1}>
+                  <DownCircleOutlined />
+                </Col>
+                <Col span={1} style={{ marginLeft: '2%' }}>
+                  {stats?.claims?.nNegativeVotes}
                 </Col>
                 <Col offset={1}>
-                  disliked your claims
+                  {`  ${t('disliked_your_claims')}`}
                 </Col>
               </Row>
               <Row>
-                <Col style={{ marginRight: '2%' }}>
-                  &#128078; 3
+                <Col offset={1}>
+                  <AiOutlineDislike />
+                </Col>
+                <Col span={1} style={{ marginLeft: '2%' }}>
+                  {stats?.reviews?.nNegativeVotes}
                 </Col>
                 <Col offset={1}>
-                  disagreed your reviews
+                  {`  ${t('disagreed_your_reviews')}`}
                 </Col>
               </Row>
               <Row>
-                <Col style={{ marginRight: '2%' }}>
-                  &#10068; 1
+                <Col offset={1}>
+                  <BiQuestionMark />
+                </Col>
+                <Col span={1} style={{ marginLeft: '2%' }}>
+                  {stats?.reviews?.nNeutralVotes}
                 </Col>
                 <Col offset={1}>
-                  reviews miss key information
+                  {`  ${t('reviews_miss_key_info')}`}
                 </Col>
               </Row>
             </Col>
@@ -170,8 +168,8 @@ export default function Scoreboard() {
         <Col sm={6}>
           <img alt="leaders" width="100%" src={`${process.env.PUBLIC_URL}/pictures/scoreboard.png`} style={{ padding: '5%' }} />
         </Col>
-        <Col sm={12}>
-          <Table columns={columns} dataSource={data} />
+        <Col sm={18}>
+          <Table columns={columns} dataSource={leaderboard} />
         </Col>
       </Row>
     </div>

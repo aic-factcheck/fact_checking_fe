@@ -27,6 +27,7 @@
     "negative": "Negativní",
     "not_enough_info": "Neodostatek informací",
     "add_article": "Přidat článek",
+    "add_review": "Hodnotit",
     "title": "Název",
     "source_url": "Zdroj URL",
     "language": "Jazyk",
@@ -56,5 +57,15 @@
     "please_last": "Zadejte Vaše druhé jméno!",
     "please_mail": "Zadejte Váš email!",
     "please_pass": "Zadejte Vaše helo!",
-    "profile": "Profil"
+    "profile": "Profil",
+    "agree": "Souhlas",
+    "disagree": "Nesouhlas",
+    "miss_info": "Chybí info",
+    "your_rank": "Tvuj rank",
+    "saved_your_articles": "Uložených článkú",
+    "liked_your_claims": "Zajímavých tvrzení",
+    "agreed_your_reviews": "Souhlasú s tvrzeními",
+    "disliked_your_claims": "Nezajímavých tvrzení",
+    "disagreed_your_reviews": "Nesúhlasú s tvrzeními",
+    "reviews_miss_key_info": "Chybí info v tvrzení"
 }

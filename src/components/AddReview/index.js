@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Button, Form, Input, message, Select, Row, Col, Typography, Divider,
+  Button, Form, Input, Select, Row, Col, Typography, Divider,
 } from 'antd';
 import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
-import useFetchWrapper from '../../_helpers/fetch_wrapper';
+import useUserActions from '../../_actions/user.actions';
 import authAtom from '../../_state/auth';
 // eslint-disable-next-line
 // import type { SelectProps } from 'antd';
@@ -14,13 +14,12 @@ import authAtom from '../../_state/auth';
 const { Option } = Select;
 const { Paragraph } = Typography;
 const { Title } = Typography;
-// const options: SelectProps['options'] = [];
 
 export default function AddReview({
   claim,
 }) {
   const auth = useRecoilValue(authAtom);
-  const fetchWrapper = useFetchWrapper();
+  const userActions = useUserActions();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -38,11 +37,7 @@ export default function AddReview({
     const articleid = claim?.article._id;
     const claimid = claim?._id;
     if (id) {
-      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles/${articleid}/claims/${claimid}/reviews`).then((res) => {
-        const reviews = res.filter((el) => claimid === el?.claimId);
-        setReviewsList(reviews);
-        console.log('');
-      }).catch(console.log(''));
+      userActions.getReviews(articleid, claimid, setReviewsList);
     }
   }, [auth, navigate]);
 
@@ -63,18 +58,8 @@ export default function AddReview({
     mergedValues.links = linksList;
 
     if (id) {
-      fetchWrapper.post(`${process.env.REACT_APP_API_BASE}/articles/${articleid}/claims/${claimid}/reviews`, values)
-        .then((res) => {
-          const mergedReviews = [...reviewsList];
-          res.key = res._id;
-          res.addedBy.firstName = auth?.data.firstName;
-          res.addedBy.lastName = auth?.data.lastName;
-          mergedReviews.push(res);
-          message.success('Successfully added new review');
-          claimForm.resetFields(['text']);
-          setReviewsList(mergedReviews);
-        })
-        .catch((e) => message.error(e));
+      // eslint-disable-next-line max-len
+      userActions.addreview(articleid, claimid, setReviewsList, values, reviewsList, claimForm);
     }
   };
 

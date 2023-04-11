@@ -7,7 +7,7 @@ import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import authAtom from '../../_state/auth';
-import useFetchWrapper from '../../_helpers/fetch_wrapper';
+import useUserActions from '../../_actions/user.actions';
 import Article from '../../components/article';
 import Claim from '../../components/claim';
 import MyTitle from '../../components/MyTitle';
@@ -18,8 +18,8 @@ const { Content } = Layout;
 export default function ReviewArticle() {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
-  const fetchWrapper = useFetchWrapper();
   const { t } = useTranslation();
+  const userActions = useUserActions();
 
   const [article, setArticle] = useState();
   const [claims, setClaims] = useState([]);
@@ -50,11 +50,8 @@ export default function ReviewArticle() {
     }
     const id = auth?.data.id;
     if (id) {
-      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles/${articleId}`).then((res1) => { setArticle(res1); console.log(''); }).catch(console.log(''));
-      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles/${articleId}/claims`).then((res2) => {
-        const claimsList = res2.filter((el) => articleId === el?.article._id);
-        setClaims(claimsList); console.log('');
-      }).catch(console.log(''));
+      userActions.getArticle(articleId, setArticle);
+      userActions.getClaimsOfArticle(articleId, setClaims);
     }
   }, [auth, navigate]);
 

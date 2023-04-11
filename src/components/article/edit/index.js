@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Button, Form, Input, Select, message,
+  Button, Form, Input, Select,
 } from 'antd';
 import PropTypes from 'prop-types';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
-import useFetchWrapper from '../../../_helpers/fetch_wrapper';
+import useUserActions from '../../../_actions/user.actions';
 import myArticles from '../../../_state/usersArticles';
 import authAtom from '../../../_state/auth';
 
@@ -16,7 +16,7 @@ export default function EditArticle({
   article, indexEdit,
 }) {
   const auth = useRecoilValue(authAtom);
-  const fetchWrapper = useFetchWrapper();
+  const userActions = useUserActions();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [lang, setLanguage] = useState('cz');
@@ -35,38 +35,7 @@ export default function EditArticle({
     mergedValues.sourceType = 'article';
     const id = article._id;
 
-    fetchWrapper.patch(`${process.env.REACT_APP_API_BASE}/articles/${id}`, mergedValues)
-      .then(() => {
-        message.success('Successfully edited article');
-
-        // eslint-disable-next-line prefer-const
-        let articleToEdit = { ...myArticlesList[indexEdit] };
-
-        if (articleToEdit?.title) {
-          articleToEdit.title = values.title;
-        }
-
-        if (articleToEdit?.sourceUrl) {
-          articleToEdit.sourceUrl = values.sourceUrl;
-        }
-
-        if (articleToEdit?.text) {
-          articleToEdit.text = values.text;
-        }
-
-        if (articleToEdit?.lang) {
-          articleToEdit.lang = values.lang;
-        }
-
-        // eslint-disable-next-line max-len
-        const mergedArticles = [...myArticlesList.slice(0, indexEdit), articleToEdit, ...myArticlesList.slice(indexEdit + 1)];
-
-        setMyArticlesList(mergedArticles);
-
-        // fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles`).then((res)
-        // => setMyArticles(res)).catch(console.log(''));
-      })
-      .catch((e) => message.error(e));
+    userActions.editArticle(id, mergedValues, myArticlesList, indexEdit, values, setMyArticlesList);
   };
 
   const handleChange = (value) => {
@@ -132,7 +101,12 @@ export default function EditArticle({
       >
         <Input.TextArea rows={8} />
       </Form.Item>
-      <Form.Item wrapperCol={{ span: 22, offset: 4 }}>
+      <Form.Item
+        wrapperCol={{
+          offset: 4,
+          span: 20,
+        }}
+      >
         <Button type="primary" htmlType="submit" disabled={false}>
           {t('save')}
         </Button>

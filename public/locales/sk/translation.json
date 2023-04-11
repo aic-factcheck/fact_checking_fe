@@ -6,7 +6,7 @@
     "add": "Pridať",
     "sign_in": "Prihlásiť",
     "sign_up": "Zaregistrovať",
-    "reviews": "Hodnotenie",
+    "reviews": "Hodnotenia",
     "hot_articles": "Populárne články",
     "hot_claims": "Populárne tvrdenia",
     "upvote": "Zaujímavé",
@@ -27,6 +27,7 @@
     "negative": "Negatívne",
     "not_enough_info": "Neodostatok informácií",
     "add_article": "Pridať článok",
+    "add_review": "Hodnotiť",
     "title": "Názov",
     "source_url": "Zdroj URL",
     "language": "Jazyk",
@@ -56,5 +57,15 @@
     "please_last": "Zadajte Vaše priezvisko!",
     "please_mail": "Zadajte Váš email!",
     "please_pass": "Zadajte Vaše heslo!",
-    "profile": "Profil"
+    "profile": "Profil",
+    "agree": "Súhlas",
+    "disagree": "Nesúhlas",
+    "miss_info": "Chýba info",
+    "your_rank": "Tvoj rank",
+    "saved_your_articles": "Uložených článkov",
+    "liked_your_claims": "Zaujímavých tvrdení",
+    "agreed_your_reviews": "Súhlasov s tvrdeniami",
+    "disliked_your_claims": "Nezaujímavých tvrdení",
+    "disagreed_your_reviews": "Nesúhlasov s tvrdeniami",
+    "reviews_miss_key_info": "Chýba info v tvrdení"
 }

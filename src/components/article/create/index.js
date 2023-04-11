@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Button, Form, Input, Select, message, Switch,
+  Button, Form, Input, Select, Switch,
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import myArticles from '../../../_state/usersArticles';
-import useFetchWrapper from '../../../_helpers/fetch_wrapper';
+import useUserActions from '../../../_actions/user.actions';
 import MyTitle from '../../MyTitle/index';
 import authAtom from '../../../_state/auth';
 
 const { Option } = Select;
 
 export default function CreateArticle({ articleSubmited, setArticleSubmited, setArticle }) {
-  const fetchWrapper = useFetchWrapper();
   // eslint-disable-next-line no-unused-vars
+  const userActions = useUserActions();
   const [loadFromURL, setLoadFromURL] = useState(false);
   const { t } = useTranslation();
   const [lang, setLanguage] = useState('cz');
@@ -32,10 +32,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
     if (!myArticlesList) {
       const id = auth?.data.id;
       if (id) {
-        fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/articles`).then((res) => {
-          const articles = res.filter((el) => id === el?.addedBy._id);
-          setMyArticlesList(articles);
-        }).catch(console.log(''));
+        userActions.getMyArticles(id, setMyArticlesList);
       }
     }
   }, [auth, navigate, myArticlesList]);
@@ -45,15 +42,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
     if (textData !== undefined && textData.value.length > 5) {
       const finalURL = `${process.env.REACT_APP_API_GET_TEXT}?url=${textData.value}`;
       console.log(finalURL);
-      fetchWrapper.get(`${finalURL}`)
-        .then((res) => {
-          // eslint-disable-next-line prefer-const
-          let rawTextData = document.getElementById('rawTextData');
-          if (rawTextData !== undefined) {
-            rawTextData.value = res.raw_text;
-          }
-        })
-        .catch(console.log(''));
+      userActions.getTextFromURL(finalURL);
     }
   };
 
@@ -84,16 +73,8 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
       },
     };
 
-    fetchWrapper.post(`${process.env.REACT_APP_API_BASE}/articles`, mergedValues)
-      .then((res) => {
-        message.success('Successfully added new article');
-        console.log(myArticlesList);
-        const mergedArticles = [...myArticlesList, newArticle];
-        setMyArticlesList(mergedArticles);
-        setArticle(res);
-        setArticleSubmited(true);
-      })
-      .catch((e) => message.error(e));
+    // eslint-disable-next-line max-len
+    userActions.createArticle(mergedValues, myArticlesList, newArticle, setMyArticlesList, setArticle, setArticleSubmited);
   };
 
   const handleChange = (value) => {

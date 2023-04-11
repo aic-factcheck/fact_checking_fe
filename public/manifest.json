@@ -3,17 +3,17 @@
   "name": "Create React App Sample",
   "icons": [
     {
-      "src": "/pictures/high-fact3.png",
+      "src": "/pictures/high-fact3-removebg.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "/pictures/high-fact3.png",
+      "src": "/pictures/high-fact3-removebg.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/pictures/high-fact3.png",
+      "src": "/pictures/high-fact3-removebg.png",
       "type": "image/png",
       "sizes": "512x512"
     }

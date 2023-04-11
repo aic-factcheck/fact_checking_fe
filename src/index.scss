@@ -134,6 +134,14 @@ a.claims:hover {
   transform: scale(1.2);
 }
 
+#leaderboard {
+  color: white
+}
+
+.dropdown-toggle::after {
+  display: none !important; 
+}
+
 
 @media all and (orientation:landscape) {
   .content {

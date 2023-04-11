@@ -37,6 +37,7 @@
     "load_text_from_url": "Load text from URL",
     "article_text": "Text",
     "add_claim": "Add claim",
+    "add_review": "Add review",
     "claim_add_explain": "Claim - A sentence from the article to be fact-checked.",
     "unsave": "Unsave",
     "save": "Save",
@@ -56,5 +57,15 @@
     "please_last": "Please input your last name!",
     "please_mail": "Please input your email!",
     "please_pass": "Please input your password!",
-    "profile": "Profile"
+    "profile": "Profile",
+    "agree": "Agree",
+    "disagree": "Disagree",
+    "miss_info": "Miss info",
+    "your_rank": "Your rank",
+    "saved_your_articles": "Saved articles",
+    "liked_your_claims": "Upvoted claims",
+    "agreed_your_reviews": "Agreed reviews",
+    "disliked_your_claims": "Downvoted claims",
+    "disagreed_your_reviews": "Disagreed reviews",
+    "reviews_miss_key_info": "Reviews miss key info"
 }
