@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Row, Col, Typography, Divider, List, Tooltip,
+  Row, Col, Typography, Divider, List,
 } from 'antd';
 import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
-import { BiLike, BiDislike, BiQuestionMark } from 'react-icons/bi';
-import useFetchWrapper from '../../_helpers/fetch_wrapper';
+import useUserActions from '../../_actions/user.actions';
 import authAtom from '../../_state/auth';
+import Review from '../Review';
 
 const { Paragraph } = Typography;
-const { Title } = Typography;
 
 export default function Reviews({
-  claim,
+  claim, updated,
 }) {
   const auth = useRecoilValue(authAtom);
-  const fetchWrapper = useFetchWrapper();
   const navigate = useNavigate();
+  const userActions = useUserActions();
 
   const [reviewsList, setReviewsList] = useState([]);
 
@@ -30,13 +29,9 @@ export default function Reviews({
     const articleid = claim?.article._id;
     const claimid = claim?._id;
     if (id) {
-      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/articles/${articleid}/claims/${claimid}/reviews`).then((res) => {
-        const reviews = res.filter((el) => claimid === el?.claimId);
-        setReviewsList(reviews);
-        console.log('');
-      }).catch(console.log(''));
+      userActions.getReviews(articleid, claimid, setReviewsList);
     }
-  }, [auth, navigate]);
+  }, [auth, navigate, updated]);
 
   return (
     <div>
@@ -50,8 +45,7 @@ export default function Reviews({
           </Paragraph>
         </Col>
       </Row>
-      <Divider style={{ backgroundColor: 'white', width: '5%' }} />
-      <Title level={5} className="defaultForm" style={{ color: 'white', whiteSpace: 'pre-line', textDecoration: 'none' }}>Reviews :</Title>
+      <Divider style={{ backgroundColor: 'white', width: '0%' }} />
       <List
         style={{
           padding: '0%',
@@ -60,75 +54,7 @@ export default function Reviews({
         {
           // _id, priority, addedBy, articleId, text
           reviewsList.map((obj) => (
-            <Row>
-              <Col span={1} style={{ marginTop: '2%', marginRight: '0%' }}>
-                <Row justify="end">
-                  <img
-                    src={`${process.env.PUBLIC_URL}/user.svg`}
-                    alt="user"
-                    className="myUserIcon"
-                  />
-                </Row>
-              </Col>
-              <Col span={22} style={{ marginBottom: '0%' }}>
-                <div
-                  key={obj._id}
-                  style={{
-                    padding: '1%', background: '#e6cec488', borderRadius: '10px', margin: '1%',
-                  }}
-                >
-                  <Row style={{
-                    borderRadius: '10px', textAlign: 'left', paddingLeft: '2%', paddingTop: '0%', fontWeight: 'bold',
-                  }}
-                  >
-                    <Col span={20}>
-                      <Paragraph style={{ color: 'black', margin: '0%' }}>
-                        <p style={{ display: 'inline' }}>
-                          {`${obj?.addedBy.firstName} ${obj?.addedBy.lastName}`}
-                          {obj.vote === 'positive' && <BiLike style={{ marginLeft: '7px' }} /> }
-                          {obj.vote === 'negative' && <BiDislike style={{ marginLeft: '7px' }} />}
-                          {obj.vote === 'no_info' && <BiQuestionMark style={{ marginLeft: '7px' }} />}
-                        </p>
-                      </Paragraph>
-                    </Col>
-                  </Row>
-                  <Row style={{
-                    borderRadius: '10px', textAlign: 'left', paddingLeft: '2%', paddingTop: '0%',
-                  }}
-                  >
-                    <Col span={20}>
-                      <Paragraph style={{ color: 'black', margin: '0%' }}>
-                        {obj.text}
-                      </Paragraph>
-                    </Col>
-                  </Row>
-                  <Row style={{
-                    borderRadius: '10px', textAlign: 'left', paddingLeft: '2%', paddingTop: '0%',
-                  }}
-                  >
-                    <Col span={20}>
-                      <Paragraph style={{ color: 'black', margin: '0%' }}>
-                        <ul>
-                          {
-                            obj.links.map((objLink) => (
-                              <li style={{ display: 'inline-block', margin: '0' }}>
-                                <Tooltip title={`${objLink}`}>
-                                  <span>
-                                    <a href={`${objLink}`} style={{ color: 'black', textDecoration: 'underline', textDecorationColor: 'black' }}>
-                                      { `${objLink.substring(0, 20)}`}
-                                    </a>
-                                  </span>
-                                </Tooltip>
-                              </li>
-                            ))
-                          }
-                        </ul>
-                      </Paragraph>
-                    </Col>
-                  </Row>
-                </div>
-              </Col>
-            </Row>
+            <Review review={obj} />
           ))
         }
       </List>
@@ -146,6 +72,7 @@ Reviews.propTypes = {
     language: PropTypes.string,
     createdAt: PropTypes.string,
   }).isRequired,
+  updated: PropTypes.func.isRequired,
 };
 
 Reviews.defaultProps = {

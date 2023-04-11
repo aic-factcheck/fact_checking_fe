@@ -8,7 +8,7 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 
 import authAtom from '../../_state/auth';
 import myClaims from '../../_state/usersClaims';
-import useFetchWrapper from '../../_helpers/fetch_wrapper';
+import useUserActions from '../../_actions/user.actions';
 import Claim from '../claim';
 
 const { Content } = Layout;
@@ -16,7 +16,7 @@ const { Content } = Layout;
 export default function MyClaims() {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
-  const fetchWrapper = useFetchWrapper();
+  const userActions = useUserActions();
   const allowEdit = true;
 
   const [myClaimsList, setMyClaimsList] = useRecoilState(myClaims);
@@ -30,11 +30,7 @@ export default function MyClaims() {
 
     if (!myClaimsList) {
       if (id) {
-        fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/claims`).then((res) => {
-          const claims = res.filter((el) => id === el?.addedBy._id);
-          console.log('');
-          setMyClaimsList(claims);
-        }).catch(console.log(''));
+        userActions.getMyClaims(id, setMyClaimsList);
       }
     }
   }, [auth, navigate, myClaimsList, setMyClaimsList]);

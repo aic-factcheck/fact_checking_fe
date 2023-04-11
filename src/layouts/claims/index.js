@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { List, Layout } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import { useTranslation } from 'react-i18next';
 import authAtom from '../../_state/auth';
-import useFetchWrapper from '../../_helpers/fetch_wrapper';
+import useUserActions from '../../_actions/user.actions';
 import Claim from '../../components/claim';
 import MyTitle from '../../components/MyTitle';
 
@@ -12,7 +13,8 @@ const { Content } = Layout;
 export default function ClaimPages() {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
-  const fetchWrapper = useFetchWrapper();
+  const userActions = useUserActions();
+  const { t } = useTranslation();
   const [claimsList, setClaimsList] = useState([]);
   const allowEdit = false;
 
@@ -23,7 +25,7 @@ export default function ClaimPages() {
     }
     const id = auth?.data.id;
     if (id) {
-      fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/hot/claims`).then((res) => setClaimsList(res)).catch(console.log(''));
+      userActions.getClaims(setClaimsList);
     }
   }, [auth, navigate]);
 
@@ -34,7 +36,7 @@ export default function ClaimPages() {
           padding: '0% 1% 1% 1%',
         }}
       >
-        <MyTitle headline="List of claims" fontcolor="#d86e3d" />
+        <MyTitle headline={t('hot_claims')} fontcolor="#d86e3d" />
         {
           claimsList.sort((a, b) => ((a.createdAt < b.createdAt) ? 1 : -1)).map((obj) => <div key={obj._id} style={{ padding: '1%', borderRadius: '10px' }}><Claim claim={obj} isEditable={allowEdit} setMyClaimsList={setClaimsList} /></div>)
         }

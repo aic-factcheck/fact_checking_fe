@@ -5,7 +5,7 @@ import {
 } from 'antd';
 
 import { useRecoilValue } from 'recoil';
-
+import { useTranslation } from 'react-i18next';
 import authAtom from '../../_state/auth';
 import useUserActions from '../../_actions/user.actions';
 
@@ -15,6 +15,7 @@ export default function EditProfile() {
   const auth = useRecoilValue(authAtom);
   const userActions = useUserActions();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     // redirect to home if not logged in
@@ -65,7 +66,7 @@ export default function EditProfile() {
       >
         <Form.Item
           id="1st"
-          label="First name"
+          label={t('first_name')}
           name="firstName"
           rules={[
             {
@@ -79,7 +80,7 @@ export default function EditProfile() {
 
         <Form.Item
           id="2nd"
-          label="Last name"
+          label={t('last_name')}
           name="lastName"
           rules={[
             {
@@ -93,7 +94,7 @@ export default function EditProfile() {
 
         <Form.Item
           id="3rd"
-          label="Email"
+          label={t('email')}
           name="email"
           rules={[
             {
@@ -112,7 +113,7 @@ export default function EditProfile() {
           }}
         >
           <Button type="primary" htmlType="submit">
-            Submit
+            {t('submit')}
           </Button>
         </Form.Item>
       </Form>

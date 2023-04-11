@@ -17,10 +17,11 @@ export default function MyTitle({
 }
 
 MyTitle.propTypes = {
-  headline: PropTypes.string.isRequired,
+  headline: PropTypes.string,
   fontcolor: PropTypes.string,
 };
 
 MyTitle.defaultProps = {
+  headline: '',
   fontcolor: 'black',
 };

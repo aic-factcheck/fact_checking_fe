@@ -56,6 +56,10 @@ a.articles {
   text-decoration: none;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 a.articles:hover {
   opacity: 0.8;
   text-decoration: underline;
@@ -81,15 +85,73 @@ a.claims:hover {
   align-items: center!important;
 }
 
+.reactions:hover {
+  opacity: 0.6;
+}
+
+/* Default styles */
+.save-for-later {
+  display: inline-block;
+  position: relative;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+}
+
+/* Star icon */
+.save-for-later .star {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+  transition: transform 0.2s;
+}
+
+/* Button text */
+.save-for-later .text {
+  color: black;
+  visibility: hidden;
+}
+
+
+/* Button hover styles */
+.save-for-later:hover .star + .text {
+  visibility: visible;
+}
+
+
+/* Button active styles */
+
+
+/* Button active styles for the star icon only */
+.save-for-later:active .star {
+  transform: scale(1.2);
+}
+
+/* Button clicked styles */
+
+.save-for-later.clicked .star:active {
+  transform: scale(1.2);
+}
+
+#leaderboard {
+  color: white
+}
+
+.dropdown-toggle::after {
+  display: none !important; 
+}
+
+
 @media all and (orientation:landscape) {
   .content {
-    margin-right: 20%;
-    margin-left: 20%;
+    margin-right: 25%;
+    margin-left: 25%;
   }
 
   .contentLand {
-    margin-right: 12%;
-    margin-left: 12%;
+    margin-right: 16%;
+    margin-left: 16%;
   }
 
   img.myUserIcon{
@@ -100,6 +162,24 @@ a.claims:hover {
     width: 40%;
   }
 
+  .authentification {
+    margin-right: 35%;
+    margin-left: 35%;
+  }
+
+}
+
+.ant-btn-primary {
+  background-color: #d86e3d;
+}
+
+.ant-btn-primary:hover {
+  background-color: #d86e3d;
+}
+
+.ant-btn .reactions {
+  padding: 0px 0px;
+  background: '#d86e3d'
 }
 
 @media all and (orientation:portrait) {
@@ -110,6 +190,7 @@ a.claims:hover {
 
   .menuContainer{
     margin-left: 1%!important;
+    margin-right: 1%!important;
   }
 
   Col .contentLand {
@@ -121,8 +202,5 @@ a.claims:hover {
     width: 85%;
   }
 
-  .gggg {
-    color: #e6cec488;
-  }
-
 }
+

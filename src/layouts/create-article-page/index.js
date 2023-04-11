@@ -4,6 +4,7 @@ import {
   Layout, Col, Row, List,
 } from 'antd';
 import { useRecoilValue } from 'recoil';
+import { useTranslation } from 'react-i18next';
 import CreateClaim from '../../components/claim/create';
 import CreateArticle from '../../components/article/create';
 import Claim from '../../components/claim';
@@ -16,17 +17,11 @@ const { Content } = Layout;
 export default function CreateArticlePage() {
   const [articleSubmited, setArticleSubmited] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [article, setArticle] = useState({});
   const [claims, setClaims] = useState([]);
   const allowEdit = false;
   const auth = useRecoilValue(authAtom);
-
-  useEffect(() => {
-    // redirect to home if already logged in
-    if (!auth) {
-      navigate('/sign-in');
-    }
-  }, [claims]);
 
   const addArticleComponent = (!articleSubmited)
     ? (
@@ -38,6 +33,13 @@ export default function CreateArticlePage() {
     ) : (
       <Article article={article} isEditable={allowEdit} />
     );
+
+  useEffect(() => {
+    // redirect to home if already logged in
+    if (!auth) {
+      navigate('/sign-in');
+    }
+  }, []);
 
   return (
     <Content className="site-layout" style={{ padding: '1% 2% 2% 2%', borderRadius: '10px', minHeight: '100vh' }}>
@@ -104,7 +106,7 @@ export default function CreateArticlePage() {
                 borderRadius: '10px',
               }}
             >
-              <MyTitle headline="Add claim to article" fontcolor="#d86e3d" />
+              <MyTitle headline={t('add_claim')} fontcolor="#d86e3d" />
               <CreateClaim
                 articleSubmited={articleSubmited}
                 claims={claims}
@@ -121,10 +123,7 @@ export default function CreateArticlePage() {
             lg={12}
             xl={12}
             style={{
-              background: 'white',
               borderRadius: '10px',
-              paddingLeft: '2%',
-              paddingTop: '2%',
               minWidth: '360px',
               width: '100%',
             }}
@@ -134,7 +133,7 @@ export default function CreateArticlePage() {
                 width: '96%',
               }}
             >
-              <MyTitle headline="List of claims:" fontcolor="#d86e3d" />
+              <MyTitle headline={t('my_claims')} fontcolor="#d86e3d" />
               <List
                 style={{
                   padding: '1%',
@@ -145,7 +144,7 @@ export default function CreateArticlePage() {
                     <div
                       key={obj._id}
                       style={{
-                        padding: '1%', background: '#e2bead9a', border: '1px solid #e2bead9a', borderRadius: '10px',
+                        marginBottom: '1%', background: 'none', borderRadius: '10px',
                       }}
                     >
                       <Claim claim={obj} index={index} isEditable={allowEdit} />

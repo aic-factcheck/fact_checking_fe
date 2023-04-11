@@ -1,5 +1,5 @@
-import React from 'react';
-import { Layout } from 'antd';
+import React, { Suspense } from 'react';
+import { Layout, ConfigProvider } from 'antd';
 import {
   BrowserRouter,
   Routes,
@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 
 import './App.less';
-import Header from './layouts/header';
 import Footer from './layouts/footer';
 import SignIn from './layouts/authentication/sign-in';
 import SignUp from './layouts/authentication/sign-up';
@@ -18,24 +17,39 @@ import ReviewArticle from './layouts/review-article';
 import AllArticles from './layouts/articles';
 import ClaimPages from './layouts/claims';
 import LadingPage from './layouts/landing-page';
+import CustomHeader from './layouts/header';
+
+const { Content } = Layout;
 
 function App() {
   return (
     <BrowserRouter>
-      <Layout style={{ minHeight: '100vh', backgroundColor: '#e2bead9a' }}>
-        <Header />
-        <Routes>
-          <Route path="/" element={<LadingPage />} />
-          <Route path="/claims" element={<ClaimPages />} />
-          <Route path="/articles" element={<AllArticles />} />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/article/create" element={<CreateArticlePage />} />
-          <Route path="/article/:articleId" element={<ReviewArticle />} />
-        </Routes>
-        <Footer />
+      <Layout style={{ minHeight: '100vh' }}>
+        <Suspense fallback={null}>
+          <CustomHeader />
+          <Content>
+            <ConfigProvider
+              theme={{
+                token: {
+                  colorPrimary: '#d86e3d',
+                },
+              }}
+            >
+              <Routes>
+                <Route path="/" element={<LadingPage />} />
+                <Route path="/claims" element={<ClaimPages />} />
+                <Route path="/articles" element={<AllArticles />} />
+                <Route path="/sign-in" element={<SignIn />} />
+                <Route path="/sign-up" element={<SignUp />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/logout" element={<Logout />} />
+                <Route path="/article/create" element={<CreateArticlePage />} />
+                <Route path="/article/:articleId" element={<ReviewArticle />} />
+              </Routes>
+            </ConfigProvider>
+          </Content>
+          <Footer />
+        </Suspense>
       </Layout>
     </BrowserRouter>
   );

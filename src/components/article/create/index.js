@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Button, Form, Input, Select, message, Switch,
+  Button, Form, Input, Select, Switch,
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { useTranslation } from 'react-i18next';
 import myArticles from '../../../_state/usersArticles';
-import useFetchWrapper from '../../../_helpers/fetch_wrapper';
+import useUserActions from '../../../_actions/user.actions';
 import MyTitle from '../../MyTitle/index';
 import authAtom from '../../../_state/auth';
 
 const { Option } = Select;
 
 export default function CreateArticle({ articleSubmited, setArticleSubmited, setArticle }) {
-  const fetchWrapper = useFetchWrapper();
   // eslint-disable-next-line no-unused-vars
+  const userActions = useUserActions();
   const [loadFromURL, setLoadFromURL] = useState(false);
-  const [language, setLanguage] = useState('cz');
+  const { t } = useTranslation();
+  const [lang, setLanguage] = useState('cz');
   const navigate = useNavigate();
   const [myArticlesList, setMyArticlesList] = useRecoilState(myArticles);
   const auth = useRecoilValue(authAtom);
@@ -30,10 +32,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
     if (!myArticlesList) {
       const id = auth?.data.id;
       if (id) {
-        fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/articles`).then((res) => {
-          const articles = res.filter((el) => id === el?.addedBy._id);
-          setMyArticlesList(articles);
-        }).catch(console.log(''));
+        userActions.getMyArticles(id, setMyArticlesList);
       }
     }
   }, [auth, navigate, myArticlesList]);
@@ -43,15 +42,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
     if (textData !== undefined && textData.value.length > 5) {
       const finalURL = `${process.env.REACT_APP_API_GET_TEXT}?url=${textData.value}`;
       console.log(finalURL);
-      fetchWrapper.get(`${finalURL}`)
-        .then((res) => {
-          // eslint-disable-next-line prefer-const
-          let rawTextData = document.getElementById('rawTextData');
-          if (rawTextData !== undefined) {
-            rawTextData.value = res.raw_text;
-          }
-        })
-        .catch(console.log(''));
+      userActions.getTextFromURL(finalURL);
     }
   };
 
@@ -64,7 +55,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
 
   const onFinish = (values) => {
     const mergedValues = values;
-    mergedValues.language = language;
+    mergedValues.lang = lang;
     mergedValues.sourceType = 'article';
 
     const newArticle = {
@@ -72,7 +63,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
       title: values.title,
       sourceUrl: values.sourceUrl,
       // eslint-disable-next-line object-shorthand
-      language: language,
+      lang: lang,
       text: values.text,
       sourceType: 'article',
       addedBy: {
@@ -82,16 +73,8 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
       },
     };
 
-    fetchWrapper.post(`${process.env.REACT_APP_API_BASE}/articles`, mergedValues)
-      .then((res) => {
-        message.success('Successfully added new article');
-        console.log(myArticlesList);
-        const mergedArticles = [...myArticlesList, newArticle];
-        setMyArticlesList(mergedArticles);
-        setArticle(res);
-        setArticleSubmited(true);
-      })
-      .catch((e) => message.error(e));
+    // eslint-disable-next-line max-len
+    userActions.createArticle(mergedValues, myArticlesList, newArticle, setMyArticlesList, setArticle, setArticleSubmited);
   };
 
   const handleChange = (value) => {
@@ -111,11 +94,11 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
       }}
       className="defaultForm"
     >
-      <MyTitle headline="Add article" fontcolor="#d86e3d" />
+      <MyTitle headline={t('add_article')} fontcolor="#d86e3d" />
       <Form.Item
         name="title"
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
-        label="Title"
+        label={t('title')}
         rules={[
           {
             required: true,
@@ -127,7 +110,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
       <Form.Item
         name="sourceUrl"
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
-        label="Source URL"
+        label={t('source_url')}
         rules={[
           {
             required: true,
@@ -138,7 +121,7 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
       </Form.Item>
       <Form.Item
       // eslint-disable-next-line jsx-a11y/label-has-associated-control
-        label="Language"
+        label={t('language')}
         rules={[
           {
             required: true,
@@ -146,29 +129,29 @@ export default function CreateArticle({ articleSubmited, setArticleSubmited, set
         ]}
       >
         <Select defaultValue="cz" style={{ width: 120, color: '#000000' }} onChange={handleChange}>
-          <Option value="cz">Czech</Option>
-          <Option value="en">English</Option>
-          <Option value="sk">Slovak</Option>
-          <Option value="other">Other</Option>
+          <Option value="cz">{t('czech')}</Option>
+          <Option value="en">{t('english')}</Option>
+          <Option value="sk">{t('slovak')}</Option>
+          <Option value="other">{t('other')}</Option>
         </Select>
       </Form.Item>
       <Form.Item
         name="fromUrl"
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
-        label="Load text from URL"
+        label={t('load_text_from_url')}
       >
         <Switch checked={loadFromURL} onChange={onChange} />
       </Form.Item>
       <Form.Item
         name="text"
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
-        label="Article text"
+        label={t('article_text')}
       >
         <Input.TextArea rows={8} id="rawTextData" />
       </Form.Item>
       <Form.Item wrapperCol={{ span: 6, offset: 6 }}>
         <Button type="primary" htmlType="submit" disabled={articleSubmited}>
-          Submit article
+          {t('submit')}
         </Button>
       </Form.Item>
     </Form>

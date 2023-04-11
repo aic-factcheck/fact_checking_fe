@@ -1,20 +1,22 @@
 import React, { useEffect } from 'react';
 import {
-  Button, Form, Input, message,
+  Button, Form, Input,
 } from 'antd';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import useFetchWrapper from '../../../_helpers/fetch_wrapper';
+import { useTranslation } from 'react-i18next';
+import useUserActions from '../../../_actions/user.actions';
 import myClaims from '../../../_state/usersClaims';
 import authAtom from '../../../_state/auth';
 
 export default function CreateClaim({
   articleSubmited, article, claims, setClaims,
 }) {
-  const fetchWrapper = useFetchWrapper();
   const [claimForm] = Form.useForm();
   const navigate = useNavigate();
+  const userActions = useUserActions();
+  const { t } = useTranslation();
   const auth = useRecoilValue(authAtom);
   const [myClaimsList, setMyClaimsList] = useRecoilState(myClaims);
 
@@ -27,10 +29,7 @@ export default function CreateClaim({
     if (!myClaimsList) {
       const id = auth?.data.id;
       if (id) {
-        fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/users/${id}/claims`).then((res) => {
-          const claimsList = res.filter((el) => id === el?.addedBy._id);
-          setMyClaimsList(claimsList);
-        }).catch(console.log(''));
+        userActions.getMyClaims(id, setMyClaimsList);
       }
     }
   }, [auth, navigate, myClaimsList]);
@@ -54,18 +53,8 @@ export default function CreateClaim({
       _id: new Date().toString(),
     };
 
-    fetchWrapper.post(`${process.env.REACT_APP_API_BASE}/articles/${article._id}/claims`, values)
-      .then((res) => {
-        const mergedClaims = [...claims];
-        res.key = res._id;
-        mergedClaims.push(res);
-        message.success('Successfully added new claim');
-        claimForm.resetFields(['text']);
-        setClaims(mergedClaims);
-        const mergedMyClaims = [...myClaimsList, newClaim];
-        setMyClaimsList(mergedMyClaims);
-      })
-      .catch((e) => message.error(e));
+    // eslint-disable-next-line max-len
+    userActions.createClaim(article._id, values, claims, claimForm, setClaims, myClaimsList, newClaim, setMyClaimsList);
   };
 
   return (
@@ -81,7 +70,7 @@ export default function CreateClaim({
     >
       <Form.Item
         name="text"
-        label="Claim - A sentence from the article to be fact-checked."
+        label={t('claim_add_explain')}
         rules={[
           {
             required: true,
@@ -93,7 +82,7 @@ export default function CreateClaim({
 
       <Form.Item wrapperCol={{ offset: 0, span: 22 }}>
         <Button type="primary" htmlType="submit" disabled={!articleSubmited}>
-          Add claim
+          {t('add')}
         </Button>
       </Form.Item>
     </Form>
