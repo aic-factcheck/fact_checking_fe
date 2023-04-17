@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Button, Col, Form, Input, Row, Select, Switch, message, notification
+  Button, Col, Form, Input, Row, Select, message, notification,
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
+import type { FormInstance } from 'antd/es/form';
 import myArticles from '../../../_state/usersArticles';
 import MyTitle from '../../MyTitle/index';
 import authAtom from '../../../_state/auth';
 import { IArticle } from '../../../common/types';
 import articlesService from '../../../api/articles.service';
-import type { FormInstance } from 'antd/es/form';
+import articlesLoaded from '../../../_state/articlesLoaded';
 
 const { Option } = Select;
 
@@ -27,20 +28,24 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
   const [lang, setLanguage] = useState('cz');
   const navigate = useNavigate();
   const [myArticlesList, setMyArticlesList] = useRecoilState(myArticles);
+  const [loaded, setArticlesLoaded] = useRecoilState(articlesLoaded);
   const auth = useRecoilValue(authAtom);
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.user == undefined) {
+    if (auth?.user === undefined) {
       navigate('/sign-in');
     }
 
-    if (myArticlesList == undefined) {
+    console.log(myArticlesList);
+
+    if (myArticlesList.length < 1 && loaded === false) {
       const id = auth?.user?.id;
-      if (id != undefined) {
+      if (id !== undefined) {
         articlesService.getMyArticles(id).then((res: any) => {
-          /*const articles = res.filter((el) => id === el?.addedBy._id);*/
+          /* const articles = res.filter((el) => id === el?.addedBy._id); */
           setMyArticlesList(res.data);
+          setArticlesLoaded(true);
         }).catch();
       }
     }
@@ -50,9 +55,9 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
     const textData = document.getElementById('urlTextData') as HTMLInputElement;
     if (textData !== undefined && textData != null && textData.value.length > 5) {
       articlesService.getTextFromURL(textData.value).then((res: any) => {
-        formRef.current?.setFieldsValue({ text: res.data.raw_text});
+        formRef.current?.setFieldsValue({ text: res.data.raw_text });
       })
-      .catch();
+        .catch();
     }
   };
 
@@ -88,7 +93,7 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
         icon: <img alt="leaders" width="50%" src={`${process.env.PUBLIC_URL}/pictures/experience.png`} style={{ marginRight: '5%' }} />,
       });
     })
-    .catch((e) => message.error(e));
+      .catch((e) => message.error(e));
   };
 
   const handleChange = (value: string) => {
@@ -136,12 +141,15 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
           <Option value="other">{t('other')}</Option>
         </Select>
       </Form.Item>
-      <Form.Item label={t('source_url')} extra={t('tip_webscrape')} 
+      <Form.Item
+        label={t('source_url')}
+        extra={t('tip_webscrape')}
         rules={[
           {
             required: true,
           },
-        ]}>
+        ]}
+      >
         <Row gutter={2}>
           <Col span={16}>
             <Form.Item
@@ -179,6 +187,6 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
       </Form.Item>
     </Form>
   );
-}
+};
 
 export default CreateArticle;

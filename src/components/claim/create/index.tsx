@@ -11,6 +11,7 @@ import authAtom from '../../../_state/auth';
 import { IClaim, IArticle } from '../../../common/types';
 import claimsService from '../../../api/claims.service';
 import { message, notification } from 'antd';
+import claimsLoaded from '../../../_state/claimsLoaded';
 
 interface Props {
   articleSubmited: boolean,
@@ -25,6 +26,7 @@ const CreateClaim : React.FC<Props> = ({ articleSubmited, article, claims, setCl
   const { t } = useTranslation();
   const auth = useRecoilValue(authAtom);
   const [myClaimsList, setMyClaimsList] = useRecoilState(myClaims);
+  const [loaded, setClaimsLoaded] = useRecoilState(claimsLoaded);
 
   useEffect(() => {
     const id = auth?.user?.id;
@@ -33,10 +35,11 @@ const CreateClaim : React.FC<Props> = ({ articleSubmited, article, claims, setCl
       navigate('/sign-in');
     }
 
-    if (myClaimsList == undefined) {
+    if (myClaimsList.length < 1 && loaded === false) {
       claimsService.getMyClaims(id).then((res: any) => {
         //const claimsList = res.filter((el) => id === el?.addedBy._id);
         setMyClaimsList(res.data);
+        setClaimsLoaded(true);
       }).catch();
     }
   }, [auth, navigate, myClaimsList]);
