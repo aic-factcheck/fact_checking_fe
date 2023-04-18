@@ -86,7 +86,7 @@ const Scoreboard: React.FC = () => {
 
         <Col span={21}>
           <Row>
-            <MyTitle headline={`${t('your_rank')} :  ${stats?.articles?.total}`} fontcolor="white" />
+            <MyTitle headline={`${t('your_level')} :  ${stats?.user?.level}`} fontcolor="white" />
           </Row>
           <Divider style={{ margin: '2%' }} />
           <Row>

@@ -18,6 +18,7 @@ import AllArticles from './layouts/articles';
 import ClaimPages from './layouts/claims';
 import LadingPage from './layouts/landing-page';
 import CustomHeader from './layouts/header';
+import UserProfile from './layouts/userProfile';
 
 const { Content } = Layout;
 
@@ -44,6 +45,7 @@ const App: React.FC = () => (
               <Route path="/logout" element={<Logout />} />
               <Route path="/article/create" element={<CreateArticlePage />} />
               <Route path="/article/:articleId" element={<ReviewArticle />} />
+              <Route path="/profileSearch/:userId" element={<UserProfile />} />
             </Routes>
           </ConfigProvider>
         </Content>

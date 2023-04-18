@@ -121,11 +121,23 @@ const Article: React.FC<Props> = ({ article, isEditable, indexArticle }) => {
       </Row>
       <Row>
         <Col offset={1} span="auto">
-          {
-              article?.addedBy?.firstName !== undefined && article?.createdAt !== undefined
-                ? `${article?.addedBy?.firstName} ${article?.addedBy.lastName}, ${new Date(article?.createdAt).toUTCString().slice(4).slice(0, -7)}    `
-                : `${auth?.user?.firstName} ${auth?.user?.lastName}, ${new Date(article?.createdAt).toUTCString().slice(4).slice(0, -7)}    `
-          }
+          <Paragraph>
+            {
+                article?.addedBy?.firstName !== undefined && article?.createdAt !== undefined
+                  ? (
+                    <Link to={`/profileSearch/${article?.addedBy?._id}`}>
+                      {`${article?.addedBy?.firstName} ${article?.addedBy.lastName}`}
+                    </Link>
+                  )
+                  : (
+                    <Link to={`/profileSearch/${article?.addedBy?._id}`}>
+                      {`${auth?.user?.firstName} ${auth?.user.lastName}`}
+                    </Link>
+                  )
+            }
+            {', '}
+            {new Date(article?.createdAt).toUTCString().slice(4).slice(0, -7)}
+          </Paragraph>
         </Col>
       </Row>
       <Row>

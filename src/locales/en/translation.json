@@ -75,6 +75,7 @@
     "no_reviews_yet": "No reviews yet",
     "tip_webscrape" : "Use button for automatic scraping text from url",
     "search": "Search",
-    "search_article": "Search article ... ",
-    "search_claim": "Search claim ... "
+    "search_article": "Search article (at least 4 characters) ",
+    "search_claim": "Search claim (at least 4 characters) ",
+    "your_level": "Your level"
 }

@@ -1,17 +1,12 @@
 import { message } from 'antd';
 import axios from 'axios';
 import http from '../http_common';
-import { IPerson, IStats } from '../common/types';
+import { IPerson, IProfile, IStats } from '../common/types';
 
 export default class UserService {
   static login = (email: string, password: string) => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
-    return http.post<string, string>('/auth/login', { email, password }, { headers }); /* .then((res) => {
-      setAuth(res.data);
-      localStorage.setItem('user', JSON.stringify(res.data));
-      localStorage.setItem('token', res.data.token.accessToken);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token.accessToken}`;
-    }) */
+    return http.post<string, string>('/auth/login', { email, password }, { headers });
   };
 
   static logout = () => {
@@ -24,12 +19,7 @@ export default class UserService {
     const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
     return http.post<any>('/auth/register', {
       firstName, lastName, email, password,
-    }, { headers });/* .then((res) => {
-      setAuth(res.data);
-      localStorage.setItem('user', JSON.stringify(res.data));
-      localStorage.setItem('token', res.data.token.accessToken);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token.accessToken}`;
-    }); */
+    }, { headers });
   };
 
   static getUserStats = () => {
@@ -70,5 +60,10 @@ export default class UserService {
       setAuth(saveUser);
       message.info('Changes saved successfully!');
     }).catch();
+  };
+
+  static getUserProfile = (userId: string) => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    return http.get<IProfile[]>(`/users/${userId}`, { headers });
   };
 }

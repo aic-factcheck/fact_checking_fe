@@ -75,6 +75,7 @@
     "no_reviews_yet": "Zatiaľ žiadne hodnotenia",
     "tip_webscrape" : "Pre automatické stiahnutie textu z url môžete použiť tlačítko",
     "search": "Hľadať",
-    "search_article": "Hľadať článok ... ",
-    "search_claim": "Hľadať tvrdenie ... "
+    "search_article": "Hľadať článok (aspoň 4 znaky) ",
+    "search_claim": "Hľadať tvrdenie (aspoň 4 znaky) ",
+    "your_level": "Tvoj level"
 }

@@ -156,9 +156,19 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
           <Paragraph style={{ color: 'black', textAlign: 'left' }}>
             {
                 claim?.addedBy.firstName !== undefined && claim?.createdAt !== undefined
-                  ? `${claim?.addedBy.firstName} ${claim?.addedBy.lastName}, ${new Date(claim.createdAt).toUTCString().slice(4).slice(0, -7)}`
-                  : `${auth?.user.firstName} ${auth?.user.lastName}, ${new Date(claim.createdAt).toUTCString().slice(4).slice(0, -7)}`
+                  ? (
+                    <Link to={`/profileSearch/${claim?.addedBy?._id}`}>
+                      {`${claim?.addedBy?.firstName} ${claim?.addedBy.lastName}`}
+                    </Link>
+                  )
+                  : (
+                    <Link to={`/profileSearch/${claim?.addedBy?._id}`}>
+                      {`${auth?.user?.firstName} ${auth?.user.lastName}`}
+                    </Link>
+                  )
             }
+            {', '}
+            {new Date(claim?.createdAt).toUTCString().slice(4).slice(0, -7)}
           </Paragraph>
         </Col>
       </Row>

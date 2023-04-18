@@ -51,6 +51,13 @@ export interface IReview {
 }
 
 export interface IStats {
+  user: {
+    _id: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    level: number,
+  },
   articles: {
     total: number;
     nSaved: number;
@@ -72,6 +79,20 @@ export interface IPerson {
   nArticles: number;
   nClaims: number;
   nReviews: number;
+}
+
+export interface IProfile {
+  id: string,
+  name: string,
+  email: string,
+  role: string,
+  createdAt: string,
+  firstName: string,
+  lastName: string,
+  nReviews: number,
+  nBeenVoted: number,
+  savedArticles: string[],
+  level: number
 }
 
 export interface IRegister {
