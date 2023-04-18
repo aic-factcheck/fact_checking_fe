@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Row, Col, Typography, Divider, Tooltip, Button,
 } from 'antd';
-import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { BiQuestionMark } from 'react-icons/bi';
 import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
@@ -16,13 +15,13 @@ interface Props {
 
 const { Paragraph } = Typography;
 
-const Review: React.FC<Props> = ({ review }) =>  {
+const Review: React.FC<Props> = ({ review }) => {
   const { t } = useTranslation();
 
   const [upvote, setUpvote] = useState(review?.nPositiveVotes);
 
   const addUpVote = () => {
-    reviewsService.voteReview(review._id,1).then(() => setUpvote(upvote + 1)).catch((err) => {
+    reviewsService.voteReview(review._id, 1).then(() => setUpvote(upvote + 1)).catch((err) => {
       console.log(err);
       setUpvote(upvote);
     });
@@ -31,7 +30,7 @@ const Review: React.FC<Props> = ({ review }) =>  {
   const [downvote, setDownvote] = useState(review?.nNegativeVotes);
 
   const addDownVote = () => {
-    reviewsService.voteReview(review._id,1).then(() => setDownvote(downvote + 1)).catch((err) => {
+    reviewsService.voteReview(review._id, 1).then(() => setDownvote(downvote + 1)).catch((err) => {
       console.log(err);
       setDownvote(downvote);
     });
@@ -40,10 +39,11 @@ const Review: React.FC<Props> = ({ review }) =>  {
   const [neutralvote, setNeutralvote] = useState(review?.nNeutralVotes);
 
   const addNeutralVote = () => {
-    reviewsService.voteReview(review._id,1).then(() => setNeutralvote(neutralvote + 1)).catch((err) => {
-      console.log(err);
-      setNeutralvote(neutralvote);
-    });
+    reviewsService.voteReview(review._id, 1)
+      .then(() => setNeutralvote(neutralvote + 1)).catch((err) => {
+        console.log(err);
+        setNeutralvote(neutralvote);
+      });
   };
 
   return (
@@ -158,6 +158,6 @@ const Review: React.FC<Props> = ({ review }) =>  {
       </Row>
     </div>
   );
-}
+};
 
 export default Review;

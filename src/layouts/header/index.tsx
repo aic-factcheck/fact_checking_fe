@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-// import { authRoutes, nonAuthRoutes } from './routes';
-import "/node_modules/flag-icons/css/flag-icons.min.css";
+// eslint-disable-next-line import/no-absolute-path
+import '/node_modules/flag-icons/css/flag-icons.min.css';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -22,11 +22,11 @@ const CustomHeader : React.FC = () => {
   const { t } = useTranslation();
   const location = useLocation();
 
-  const navItems = (auth?.user?.email != undefined)
+  const navItems = (auth?.user?.email !== undefined)
     ? (
       <Container fluid style={{ zIndex: 1 }}>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Brand className="mx-auto" href="/" style={{ color: 'white', margin: '0px' }}>
+        <Navbar.Brand className="mx-auto" style={{ color: 'white', margin: '0px' }}>
           <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
             <img
               alt=""
@@ -83,7 +83,7 @@ const CustomHeader : React.FC = () => {
     ) : (
       <Container fluid style={{ zIndex: 1 }}>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Brand className="mx-auto" href="/" style={{ color: 'white', margin: '0px' }}>
+        <Navbar.Brand className="mx-auto" style={{ color: 'white', margin: '0px' }}>
           <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
             <img
               alt=""
@@ -131,7 +131,7 @@ const CustomHeader : React.FC = () => {
       </Container>
     );
 
-  const profileIsLoggedIn = (auth?.user?.email != undefined)
+  const profileIsLoggedIn = (auth?.user?.email !== undefined)
     ? (
       <Dropdown style={{
         background: 'none', border: '0px solid red', backgroundColor: 'none', position: 'sticky', zIndex: '7',
@@ -181,7 +181,7 @@ const CustomHeader : React.FC = () => {
           collapseOnSelect
           expand="md"
           style={{
-            backgroundColor: '#d86e3d', fontWeight: 'bold', color: 'white', fontSize: 'medium', width: "100%"
+            backgroundColor: '#d86e3d', fontWeight: 'bold', color: 'white', fontSize: 'medium', width: '100%',
           }}
         >
           {navItems}
@@ -191,7 +191,7 @@ const CustomHeader : React.FC = () => {
         {profileIsLoggedIn}
       </Col>
     </Row>
-  ); 
-}
+  );
+};
 
 export default CustomHeader;

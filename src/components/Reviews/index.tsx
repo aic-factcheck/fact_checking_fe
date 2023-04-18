@@ -3,13 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import {
   Row, Col, Typography, Divider, List,
 } from 'antd';
-import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
+import { useTranslation } from 'react-i18next';
 import authAtom from '../../_state/auth';
 import Review from '../Review';
 import { IClaim } from '../../common/types';
 import reviewsService from '../../api/reviews.service';
-import { useTranslation } from 'react-i18next';
 
 const { Paragraph } = Typography;
 
@@ -19,6 +18,7 @@ interface Props {
   indexClaim: number
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Reviews : React.FC<Props> = ({ claim, updated, indexClaim }) => {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
@@ -27,14 +27,14 @@ const Reviews : React.FC<Props> = ({ claim, updated, indexClaim }) => {
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.token == undefined) {
+    if (auth?.token === undefined) {
       navigate('/sign-in');
     }
     const id = auth?.user.id;
     const articleid = claim?.article._id;
     const claimid = claim?._id;
-    if (id != undefined) {
-      reviewsService.getReviews(articleid,claimid).then((res: any) => {
+    if (id !== undefined) {
+      reviewsService.getReviews(articleid, claimid).then((res: any) => {
         // const reviews = res.filter((el) => claimid === el?.claimId);
         setReviewsList(res.data);
       }).catch();
@@ -63,11 +63,15 @@ const Reviews : React.FC<Props> = ({ claim, updated, indexClaim }) => {
           // _id, priority, addedBy, articleId, text
           reviewsList.length > 0 ? (reviewsList.map((obj) => (
             <Review review={obj} />
-          ))) : <div className="emptyList" > {t('no_reviews_yet')} </div>
+          ))) : (
+            <div className="emptyList">
+              {t('no_reviews_yet')}
+            </div>
+          )
         }
       </List>
     </div>
   );
-}
+};
 
 export default Reviews;

@@ -37,8 +37,6 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
       navigate('/sign-in');
     }
 
-    console.log(myArticlesList);
-
     if (myArticlesList.length < 1 && loaded === false) {
       const id = auth?.user?.id;
       if (id !== undefined) {
@@ -53,7 +51,7 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
 
   const scrapeFromURL = () => {
     const textData = document.getElementById('urlTextData') as HTMLInputElement;
-    if (textData !== undefined && textData != null && textData.value.length > 5) {
+    if (textData !== undefined && textData !== null && textData.value.length > 5) {
       articlesService.getTextFromURL(textData.value).then((res: any) => {
         formRef.current?.setFieldsValue({ text: res.data.raw_text });
       })
@@ -61,7 +59,7 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
     }
   };
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: IArticle) => {
     const mergedValues = values;
     mergedValues.lang = lang;
     mergedValues.sourceType = 'article';
@@ -82,7 +80,6 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
     } as IArticle;
 
     articlesService.createArticle(mergedValues).then((res: any) => {
-      console.log(myArticlesList);
       const mergedArticles = [...myArticlesList, newArticle];
       setMyArticlesList(mergedArticles);
       setArticle(res.data);

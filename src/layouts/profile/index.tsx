@@ -4,13 +4,13 @@ import { useRecoilValue } from 'recoil';
 import ProfileSidebar from '../../components/ProfileSidebar';
 import authAtom from '../../_state/auth';
 
-const Profile: React.FC = () =>{
+const Profile: React.FC = () => {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.user?.email == undefined) {
+    if (auth?.user?.email === undefined) {
       navigate('/sign-in');
     }
   }, [auth, navigate]);
@@ -20,6 +20,6 @@ const Profile: React.FC = () =>{
       <ProfileSidebar />
     </div>
   );
-}
+};
 
 export default Profile;

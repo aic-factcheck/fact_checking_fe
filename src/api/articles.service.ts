@@ -1,46 +1,44 @@
-import http, { scrapingService } from "../http_common";
-import { IArticle } from "../common/types";
+import http, { scrapingService } from '../http_common';
+import { IArticle } from '../common/types';
 
-class ArticlesService {
+export default class ArticlesService {
+  static getArticlesList = () => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    return http.get<IArticle[]>('/articles', { headers });
+  };
 
-  getArticlesList() {
-    const headers = { "Authorization": `Bearer ${localStorage.getItem('token')}` }; 
-    return http.get<IArticle[]>("/articles" , { headers });
-  }
-   
-  saveUnsaveArticle(saved: boolean, articleId: string) {
-    const headers = { "Authorization": `Bearer ${localStorage.getItem('token')}` }; 
-    if (!saved) {
-        return http.post<any>(`/save?articleId=${articleId}`, { headers } );
-    }
-    return http.delete<any>(`/save?articleId=${articleId}`, { headers } );
-  }
+  static saveArticle = (articleId: string) => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    return http.post(`/save?articleId=${articleId}`, { }, { headers });
+  };
 
-  getArticle(articleId: string){
-    const headers = { "Authorization": `Bearer ${localStorage.getItem('token')}` }; 
-    return http.get<IArticle>(`/articles/${articleId}`, { headers } );
-  }
+  static unsaveArticle = (articleId: string) => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    return http.delete(`/save?articleId=${articleId}`, { headers });
+  };
 
-  getMyArticles(userId: string){
-    const headers = { "Authorization": `Bearer ${localStorage.getItem('token')}` }; 
-    return http.get<IArticle[]>(`/users/${userId}/articles`, { headers } );
-  }
+  static getArticle = (articleId: string) => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    return http.get<IArticle>(`/articles/${articleId}`, { headers });
+  };
 
-  getTextFromURL(urlAdress: string){
-    const headers = { "Authorization": `Bearer ${localStorage.getItem('token')}` }; 
-    return scrapingService.get<any>(`/extract/json?url=${urlAdress}`, { headers } );
-  }
+  static getMyArticles = (userId: string) => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    return http.get<IArticle[]>(`/users/${userId}/articles`, { headers });
+  };
 
-  editArticle(id: string, mergedValues: any) {
-    const headers = { "Authorization": `Bearer ${localStorage.getItem('token')}` }; 
-    return http.patch<any>(`/articles/${id}`, mergedValues, { headers } );
-  }
+  static getTextFromURL = (urlAdress: string) => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    return scrapingService.get<string>(`/extract/json?url=${urlAdress}`, { headers });
+  };
 
-  createArticle(mergedValues: any) {
-    const headers = { "Authorization": `Bearer ${localStorage.getItem('token')}` }; 
-    return http.post<any>(`/articles`, mergedValues, { headers } );
-  }
+  static editArticle = (id: string, mergedValues: IArticle) => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    return http.patch<IArticle>(`/articles/${id}`, mergedValues, { headers });
+  };
 
+  static createArticle = (mergedValues: IArticle) => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    return http.post<IArticle>('/articles', mergedValues, { headers });
+  };
 }
-
-export default new ArticlesService();

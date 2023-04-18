@@ -6,7 +6,7 @@ import {
 import { useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import authAtom from '../../../_state/auth';
-import usersService from '../../../api/users.service';
+import UsersService from '../../../api/users.service';
 import http_common from '../../../http_common';
 
 const { Content } = Layout;
@@ -23,19 +23,18 @@ const SignIn: React.FC = () => {
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.user?.id != undefined) {
+    if (auth?.user?.id !== undefined) {
       navigate('/');
     }
   }, [auth, navigate]);
 
   const onFinish = (values: FormData) => {
     try {
-      usersService.login(values.email, values.password).then((res: any) => {
+      UsersService.login(values.email, values.password).then((res: any) => {
         setAuth(res.data);
         localStorage.setItem('user', JSON.stringify(res.data));
         localStorage.setItem('token', res.data.token.accessToken);
         http_common.defaults.headers.common.Authorization = `Bearer ${res.data.token.accessToken}`;
-        console.log(res.data.token.accessToken);
       });
     } catch (error: any) {
       message.error(error);
@@ -147,6 +146,6 @@ const SignIn: React.FC = () => {
       </Row>
     </Content>
   );
-}
+};
 
 export default SignIn;

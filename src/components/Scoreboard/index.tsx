@@ -63,12 +63,11 @@ const Scoreboard: React.FC = () => {
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.user?.email == undefined) {
+    if (auth?.user?.email === undefined) {
       navigate('/sign-in');
     }
     const id = auth?.user?.id;
-    if (id != undefined) {
-      console.log(auth?.token?.accessToken);
+    if (id !== undefined) {
       usersService.getUserStats().then((res: any) => {
         setStats(res.data);
       }).catch();
@@ -174,11 +173,11 @@ const Scoreboard: React.FC = () => {
           <img alt="leaders" width="100%" src={`${process.env.PUBLIC_URL}/pictures/scoreboard.png`} style={{ padding: '5%' }} />
         </Col>
         <Col sm={18}>
-          <Table columns={columns} dataSource={leaderboard} />
+          <Table columns={columns} dataSource={leaderboard} rowKey="id" />
         </Col>
       </Row>
     </div>
   );
-}
+};
 
 export default Scoreboard;

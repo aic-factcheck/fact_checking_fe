@@ -1,5 +1,6 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import {
   Col, Row, Typography, Divider, Modal, Button, Tooltip,
 } from 'antd';
@@ -9,7 +10,8 @@ import { BsFlagFill } from 'react-icons/bs';
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
 import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
-import "/node_modules/flag-icons/css/flag-icons.min.css";
+// eslint-disable-next-line import/no-absolute-path
+import '/node_modules/flag-icons/css/flag-icons.min.css';
 import { Link } from 'react-router-dom';
 import authAtom from '../../_state/auth';
 import MyTitle from '../MyTitle/index';
@@ -25,7 +27,7 @@ interface Props {
 
 const { Paragraph } = Typography;
 
-const Article: React.FC<Props> = ({ article,isEditable,indexArticle }) => {
+const Article: React.FC<Props> = ({ article, isEditable, indexArticle }) => {
   const [open, setOpen] = useState(false);
   const [readMore, setReadMore] = useState(false);
   const { t } = useTranslation();
@@ -49,11 +51,19 @@ const Article: React.FC<Props> = ({ article,isEditable,indexArticle }) => {
   const [saved, setSaved] = useState(article?.isSavedByUser);
 
   const saveArticle = (starId : string) => {
-    articlesService.saveUnsaveArticle(saved, starId)
-      .then(() => setSaved((current: boolean) => !current))
-      .catch((err) => {
-        setSaved((current: boolean) => !current);
-    });
+    if (!saved) {
+      articlesService.saveArticle(starId)
+        .then(() => setSaved((current: boolean) => !current))
+        .catch(() => {
+          setSaved((current: boolean) => !current);
+        });
+    } else {
+      articlesService.unsaveArticle(starId)
+        .then(() => setSaved((current: boolean) => !current))
+        .catch(() => {
+          setSaved((current: boolean) => !current);
+        });
+    }
   };
 
   useEffect(() => {
@@ -102,7 +112,7 @@ const Article: React.FC<Props> = ({ article,isEditable,indexArticle }) => {
       <Row>
         <Col offset={1} span={19}>
           <Link to={`/article/${article?._id}`} className="articles" style={{ color: 'black', textDecorationColor: 'black' }}>
-            <MyTitle headline={article?.title} fontcolor='black'/>
+            <MyTitle headline={article?.title} fontcolor="black" />
           </Link>
         </Col>
         <Col offset={1} span={2}>
@@ -120,7 +130,7 @@ const Article: React.FC<Props> = ({ article,isEditable,indexArticle }) => {
       </Row>
       <Row>
         <Col offset={1} span="auto">
-          <Tooltip placement="top" title={t('you_will_be_redirected') + `${article?.sourceUrl}`}>
+          <Tooltip placement="top" title={`${t('you_will_be_redirected')}  ${article?.sourceUrl}`}>
             <a href={`${article?.sourceUrl}`} className="articles" target="_blank" rel="noreferrer" style={{ textDecorationColor: 'black', whiteSpace: 'nowrap' }}>
               <Paragraph style={{ color: 'black', whiteSpace: 'nowrap' }}>
                 {`${article?.sourceUrl.slice(0, 32)}    ( `}
@@ -170,6 +180,6 @@ const Article: React.FC<Props> = ({ article,isEditable,indexArticle }) => {
       )}
     </div>
   );
-}
+};
 
 export default Article;

@@ -11,7 +11,7 @@ import Scoreboard from '../Scoreboard';
 
 const { Content } = Layout;
 
-const ProfileSidebar: React.FC = () =>  {
+const ProfileSidebar: React.FC = () => {
   const { t } = useTranslation();
 
   return (
@@ -64,6 +64,6 @@ const ProfileSidebar: React.FC = () =>  {
       </Tab.Container>
     </Content>
   );
-}
+};
 
 export default ProfileSidebar;

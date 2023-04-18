@@ -21,8 +21,7 @@ const LadingPage: React.FC = () => {
   const [claimsList, setClaimsList] = useState<IClaim[]>([]);
 
   useEffect(() => {
-    console.log(auth?.user?.email);
-    if (auth?.user?.email == undefined) {
+    if (auth?.user?.email === undefined) {
       navigate('/sign-in');
     }
     claimsService.getClaimsList()
@@ -48,7 +47,7 @@ const LadingPage: React.FC = () => {
           align="middle"
           justify="space-around"
         >
-          <Col xs={22} sm={22} md={22} lg={10} xl={10} xxl={10} style ={{ height: '80%', margin: '3%'}} >
+          <Col xs={22} sm={22} md={22} lg={10} xl={10} xxl={10} style={{ height: '80%', margin: '3%' }}>
             <div
               style={{
                 background: 'white',
@@ -68,10 +67,10 @@ const LadingPage: React.FC = () => {
               </Title>
             </div>
           </Col>
-          <Col xs={22} sm={22} md={22} lg={10} xl={10} xxl={10} style ={{ margin: '3%'}}>
+          <Col xs={22} sm={22} md={22} lg={10} xl={10} xxl={10} style={{ margin: '3%' }}>
             <Carousel
               indicators={false}
-              controls={true}
+              controls
               variant="dark"
               interval={4000}
               style={{
@@ -283,6 +282,6 @@ const LadingPage: React.FC = () => {
       </div>
     </div>
   );
-}
+};
 
 export default LadingPage;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/lines-between-class-members */
 import React, { useEffect, useState } from 'react';
 import {
   Layout, List, Row, Col, Button, Modal,
@@ -30,10 +31,10 @@ class ArticleEmpty implements IArticle {
     firstName: string;
     lastName: string;
   };
-  isSavedByUser = false
+  isSavedByUser = false;
 }
 
-const ReviewArticle: React.FC = () =>{
+const ReviewArticle: React.FC = () => {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -62,14 +63,14 @@ const ReviewArticle: React.FC = () =>{
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.user?.email == undefined) {
+    if (auth?.user?.email === undefined) {
       navigate('/sign-in');
     }
-    if (articleId != undefined) {
-      //userActions.getArticle(articleId, setArticle);
+    if (articleId !== undefined) {
+      // userActions.getArticle(articleId, setArticle);
       articlesService.getArticle(articleId).then((res: any) => { setArticle(res.data); console.log(''); }).catch();
       claimsService.getClaimsOfArticle(articleId).then((res: any) => {
-        /*const claimsList = res2.filter((el) => articleId === el?.article._id);*/
+        /* const claimsList = res2.filter((el) => articleId === el?.article._id); */
         setClaims(res.data); console.log('');
       }).catch();
     }
@@ -78,7 +79,11 @@ const ReviewArticle: React.FC = () =>{
   return (
     <Content className="content" style={{ padding: '0% 2% 2% 2%', marginTop: 20 }}>
       <div style={{ marginBottom: '3%' }}>
-        <Article article={article != undefined ? article : new ArticleEmpty()} isEditable={allowEdit} indexArticle={1} />
+        <Article
+          article={article !== undefined ? article : new ArticleEmpty()}
+          isEditable={allowEdit}
+          indexArticle={1}
+        />
       </div>
       <Row justify="space-between" align="bottom">
         <Col span={12}>
@@ -97,8 +102,8 @@ const ReviewArticle: React.FC = () =>{
           >
             <CreateClaim
               setClaims={setClaims}
-              claims={claims != undefined ? claims : []}
-              article={article != undefined ? article : new ArticleEmpty()}
+              claims={claims !== undefined ? claims : []}
+              article={article !== undefined ? article : new ArticleEmpty()}
               articleSubmited={allowAddClaim}
             />
           </Modal>
@@ -124,6 +129,6 @@ const ReviewArticle: React.FC = () =>{
       </List>
     </Content>
   );
-}
+};
 
 export default ReviewArticle;

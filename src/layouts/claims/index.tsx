@@ -11,7 +11,7 @@ import claimsService from '../../api/claims.service';
 
 const { Content } = Layout;
 
-const ClaimPages: React.FC = () =>{
+const ClaimPages: React.FC = () => {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -20,11 +20,10 @@ const ClaimPages: React.FC = () =>{
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.user?.email == undefined) {
+    if (auth?.user?.email === undefined) {
       navigate('/sign-in');
     }
     claimsService.getClaimsList().then((res: any) => setClaimsList(res.data)).catch();
-    
   }, [auth, navigate]);
 
   return (
@@ -41,6 +40,6 @@ const ClaimPages: React.FC = () =>{
       </List>
     </Content>
   );
-}
+};
 
 export default ClaimPages;

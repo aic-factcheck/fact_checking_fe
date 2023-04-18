@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Button, Form, Input, Select, message
+  Button, Form, Input, Select, message,
 } from 'antd';
-import PropTypes from 'prop-types';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import myArticles from '../../../_state/usersArticles';
@@ -27,12 +26,12 @@ const EditArticle: React.FC<Props> = ({ article, indexEdit }) => {
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.token == undefined) {
+    if (auth?.token === undefined) {
       navigate('/sign-in');
     }
   }, [auth, navigate]);
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: IArticle) => {
     const mergedValues = values;
     mergedValues.lang = lang;
     mergedValues.sourceType = 'article';
@@ -53,7 +52,7 @@ const EditArticle: React.FC<Props> = ({ article, indexEdit }) => {
 
       setMyArticlesList(mergedArticles);
     })
-    .catch((e) => message.error(e));
+      .catch((e) => message.error(e));
   };
 
   const handleChange = (value: string) => {
@@ -131,6 +130,6 @@ const EditArticle: React.FC<Props> = ({ article, indexEdit }) => {
       </Form.Item>
     </Form>
   );
-}
+};
 
 export default EditArticle;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/lines-between-class-members */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -17,21 +18,21 @@ const { Content } = Layout;
 
 class ArticleEmpty implements IArticle {
   _id = '';
-  createdAt= '';
-  title= '';
-  sourceUrl= '';
-  lang= '';
-  text= '';
-  sourceType= '';
+  createdAt = '';
+  title = '';
+  sourceUrl = '';
+  lang = '';
+  text = '';
+  sourceType = '';
   addedBy!: {
     _id: string;
     firstName: string;
     lastName: string;
   };
-  isSavedByUser = false
+  isSavedByUser = false;
 }
 
-const CreateArticlePage: React.FC = () =>{
+const CreateArticlePage: React.FC = () => {
   const [articleSubmited, setArticleSubmited] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -48,12 +49,16 @@ const CreateArticlePage: React.FC = () =>{
         setArticle={setArticle}
       />
     ) : (
-      <Article article={article != undefined ? article : new ArticleEmpty()} isEditable={allowEdit} indexArticle={1} />
+      <Article
+        article={article !== undefined ? article : new ArticleEmpty()}
+        isEditable={allowEdit}
+        indexArticle={1}
+      />
     );
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.token == undefined) {
+    if (auth?.token === undefined) {
       navigate('/sign-in');
     }
   }, []);
@@ -179,6 +184,6 @@ const CreateArticlePage: React.FC = () =>{
       </Row>
     </Content>
   );
-}
+};
 
 export default CreateArticlePage;

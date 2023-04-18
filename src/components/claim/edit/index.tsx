@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Button, Form, Input,
+  Button, Form, Input, message,
 } from 'antd';
-import PropTypes from 'prop-types';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import myClaims from '../../../_state/usersClaims';
 import authAtom from '../../../_state/auth';
 import { IClaim } from '../../../common/types';
 import claimsService from '../../../api/claims.service';
-import { message, notification } from 'antd';
 
 interface Props {
   claim: IClaim;
@@ -26,7 +24,7 @@ const EditClaim: React.FC<Props> = ({ claim, indexClaim }) => {
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.token == undefined) {
+    if (auth?.token === undefined) {
       navigate('/sign-in');
     }
   }, [auth, navigate]);
@@ -36,14 +34,14 @@ const EditClaim: React.FC<Props> = ({ claim, indexClaim }) => {
     const claimid = claim._id;
     const id = auth?.user.id;
 
-    if (id != undefined) {
-      claimsService.editClaim(articleid,claimid,values).then(() => {
+    if (id !== undefined) {
+      claimsService.editClaim(articleid, claimid, values).then(() => {
         message.success('Successfully edited claim');
         // eslint-disable-next-line prefer-const
         let claimToEdit = { ...myClaimsList[indexClaim] } as IClaim;
 
-        if ( claimToEdit !== undefined ) {
-          if ((claimToEdit?.text) !== "" && (claimToEdit?.text) !== undefined) {
+        if (claimToEdit !== undefined) {
+          if ((claimToEdit?.text) !== '' && (claimToEdit?.text) !== undefined) {
             claimToEdit.text = values.text;
           }
         }
@@ -53,8 +51,9 @@ const EditClaim: React.FC<Props> = ({ claim, indexClaim }) => {
 
         setMyClaimsList(mergedClaims);
       })
-      .catch((e) => message.error(e));
-      //userActions.editClaim(articleid, claimid, values, myClaimsList, indexClaim, setMyClaimsList);
+        .catch((e) => message.error(e));
+      // eslint-disable-next-line max-len
+      // userActions.editClaim(articleid, claimid, values, myClaimsList, indexClaim, setMyClaimsList);
     }
   };
 
@@ -91,6 +90,6 @@ const EditClaim: React.FC<Props> = ({ claim, indexClaim }) => {
       </Form.Item>
     </Form>
   );
-}
+};
 
 export default EditClaim;

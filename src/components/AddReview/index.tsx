@@ -29,13 +29,13 @@ const AddReview: React.FC<AddReviewProps> = ({ claim }) => {
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.token == undefined) {
+    if (auth?.token === undefined) {
       navigate('/sign-in');
     }
     const id = auth?.user.id;
     const articleid = claim?.article._id;
     const claimid = claim?._id;
-    if (id != undefined) {
+    if (id !== undefined) {
       reviewsService.getReviews(articleid, claimid).then((res: any) => {
         // const reviews = res.filter((el) => claimid === el?.claimId);
         setReviewsList(res.data);
@@ -59,7 +59,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim }) => {
     mergedValues.vote = vote;
     mergedValues.links = linksList;
 
-    if (id != undefined) {
+    if (id !== undefined) {
       reviewsService.addreview(articleid, claimid, values).then((res: any) => {
         const mergedReviews = [...reviewsList];
         res.key = res.data._id;

@@ -4,7 +4,7 @@ import {
   Layout, Button, Form, Input, message,
 } from 'antd';
 
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import authAtom from '../../_state/auth';
 import usersService from '../../api/users.service';
@@ -18,33 +18,32 @@ interface FormData {
 
 const { Content } = Layout;
 
-const EditProfile: React.FC = () =>  {
+const EditProfile: React.FC = () => {
   const [auth, setAuth] = useRecoilState(authAtom);
   const navigate = useNavigate();
   const { t } = useTranslation();
 
   useEffect(() => {
     // redirect to home if not logged in
-    if (auth?.user == undefined) {
+    if (auth?.user === undefined) {
       navigate('/sign-in');
     }
   }, [auth, navigate]);
 
   const onFinish = (values: FormData) => {
     const id = auth?.user.id;
-    if (id != undefined) {
-      try{
+    if (id !== undefined) {
+      try {
         usersService.editProfile(
           id,
           values.firstName,
           values.lastName,
           values.password,
           setAuth,
-          auth
-          )
-      }
-      catch(error: any) {
-          message.error(error);
+          auth,
+        );
+      } catch (error: any) {
+        message.error(error);
       }
     }
   };
@@ -64,9 +63,9 @@ const EditProfile: React.FC = () =>  {
           span: 24,
         }}
         initialValues={{
-          firstName: auth?.user.firstName != undefined ? auth?.user.firstName : '',
-          lastName: auth?.user.lastName != undefined ? auth?.user.lastName : '',
-          email: auth?.user.email != undefined ? auth?.user.email : '',
+          firstName: auth?.user.firstName !== undefined ? auth?.user.firstName : '',
+          lastName: auth?.user.lastName !== undefined ? auth?.user.lastName : '',
+          email: auth?.user.email !== undefined ? auth?.user.email : '',
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
@@ -83,7 +82,7 @@ const EditProfile: React.FC = () =>  {
             },
           ]}
         >
-          <Input defaultValue={auth?.user.firstName != undefined ? auth?.user.firstName : ''} />
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -97,7 +96,7 @@ const EditProfile: React.FC = () =>  {
             },
           ]}
         >
-          <Input defaultValue={auth?.user.lastName != undefined ? auth?.user.lastName : ''} />
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -111,7 +110,7 @@ const EditProfile: React.FC = () =>  {
             },
           ]}
         >
-          <Input defaultValue={auth?.user.email != undefined ? auth?.user.email : ''} />
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -127,6 +126,6 @@ const EditProfile: React.FC = () =>  {
       </Form>
     </Content>
   );
-}
+};
 
 export default EditProfile;

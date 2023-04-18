@@ -6,17 +6,17 @@ import {
 
 import { useRecoilValue, useRecoilState } from 'recoil';
 
+import { useTranslation } from 'react-i18next';
 import authAtom from '../../_state/auth';
 import myClaims from '../../_state/usersClaims';
 import Claim from '../claim';
 import { IClaim } from '../../common/types';
 import claimsService from '../../api/claims.service';
 import claimsLoaded from '../../_state/claimsLoaded';
-import { useTranslation } from 'react-i18next';
 
 const { Content } = Layout;
 
-const MyClaims: React.FC = () =>  {
+const MyClaims: React.FC = () => {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
   const allowEdit = true;
@@ -27,19 +27,16 @@ const MyClaims: React.FC = () =>  {
   useEffect(() => {
     const id = auth?.user?.id;
     // redirect to home if already logged in
-    if (id == undefined) {
+    if (id === undefined) {
       navigate('/sign-in');
     }
 
-    console.log(myClaimsList);
-
-    if (myClaimsList.length < 1 && loaded == false) {
+    if (myClaimsList.length < 1 && loaded === false) {
       claimsService.getMyClaims(id).then((res: any) => {
-        //const claimsList = res.filter((el) => id === el?.addedBy._id);
+        // const claimsList = res.filter((el) => id === el?.addedBy._id);
         setMyClaimsList(res.data);
         setClaimsLoaded(true);
       }).catch();
-      
     }
   }, [auth, navigate, myClaimsList, setMyClaimsList]);
 
@@ -59,11 +56,15 @@ const MyClaims: React.FC = () =>  {
                 isEditable={allowEdit}
               />
             </div>
-          ))) : <div className="emptyList" > {t('no_claims_yet')} </div>
+          ))) : (
+            <div className="emptyList">
+              {t('no_claims_yet')}
+            </div>
+          )
         }
       </List>
     </Content>
   );
-}
+};
 
 export default MyClaims;

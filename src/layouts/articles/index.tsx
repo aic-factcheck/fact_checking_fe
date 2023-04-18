@@ -23,7 +23,7 @@ const AllArticles : React.FC = () => {
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.user?.email == undefined) {
+    if (auth?.user?.email === undefined) {
       navigate('/sign-in');
     }
     articlesService.getArticlesList().then((res: any) => setArticlesList(res.data)).catch();
@@ -49,11 +49,11 @@ const AllArticles : React.FC = () => {
           </Col>
         </Row>
         {
-          articlesList.sort((a, b) => ((a.createdAt < b.createdAt) ? 1 : -1)).map((obj: IArticle, index: number) => <div key={obj._id} style={{ padding: '1%', borderRadius: '10px' }}><Article article={obj} isEditable={allowEdit} indexArticle={index}/></div>)
+          articlesList.sort((a, b) => ((a.createdAt < b.createdAt) ? 1 : -1)).map((obj: IArticle, index: number) => <div key={obj._id} style={{ padding: '1%', borderRadius: '10px' }}><Article article={obj} isEditable={allowEdit} indexArticle={index} /></div>)
         }
       </List>
     </Content>
   );
-}
+};
 
 export default AllArticles;

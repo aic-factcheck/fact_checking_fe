@@ -25,13 +25,13 @@ const MyArticles: React.FC = () => {
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.token == undefined) {
+    if (auth?.token === undefined) {
       navigate('/sign-in');
     }
 
-    if (myArticlesList.length < 1 && loaded == false) {
+    if (myArticlesList.length < 1 && loaded === false) {
       const id = auth?.user.id;
-      if (id != undefined) {
+      if (id !== undefined) {
         articlesService.getMyArticles(id).then((res: any) => {
           /* const articles = res.filter((el) => id === el?.addedBy._id); */
           setMyArticlesList(res.data);
@@ -68,6 +68,6 @@ const MyArticles: React.FC = () => {
       </List>
     </Content>
   );
-}
+};
 
 export default MyArticles;

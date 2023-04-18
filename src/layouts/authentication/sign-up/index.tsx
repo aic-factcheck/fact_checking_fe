@@ -8,18 +8,18 @@ import { useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import authAtom from '../../../_state/auth';
 import usersService from '../../../api/users.service';
-import http_common from '../../../http_common';
+// import http_common from '../../../http_common';
 
 const { Content } = Layout;
 
-const SignUp: React.FC = () =>{
+const SignUp: React.FC = () => {
   const [auth, setAuth] = useRecoilState(authAtom);
   const navigate = useNavigate();
   const { t } = useTranslation();
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.user?.email != undefined) {
+    if (auth?.user?.email !== undefined) {
       navigate('/');
     }
   }, [auth, navigate]);
@@ -30,15 +30,16 @@ const SignUp: React.FC = () =>{
         values.firstname,
         values.lastname,
         values.email,
-        values.password).then((res) => {
-          setAuth(res.data);
-          localStorage.setItem('user', JSON.stringify(res.data));
-          localStorage.setItem('token', res.data.token.accessToken);
-          http_common.defaults.headers.common['Authorization'] = `Bearer ${res.data.token.accessToken}`;
-        });
-    }
-    catch(error: any) {
-        message.error(error);
+        values.password,
+      ).then((res) => {
+        setAuth(res.data);
+        localStorage.setItem('user', JSON.stringify(res.data));
+        localStorage.setItem('token', res.data.token.accessToken);
+        // eslint-disable-next-line max-len
+        // http_common.defaults.headers.common['Authorization'] = `Bearer ${res.data.token.accessToken}`;
+      });
+    } catch (error: any) {
+      message.error(error);
     }
   };
 
@@ -154,7 +155,7 @@ const SignUp: React.FC = () =>{
             </p>
             <Link to="/sign-in" style={{ textDecoration: 'none' }}>
               <Button block type="primary" htmlType="submit">
-                  {t('sign_in')}
+                {t('sign_in')}
               </Button>
             </Link>
           </div>
@@ -162,6 +163,6 @@ const SignUp: React.FC = () =>{
       </Row>
     </Content>
   );
-}
+};
 
 export default SignUp;

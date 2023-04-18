@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import {
-  Button, Form, Input,
+  Button, Form, Input, message, notification,
 } from 'antd';
-import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +9,6 @@ import myClaims from '../../../_state/usersClaims';
 import authAtom from '../../../_state/auth';
 import { IClaim, IArticle } from '../../../common/types';
 import claimsService from '../../../api/claims.service';
-import { message, notification } from 'antd';
 import claimsLoaded from '../../../_state/claimsLoaded';
 
 interface Props {
@@ -20,7 +18,9 @@ interface Props {
   setClaims: React.Dispatch<React.SetStateAction<IClaim[]>>;
 }
 
-const CreateClaim : React.FC<Props> = ({ articleSubmited, article, claims, setClaims }) => {
+const CreateClaim : React.FC<Props> = ({
+  articleSubmited, article, claims, setClaims,
+}) => {
   const [claimForm] = Form.useForm();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -31,13 +31,13 @@ const CreateClaim : React.FC<Props> = ({ articleSubmited, article, claims, setCl
   useEffect(() => {
     const id = auth?.user?.id;
     // redirect to home if already logged in
-    if (id == undefined) {
+    if (id === undefined) {
       navigate('/sign-in');
     }
 
     if (myClaimsList.length < 1 && loaded === false) {
       claimsService.getMyClaims(id).then((res: any) => {
-        //const claimsList = res.filter((el) => id === el?.addedBy._id);
+        // const claimsList = res.filter((el) => id === el?.addedBy._id);
         setMyClaimsList(res.data);
         setClaimsLoaded(true);
       }).catch();
@@ -61,7 +61,7 @@ const CreateClaim : React.FC<Props> = ({ articleSubmited, article, claims, setCl
       _id: new Date().toString(),
     } as IClaim;
 
-    claimsService.createClaim(article._id,values).then((res: any) => {
+    claimsService.createClaim(article._id, values).then((res: any) => {
       console.log(res.data);
       const mergedClaims = [...claims];
       res.key = res.data._id;
@@ -75,8 +75,7 @@ const CreateClaim : React.FC<Props> = ({ articleSubmited, article, claims, setCl
         description: 'You gained 15 experience!',
         icon: <img alt="leaders" width="50%" src={`${process.env.PUBLIC_URL}/pictures/experience.png`} style={{ marginRight: '5%' }} />,
       });
-    })
-    .catch((e) => message.error(e));
+    }).catch((e) => message.error(e));
   };
 
   return (
@@ -109,7 +108,6 @@ const CreateClaim : React.FC<Props> = ({ articleSubmited, article, claims, setCl
       </Form.Item>
     </Form>
   );
-}
-
+};
 
 export default CreateClaim;
