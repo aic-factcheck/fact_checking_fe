@@ -62,7 +62,6 @@ const CreateClaim : React.FC<Props> = ({
     } as IClaim;
 
     claimsService.createClaim(article._id, values).then((res: any) => {
-      console.log(res.data);
       const mergedClaims = [...claims];
       res.key = res.data._id;
       mergedClaims.push(res.data);

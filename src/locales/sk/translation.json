@@ -73,5 +73,8 @@
     "no_claims_yet" : "Nepridali ste zatiaľ žiadne tvrdenie",
     "no_articles_yet" : "Nepridali ste zatiaľ žiadny článok",
     "no_reviews_yet": "Zatiaľ žiadne hodnotenia",
-    "tip_webscrape" : "Pre automatické stiahnutie textu z url môžete použiť tlačítko"
+    "tip_webscrape" : "Pre automatické stiahnutie textu z url môžete použiť tlačítko",
+    "search": "Hľadať",
+    "search_article": "Hľadať článok ... ",
+    "search_claim": "Hľadať tvrdenie ... "
 }

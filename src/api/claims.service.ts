@@ -31,4 +31,9 @@ export default class ClaimsService {
     const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
     return http.patch<IClaim>(`/articles/${articleid}/claims/${claimid}`, values, { headers });
   };
+
+  static queryClaim = (patternSearch: string) => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    return http.get<IClaim[]>(`/search/claims?text=${patternSearch}`, { headers });
+  };
 }

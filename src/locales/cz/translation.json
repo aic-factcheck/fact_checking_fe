@@ -73,5 +73,8 @@
     "no_claims_yet" : "Nepřidali ste dosud žádné tvrzení",
     "no_articles_yet" : "Nepřidali ste dosud žádný článek",
     "no_reviews_yet": "Dosud žádné hodnocení",
-    "tip_webscrape" : "Pro automatické stáhnutí textu z url múžete využít tlačítko"
+    "tip_webscrape" : "Pro automatické stáhnutí textu z url múžete využít tlačítko",
+    "search": "Hledat",
+    "search_article": "Hledat článek ... ",
+    "search_claim": "Hledat tvrzení ... "
 }

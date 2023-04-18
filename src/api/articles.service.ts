@@ -41,4 +41,9 @@ export default class ArticlesService {
     const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
     return http.post<IArticle>('/articles', mergedValues, { headers });
   };
+
+  static queryArticle = (patternSearch: string) => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    return http.get<IArticle[]>(`/search/articles?text=${patternSearch}`, { headers });
+  };
 }
