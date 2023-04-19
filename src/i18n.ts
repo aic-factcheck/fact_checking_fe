@@ -1,22 +1,21 @@
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
 
-import translationEnglish from "./locales/en/translation.json";
-import translationCzech from "./locales/cz/translation.json";
-import translationSlovak from "./locales/sk/translation.json";
+import translationEnglish from './locales/en/translation.json';
+import translationCzech from './locales/cz/translation.json';
+import translationSlovak from './locales/sk/translation.json';
 
 const resources = {
-    en: {
-        translation: translationEnglish
-    },
-    cz: {
-        translation: translationCzech
-    },
-    sk: {
-        translation: translationSlovak
-    },
-} 
+  en: {
+    translation: translationEnglish,
+  },
+  cz: {
+    translation: translationCzech,
+  },
+  sk: {
+    translation: translationSlovak,
+  },
+};
 
 declare module 'i18next' {
   interface CustomTypeOptions {
@@ -28,7 +27,7 @@ i18next
   .use(initReactI18next)
   .init({
     resources,
-    lng: "en",
+    lng: 'en',
     returnNull: false,
   });
 
