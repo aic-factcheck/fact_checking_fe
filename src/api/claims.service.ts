@@ -2,9 +2,9 @@ import http from '../http_common';
 import { IClaim } from '../common/types';
 
 export default class ClaimsService {
-  static getClaimsList = () => {
+  static getClaimsList = (page: number) => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
-    return http.get<IClaim[]>('/hot/claims', { headers });
+    return http.get<IClaim[]>(`/hot/claims?perPage=10&page=${page}`, { headers });
   };
 
   static getMyClaims = (userId: string) => {
@@ -32,8 +32,8 @@ export default class ClaimsService {
     return http.patch<IClaim>(`/articles/${articleid}/claims/${claimid}`, values, { headers });
   };
 
-  static queryClaim = (patternSearch: string) => {
+  static queryClaim = (patternSearch: string, page: number) => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
-    return http.get<IClaim[]>(`/search/claims?text=${patternSearch}`, { headers });
+    return http.get<IClaim[]>(`/search/claims?text=${patternSearch}&perPage=10&page=${page}`, { headers });
   };
 }

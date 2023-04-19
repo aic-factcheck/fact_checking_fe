@@ -24,7 +24,7 @@ const LadingPage: React.FC = () => {
     if (auth?.user?.email === undefined) {
       navigate('/sign-in');
     }
-    claimsService.getClaimsList()
+    claimsService.getClaimsList(1)
       .then((res: any) => setClaimsList(res.data)).catch();
   }, [auth, navigate]);
 

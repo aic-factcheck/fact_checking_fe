@@ -14,7 +14,9 @@ import {
 import { BiQuestionMark } from 'react-icons/bi';
 import authAtom from '../../_state/auth';
 import Claim from '../../components/claim';
-import { IArticle, IClaim, IProfile } from '../../common/types';
+import {
+  IArticle, IClaim, IProfile, IStats,
+} from '../../common/types';
 import claimsService from '../../api/claims.service';
 import articlesService from '../../api/articles.service';
 import Article from '../../components/article';
@@ -29,6 +31,7 @@ const UserProfile: React.FC = () => {
   const [claimsList, setClaimsList] = useState([]);
   const [articlesList, setArticlesList] = useState([]);
   const [userProfile, setUserProfile] = useState<IProfile>();
+  const [userStats, setUserStats] = useState<IStats>();
   const { userId } = useParams();
   const allowEdit = false;
 
@@ -46,6 +49,9 @@ const UserProfile: React.FC = () => {
       }).catch();
       userService.getUserProfile(userId).then((res: any) => {
         setUserProfile(res.data);
+      }).catch();
+      userService.getUserStatsProfile(userId).then((res: any) => {
+        setUserStats(res.data);
       }).catch();
     }
   }, [auth, navigate]);
@@ -89,7 +95,7 @@ const UserProfile: React.FC = () => {
                           <AiFillStar style={{ marginRight: '2%' }} />
                         </Col>
                         <Col span={1} offset={1} style={{ marginLeft: '2%' }}>
-                          {userProfile?.nBeenVoted}
+                          {userStats?.articles?.nSaved}
                         </Col>
                       </Row>
                       <Row>
@@ -97,7 +103,7 @@ const UserProfile: React.FC = () => {
                           <UpCircleOutlined style={{ marginRight: '2%' }} />
                         </Col>
                         <Col span={1} style={{ marginLeft: '2%' }}>
-                          {userProfile?.nBeenVoted}
+                          {userStats?.claims?.nPositiveVotes}
                         </Col>
                       </Row>
                       <Row>
@@ -105,7 +111,7 @@ const UserProfile: React.FC = () => {
                           <AiOutlineLike style={{ marginRight: '2%' }} />
                         </Col>
                         <Col span={1} style={{ marginLeft: '2%' }}>
-                          {userProfile?.nBeenVoted}
+                          {userStats?.reviews?.nPositiveVotes}
                         </Col>
                       </Row>
                     </Col>
@@ -115,7 +121,7 @@ const UserProfile: React.FC = () => {
                           <DownCircleOutlined style={{ marginRight: '2%' }} />
                         </Col>
                         <Col span={1} style={{ marginLeft: '2%' }}>
-                          {userProfile?.nBeenVoted}
+                          {userStats?.claims?.nNegativeVotes}
                         </Col>
                       </Row>
                       <Row>
@@ -123,7 +129,7 @@ const UserProfile: React.FC = () => {
                           <AiOutlineDislike style={{ marginRight: '2%' }} />
                         </Col>
                         <Col span={1} style={{ marginLeft: '2%' }}>
-                          {userProfile?.nBeenVoted}
+                          {userStats?.reviews?.nNegativeVotes}
                         </Col>
                       </Row>
                       <Row>
@@ -131,7 +137,7 @@ const UserProfile: React.FC = () => {
                           <BiQuestionMark style={{ marginRight: '2%' }} />
                         </Col>
                         <Col span={1} style={{ marginLeft: '2%' }}>
-                          {userProfile?.nBeenVoted}
+                          {userStats?.reviews?.nNeutralVotes}
                         </Col>
                       </Row>
                     </Col>

@@ -2,9 +2,9 @@ import http, { scrapingService } from '../http_common';
 import { IArticle } from '../common/types';
 
 export default class ArticlesService {
-  static getArticlesList = () => {
+  static getArticlesList = (page: number) => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
-    return http.get<IArticle[]>('/articles', { headers });
+    return http.get<IArticle[]>(`/articles?perPage=10&page=${page}`, { headers });
   };
 
   static saveArticle = (articleId: string) => {
@@ -42,8 +42,8 @@ export default class ArticlesService {
     return http.post<IArticle>('/articles', mergedValues, { headers });
   };
 
-  static queryArticle = (patternSearch: string) => {
+  static queryArticle = (patternSearch: string, page: number) => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
-    return http.get<IArticle[]>(`/search/articles?text=${patternSearch}`, { headers });
+    return http.get<IArticle[]>(`/search/articles?text=${patternSearch}&perPage=10&page=${page}`, { headers });
   };
 }

@@ -27,6 +27,11 @@ export default class UserService {
     return http.get<IStats>('/stats', { headers });
   };
 
+  static getUserStatsProfile = (userId: string) => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    return http.get<IStats>(`/stats?userId=${userId}`, { headers });
+  };
+
   static getLeaderboard = () => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
     return http.get<IPerson[]>('/stats/leaderboard', { headers });
