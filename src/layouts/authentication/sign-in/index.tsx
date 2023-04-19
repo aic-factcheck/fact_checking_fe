@@ -33,7 +33,9 @@ const SignIn: React.FC = () => {
       UsersService.login(values.email, values.password).then((res: any) => {
         setAuth(res.data);
         localStorage.setItem('user', JSON.stringify(res.data));
-        localStorage.setItem('token', res.data.token.accessToken);
+        localStorage.setItem('accessToken', res.data.token.accessToken);
+        localStorage.setItem('refreshToken', res.data.token.refreshToken);
+        localStorage.setItem('email', res.data.user.email);
         http_common.defaults.headers.common.Authorization = `Bearer ${res.data.token.accessToken}`;
       });
     } catch (error: any) {

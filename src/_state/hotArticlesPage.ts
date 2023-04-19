@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
 const hotArticlesPage = atom({
-  key: 'hotClaimsPage',
+  key: 'hotArticlesPage',
   default: 1 as number,
 });
 
