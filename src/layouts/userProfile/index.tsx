@@ -7,6 +7,11 @@ import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import { AiFillStar, AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
+import {
+  UpCircleOutlined, DownCircleOutlined,
+} from '@ant-design/icons';
+import { BiQuestionMark } from 'react-icons/bi';
 import authAtom from '../../_state/auth';
 import Claim from '../../components/claim';
 import { IArticle, IClaim, IProfile } from '../../common/types';
@@ -16,7 +21,6 @@ import Article from '../../components/article';
 import userService from '../../api/users.service';
 
 const { Content } = Layout;
-const { Meta } = Card;
 
 const UserProfile: React.FC = () => {
   const auth = useRecoilValue(authAtom);
@@ -54,21 +58,95 @@ const UserProfile: React.FC = () => {
         }}
       >
         <Row justify="space-between" align="top">
-          <Col xs={7} sm={7} md={7} lg={5} xl={5} xxl={5} style={{ marginRight: '3%', marginBottom: '3%' }}>
+          <Col xs={24} sm={24} md={24} lg={24} xl={5} xxl={5} style={{ marginRight: '3%', marginBottom: '3%' }}>
             <Card
               hoverable
-              cover={(
-                <img
-                  src={`${process.env.PUBLIC_URL}/user.svg`}
-                  alt="user"
-                  style={{ padding: '23%', height: '30%' }}
-                />
-)}
             >
-              <Meta title={userProfile?.name !== undefined ? userProfile?.name : ' '} description={`Level : ${userProfile?.level}`} />
+              <Row justify="space-between" align="middle">
+                <Col xs={5} sm={5} md={5} lg={5} xl={24} xxl={24} style={{ marginBottom: '2%' }}>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/user.svg`}
+                    alt="user"
+                    style={{ padding: '0%' }}
+                  />
+                </Col>
+                <Col xs={11} sm={11} md={11} lg={11} xl={24} xxl={24}>
+                  <br />
+                  <h6>
+                    {'\n'}
+                    {userProfile?.name !== undefined ? userProfile?.name : ' '}
+                    {' '}
+                  </h6>
+                  <p>
+                    {' '}
+                    {`Level : ${userProfile?.level}`}
+                    {' '}
+                  </p>
+                  <Row>
+                    <Col span={12} style={{ color: 'green' }}>
+                      <Row>
+                        <Col>
+                          <AiFillStar style={{ marginRight: '2%' }} />
+                        </Col>
+                        <Col span={1} offset={1} style={{ marginLeft: '2%' }}>
+                          {userProfile?.nBeenVoted}
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <UpCircleOutlined style={{ marginRight: '2%' }} />
+                        </Col>
+                        <Col span={1} style={{ marginLeft: '2%' }}>
+                          {userProfile?.nBeenVoted}
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <AiOutlineLike style={{ marginRight: '2%' }} />
+                        </Col>
+                        <Col span={1} style={{ marginLeft: '2%' }}>
+                          {userProfile?.nBeenVoted}
+                        </Col>
+                      </Row>
+                    </Col>
+                    <Col span={12} style={{ color: 'red' }}>
+                      <Row>
+                        <Col>
+                          <DownCircleOutlined style={{ marginRight: '2%' }} />
+                        </Col>
+                        <Col span={1} style={{ marginLeft: '2%' }}>
+                          {userProfile?.nBeenVoted}
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <AiOutlineDislike style={{ marginRight: '2%' }} />
+                        </Col>
+                        <Col span={1} style={{ marginLeft: '2%' }}>
+                          {userProfile?.nBeenVoted}
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <BiQuestionMark style={{ marginRight: '2%' }} />
+                        </Col>
+                        <Col span={1} style={{ marginLeft: '2%' }}>
+                          {userProfile?.nBeenVoted}
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                  <p />
+                  <p>
+                    {' '}
+                    {`${userProfile?.email}`}
+                    {' '}
+                  </p>
+                </Col>
+              </Row>
             </Card>
           </Col>
-          <Col xs={24} sm={24} md={24} lg={18} xl={18} xxl={18}>
+          <Col xs={24} sm={24} md={24} lg={24} xl={18} xxl={18}>
             <Tabs
               defaultActiveKey="profile"
               id="uncontrolled-tab-example"
