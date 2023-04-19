@@ -5,36 +5,43 @@ import { IPerson, IProfile, IStats } from '../common/types';
 
 export default class UserService {
   static login = (email: string, password: string) => {
-    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
     return http.post<string, string>('/auth/login', { email, password }, { headers });
   };
 
   static logout = () => {
     localStorage.removeItem('user');
-    localStorage.removeItem('token');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('email');
     axios.defaults.headers.common.Authorization = '';
   };
 
   static signup = (firstName: string, lastName: string, email: string, password: string) => {
-    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
     return http.post<any>('/auth/register', {
       firstName, lastName, email, password,
     }, { headers });
   };
 
   static getUserStats = () => {
-    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
     return http.get<IStats>('/stats', { headers });
   };
 
+  static getUserStatsProfile = (userId: string) => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
+    return http.get<IStats>(`/stats?userId=${userId}`, { headers });
+  };
+
   static getLeaderboard = () => {
-    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
     return http.get<IPerson[]>('/stats/leaderboard', { headers });
   };
 
   // eslint-disable-next-line max-len
   static editProfile = (id: string, firstName: string, lastName: string, email: string, setAuth: any, auth: any) => {
-    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
     return http.patch<any>(`/users/${id}`, { firstName, lastName, email }, { headers }).then((res) => {
       const saveUser = {
         token: {
@@ -63,7 +70,7 @@ export default class UserService {
   };
 
   static getUserProfile = (userId: string) => {
-    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
     return http.get<IProfile[]>(`/users/${userId}`, { headers });
   };
 }
