@@ -31,7 +31,7 @@ const MyClaims: React.FC = () => {
       navigate('/sign-in');
     }
 
-    if (myClaimsList.length < 1 && loaded === false) {
+    if (loaded === false) {
       claimsService.getMyClaims(id).then((res: any) => {
         // const claimsList = res.filter((el) => id === el?.addedBy._id);
         setMyClaimsList(res.data);
@@ -48,7 +48,7 @@ const MyClaims: React.FC = () => {
         }}
       >
         {
-          myClaimsList?.length > 0 ? (myClaimsList?.map((obj: IClaim, index: number) => (
+          myClaimsList !== undefined ? (myClaimsList?.map((obj: IClaim, index: number) => (
             <div key={obj?._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
               <Claim
                 claim={obj}

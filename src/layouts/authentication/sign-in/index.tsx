@@ -7,7 +7,6 @@ import { useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import authAtom from '../../../_state/auth';
 import UsersService from '../../../api/users.service';
-import http_common from '../../../http_common';
 
 const { Content } = Layout;
 
@@ -36,7 +35,7 @@ const SignIn: React.FC = () => {
         localStorage.setItem('accessToken', res.data.token.accessToken);
         localStorage.setItem('refreshToken', res.data.token.refreshToken);
         localStorage.setItem('email', res.data.user.email);
-        http_common.defaults.headers.common.Authorization = `Bearer ${res.data.token.accessToken}`;
+        localStorage.setItem('expiresIn', res.data.token.expiresIn);
       });
     } catch (error: any) {
       message.error(error);

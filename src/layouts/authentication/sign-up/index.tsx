@@ -37,6 +37,7 @@ const SignUp: React.FC = () => {
         localStorage.setItem('accessToken', res.data.token.accessToken);
         localStorage.setItem('refreshToken', res.data.token.refreshToken);
         localStorage.setItem('email', res.data.user.email);
+        localStorage.setItem('expiresIn', res.data.token.expiresIn);
         // eslint-disable-next-line max-len
         // http_common.defaults.headers.common['Authorization'] = `Bearer ${res.data.token.accessToken}`;
       });
