@@ -14,22 +14,22 @@ const scrapingService = axios.create({
   },
 });
 
-let isLockedFree = true;
+let isRefreshing = false;
+const refreshSubscribers: any[] = [];
 
-/* var event = new Date();
-console.log(event.toLocaleString('en-GB', { timeZone: 'Europe/London' })); */
+function subscribeTokenRefresh(cb: any) {
+  refreshSubscribers.push(cb);
+}
 
-// Function to refresh the access token using the refresh token
+function onRrefreshed(token: any) {
+  refreshSubscribers.map((cb) => cb(token));
+}
+
 async function refreshAccessToken() {
   try {
     const expires = localStorage.getItem('expiresIn');
-    // eslint-disable-next-line prefer-const
-    let expiresDate = new Date(expires != null ? new Date(expires) : 10000000);
-    // expiresDate.setHours(expiresDate.getHours() + 2);
-    console.log(expiresDate);
-    console.log(Date.now());
-    if (expiresDate.getTime() < Date.now() && isLockedFree) {
-      isLockedFree = false;
+    const expiresDate = new Date(expires != null ? new Date(expires) : 10000000);
+    if (expiresDate.getTime() < Date.now()) {
       const response = await axios.post(`${process.env.REACT_APP_API_BASE}/auth/refresh-token`, {
         email: localStorage.getItem('email'),
         refreshToken: localStorage.getItem('refreshToken'),
@@ -37,59 +37,81 @@ async function refreshAccessToken() {
       localStorage.setItem('accessToken', response.data.accessToken);
       localStorage.setItem('refreshToken', response.data.refreshToken);
       localStorage.setItem('expiresIn', response.data.expiresIn);
-      isLockedFree = true;
+      return response.data.accessToken;
     }
   } catch (err) {
-    console.log(`${err}  rrrrrrrrrrrr`);
     console.error(err);
   }
+  return null;
 }
 
-// Axios interceptor to handle expired tokens
-factCheckBe.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const originalRequest = error.config;
-    console.log(originalRequest);
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      try {
-        return await refreshAccessToken().then(() => {
-          originalRequest.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
-          return axios.create(originalRequest);
+axios.interceptors.request.use(
+  async (config) => {
+    // eslint-disable-next-line no-param-reassign
+    config.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
+
+    return config;
+  },
+  (error) => Promise.reject(error),
+);
+
+factCheckBe.interceptors.response.use((response) => response, (error) => {
+  const { config, response: { status } } = error;
+  const originalRequest = config;
+
+  if (status === 401) {
+    if (!isRefreshing) {
+      isRefreshing = true;
+      refreshAccessToken()
+        .then((newToken: any) => {
+          isRefreshing = false;
+          onRrefreshed(newToken);
         });
-      } catch (err) {
-        console.log(`${err}  eroooooooooor`);
-        localStorage.removeItem('user');
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('email');
-        localStorage.removeItem('expiresIn');
-      }
     }
-    return Promise.reject(error);
-  },
-);
 
-// Axios interceptor to handle expired tokens
-scrapingService.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    const originalRequest = error.config;
-    console.log(originalRequest);
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      refreshAccessToken().then(() => {
+    const retryOrigReq = new Promise((resolve) => {
+      subscribeTokenRefresh(() => {
+        // replace the expired token and retry
+        originalRequest.timeout = 1000;
         originalRequest.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
-        return axios(originalRequest);
+        resolve(axios(originalRequest));
       });
+
+      // setTimeout(resolve, 1000);
+    });
+    return retryOrigReq;
+  }
+  return Promise.reject(error);
+});
+
+scrapingService.interceptors.response.use((response) => response, (error) => {
+  const { config, response: { status } } = error;
+  const originalRequest = config;
+
+  if (status === 401) {
+    if (!isRefreshing) {
+      isRefreshing = true;
+      refreshAccessToken()
+        .then((newToken: any) => {
+          isRefreshing = false;
+          onRrefreshed(newToken);
+        });
     }
 
-    return Promise.reject(error);
-  },
-);
+    const retryOrigReq = new Promise((resolve) => {
+      subscribeTokenRefresh(() => {
+        // replace the expired token and retry
+        originalRequest.timeout = 1000;
+        originalRequest.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
+        resolve(axios(originalRequest));
+      });
+
+      // setTimeout(resolve, 1000);
+    });
+    return retryOrigReq;
+  }
+  return Promise.reject(error);
+});
 
 export {
   factCheckBe,

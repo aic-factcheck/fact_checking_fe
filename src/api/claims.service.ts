@@ -1,39 +1,33 @@
+/* eslint-disable arrow-body-style */
 import { factCheckBe } from '../http_common';
 import { IClaim } from '../common/types';
 
 export default class ClaimsService {
   static getClaimsList = (page: number) => {
-    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return factCheckBe.get<IClaim[]>(`/hot/claims?perPage=10&page=${page}`, { headers });
+    return factCheckBe.get<IClaim[]>(`/hot/claims?perPage=10&page=${page}`);
   };
 
   static getMyClaims = (userId: string) => {
-    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return factCheckBe.get<IClaim[]>(`/users/${userId}/claims`, { headers });
+    return factCheckBe.get<IClaim[]>(`/users/${userId}/claims`);
   };
 
   static voteClaim = (idClaim: string, rating: number) => {
-    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return factCheckBe.post<number>(`/vote?claimId=${idClaim}`, { rating }, { headers });
+    return factCheckBe.post<number>(`/vote?claimId=${idClaim}`, { rating });
   };
 
   static getClaimsOfArticle = (articleId: string) => {
-    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return factCheckBe.get<IClaim[]>(`/articles/${articleId}/claims`, { headers });
+    return factCheckBe.get<IClaim[]>(`/articles/${articleId}/claims`);
   };
 
   static createClaim = (articleId: string, values: IClaim) => {
-    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return factCheckBe.post<IClaim>(`/articles/${articleId}/claims`, values, { headers });
+    return factCheckBe.post<IClaim>(`/articles/${articleId}/claims`, values);
   };
 
   static editClaim = (articleid: string, claimid: string, values: IClaim) => {
-    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return factCheckBe.patch<IClaim>(`/articles/${articleid}/claims/${claimid}`, values, { headers });
+    return factCheckBe.patch<IClaim>(`/articles/${articleid}/claims/${claimid}`, values);
   };
 
   static queryClaim = (patternSearch: string, page: number) => {
-    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return factCheckBe.get<IClaim[]>(`/search/claims?text=${patternSearch}&perPage=10&page=${page}`, { headers });
+    return factCheckBe.get<IClaim[]>(`/search/claims?text=${patternSearch}&perPage=10&page=${page}`);
   };
 }
