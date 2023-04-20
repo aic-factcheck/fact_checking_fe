@@ -15,15 +15,6 @@ const scrapingService = axios.create({
 });
 
 let isRefreshing = false;
-const refreshSubscribers: any[] = [];
-
-function subscribeTokenRefresh(cb: any) {
-  refreshSubscribers.push(cb);
-}
-
-function onRrefreshed(token: any) {
-  refreshSubscribers.map((cb) => cb(token));
-}
 
 async function refreshAccessToken() {
   try {
@@ -63,19 +54,15 @@ factCheckBe.interceptors.response.use((response) => response, (error) => {
     if (!isRefreshing) {
       isRefreshing = true;
       refreshAccessToken()
-        .then((newToken: any) => {
+        .then(() => {
           isRefreshing = false;
-          onRrefreshed(newToken);
         });
     }
 
     const retryOrigReq = new Promise((resolve) => {
-      subscribeTokenRefresh(() => {
-        // replace the expired token and retry
-        originalRequest.timeout = 1000;
-        originalRequest.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
-        resolve(axios(originalRequest));
-      });
+      originalRequest.timeout = 3000;
+      originalRequest.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
+      resolve(axios(originalRequest));
 
       // setTimeout(resolve, 1000);
     });
@@ -92,19 +79,16 @@ scrapingService.interceptors.response.use((response) => response, (error) => {
     if (!isRefreshing) {
       isRefreshing = true;
       refreshAccessToken()
-        .then((newToken: any) => {
+        .then(() => {
           isRefreshing = false;
-          onRrefreshed(newToken);
         });
     }
 
     const retryOrigReq = new Promise((resolve) => {
-      subscribeTokenRefresh(() => {
-        // replace the expired token and retry
-        originalRequest.timeout = 1000;
-        originalRequest.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
-        resolve(axios(originalRequest));
-      });
+      // replace the expired token and retry
+      originalRequest.timeout = 3000;
+      originalRequest.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
+      resolve(axios(originalRequest));
 
       // setTimeout(resolve, 1000);
     });
