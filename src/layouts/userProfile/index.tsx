@@ -80,7 +80,9 @@ const UserProfile: React.FC = () => {
                   <br />
                   <h6>
                     {'\n'}
-                    {userProfile?.name !== undefined ? userProfile?.name : ' '}
+                    {userProfile?.firstName}
+                    <br />
+                    {userProfile?.lastName}
                     {' '}
                   </h6>
                   <p>
