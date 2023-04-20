@@ -29,7 +29,7 @@ const MyArticles: React.FC = () => {
       navigate('/sign-in');
     }
 
-    if (myArticlesList.length < 1 && loaded === false) {
+    if (loaded === false) {
       const id = auth?.user.id;
       if (id !== undefined) {
         articlesService.getMyArticles(id).then((res: any) => {
@@ -49,7 +49,7 @@ const MyArticles: React.FC = () => {
         }}
       >
         {
-          myArticlesList.length > 0 ? (myArticlesList?.map((obj : IArticle, index: number) => (
+          myArticlesList !== undefined ? (myArticlesList?.map((obj : IArticle, index: number) => (
             <div key={obj?._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
               <Article
                 article={obj}

@@ -1,12 +1,12 @@
 import { message } from 'antd';
 import axios from 'axios';
-import http from '../http_common';
+import { factCheckBe } from '../http_common';
 import { IPerson, IProfile, IStats } from '../common/types';
 
 export default class UserService {
   static login = (email: string, password: string) => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return http.post<string, string>('/auth/login', { email, password }, { headers });
+    return factCheckBe.post<string, string>('/auth/login', { email, password }, { headers });
   };
 
   static logout = () => {
@@ -19,30 +19,30 @@ export default class UserService {
 
   static signup = (firstName: string, lastName: string, email: string, password: string) => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return http.post<any>('/auth/register', {
+    return factCheckBe.post<any>('/auth/register', {
       firstName, lastName, email, password,
     }, { headers });
   };
 
   static getUserStats = () => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return http.get<IStats>('/stats', { headers });
+    return factCheckBe.get<IStats>('/stats', { headers });
   };
 
   static getUserStatsProfile = (userId: string) => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return http.get<IStats>(`/stats?userId=${userId}`, { headers });
+    return factCheckBe.get<IStats>(`/stats?userId=${userId}`, { headers });
   };
 
   static getLeaderboard = () => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return http.get<IPerson[]>('/stats/leaderboard', { headers });
+    return factCheckBe.get<IPerson[]>('/stats/leaderboard', { headers });
   };
 
   // eslint-disable-next-line max-len
   static editProfile = (id: string, firstName: string, lastName: string, email: string, setAuth: any, auth: any) => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return http.patch<any>(`/users/${id}`, { firstName, lastName, email }, { headers }).then((res) => {
+    return factCheckBe.patch<any>(`/users/${id}`, { firstName, lastName, email }, { headers }).then((res) => {
       const saveUser = {
         token: {
           tokenType: 'Bearer',
@@ -71,6 +71,6 @@ export default class UserService {
 
   static getUserProfile = (userId: string) => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return http.get<IProfile[]>(`/users/${userId}`, { headers });
+    return factCheckBe.get<IProfile[]>(`/users/${userId}`, { headers });
   };
 }
