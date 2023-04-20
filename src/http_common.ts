@@ -28,12 +28,10 @@ async function refreshAccessToken() {
       localStorage.setItem('accessToken', response.data.accessToken);
       localStorage.setItem('refreshToken', response.data.refreshToken);
       localStorage.setItem('expiresIn', response.data.expiresIn);
-      return response.data.accessToken;
     }
   } catch (err) {
     console.error(err);
   }
-  return null;
 }
 
 axios.interceptors.request.use(
@@ -56,15 +54,22 @@ factCheckBe.interceptors.response.use((response) => response, (error) => {
       refreshAccessToken()
         .then(() => {
           isRefreshing = false;
+        })
+        .catch(() => {
+          isRefreshing = false;
         });
     }
 
     const retryOrigReq = new Promise((resolve) => {
-      originalRequest.timeout = 3000;
-      originalRequest.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
-      resolve(axios(originalRequest));
-
-      // setTimeout(resolve, 1000);
+      const retry = () => {
+        if (!isRefreshing) {
+          originalRequest.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
+          resolve(axios(originalRequest));
+        } else {
+          setTimeout(retry, 1000);
+        }
+      };
+      retry();
     });
     return retryOrigReq;
   }
@@ -81,16 +86,22 @@ scrapingService.interceptors.response.use((response) => response, (error) => {
       refreshAccessToken()
         .then(() => {
           isRefreshing = false;
+        })
+        .catch(() => {
+          isRefreshing = false;
         });
     }
 
     const retryOrigReq = new Promise((resolve) => {
-      // replace the expired token and retry
-      originalRequest.timeout = 3000;
-      originalRequest.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
-      resolve(axios(originalRequest));
-
-      // setTimeout(resolve, 1000);
+      const retry = () => {
+        if (!isRefreshing) {
+          originalRequest.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
+          resolve(axios(originalRequest));
+        } else {
+          setTimeout(retry, 1000);
+        }
+      };
+      retry();
     });
     return retryOrigReq;
   }
