@@ -43,6 +43,7 @@ const LadingPage: React.FC = () => {
             margin: '0px',
             zIndex: 5,
             backgroundColor: '#d86e3d',
+            minHeight: '67vh',
           }}
           align="middle"
           justify="space-around"
