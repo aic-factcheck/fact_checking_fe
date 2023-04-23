@@ -22,11 +22,48 @@ interface Props {
   index: number;
 }
 
+class ClaimSemaphore {
+  upvoteNum: number;
+
+  downvote: number;
+
+  constructor() {
+    this.upvoteNum = 0;
+    this.downvote = 0;
+  }
+
+  upvoteClaim(): boolean {
+    let changed = false;
+    console.log(this.upvoteNum);
+    if (this.upvoteNum === 0) {
+      changed = true;
+    }
+    this.upvoteNum = 1;
+    console.log(this.upvoteNum);
+    this.downvote = 0;
+    return changed;
+  }
+
+  downvoteClaim(): boolean {
+    let changed = false;
+    if (this.downvote === 0) {
+      changed = true;
+    }
+    this.upvoteNum = 0;
+    this.downvote = 1;
+    return changed;
+  }
+}
+
+// eslint-disable-next-line prefer-const
+let semaphore: ClaimSemaphore = new ClaimSemaphore();
+
 const { Paragraph } = Typography;
 
 const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
   const auth = useRecoilValue(authAtom);
   const { t } = useTranslation();
+  // eslint-disable-next-line prefer-const
 
   const [open, setOpen] = useState(false);
 
@@ -58,22 +95,35 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
     setOpenReview(false);
   };
 
-  const [upvote, setUpvote] = useState(claim?.nPositiveVotes);
+  const [upvotes, setUpvotes] = useState(claim.nPositiveVotes);
+  const [downvotes, setDownvotes] = useState(claim.nNegativeVotes);
 
   const addUpVote = (claimId: string) => {
-    claimsService.voteClaim(claimId, 1).then(() => setUpvote(upvote + 1)).catch((err) => {
-      console.log(err);
-      setUpvote(upvote);
-    });
+    const changed = semaphore.upvoteClaim();
+    if (changed) {
+      setUpvotes(claim.nPositiveVotes + semaphore.upvoteNum);
+      setDownvotes(claim.nNegativeVotes + semaphore.downvote);
+      claimsService.voteClaim(claimId, 1).then((res: any) => {
+        setUpvotes(res?.data?.nPositiveVotes);
+        setDownvotes(res?.data?.nNegativeVotes);
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
   };
 
-  const [downvote, setDownvote] = useState(claim?.nNegativeVotes);
-
   const addDownVote = (claimId: string) => {
-    claimsService.voteClaim(claimId, -1).then(() => setDownvote(downvote + 1)).catch((err) => {
-      console.log(err);
-      setDownvote(downvote);
-    });
+    const changed = semaphore.downvoteClaim();
+    if (changed) {
+      setUpvotes(claim.nPositiveVotes + semaphore.upvoteNum);
+      setDownvotes(claim.nNegativeVotes + semaphore.downvote);
+      claimsService.voteClaim(claimId, -1).then((res: any) => {
+        setUpvotes(res?.data?.nPositiveVotes);
+        setDownvotes(res?.data?.nNegativeVotes);
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
   };
 
   const editButton = (isEditable)
@@ -173,72 +223,67 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
         </Col>
       </Row>
       <Row>
-        <Col span={16} offset={0}>
-          <Paragraph style={{ color: 'black', textAlign: 'left' }}>
+        <Col
+          style={{
+            color: 'black', fontStyle: 'italic', zIndex: '99',
+          }}
+          offset={0}
+          xs={7}
+          sm={6}
+          md={6}
+          lg={6}
+          xl={5}
+          xxl={4}
+        >
+          <Button size="small" block className="reactions" style={{ borderRadius: '10px 0px 0px 10px' }} onClick={() => addUpVote(claim?._id)}>
             <UpCircleOutlined />
             {' '}
-            {upvote}
+            {t('upvote')}
+            {'   '}
+            {upvotes}
+          </Button>
+        </Col>
+        <Col
+          style={{
+            color: 'black', fontStyle: 'italic', zIndex: '99',
+          }}
+          offset={0}
+          xs={4}
+          sm={4}
+          md={3}
+          lg={3}
+          xl={2}
+          xxl={2}
+        >
+          <Button size="small" block className="reactions" style={{ borderRadius: '0px 10px 10px 0px' }} onClick={() => addDownVote(claim?._id)}>
+            <DownCircleOutlined />
             {' '}
-            <DownCircleOutlined style={{ marginLeft: '1%' }} />
+            {downvotes}
             {' '}
-            {downvote}
-          </Paragraph>
+          </Button>
         </Col>
       </Row>
       <Divider style={{ margin: '0%' }} />
       <Row>
         <Col
-          style={{
-            color: 'black', fontStyle: 'italic', zIndex: '99',
-          }}
-          offset={0}
-          xs={7}
-          sm={7}
-          md={7}
-          lg={7}
-          xl={7}
-          xxl={4}
-        >
-          <Button block className="reactions" style={{ borderRadius: '10px 0px 0px 10px' }} onClick={() => addUpVote(claim?._id)}>
-            <UpCircleOutlined />
-            {t('upvote')}
-          </Button>
-        </Col>
-        <Col
-          style={{
-            color: 'black', fontStyle: 'italic', zIndex: '99',
-          }}
-          offset={0}
-          xs={3}
-          sm={3}
-          md={3}
-          lg={3}
-          xl={3}
-          xxl={2}
-        >
-          <Button block className="reactions" style={{ borderRadius: '0px 10px 10px 0px' }} onClick={() => addDownVote(claim?._id)}>
-            <DownCircleOutlined />
-          </Button>
-        </Col>
-        <Col
           offset={0}
           style={{ zIndex: '99' }}
-          xs={7}
-          sm={7}
-          md={7}
-          lg={7}
-          xl={7}
-          xxl={9}
+          xs={12}
+          sm={12}
+          md={12}
+          lg={12}
+          xl={12}
+          xxl={12}
         >
           {editButton}
         </Col>
         <Col
-          xs={7}
-          sm={7}
-          md={7}
-          lg={7}
-          xl={7}
-          xxl={9}
+          xs={12}
+          sm={12}
+          md={12}
+          lg={12}
+          xl={12}
+          xxl={12}
           offset={0}
         >
           <Button
