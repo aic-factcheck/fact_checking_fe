@@ -51,15 +51,14 @@ const Article: React.FC<Props> = ({ article, isEditable, indexArticle }) => {
   const [saved, setSaved] = useState(article?.isSavedByUser);
 
   const saveArticle = (starId : string) => {
+    setSaved((current: boolean) => !current);
     if (!saved) {
       articlesService.saveArticle(starId)
-        .then(() => setSaved((current: boolean) => !current))
         .catch(() => {
           setSaved((current: boolean) => !current);
         });
     } else {
       articlesService.unsaveArticle(starId)
-        .then(() => setSaved((current: boolean) => !current))
         .catch(() => {
           setSaved((current: boolean) => !current);
         });

@@ -13,37 +13,110 @@ interface Props {
   review: IReview,
 }
 
+class ReviewSemaphore {
+  upvote: number;
+
+  downvote: number;
+
+  neutralVote: number;
+
+  constructor() {
+    this.upvote = 0;
+    this.downvote = 0;
+    this.neutralVote = 0;
+  }
+
+  upvoteReview(): boolean {
+    let changed = false;
+    if (this.upvote === 0) {
+      changed = true;
+    }
+    this.upvote = 1;
+    this.downvote = 0;
+    this.neutralVote = 0;
+    return changed;
+  }
+
+  downvoteReview(): boolean {
+    let changed = false;
+    if (this.downvote === 0) {
+      changed = true;
+    }
+    this.upvote = 0;
+    this.downvote = 1;
+    this.neutralVote = 0;
+    return changed;
+  }
+
+  neutralVoteReview(): boolean {
+    let changed = false;
+    if (this.neutralVote === 0) {
+      changed = true;
+    }
+    this.upvote = 0;
+    this.downvote = 0;
+    this.neutralVote = 1;
+    return changed;
+  }
+}
+
 const { Paragraph } = Typography;
+// eslint-disable-next-line prefer-const
+let semaphore: ReviewSemaphore = new ReviewSemaphore();
 
 const Review: React.FC<Props> = ({ review }) => {
   const { t } = useTranslation();
 
   const [upvote, setUpvote] = useState(review?.nPositiveVotes);
-
-  const addUpVote = () => {
-    reviewsService.voteReview(review._id, 1).then(() => setUpvote(upvote + 1)).catch((err) => {
-      console.log(err);
-      setUpvote(upvote);
-    });
-  };
-
   const [downvote, setDownvote] = useState(review?.nNegativeVotes);
-
-  const addDownVote = () => {
-    reviewsService.voteReview(review._id, 1).then(() => setDownvote(downvote + 1)).catch((err) => {
-      console.log(err);
-      setDownvote(downvote);
-    });
-  };
-
   const [neutralvote, setNeutralvote] = useState(review?.nNeutralVotes);
 
-  const addNeutralVote = () => {
-    reviewsService.voteReview(review._id, 1)
-      .then(() => setNeutralvote(neutralvote + 1)).catch((err) => {
+  const addUpVote = () => {
+    const changed = semaphore.upvoteReview();
+    if (changed) {
+      setUpvote(review.nPositiveVotes + semaphore.upvote);
+      setDownvote(review.nNegativeVotes + semaphore.downvote);
+      setNeutralvote(review.nNeutralVotes + semaphore.neutralVote);
+      reviewsService.voteReview(review._id, 1).then((res: any) => {
+        setUpvote(res?.data?.nPositiveVotes);
+        setDownvote(res?.data?.nNegativeVotes);
+        setNeutralvote(res?.data?.nNeutralVotes);
+      }).catch((err) => {
         console.log(err);
-        setNeutralvote(neutralvote);
       });
+    }
+  };
+
+  const addDownVote = () => {
+    const changed = semaphore.downvoteReview();
+    if (changed) {
+      setUpvote(review.nPositiveVotes + semaphore.upvote);
+      setDownvote(review.nNegativeVotes + semaphore.downvote);
+      setNeutralvote(review.nNeutralVotes + semaphore.neutralVote);
+      reviewsService.voteReview(review._id, -1).then((res: any) => {
+        setUpvote(res?.data?.nPositiveVotes);
+        setDownvote(res?.data?.nNegativeVotes);
+        setNeutralvote(res?.data?.nNeutralVotes);
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
+  };
+
+  const addNeutralVote = () => {
+    const changed = semaphore.neutralVoteReview();
+    if (changed) {
+      setUpvote(review.nPositiveVotes + semaphore.upvote);
+      setDownvote(review.nNegativeVotes + semaphore.downvote);
+      setNeutralvote(review.nNeutralVotes + semaphore.neutralVote);
+      reviewsService.voteReview(review._id, 0).then((res: any) => {
+        setUpvote(res?.data?.nPositiveVotes);
+        setDownvote(res?.data?.nNegativeVotes);
+        setNeutralvote(res?.data?.nNeutralVotes);
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
   };
 
   return (
