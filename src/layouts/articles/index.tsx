@@ -108,6 +108,7 @@ const AllArticles : React.FC = () => {
         scrollableTarget="scrollableDiv"
       >
         <List
+          dataSource={articlesList}
           style={{
             padding: '0% 1% 1% 1%',
           }}
@@ -131,7 +132,7 @@ const AllArticles : React.FC = () => {
 
           </Row>
           {
-          articlesList?.sort((a, b) => ((a.createdAt < b.createdAt) ? 1 : -1))?.map((obj: IArticle, index: number) => <div key={obj._id} style={{ padding: '1%', borderRadius: '10px' }}><Article article={obj} isEditable={allowEdit} indexArticle={index} /></div>)
+          articlesList?.map((obj: IArticle, index: number) => <div key={obj._id} style={{ padding: '1%', borderRadius: '10px' }}><Article article={obj} isEditable={allowEdit} indexArticle={index} /></div>)
         }
         </List>
       </InfiniteScroll>
