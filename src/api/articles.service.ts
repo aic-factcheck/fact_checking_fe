@@ -4,38 +4,47 @@ import { IArticle } from '../common/types';
 
 export default class ArticlesService {
   static getArticlesList = (page: number) => {
-    return factCheckBe.get<IArticle[]>(`/articles?perPage=10&page=${page}`);
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
+    return factCheckBe.get<IArticle[]>(`/articles?perPage=10&page=${page}`, { headers });
   };
 
   static saveArticle = (articleId: string) => {
-    return factCheckBe.post(`/save?articleId=${articleId}`, { });
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
+    return factCheckBe.post(`/save?articleId=${articleId}`, { }, { headers });
   };
 
   static unsaveArticle = (articleId: string) => {
-    return factCheckBe.delete(`/save?articleId=${articleId}`);
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
+    return factCheckBe.delete(`/save?articleId=${articleId}`, { headers });
   };
 
   static getArticle = (articleId: string) => {
-    return factCheckBe.get<IArticle>(`/articles/${articleId}`);
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
+    return factCheckBe.get<IArticle>(`/articles/${articleId}`, { headers });
   };
 
   static getMyArticles = (userId: string) => {
-    return factCheckBe.get<IArticle[]>(`/users/${userId}/articles`);
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
+    return factCheckBe.get<IArticle[]>(`/users/${userId}/articles`, { headers });
   };
 
   static getTextFromURL = (urlAdress: string) => {
-    return scrapingService.get<string>(`/extract/json?url=${urlAdress}`);
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
+    return scrapingService.get<string>(`/extract/json?url=${urlAdress}`, { headers });
   };
 
   static editArticle = (id: string, mergedValues: IArticle) => {
-    return factCheckBe.patch<IArticle>(`/articles/${id}`, mergedValues);
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
+    return factCheckBe.patch<IArticle>(`/articles/${id}`, mergedValues, { headers });
   };
 
   static createArticle = (mergedValues: IArticle) => {
-    return factCheckBe.post<IArticle>('/articles', mergedValues);
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
+    return factCheckBe.post<IArticle>('/articles', mergedValues, { headers });
   };
 
   static queryArticle = (patternSearch: string, page: number) => {
-    return factCheckBe.get<IArticle[]>(`/search/articles?text=${patternSearch}&perPage=10&page=${page}`);
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
+    return factCheckBe.get<IArticle[]>(`/search/articles?text=${patternSearch}&perPage=10&page=${page}`, { headers });
   };
 }

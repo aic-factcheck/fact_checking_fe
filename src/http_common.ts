@@ -34,16 +34,6 @@ async function refreshAccessToken() {
   }
 }
 
-axios.interceptors.request.use(
-  async (config) => {
-    // eslint-disable-next-line no-param-reassign
-    config.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
-
-    return config;
-  },
-  (error) => Promise.reject(error),
-);
-
 factCheckBe.interceptors.response.use((response) => response, (error) => {
   const { config, response: { status } } = error;
   const originalRequest = config;

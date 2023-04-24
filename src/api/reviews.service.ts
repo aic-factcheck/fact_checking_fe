@@ -4,14 +4,17 @@ import { IReview } from '../common/types';
 
 export default class ReviewsService {
   static getReviews = (articleid: string, claimid: string) => {
-    return factCheckBe.get<IReview[]>(`/articles/${articleid}/claims/${claimid}/reviews`);
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
+    return factCheckBe.get<IReview[]>(`/articles/${articleid}/claims/${claimid}/reviews`, { headers });
   };
 
   static voteReview = (idReview: string, rating: number) => {
-    return factCheckBe.post<number>(`/vote?reviewId=${idReview}`, { rating });
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
+    return factCheckBe.post<number>(`/vote?reviewId=${idReview}`, { rating }, { headers });
   };
 
   static addreview = (articleid: string, claimid: string, values: IReview) => {
-    return factCheckBe.post<IReview>(`/articles/${articleid}/claims/${claimid}/reviews`, values);
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
+    return factCheckBe.post<IReview>(`/articles/${articleid}/claims/${claimid}/reviews`, values, { headers });
   };
 }
