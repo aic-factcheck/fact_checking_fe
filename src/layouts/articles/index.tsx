@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 import React, { useEffect, useState } from 'react';
 import {
   List, Layout, Button, Row, Col, Input, Skeleton, Divider,
@@ -56,7 +57,7 @@ const AllArticles : React.FC = () => {
       setSearchValue(pattern);
       setSearchPage(1);
       // eslint-disable-next-line max-len
-      articlesService.queryArticle(pattern, 1).then((res: any) => {
+      articlesService.queryArticle(pattern).then((res: any) => {
         setSearchPage((s) => s + 1);
         setArticlesList(res.data);
       }).catch(() => {
@@ -86,14 +87,18 @@ const AllArticles : React.FC = () => {
       });
     } else {
       // eslint-disable-next-line max-len
-      articlesService.queryArticle(searchValue, searchPage).then((res: any) => {
-        setSearchPage(searchPage + 1);
-        setArticlesList([...articlesList, ...res.data]);
+      if (searchPage < 2) {
+        articlesService.queryArticle(searchValue).then((res: any) => {
+          setSearchPage(searchPage + 1);
+          setArticlesList([...articlesList, ...res.data]);
+          setLoading(false);
+          window.dispatchEvent(new Event('resize'));
+        }).catch(() => {
+          setLoading(false);
+        });
+      } else {
         setLoading(false);
-        window.dispatchEvent(new Event('resize'));
-      }).catch(() => {
-        setLoading(false);
-      });
+      }
     }
   };
 

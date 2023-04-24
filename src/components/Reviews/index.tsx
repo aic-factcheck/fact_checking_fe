@@ -27,18 +27,13 @@ const Reviews : React.FC<Props> = ({ claim, updated, indexClaim }) => {
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.token === undefined) {
-      navigate('/sign-in');
-    }
-    const id = auth?.user.id;
     const articleid = claim?.article._id;
     const claimid = claim?._id;
-    if (id !== undefined) {
-      reviewsService.getReviews(articleid, claimid).then((res: any) => {
-        // const reviews = res.filter((el) => claimid === el?.claimId);
-        setReviewsList(res.data);
-      }).catch();
-    }
+
+    reviewsService.getReviews(articleid, claimid).then((res: any) => {
+      // const reviews = res.filter((el) => claimid === el?.claimId);
+      setReviewsList(res.data);
+    }).catch();
   }, [auth, navigate, updated]);
 
   return (

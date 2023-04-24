@@ -4,8 +4,7 @@ import { IReview } from '../common/types';
 
 export default class ReviewsService {
   static getReviews = (articleid: string, claimid: string) => {
-    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return factCheckBe.get<IReview[]>(`/articles/${articleid}/claims/${claimid}/reviews`, { headers });
+    return factCheckBe.get<IReview[]>(`/articles/${articleid}/claims/${claimid}/reviews`);
   };
 
   static voteReview = (idReview: string, rating: number) => {

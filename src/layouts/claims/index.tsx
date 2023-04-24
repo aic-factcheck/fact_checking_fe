@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 import React, { useEffect, useState } from 'react';
 import {
   List, Layout, Row, Col, Input, Divider, Skeleton,
@@ -56,7 +57,7 @@ const ClaimPages: React.FC = () => {
       setSearchValue(pattern);
       setSearchPage(1);
       // eslint-disable-next-line max-len
-      claimsService.queryClaim(pattern, 1).then((res: any) => {
+      claimsService.queryClaim(pattern).then((res: any) => {
         setSearchPage((s) => s + 1);
         setClaimsList(res.data);
       }).catch(() => {
@@ -85,15 +86,19 @@ const ClaimPages: React.FC = () => {
         setLoading(false);
       });
     } else {
-      // eslint-disable-next-line max-len
-      claimsService.queryClaim(searchValue, searchPage).then((res: any) => {
-        setSearchPage(searchPage + 1);
-        setClaimsList([...claimsList, ...res.data]);
+      if (searchPage < 2) {
+        // eslint-disable-next-line max-len
+        claimsService.queryClaim(searchValue).then((res: any) => {
+          setSearchPage(searchPage + 1);
+          setClaimsList([...claimsList, ...res.data]);
+          setLoading(false);
+          window.dispatchEvent(new Event('resize'));
+        }).catch(() => {
+          setLoading(false);
+        });
+      } else {
         setLoading(false);
-        window.dispatchEvent(new Event('resize'));
-      }).catch(() => {
-        setLoading(false);
-      });
+      }
     }
   };
 

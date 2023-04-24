@@ -4,8 +4,7 @@ import { IClaim } from '../common/types';
 
 export default class ClaimsService {
   static getClaimsList = (page: number) => {
-    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return factCheckBe.get<IClaim[]>(`/hot/claims?perPage=10&page=${page}`, { headers });
+    return factCheckBe.get<IClaim[]>(`/hot/claims?perPage=10&page=${page}`);
   };
 
   static getMyClaims = (userId: string) => {
@@ -33,8 +32,8 @@ export default class ClaimsService {
     return factCheckBe.patch<IClaim>(`/articles/${articleid}/claims/${claimid}`, values, { headers });
   };
 
-  static queryClaim = (patternSearch: string, page: number) => {
+  static queryClaim = (patternSearch: string) => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return factCheckBe.get<IClaim[]>(`/search/claims?text=${patternSearch}&perPage=10&page=${page}`, { headers });
+    return factCheckBe.get<IClaim[]>(`/search/claims?text=${patternSearch}`, { headers });
   };
 }
