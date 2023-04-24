@@ -228,9 +228,9 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
             color: 'black', fontStyle: 'italic', zIndex: '99',
           }}
           offset={0}
-          xs={7}
-          sm={6}
-          md={6}
+          xs={8}
+          sm={7}
+          md={7}
           lg={6}
           xl={5}
           xxl={4}
@@ -248,9 +248,9 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
             color: 'black', fontStyle: 'italic', zIndex: '99',
           }}
           offset={0}
-          xs={4}
-          sm={4}
-          md={3}
+          xs={5}
+          sm={5}
+          md={4}
           lg={3}
           xl={2}
           xxl={2}
@@ -263,7 +263,7 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
           </Button>
         </Col>
       </Row>
-      <Divider style={{ margin: '0%' }} />
+      <Divider style={{ margin: '0%', marginTop: '1%' }} />
       <Row>
         <Col
           offset={0}

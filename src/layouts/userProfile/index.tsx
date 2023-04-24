@@ -69,27 +69,29 @@ const UserProfile: React.FC = () => {
               hoverable
             >
               <Row justify="space-between" align="middle">
-                <Col xs={5} sm={5} md={5} lg={5} xl={24} xxl={24} style={{ marginBottom: '2%' }}>
+                <Col xs={5} sm={5} md={5} lg={5} xl={24} xxl={24} style={{ marginBottom: '2%', overflowX: 'visible' }}>
                   <img
                     src={`${process.env.PUBLIC_URL}/user.svg`}
                     alt="user"
                     style={{ padding: '0%' }}
                   />
-                </Col>
-                <Col xs={11} sm={11} md={11} lg={11} xl={24} xxl={24}>
+                  <br />
                   <br />
                   <h6>
                     {'\n'}
-                    {userProfile?.firstName}
+                    {userProfile?.firstName?.toString().slice(0, 18)}
                     <br />
-                    {userProfile?.lastName}
+                    {userProfile?.lastName?.toString().slice(0, 18)}
                     {' '}
                   </h6>
-                  <p>
+                </Col>
+                <Col xs={12} sm={12} md={12} lg={12} xl={24} xxl={24}>
+                  <br />
+                  <h6>
                     {' '}
                     {`Level : ${userProfile?.level}`}
                     {' '}
-                  </p>
+                  </h6>
                   <Row>
                     <Col span={12} style={{ color: 'green' }}>
                       <Row>
@@ -147,7 +149,7 @@ const UserProfile: React.FC = () => {
                   <p />
                   <p>
                     {' '}
-                    {`${userProfile?.email}`}
+                    {userProfile?.email?.toString().slice(0, 18)}
                     {' '}
                   </p>
                 </Col>
