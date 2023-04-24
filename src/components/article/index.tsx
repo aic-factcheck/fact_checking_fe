@@ -51,13 +51,14 @@ const Article: React.FC<Props> = ({ article, isEditable, indexArticle }) => {
   const [saved, setSaved] = useState(article?.isSavedByUser);
 
   const saveArticle = (starId : string) => {
-    setSaved((current: boolean) => !current);
     if (!saved) {
+      setSaved((current: boolean) => !current);
       articlesService.saveArticle(starId)
         .catch(() => {
           setSaved((current: boolean) => !current);
         });
     } else {
+      setSaved((current: boolean) => !current);
       articlesService.unsaveArticle(starId)
         .catch(() => {
           setSaved((current: boolean) => !current);
@@ -144,12 +145,11 @@ const Article: React.FC<Props> = ({ article, isEditable, indexArticle }) => {
           <Tooltip placement="top" title={`${t('you_will_be_redirected')}  ${article?.sourceUrl}`}>
             <a href={`${article?.sourceUrl}`} className="articles" target="_blank" rel="noreferrer" style={{ textDecorationColor: 'black', whiteSpace: 'nowrap' }}>
               <Paragraph style={{ color: 'black', whiteSpace: 'nowrap' }}>
-                {`${article?.sourceUrl.slice(0, 32)}    ( `}
+                {`${article?.sourceUrl.slice(0, 32)}     `}
                 { article?.lang === 'sk' && <span className="fi fi-sk" style={{ whiteSpace: 'nowrap' }} /> }
                 { article?.lang === 'cz' && <span className="fi fi-cz" style={{ whiteSpace: 'nowrap' }} /> }
                 { article?.lang === 'en' && <span className="fi fi-gb" style={{ whiteSpace: 'nowrap' }} /> }
                 { article?.lang === 'other' && <BsFlagFill /> }
-                { ' )' }
               </Paragraph>
             </a>
           </Tooltip>

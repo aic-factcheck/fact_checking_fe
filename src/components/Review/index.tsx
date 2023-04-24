@@ -196,7 +196,15 @@ const Review: React.FC<Props> = ({ review }) => {
                 offset={0}
                 span={8}
               >
-                <Button block className="reactions" style={{ borderRadius: '10px 0px 0px 10px', border: 'none', background: '#F2F2F2' }} onClick={() => addUpVote()}>
+                <Button
+                  size="small"
+                  block
+                  className="reactions"
+                  style={{
+                    borderRadius: '10px 0px 0px 10px', border: 'none', background: '#F2F2F2', fontSize: '12px',
+                  }}
+                  onClick={() => addUpVote()}
+                >
                   <AiOutlineLike style={{ marginRight: '2%' }} />
                   {`${t('agree')}(${upvote})`}
                 </Button>
@@ -208,7 +216,7 @@ const Review: React.FC<Props> = ({ review }) => {
                 offset={0}
                 span={8}
               >
-                <Button block className="reactions" style={{ border: 'none', background: '#F2F2F2' }} onClick={() => addNeutralVote()}>
+                <Button size="small" block className="reactions" style={{ border: 'none', background: '#F2F2F2', fontSize: '12px' }} onClick={() => addNeutralVote()}>
                   <BiQuestionMark style={{ marginRight: '2%' }} />
                   {`${t('miss_info')}(${neutralvote})`}
                 </Button>
@@ -220,7 +228,15 @@ const Review: React.FC<Props> = ({ review }) => {
                 offset={0}
                 span={8}
               >
-                <Button block className="reactions" style={{ borderRadius: '0px 10px 10px 0px', border: 'none', background: '#F2F2F2' }} onClick={() => addDownVote()}>
+                <Button
+                  size="small"
+                  block
+                  className="reactions"
+                  style={{
+                    borderRadius: '0px 10px 10px 0px', border: 'none', background: '#F2F2F2', fontSize: '12px',
+                  }}
+                  onClick={() => addDownVote()}
+                >
                   <AiOutlineDislike style={{ marginRight: '2%' }} />
                   {`${t('disagree')}(${downvote})`}
                 </Button>

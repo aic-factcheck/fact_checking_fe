@@ -12,7 +12,15 @@ const { Title } = Typography;
 
 const MyTitle: React.FC<Props> = ({ headline, fontcolor }) => (
   <div>
-    <Title level={3} className="defaultForm" style={{ color: fontcolor, whiteSpace: 'pre-line', textDecoration: 'none' }}>{headline}</Title>
+    <Title
+      level={3}
+      className="defaultForm"
+      style={{
+        color: fontcolor, whiteSpace: 'pre-line', textDecoration: 'none', textTransform: 'none',
+      }}
+    >
+      {headline}
+    </Title>
   </div>
 );
 

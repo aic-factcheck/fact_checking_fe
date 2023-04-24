@@ -125,7 +125,7 @@ const AllArticles : React.FC = () => {
             <Col span={10} flex="0">
               <Link to="/article/create" style={{ color: 'white', padding: '2%' }}>
                 <Button type="primary" shape="round" size="large" style={{ backgroundColor: '#d86e3d', color: 'white' }} icon={<PlusCircleOutlined />}>
-                  {t('add_article')}
+                  {t('add')}
                 </Button>
               </Link>
             </Col>

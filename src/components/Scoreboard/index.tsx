@@ -28,27 +28,28 @@ const columns = [
     dataIndex: 'name',
   },
   {
-    title: 'Articles Score',
-    dataIndex: 'nArticles',
-    sorter: {
-      compare: (a: any, b: any) => a.nArticles - b.nArticles,
-      multiple: 3,
-    },
+    title: 'Level',
+    dataIndex: 'level',
   },
   {
     title: 'Claims Score',
     dataIndex: 'nClaims',
     sorter: {
-      compare: (a: any, b: any) => a.math - b.math,
-      multiple: 2,
+      compare: (a: any, b: any) => a.nClaims - b.nClaims,
     },
   },
   {
     title: 'Reviews Score',
     dataIndex: 'nReviews',
     sorter: {
-      compare: (a: any, b: any) => a.english - b.english,
-      multiple: 1,
+      compare: (a: any, b: any) => a.nReviews - b.nReviews,
+    },
+  },
+  {
+    title: 'Articles Score',
+    dataIndex: 'nArticles',
+    sorter: {
+      compare: (a: any, b: any) => a.nArticles - b.nArticles,
     },
   },
 ];
@@ -168,7 +169,7 @@ const Scoreboard: React.FC = () => {
       <Row justify="space-around" align="middle">
         <MyTitle headline="Best Hoaxkillers" fontcolor="#d86e3d" />
       </Row>
-      <Row className="containerLeaders" style={{ padding: '2%' }}>
+      <Row className="containerLeaders" style={{ padding: '2%', overflowX: 'scroll' }}>
         <Col sm={6}>
           <img alt="leaders" width="100%" src={`${process.env.PUBLIC_URL}/pictures/scoreboard.png`} style={{ padding: '5%' }} />
         </Col>
