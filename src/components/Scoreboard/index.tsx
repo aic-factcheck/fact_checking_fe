@@ -169,11 +169,11 @@ const Scoreboard: React.FC = () => {
       <Row justify="space-around" align="middle">
         <MyTitle headline="Best Hoaxkillers" fontcolor="#d86e3d" />
       </Row>
-      <Row className="containerLeaders" style={{ padding: '2%', overflowX: 'scroll' }}>
+      <Row className="containerLeaders" style={{ padding: '2%' }}>
         <Col sm={6}>
           <img alt="leaders" width="100%" src={`${process.env.PUBLIC_URL}/pictures/scoreboard.png`} style={{ padding: '5%' }} />
         </Col>
-        <Col sm={18}>
+        <Col sm={18} style={{ overflowX: 'scroll' }}>
           <Table columns={columns} dataSource={leaderboard} rowKey="id" />
         </Col>
       </Row>
