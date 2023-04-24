@@ -6,8 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { BiQuestionMark } from 'react-icons/bi';
 import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { useRecoilValue } from 'recoil';
 import { IReview } from '../../common/types';
 import reviewsService from '../../api/reviews.service';
+import authAtom from '../../_state/auth';
 
 interface Props {
   review: IReview,
@@ -66,56 +68,64 @@ let semaphore: ReviewSemaphore = new ReviewSemaphore();
 
 const Review: React.FC<Props> = ({ review }) => {
   const { t } = useTranslation();
+  const auth = useRecoilValue(authAtom);
 
   const [upvote, setUpvote] = useState(review?.nPositiveVotes);
   const [downvote, setDownvote] = useState(review?.nNegativeVotes);
   const [neutralvote, setNeutralvote] = useState(review?.nNeutralVotes);
 
   const addUpVote = () => {
-    const changed = semaphore.upvoteReview();
-    if (changed) {
-      setUpvote(review.nPositiveVotes + semaphore.upvote);
-      setDownvote(review.nNegativeVotes + semaphore.downvote);
-      setNeutralvote(review.nNeutralVotes + semaphore.neutralVote);
-      reviewsService.voteReview(review._id, 1).then((res: any) => {
-        setUpvote(res?.data?.nPositiveVotes);
-        setDownvote(res?.data?.nNegativeVotes);
-        setNeutralvote(res?.data?.nNeutralVotes);
-      }).catch((err) => {
-        console.log(err);
-      });
+    console.log(auth?.token);
+    if (auth?.token !== undefined) {
+      const changed = semaphore.upvoteReview();
+      if (changed) {
+        setUpvote(review.nPositiveVotes + semaphore.upvote);
+        setDownvote(review.nNegativeVotes + semaphore.downvote);
+        setNeutralvote(review.nNeutralVotes + semaphore.neutralVote);
+        reviewsService.voteReview(review._id, 1).then((res: any) => {
+          setUpvote(res?.data?.nPositiveVotes);
+          setDownvote(res?.data?.nNegativeVotes);
+          setNeutralvote(res?.data?.nNeutralVotes);
+        }).catch((err) => {
+          console.log(err);
+        });
+      }
     }
   };
 
   const addDownVote = () => {
-    const changed = semaphore.downvoteReview();
-    if (changed) {
-      setUpvote(review.nPositiveVotes + semaphore.upvote);
-      setDownvote(review.nNegativeVotes + semaphore.downvote);
-      setNeutralvote(review.nNeutralVotes + semaphore.neutralVote);
-      reviewsService.voteReview(review._id, -1).then((res: any) => {
-        setUpvote(res?.data?.nPositiveVotes);
-        setDownvote(res?.data?.nNegativeVotes);
-        setNeutralvote(res?.data?.nNeutralVotes);
-      }).catch((err) => {
-        console.log(err);
-      });
+    if (auth?.token !== undefined) {
+      const changed = semaphore.downvoteReview();
+      if (changed) {
+        setUpvote(review.nPositiveVotes + semaphore.upvote);
+        setDownvote(review.nNegativeVotes + semaphore.downvote);
+        setNeutralvote(review.nNeutralVotes + semaphore.neutralVote);
+        reviewsService.voteReview(review._id, -1).then((res: any) => {
+          setUpvote(res?.data?.nPositiveVotes);
+          setDownvote(res?.data?.nNegativeVotes);
+          setNeutralvote(res?.data?.nNeutralVotes);
+        }).catch((err) => {
+          console.log(err);
+        });
+      }
     }
   };
 
   const addNeutralVote = () => {
-    const changed = semaphore.neutralVoteReview();
-    if (changed) {
-      setUpvote(review.nPositiveVotes + semaphore.upvote);
-      setDownvote(review.nNegativeVotes + semaphore.downvote);
-      setNeutralvote(review.nNeutralVotes + semaphore.neutralVote);
-      reviewsService.voteReview(review._id, 0).then((res: any) => {
-        setUpvote(res?.data?.nPositiveVotes);
-        setDownvote(res?.data?.nNegativeVotes);
-        setNeutralvote(res?.data?.nNeutralVotes);
-      }).catch((err) => {
-        console.log(err);
-      });
+    if (auth?.token !== undefined) {
+      const changed = semaphore.neutralVoteReview();
+      if (changed) {
+        setUpvote(review.nPositiveVotes + semaphore.upvote);
+        setDownvote(review.nNegativeVotes + semaphore.downvote);
+        setNeutralvote(review.nNeutralVotes + semaphore.neutralVote);
+        reviewsService.voteReview(review._id, 0).then((res: any) => {
+          setUpvote(res?.data?.nPositiveVotes);
+          setDownvote(res?.data?.nNegativeVotes);
+          setNeutralvote(res?.data?.nNeutralVotes);
+        }).catch((err) => {
+          console.log(err);
+        });
+      }
     }
   };
 

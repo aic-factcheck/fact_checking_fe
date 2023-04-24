@@ -99,30 +99,34 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
   const [downvotes, setDownvotes] = useState(claim.nNegativeVotes);
 
   const addUpVote = (claimId: string) => {
-    const changed = semaphore.upvoteClaim();
-    if (changed) {
-      setUpvotes(claim.nPositiveVotes + semaphore.upvoteNum);
-      setDownvotes(claim.nNegativeVotes + semaphore.downvote);
-      claimsService.voteClaim(claimId, 1).then((res: any) => {
-        setUpvotes(res?.data?.nPositiveVotes);
-        setDownvotes(res?.data?.nNegativeVotes);
-      }).catch((err) => {
-        console.log(err);
-      });
+    if (auth?.token !== undefined) {
+      const changed = semaphore.upvoteClaim();
+      if (changed) {
+        setUpvotes(claim.nPositiveVotes + semaphore.upvoteNum);
+        setDownvotes(claim.nNegativeVotes + semaphore.downvote);
+        claimsService.voteClaim(claimId, 1).then((res: any) => {
+          setUpvotes(res?.data?.nPositiveVotes);
+          setDownvotes(res?.data?.nNegativeVotes);
+        }).catch((err) => {
+          console.log(err);
+        });
+      }
     }
   };
 
   const addDownVote = (claimId: string) => {
-    const changed = semaphore.downvoteClaim();
-    if (changed) {
-      setUpvotes(claim.nPositiveVotes + semaphore.upvoteNum);
-      setDownvotes(claim.nNegativeVotes + semaphore.downvote);
-      claimsService.voteClaim(claimId, -1).then((res: any) => {
-        setUpvotes(res?.data?.nPositiveVotes);
-        setDownvotes(res?.data?.nNegativeVotes);
-      }).catch((err) => {
-        console.log(err);
-      });
+    if (auth?.token !== undefined) {
+      const changed = semaphore.downvoteClaim();
+      if (changed) {
+        setUpvotes(claim.nPositiveVotes + semaphore.upvoteNum);
+        setDownvotes(claim.nNegativeVotes + semaphore.downvote);
+        claimsService.voteClaim(claimId, -1).then((res: any) => {
+          setUpvotes(res?.data?.nPositiveVotes);
+          setDownvotes(res?.data?.nNegativeVotes);
+        }).catch((err) => {
+          console.log(err);
+        });
+      }
     }
   };
 

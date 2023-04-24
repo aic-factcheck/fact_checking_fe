@@ -172,7 +172,47 @@ const CustomHeader : React.FC = () => {
           </Link>
         </DropdownButton>
       </Dropdown>
-    ) : (<div> </div>);
+    ) : (
+      <Dropdown style={{
+        background: 'none', border: '0px solid red', backgroundColor: 'none', position: 'sticky', zIndex: '7',
+      }}
+      >
+        <DropdownButton
+          id="dropdown-button-dark-example1"
+          variant="link"
+          style={{
+            background: 'none', border: '0px', backgroundColor: 'none', color: 'white',
+          }}
+          title={(
+            <Button className="rounded-circle" size="sm" style={{ background: 'white', border: '0px' }}>
+              <img
+                src={`${process.env.PUBLIC_URL}/user.svg`}
+                alt="user"
+                style={{ paddingLeft: '0%' }}
+                width="28px"
+              />
+            </Button>
+)}
+          align="end"
+        >
+          <Link to="/sign-in" style={{ textDecoration: 'none' }}>
+            <Dropdown.Item href="/sign-in">
+              <UserOutlined />
+              {'     '}
+              {t('sign_in')}
+            </Dropdown.Item>
+          </Link>
+          <Dropdown.Divider />
+          <Link to="/sign-up" style={{ textDecoration: 'none' }}>
+            <Dropdown.Item href="/sign-up">
+              <LogoutOutlined />
+              {'     '}
+              {t('sign_up')}
+            </Dropdown.Item>
+          </Link>
+        </DropdownButton>
+      </Dropdown>
+    );
 
   return (
     <Row style={{ width: '100%', background: '#d86e3d' }}>

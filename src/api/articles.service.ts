@@ -43,8 +43,8 @@ export default class ArticlesService {
     return factCheckBe.post<IArticle>('/articles', mergedValues, { headers });
   };
 
-  static queryArticle = (patternSearch: string, page: number) => {
+  static queryArticle = (patternSearch: string) => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return factCheckBe.get<IArticle[]>(`/search/articles?text=${patternSearch}&perPage=10&page=${page}`, { headers });
+    return factCheckBe.get<IArticle[]>(`/search/articles?text=${patternSearch}`, { headers });
   };
 }
