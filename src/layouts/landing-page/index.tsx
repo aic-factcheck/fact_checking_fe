@@ -45,7 +45,7 @@ const LadingPage: React.FC = () => {
           align="middle"
           justify="space-around"
         >
-          <Col xs={22} sm={22} md={22} lg={10} xl={10} xxl={10} style={{ height: '80%', margin: '3%' }}>
+          <Col xs={22} sm={22} md={22} lg={8} xl={8} xxl={8} style={{ height: '80%', margin: '3%' }}>
             <div
               style={{
                 background: 'white',
@@ -65,7 +65,7 @@ const LadingPage: React.FC = () => {
               </Title>
             </div>
           </Col>
-          <Col xs={22} sm={22} md={22} lg={10} xl={10} xxl={10} style={{ margin: '3%' }}>
+          <Col xs={22} sm={22} md={22} lg={12} xl={12} xxl={12} style={{ height: '100%', margin: '0%' }}>
             <Carousel
               indicators={false}
               controls

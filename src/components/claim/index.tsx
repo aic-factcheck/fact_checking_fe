@@ -63,6 +63,7 @@ const { Paragraph } = Typography;
 const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
   const auth = useRecoilValue(authAtom);
   const { t } = useTranslation();
+  const [reviewsNum, setReviewsNum] = useState(claim?.nReviews);
   // eslint-disable-next-line prefer-const
 
   const [open, setOpen] = useState(false);
@@ -93,6 +94,10 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
 
   const handleOkReview = () => {
     setOpenReview(false);
+  };
+
+  const increaseReviewsNum = () => {
+    setReviewsNum(reviewsNum + 1);
   };
 
   const [upvotes, setUpvotes] = useState(claim.nPositiveVotes);
@@ -183,6 +188,7 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
           <AddReview
             claim={claim}
             closeModal={handleOkAddReview}
+            reviewsNum={increaseReviewsNum}
           />
         </Modal>
       </div>
@@ -234,12 +240,12 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
             color: 'black', fontStyle: 'italic', zIndex: '99',
           }}
           offset={0}
-          xs={8}
-          sm={7}
-          md={7}
-          lg={6}
-          xl={5}
-          xxl={4}
+          xs={9}
+          sm={8}
+          md={8}
+          lg={7}
+          xl={6}
+          xxl={5}
         >
           <Button size="small" block className="reactions" style={{ borderRadius: '10px 0px 0px 10px' }} onClick={() => addUpVote(claim?._id)}>
             <UpCircleOutlined />
@@ -301,7 +307,7 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
           >
             {t('reviews')}
             {' ('}
-            {claim?.nReviews !== undefined ? claim?.nReviews : 0}
+            {reviewsNum !== undefined ? reviewsNum : 0}
             {') '}
           </Button>
           <Modal

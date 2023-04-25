@@ -31,6 +31,7 @@ const ClaimPages: React.FC = () => {
   const [searchPage, setSearchPage] = useState(1);
   const [isDefaultSearch, setIsDefaultSearch] = useState(true);
   const [searchValue, setSearchValue] = useState('');
+  const [hasMoreData, setHasMoreData] = useState(true);
 
   const allowEdit = false;
 
@@ -60,6 +61,9 @@ const ClaimPages: React.FC = () => {
       claimsService.queryClaim(pattern).then((res: any) => {
         setSearchPage((s) => s + 1);
         setClaimsList(res.data);
+        if (res.data.length === 0) {
+          setHasMoreData(false);
+        }
       }).catch(() => {
         setSearchPage(1);
         setClaimsList(Array.from(recoilHotClaimsList));
@@ -67,6 +71,7 @@ const ClaimPages: React.FC = () => {
     } else {
       setClaimsList(Array.from(recoilHotClaimsList));
       setIsDefaultSearch(true);
+      setHasMoreData(true);
     }
   };
 
@@ -81,6 +86,9 @@ const ClaimPages: React.FC = () => {
         setClaimsList([...recoilHotClaimsList, ...res.data]);
         setRecoilHotClaimsList([...recoilHotClaimsList, ...res.data]);
         setLoading(false);
+        if (res.data.length === 0) {
+          setHasMoreData(false);
+        }
         window.dispatchEvent(new Event('resize'));
       }).catch(() => {
         setLoading(false);
@@ -92,6 +100,7 @@ const ClaimPages: React.FC = () => {
           setSearchPage(searchPage + 1);
           setClaimsList([...claimsList, ...res.data]);
           setLoading(false);
+          setHasMoreData(false);
           window.dispatchEvent(new Event('resize'));
         }).catch(() => {
           setLoading(false);
@@ -107,9 +116,16 @@ const ClaimPages: React.FC = () => {
       <InfiniteScroll
         dataLength={claimsList.length}
         next={loadMoreData}
-        hasMore={claimsList.length < 100}
+        hasMore={hasMoreData}
         loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
-        endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
+        endMessage={(
+          <Divider plain>
+            {' '}
+            {t('search_ended')}
+            {' '}
+            🤐
+          </Divider>
+)}
         scrollableTarget="scrollableDiv"
       >
         <List
