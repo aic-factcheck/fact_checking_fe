@@ -77,5 +77,11 @@
     "search": "Search",
     "search_article": "Search article (at least 4 characters) ",
     "search_claim": "Search claim (at least 4 characters) ",
-    "your_level": "Your level"
+    "your_level": "Your level",
+    "successfully_added_claim": "Successfully added claim!",
+    "successfully_added_article": "Successfully added article!",
+    "successfully_added_review": "Successfully added review!",
+    "gained_20": "You gained 20 experience!",
+    "gained_30": "You gained 30 experience!",
+    "gained_8": "You gained 8 experience!"
 }

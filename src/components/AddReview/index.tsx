@@ -15,9 +15,10 @@ const { Title } = Typography;
 
 interface AddReviewProps {
   claim: IClaim;
+  closeModal: () => void;
 }
 
-const AddReview: React.FC<AddReviewProps> = ({ claim }) => {
+const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal }) => {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -69,10 +70,11 @@ const AddReview: React.FC<AddReviewProps> = ({ claim }) => {
         claimForm.resetFields(['text']);
         setReviewsList(mergedReviews);
         notification.info({
-          message: 'Successfully added review!',
-          description: 'You gained 10 experience!',
+          message: t('successfully_added_review'),
+          description: t('gained_30'),
           icon: <img alt="leaders" width="50%" src={`${process.env.PUBLIC_URL}/pictures/experience.png`} style={{ marginRight: '5%' }} />,
         });
+        closeModal();
       }).catch((err: any) => {
         message.error(err);
       });

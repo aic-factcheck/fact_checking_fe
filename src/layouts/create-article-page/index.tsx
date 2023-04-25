@@ -136,6 +136,7 @@ const CreateArticlePage: React.FC = () => {
                 claims={claims}
                 setClaims={setClaims}
                 article={article!}
+                closeModal={() => {}}
               />
             </div>
           </Row>
