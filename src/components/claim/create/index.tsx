@@ -16,10 +16,11 @@ interface Props {
   article: IArticle;
   claims: IClaim[];
   setClaims: React.Dispatch<React.SetStateAction<IClaim[]>>;
+  closeModal: () => void;
 }
 
 const CreateClaim : React.FC<Props> = ({
-  articleSubmited, article, claims, setClaims,
+  articleSubmited, article, claims, setClaims, closeModal,
 }) => {
   const [claimForm] = Form.useForm();
   const navigate = useNavigate();
@@ -69,9 +70,10 @@ const CreateClaim : React.FC<Props> = ({
       setClaims(mergedClaims);
       const mergedMyClaims = [...myClaimsList, newClaim];
       setMyClaimsList(mergedMyClaims);
+      closeModal();
       notification.info({
-        message: 'Successfully added claim!',
-        description: 'You gained 15 experience!',
+        message: t('successfully_added_claim'),
+        description: t('gained_20'),
         icon: <img alt="leaders" width="50%" src={`${process.env.PUBLIC_URL}/pictures/experience.png`} style={{ marginRight: '5%' }} />,
       });
     }).catch((e) => message.error(e));

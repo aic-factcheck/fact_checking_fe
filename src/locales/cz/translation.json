@@ -77,5 +77,11 @@
     "search": "Hledat",
     "search_article": "Hledat v článku (aspoň 4 znaky) ",
     "search_claim": "Hledat tvrzení (aspoň 4 znaky) ",
-    "your_level": "Tvuj level"
+    "your_level": "Tvuj level",
+    "successfully_added_claim": "Tvrzení úspěšně uloženo",
+    "successfully_added_article": "Tvrzení úspěšně uloženo",
+    "successfully_added_review": "Tvrzení úspěšně uloženo",
+    "gained_20": "Získali jste 20 experience!",
+    "gained_30": "Získali jste 30 experience!",
+    "gained_8": "Získali jste 8 experience!"
 }

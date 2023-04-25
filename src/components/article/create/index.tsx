@@ -85,8 +85,8 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
       setArticle(res.data);
       setArticleSubmited(true);
       notification.info({
-        message: 'Successfully added article!',
-        description: 'You gained 15 experience!',
+        message: t('successfully_added_article'),
+        description: t('gained_8'),
         icon: <img alt="leaders" width="50%" src={`${process.env.PUBLIC_URL}/pictures/experience.png`} style={{ marginRight: '5%' }} />,
       });
     })

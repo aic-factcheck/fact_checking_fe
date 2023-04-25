@@ -77,5 +77,11 @@
     "search": "Hľadať",
     "search_article": "Hľadať článok (aspoň 4 znaky) ",
     "search_claim": "Hľadať tvrdenie (aspoň 4 znaky) ",
-    "your_level": "Tvoj level"
+    "your_level": "Tvoj level",
+    "successfully_added_claim": "Tvrdenie úspešne uložené",
+    "successfully_added_article": "Tvrdenie úspešne uložené",
+    "successfully_added_review": "Tvrdenie úspešne uložené",
+    "gained_20": "Získali ste 20 experience!",
+    "gained_30": "Získali ste 30 experience!",
+    "gained_8": "Získali ste 8 experience!"
 }

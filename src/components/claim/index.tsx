@@ -153,6 +153,7 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
           <EditClaim
             claim={claim}
             indexClaim={index}
+            closeModal={handleOk}
           />
         </Modal>
       </div>
@@ -181,6 +182,7 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
         >
           <AddReview
             claim={claim}
+            closeModal={handleOkAddReview}
           />
         </Modal>
       </div>
@@ -298,6 +300,9 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
             style={{ border: 'none' }}
           >
             {t('reviews')}
+            {' ('}
+            {claim?.nReviews !== undefined ? claim?.nReviews : 0}
+            {') '}
           </Button>
           <Modal
             title={t('reviews')}

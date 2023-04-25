@@ -7,6 +7,7 @@ export interface IClaim {
   createdAt: string;
   nPositiveVotes: number,
   nNegativeVotes: number,
+  nReviews: number,
   addedBy: {
     _id: string;
     firstName: string;

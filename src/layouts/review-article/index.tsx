@@ -105,6 +105,7 @@ const ReviewArticle: React.FC = () => {
               claims={claims !== undefined ? claims : []}
               article={article !== undefined ? article : new ArticleEmpty()}
               articleSubmited={allowAddClaim}
+              closeModal={handleOk}
             />
           </Modal>
         </Col>

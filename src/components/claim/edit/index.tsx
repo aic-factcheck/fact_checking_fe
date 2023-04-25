@@ -13,9 +13,10 @@ import claimsService from '../../../api/claims.service';
 interface Props {
   claim: IClaim;
   indexClaim: number;
+  closeModal: () => void;
 }
 
-const EditClaim: React.FC<Props> = ({ claim, indexClaim }) => {
+const EditClaim: React.FC<Props> = ({ claim, indexClaim, closeModal }) => {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -50,6 +51,7 @@ const EditClaim: React.FC<Props> = ({ claim, indexClaim }) => {
         const mergedClaims = [...myClaimsList.slice(0, indexClaim), claimToEdit, ...myClaimsList.slice(indexClaim + 1)];
 
         setMyClaimsList(mergedClaims);
+        closeModal();
       })
         .catch((e) => message.error(e));
       // eslint-disable-next-line max-len

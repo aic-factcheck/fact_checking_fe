@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect, useState } from 'react';
@@ -8,12 +9,12 @@ import { EditOutlined } from '@ant-design/icons';
 import { BsFlagFill } from 'react-icons/bs';
 // eslint-disable-next-line no-unused-vars
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
-import { useRecoilValue } from 'recoil';
+// import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line import/no-absolute-path
 import '/node_modules/flag-icons/css/flag-icons.min.css';
 import { Link } from 'react-router-dom';
-import authAtom from '../../_state/auth';
+// import authAtom from '../../_state/auth';
 import MyTitle from '../MyTitle/index';
 import EditArticle from './edit';
 import { IArticle } from '../../common/types';
@@ -34,7 +35,7 @@ const Article: React.FC<Props> = ({ article, isEditable, indexArticle }) => {
   // const articleUrl = `/article/${article?._id}`;
   // const [readMore, setReadMore] = useState(false);
 
-  const auth = useRecoilValue(authAtom);
+  // const auth = useRecoilValue(authAtom);
 
   const showModal = () => {
     setOpen(true);
@@ -121,23 +122,19 @@ const Article: React.FC<Props> = ({ article, isEditable, indexArticle }) => {
       </Row>
       <Row>
         <Col offset={1} span="auto">
-          <Paragraph>
-            {
-                article?.addedBy?.firstName !== undefined && article?.createdAt !== undefined
-                  ? (
-                    <Link to={`/profileSearch/${article?.addedBy?._id}`}>
-                      {`${article?.addedBy?.firstName} ${article?.addedBy.lastName}`}
-                    </Link>
-                  )
-                  : (
-                    <Link to={`/profileSearch/${article?.addedBy?._id}`}>
-                      {`${auth?.user?.firstName} ${auth?.user.lastName}`}
-                    </Link>
-                  )
-            }
-            {', '}
-            {new Date(article?.createdAt).toUTCString().slice(4).slice(0, -7)}
-          </Paragraph>
+          { (article?.addedBy?.firstName !== undefined && article?.createdAt !== undefined) && article?.createdAt !== undefined
+            ? (
+              <Paragraph>
+
+                <Link to={`/profileSearch/${article?.addedBy?._id}`}>
+                  {`${article?.addedBy?.firstName} ${article?.addedBy.lastName}`}
+                </Link>
+
+                {', '}
+                {new Date(article?.createdAt).toUTCString().slice(4).slice(0, -7)}
+              </Paragraph>
+            )
+            : (<div />)}
         </Col>
       </Row>
       <Row>
