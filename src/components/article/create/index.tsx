@@ -54,6 +54,7 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
     if (textData !== undefined && textData !== null && textData.value.length > 5) {
       articlesService.getTextFromURL(textData.value).then((res: any) => {
         formRef.current?.setFieldsValue({ text: res.data.raw_text });
+        formRef.current?.setFieldsValue({ title: res.data.title });
       })
         .catch();
     }
@@ -113,6 +114,49 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
     >
       <MyTitle headline={t('add_article')} fontcolor="#d86e3d" />
       <Form.Item
+        style={{ marginTop: '2%', marginBottom: '1%' }}
+        label={t('source_url')}
+        extra={t('tip_webscrape')}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Row gutter={2}>
+          <Col
+            xs={24}
+            sm={24}
+            md={24}
+            lg={24}
+            xl={16}
+            xxl={16}
+          >
+            <Form.Item
+              noStyle
+              name="sourceUrl"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Input id="urlTextData" />
+            </Form.Item>
+          </Col>
+          <Col
+            xs={24}
+            sm={24}
+            md={24}
+            lg={24}
+            xl={8}
+            xxl={8}
+          >
+            <Button onClick={scrapeFromURL}>{t('load_text_from_url')}</Button>
+          </Col>
+        </Row>
+      </Form.Item>
+      <Form.Item
         name="title"
         label={t('title')}
         rules={[
@@ -137,34 +181,6 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
           <Option value="sk">{t('slovak')}</Option>
           <Option value="other">{t('other')}</Option>
         </Select>
-      </Form.Item>
-      <Form.Item
-        label={t('source_url')}
-        extra={t('tip_webscrape')}
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Row gutter={2}>
-          <Col span={16}>
-            <Form.Item
-              noStyle
-              name="sourceUrl"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Input id="urlTextData" />
-            </Form.Item>
-          </Col>
-          <Col span={8}>
-            <Button onClick={scrapeFromURL}>{t('load_text_from_url')}</Button>
-          </Col>
-        </Row>
       </Form.Item>
       <Form.Item
         name="text"

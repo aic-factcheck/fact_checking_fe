@@ -32,6 +32,7 @@ const AllArticles : React.FC = () => {
   const [searchPage, setSearchPage] = useState(1);
   const [isDefaultSearch, setIsDefaultSearch] = useState(true);
   const [searchValue, setSearchValue] = useState('');
+  const [hasMoreData, setHasMoreData] = useState(true);
 
   const allowEdit = false;
 
@@ -60,6 +61,9 @@ const AllArticles : React.FC = () => {
       articlesService.queryArticle(pattern).then((res: any) => {
         setSearchPage((s) => s + 1);
         setArticlesList(res.data);
+        if (res.data.length === 0) {
+          setHasMoreData(false);
+        }
       }).catch(() => {
         setSearchPage(1);
         setArticlesList(Array.from(recoilHotArticlesList));
@@ -67,6 +71,7 @@ const AllArticles : React.FC = () => {
     } else {
       setArticlesList(Array.from(recoilHotArticlesList));
       setIsDefaultSearch(true);
+      setHasMoreData(true);
     }
   };
 
@@ -82,6 +87,9 @@ const AllArticles : React.FC = () => {
         setRecoilHotArticlesList([...recoilHotArticlesList, ...res.data]);
         setLoading(false);
         window.dispatchEvent(new Event('resize'));
+        if (res.data.length === 0) {
+          setHasMoreData(false);
+        }
       }).catch(() => {
         setLoading(false);
       });
@@ -93,6 +101,7 @@ const AllArticles : React.FC = () => {
           setArticlesList([...articlesList, ...res.data]);
           setLoading(false);
           window.dispatchEvent(new Event('resize'));
+          setHasMoreData(false);
         }).catch(() => {
           setLoading(false);
         });
@@ -107,9 +116,16 @@ const AllArticles : React.FC = () => {
       <InfiniteScroll
         dataLength={articlesList.length}
         next={loadMoreData}
-        hasMore={articlesList.length < 100}
+        hasMore={hasMoreData}
         loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
-        endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
+        endMessage={(
+          <Divider plain>
+            {' '}
+            {t('search_ended')}
+            {' '}
+            🤐
+          </Divider>
+)}
         scrollableTarget="scrollableDiv"
       >
         <List

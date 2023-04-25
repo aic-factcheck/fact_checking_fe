@@ -16,9 +16,10 @@ const { Title } = Typography;
 interface AddReviewProps {
   claim: IClaim;
   closeModal: () => void;
+  reviewsNum: () => void;
 }
 
-const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal }) => {
+const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) => {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -74,6 +75,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal }) => {
           description: t('gained_30'),
           icon: <img alt="leaders" width="50%" src={`${process.env.PUBLIC_URL}/pictures/experience.png`} style={{ marginRight: '5%' }} />,
         });
+        reviewsNum();
         closeModal();
       }).catch((err: any) => {
         message.error(err);
