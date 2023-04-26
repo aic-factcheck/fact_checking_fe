@@ -64,9 +64,10 @@ class ReviewSemaphore {
 
 const { Paragraph } = Typography;
 // eslint-disable-next-line prefer-const
-let semaphore: ReviewSemaphore = new ReviewSemaphore();
 
 const Review: React.FC<Props> = ({ review }) => {
+  // eslint-disable-next-line prefer-const
+  let semaphore: ReviewSemaphore = new ReviewSemaphore();
   const { t } = useTranslation();
   const auth = useRecoilValue(authAtom);
 
