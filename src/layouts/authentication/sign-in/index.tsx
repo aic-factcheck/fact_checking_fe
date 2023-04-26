@@ -28,18 +28,16 @@ const SignIn: React.FC = () => {
   }, [auth, navigate]);
 
   const onFinish = (values: FormData) => {
-    try {
-      UsersService.login(values.email, values.password).then((res: any) => {
-        setAuth(res.data);
-        localStorage.setItem('user', JSON.stringify(res.data));
-        localStorage.setItem('accessToken', res.data.token.accessToken);
-        localStorage.setItem('refreshToken', res.data.token.refreshToken);
-        localStorage.setItem('email', res.data.user.email);
-        localStorage.setItem('expiresIn', res.data.token.expiresIn);
-      });
-    } catch (error: any) {
-      message.error(error);
-    }
+    UsersService.login(values.email, values.password).then((res: any) => {
+      setAuth(res.data);
+      localStorage.setItem('user', JSON.stringify(res.data));
+      localStorage.setItem('accessToken', res.data.token.accessToken);
+      localStorage.setItem('refreshToken', res.data.token.refreshToken);
+      localStorage.setItem('email', res.data.user.email);
+      localStorage.setItem('expiresIn', res.data.token.expiresIn);
+    }).catch((err: any) => {
+      message.error(err.response.data.message);
+    });
   };
 
   const onFinishFailed = (errorInfo: any) => {
