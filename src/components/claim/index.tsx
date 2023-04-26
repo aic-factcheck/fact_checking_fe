@@ -55,12 +55,11 @@ class ClaimSemaphore {
   }
 }
 
-// eslint-disable-next-line prefer-const
-let semaphore: ClaimSemaphore = new ClaimSemaphore();
-
 const { Paragraph } = Typography;
 
 const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
+  // eslint-disable-next-line prefer-const
+  let semaphore: ClaimSemaphore = new ClaimSemaphore();
   const auth = useRecoilValue(authAtom);
   const { t } = useTranslation();
   const [reviewsNum, setReviewsNum] = useState(claim?.nReviews);
