@@ -30,6 +30,9 @@ const columns = [
   {
     title: 'Level',
     dataIndex: 'level',
+    sorter: {
+      compare: (a: any, b: any) => a.level - b.level,
+    },
   },
   {
     title: 'Claims Score',
