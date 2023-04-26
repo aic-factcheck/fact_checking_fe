@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  Layout, Button, Form, Input, message, Row, Col, Divider,
+  Layout, Button, Form, Input, Row, Col, Divider, message,
 } from 'antd';
 
 import { useRecoilState } from 'recoil';
@@ -25,29 +25,23 @@ const SignUp: React.FC = () => {
   }, [auth, navigate]);
 
   const onFinish = (values: any) => {
-    try {
-      usersService.signup(
-        values.firstname,
-        values.lastname,
-        values.email,
-        values.password,
-      ).then((res) => {
-        setAuth(res.data);
-        localStorage.setItem('user', JSON.stringify(res.data));
-        localStorage.setItem('accessToken', res.data.token.accessToken);
-        localStorage.setItem('refreshToken', res.data.token.refreshToken);
-        localStorage.setItem('email', res.data.user.email);
-        localStorage.setItem('expiresIn', res.data.token.expiresIn);
-        // eslint-disable-next-line max-len
-        // http_common.defaults.headers.common['Authorization'] = `Bearer ${res.data.token.accessToken}`;
-      });
-    } catch (error: any) {
-      message.error(error);
-    }
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    message.error(errorInfo);
+    usersService.signup(
+      values.firstname,
+      values.lastname,
+      values.email,
+      values.password,
+    ).then((res) => {
+      setAuth(res.data);
+      localStorage.setItem('user', JSON.stringify(res.data));
+      localStorage.setItem('accessToken', res.data.token.accessToken);
+      localStorage.setItem('refreshToken', res.data.token.refreshToken);
+      localStorage.setItem('email', res.data.user.email);
+      localStorage.setItem('expiresIn', res.data.token.expiresIn);
+      // eslint-disable-next-line max-len
+      // http_common.defaults.headers.common['Authorization'] = `Bearer ${res.data.token.accessToken}`;
+    }).catch((err: any) => {
+      message.error(err.response.data.message);
+    });
   };
 
   return (
@@ -86,7 +80,6 @@ const SignUp: React.FC = () => {
               remember: true,
             }}
             onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
             autoComplete="off"
           >
             <Form.Item
