@@ -48,6 +48,9 @@ const CustomHeader : React.FC = () => {
                 <Nav.Link as={Link} to="/articles" active={location.pathname === '/articles'} style={{ color: 'white', fontWeight: '500' }}>{t('articles')}</Nav.Link>
               </Nav>
             </Link>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              <Nav.Link as={Link} to="/profile" active={location.pathname === '/claims'} style={{ color: 'white', fontWeight: '500' }}>{t('scoreboard')}</Nav.Link>
+            </Link>
           </Nav>
           <Nav activeKey={location.pathname} style={{ float: 'left' }}>
             <Nav.Item style={{ color: 'white' }}>
