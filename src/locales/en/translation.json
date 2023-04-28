@@ -84,5 +84,11 @@
     "gained_20": "You gained 20 experience!",
     "gained_30": "You gained 30 experience!",
     "gained_8": "You gained 8 experience!",
-    "search_ended": "End of search"
+    "search_ended": "End of search",
+    "scoreboard": "Scoreboard",
+    "hoaxkillers": "Best Fact-Checkers",
+    "articles_score": "Articles score",
+    "claims_score": "Claims score",
+    "reviews_score": "Reviews score",
+    "name": "Name"
 }

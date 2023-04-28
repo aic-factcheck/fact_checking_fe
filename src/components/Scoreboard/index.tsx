@@ -18,45 +18,6 @@ import MyTitle from '../MyTitle';
 import { IStats } from '../../common/types';
 import usersService from '../../api/users.service';
 
-const columns = [
-  {
-    title: 'Rank',
-    render: (id: string, record: any, index: number) => { ++index; return index; },
-  },
-  {
-    title: 'Name',
-    dataIndex: 'name',
-  },
-  {
-    title: 'Level',
-    dataIndex: 'level',
-    sorter: {
-      compare: (a: any, b: any) => a.level - b.level,
-    },
-  },
-  {
-    title: 'Claims Score',
-    dataIndex: 'nClaims',
-    sorter: {
-      compare: (a: any, b: any) => a.nClaims - b.nClaims,
-    },
-  },
-  {
-    title: 'Reviews Score',
-    dataIndex: 'nReviews',
-    sorter: {
-      compare: (a: any, b: any) => a.nReviews - b.nReviews,
-    },
-  },
-  {
-    title: 'Articles Score',
-    dataIndex: 'nArticles',
-    sorter: {
-      compare: (a: any, b: any) => a.nArticles - b.nArticles,
-    },
-  },
-];
-
 const Scoreboard: React.FC = () => {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
@@ -64,6 +25,45 @@ const Scoreboard: React.FC = () => {
 
   const [stats, setStats] = useState<IStats>();
   const [leaderboard, setLeaderboard] = useState([]);
+
+  const columns = [
+    {
+      title: 'Rank',
+      render: (id: string, record: any, index: number) => { ++index; return index; },
+    },
+    {
+      title: t('name'),
+      dataIndex: 'name',
+    },
+    {
+      title: 'Level',
+      dataIndex: 'level',
+      sorter: {
+        compare: (a: any, b: any) => a.level - b.level,
+      },
+    },
+    {
+      title: t('claims_score'),
+      dataIndex: 'nClaims',
+      sorter: {
+        compare: (a: any, b: any) => a.nClaims - b.nClaims,
+      },
+    },
+    {
+      title: t('reviews_score'),
+      dataIndex: 'nReviews',
+      sorter: {
+        compare: (a: any, b: any) => a.nReviews - b.nReviews,
+      },
+    },
+    {
+      title: t('articles_score'),
+      dataIndex: 'nArticles',
+      sorter: {
+        compare: (a: any, b: any) => a.nArticles - b.nArticles,
+      },
+    },
+  ];
 
   useEffect(() => {
     // redirect to home if already logged in
@@ -170,7 +170,7 @@ const Scoreboard: React.FC = () => {
       </Row>
       <Divider />
       <Row justify="space-around" align="middle">
-        <MyTitle headline="Best Hoaxkillers" fontcolor="#d86e3d" />
+        <MyTitle headline={t('hoaxkillers')} fontcolor="#d86e3d" />
       </Row>
       <Row className="containerLeaders" style={{ padding: '2%' }}>
         <Col sm={6}>

@@ -93,7 +93,7 @@ const SignIn: React.FC = () => {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your mail address!',
+                  message: t('please_mail'),
                 },
               ]}
               style={{ margin: '2%' }}
@@ -107,7 +107,7 @@ const SignIn: React.FC = () => {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your password!',
+                  message: t('please_pass'),
                 },
               ]}
               style={{ margin: '2%' }}

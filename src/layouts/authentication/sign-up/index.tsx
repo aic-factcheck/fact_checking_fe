@@ -87,7 +87,7 @@ const SignUp: React.FC = () => {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your first name!',
+                  message: t('please_first'),
                 },
               ]}
             >
@@ -99,7 +99,7 @@ const SignUp: React.FC = () => {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your last name!',
+                  message: t('please_last'),
                 },
               ]}
             >
@@ -111,7 +111,7 @@ const SignUp: React.FC = () => {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your email!',
+                  message: t('please_mail'),
                 },
               ]}
             >
@@ -123,7 +123,7 @@ const SignUp: React.FC = () => {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your password!',
+                  message: t('please_pass'),
                 },
               ]}
             >

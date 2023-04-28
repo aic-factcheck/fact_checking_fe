@@ -84,5 +84,11 @@
     "gained_20": "Získali ste 20 experience!",
     "gained_30": "Získali ste 30 experience!",
     "gained_8": "Získali ste 8 experience!",
-    "search_ended": "Koniec vyhľadávania"
+    "search_ended": "Koniec vyhľadávania",
+    "scoreboard": "Štatistiky",
+    "hoaxkillers": "Najlepší overovatelia faktov",
+    "articles_score": "Skóre článkov",
+    "claims_score": "Skóre tvrdení",
+    "reviews_score": "Skóre hodnotení",
+    "name": "Méno"
 }
