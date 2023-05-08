@@ -41,15 +41,15 @@ const CustomHeader : React.FC = () => {
         <Navbar.Collapse id="responsive-navbar-nav" style={{ paddingRight: '10px' }}>
           <Nav className="me-auto" activeKey={location.pathname}>
             <Link to="/" style={{ textDecoration: 'none' }}>
-              <Nav.Link as={Link} to="/claims" active={location.pathname === '/claims'} style={{ color: 'white', fontWeight: '500' }}>{t('claims')}</Nav.Link>
+              <Nav.Link as={Link} to="/claims" id="claimsLink" active={location.pathname === '/claims'} style={{ color: 'white', fontWeight: '500' }}>{t('claims')}</Nav.Link>
             </Link>
             <Link to="/" style={{ textDecoration: 'none' }}>
               <Nav className="me-auto" activeKey={location.pathname}>
-                <Nav.Link as={Link} to="/articles" active={location.pathname === '/articles'} style={{ color: 'white', fontWeight: '500' }}>{t('articles')}</Nav.Link>
+                <Nav.Link as={Link} to="/articles" id="articlesLink" active={location.pathname === '/articles'} style={{ color: 'white', fontWeight: '500' }}>{t('articles')}</Nav.Link>
               </Nav>
             </Link>
             <Link to="/" style={{ textDecoration: 'none' }}>
-              <Nav.Link as={Link} to="/profile" active={location.pathname === '/claims'} style={{ color: 'white', fontWeight: '500' }}>{t('scoreboard')}</Nav.Link>
+              <Nav.Link as={Link} to="/profile" id="profileLink" active={location.pathname === '/claims'} style={{ color: 'white', fontWeight: '500' }}>{t('scoreboard')}</Nav.Link>
             </Link>
           </Nav>
           <Nav activeKey={location.pathname} style={{ float: 'left' }}>
@@ -136,12 +136,13 @@ const CustomHeader : React.FC = () => {
 
   const profileIsLoggedIn = (auth?.user?.email !== undefined)
     ? (
-      <Dropdown style={{
-        background: 'none', border: '0px solid red', backgroundColor: 'none', position: 'sticky', zIndex: '7',
-      }}
+      <Dropdown
+        style={{
+          background: 'none', border: '0px solid red', backgroundColor: 'none', position: 'sticky', zIndex: '7',
+        }}
       >
         <DropdownButton
-          id="dropdown-button-dark-example1"
+          id="dropDownUserMenu"
           variant="link"
           style={{
             background: 'none', border: '0px', backgroundColor: 'none', color: 'white',
@@ -159,7 +160,7 @@ const CustomHeader : React.FC = () => {
           align="end"
         >
           <Link to="/profile" style={{ textDecoration: 'none' }}>
-            <Dropdown.Item href="/profile">
+            <Dropdown.Item href="/profile" id="dropDownItemProfile">
               <UserOutlined />
               {'     '}
               {t('profile')}
@@ -167,7 +168,7 @@ const CustomHeader : React.FC = () => {
           </Link>
           <Dropdown.Divider />
           <Link to="/logout" style={{ textDecoration: 'none' }}>
-            <Dropdown.Item href="/logout">
+            <Dropdown.Item href="/logout" id="dropDownItemLogout">
               <LogoutOutlined />
               {'     '}
               {t('logout')}

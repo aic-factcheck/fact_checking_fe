@@ -74,7 +74,7 @@ const Article: React.FC<Props> = ({ article, isEditable, indexArticle }) => {
   const editButton = (isEditable)
     ? (
       <div>
-        <Button type="primary" onClick={showModal} icon={<EditOutlined />}>
+        <Button type="primary" className="editArticleProfile" onClick={showModal} icon={<EditOutlined />}>
           {t('edit')}
         </Button>
         <Modal
@@ -103,16 +103,18 @@ const Article: React.FC<Props> = ({ article, isEditable, indexArticle }) => {
     );
 
   return (
-    <div style={{
-      backgroundColor: 'white',
-      padding: '2% 2% 2% 2%',
-      borderRadius: '10px',
-      color: 'black',
-    }}
+    <div
+      className="articleComponent"
+      style={{
+        backgroundColor: 'white',
+        padding: '2% 2% 2% 2%',
+        borderRadius: '10px',
+        color: 'black',
+      }}
     >
       <Row>
         <Col offset={1} span={19}>
-          <Link to={`/article/${article?._id}`} className="articles" style={{ color: 'black', textDecorationColor: 'black' }}>
+          <Link to={`/article/${article?._id}`} className="articles articlesTitleLink" style={{ color: 'black', textDecorationColor: 'black' }}>
             <MyTitle headline={article?.title} fontcolor="black" />
           </Link>
         </Col>
@@ -126,7 +128,7 @@ const Article: React.FC<Props> = ({ article, isEditable, indexArticle }) => {
             ? (
               <Paragraph>
 
-                <Link to={`/profileSearch/${article?.addedBy?._id}`}>
+                <Link to={`/profileSearch/${article?.addedBy?._id}`} className="authorArticle">
                   {`${article?.addedBy?.firstName} ${article?.addedBy.lastName}`}
                 </Link>
 

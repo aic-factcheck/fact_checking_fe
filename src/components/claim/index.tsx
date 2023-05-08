@@ -22,44 +22,11 @@ interface Props {
   index: number;
 }
 
-class ClaimSemaphore {
-  upvoteNum: number;
-
-  downvote: number;
-
-  constructor() {
-    this.upvoteNum = 0;
-    this.downvote = 0;
-  }
-
-  upvoteClaim(): boolean {
-    let changed = false;
-    console.log(this.upvoteNum);
-    if (this.upvoteNum === 0) {
-      changed = true;
-    }
-    this.upvoteNum = 1;
-    console.log(this.upvoteNum);
-    this.downvote = 0;
-    return changed;
-  }
-
-  downvoteClaim(): boolean {
-    let changed = false;
-    if (this.downvote === 0) {
-      changed = true;
-    }
-    this.upvoteNum = 0;
-    this.downvote = 1;
-    return changed;
-  }
-}
-
 const { Paragraph } = Typography;
 
 const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
-  // eslint-disable-next-line prefer-const
-  let semaphore: ClaimSemaphore = new ClaimSemaphore();
+  const [myupvotes, setMyUpvotes] = useState(0);
+  const [mydownvotes, setMyDownvotes] = useState(0);
   const auth = useRecoilValue(authAtom);
   const { t } = useTranslation();
   const [reviewsNum, setReviewsNum] = useState(claim?.nReviews);
@@ -104,10 +71,15 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
 
   const addUpVote = (claimId: string) => {
     if (auth?.token !== undefined) {
-      const changed = semaphore.upvoteClaim();
-      if (changed) {
-        setUpvotes(claim.nPositiveVotes + semaphore.upvoteNum);
-        setDownvotes(claim.nNegativeVotes + semaphore.downvote);
+      let changedHappen = false;
+      if (myupvotes !== 1) {
+        changedHappen = true;
+        setMyUpvotes(1);
+      }
+      setMyDownvotes(0);
+      if (changedHappen) {
+        setUpvotes(claim.nPositiveVotes + myupvotes);
+        setDownvotes(claim.nNegativeVotes + mydownvotes);
         claimsService.voteClaim(claimId, 1).then((res: any) => {
           setUpvotes(res?.data?.nPositiveVotes);
           setDownvotes(res?.data?.nNegativeVotes);
@@ -120,10 +92,15 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
 
   const addDownVote = (claimId: string) => {
     if (auth?.token !== undefined) {
-      const changed = semaphore.downvoteClaim();
-      if (changed) {
-        setUpvotes(claim.nPositiveVotes + semaphore.upvoteNum);
-        setDownvotes(claim.nNegativeVotes + semaphore.downvote);
+      let changedHappen = false;
+      if (mydownvotes !== 1) {
+        changedHappen = true;
+        setMyDownvotes(1);
+      }
+      setMyUpvotes(0);
+      if (changedHappen) {
+        setUpvotes(claim.nPositiveVotes + myupvotes);
+        setDownvotes(claim.nNegativeVotes + mydownvotes);
         claimsService.voteClaim(claimId, -1).then((res: any) => {
           setUpvotes(res?.data?.nPositiveVotes);
           setDownvotes(res?.data?.nNegativeVotes);
@@ -141,7 +118,7 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
           block
           onClick={showModal}
           icon={<EditOutlined />}
-          className="buttons"
+          className="buttons editClaimProfile"
           style={{ border: 'none' }}
         >
           {t('edit')}
@@ -167,7 +144,7 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
           block
           onClick={showModalAddReview}
           icon={<PlusCircleOutlined />}
-          className="buttons"
+          className="buttons addReviewButton"
           style={{
             zIndex: '99',
             border: 'none',
@@ -195,6 +172,7 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
 
   return (
     <div
+      className="claimComponent"
       style={{
         padding: '3%',
         backgroundColor: 'white',
@@ -246,7 +224,7 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
           xl={6}
           xxl={5}
         >
-          <Button size="small" block className="reactions" style={{ borderRadius: '10px 0px 0px 10px' }} onClick={() => addUpVote(claim?._id)}>
+          <Button size="small" block className="reactions upvoteClaimButton" style={{ borderRadius: '10px 0px 0px 10px' }} onClick={() => addUpVote(claim?._id)}>
             <UpCircleOutlined />
             {' '}
             {t('upvote')}
@@ -266,7 +244,7 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
           xl={2}
           xxl={2}
         >
-          <Button size="small" block className="reactions" style={{ borderRadius: '0px 10px 10px 0px' }} onClick={() => addDownVote(claim?._id)}>
+          <Button size="small" block className="reactions downvoteClaimButton" style={{ borderRadius: '0px 10px 10px 0px' }} onClick={() => addDownVote(claim?._id)}>
             <DownCircleOutlined />
             {' '}
             {downvotes}

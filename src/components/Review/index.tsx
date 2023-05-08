@@ -15,61 +15,16 @@ interface Props {
   review: IReview,
 }
 
-class ReviewSemaphore {
-  upvote: number;
-
-  downvote: number;
-
-  neutralVote: number;
-
-  constructor() {
-    this.upvote = 0;
-    this.downvote = 0;
-    this.neutralVote = 0;
-  }
-
-  upvoteReview(): boolean {
-    let changed = false;
-    if (this.upvote === 0) {
-      changed = true;
-    }
-    this.upvote = 1;
-    this.downvote = 0;
-    this.neutralVote = 0;
-    return changed;
-  }
-
-  downvoteReview(): boolean {
-    let changed = false;
-    if (this.downvote === 0) {
-      changed = true;
-    }
-    this.upvote = 0;
-    this.downvote = 1;
-    this.neutralVote = 0;
-    return changed;
-  }
-
-  neutralVoteReview(): boolean {
-    let changed = false;
-    if (this.neutralVote === 0) {
-      changed = true;
-    }
-    this.upvote = 0;
-    this.downvote = 0;
-    this.neutralVote = 1;
-    return changed;
-  }
-}
-
 const { Paragraph } = Typography;
 // eslint-disable-next-line prefer-const
 
 const Review: React.FC<Props> = ({ review }) => {
-  // eslint-disable-next-line prefer-const
-  let semaphore: ReviewSemaphore = new ReviewSemaphore();
   const { t } = useTranslation();
   const auth = useRecoilValue(authAtom);
+
+  const [myupvotes, setMyUpvotes] = useState(0);
+  const [mydownvotes, setMyDownvotes] = useState(0);
+  const [myneutralvotes, setMyNeutralvotes] = useState(0);
 
   const [upvote, setUpvote] = useState(review?.nPositiveVotes);
   const [downvote, setDownvote] = useState(review?.nNegativeVotes);
@@ -78,11 +33,17 @@ const Review: React.FC<Props> = ({ review }) => {
   const addUpVote = () => {
     console.log(auth?.token);
     if (auth?.token !== undefined) {
-      const changed = semaphore.upvoteReview();
-      if (changed) {
-        setUpvote(review.nPositiveVotes + semaphore.upvote);
-        setDownvote(review.nNegativeVotes + semaphore.downvote);
-        setNeutralvote(review.nNeutralVotes + semaphore.neutralVote);
+      let changedHappen = false;
+      if (myupvotes !== 1) {
+        changedHappen = true;
+        setMyUpvotes(1);
+      }
+      setMyDownvotes(0);
+      setMyNeutralvotes(0);
+      if (changedHappen) {
+        setUpvote(review.nPositiveVotes + myupvotes);
+        setDownvote(review.nNegativeVotes + mydownvotes);
+        setNeutralvote(review.nNeutralVotes + myneutralvotes);
         reviewsService.voteReview(review._id, 1).then((res: any) => {
           setUpvote(res?.data?.nPositiveVotes);
           setDownvote(res?.data?.nNegativeVotes);
@@ -96,11 +57,17 @@ const Review: React.FC<Props> = ({ review }) => {
 
   const addDownVote = () => {
     if (auth?.token !== undefined) {
-      const changed = semaphore.downvoteReview();
-      if (changed) {
-        setUpvote(review.nPositiveVotes + semaphore.upvote);
-        setDownvote(review.nNegativeVotes + semaphore.downvote);
-        setNeutralvote(review.nNeutralVotes + semaphore.neutralVote);
+      let changedHappen = false;
+      if (mydownvotes !== 1) {
+        changedHappen = true;
+        setMyDownvotes(1);
+      }
+      setMyUpvotes(0);
+      setMyNeutralvotes(0);
+      if (changedHappen) {
+        setUpvote(review.nPositiveVotes + myupvotes);
+        setDownvote(review.nNegativeVotes + mydownvotes);
+        setNeutralvote(review.nNeutralVotes + myneutralvotes);
         reviewsService.voteReview(review._id, -1).then((res: any) => {
           setUpvote(res?.data?.nPositiveVotes);
           setDownvote(res?.data?.nNegativeVotes);
@@ -114,11 +81,17 @@ const Review: React.FC<Props> = ({ review }) => {
 
   const addNeutralVote = () => {
     if (auth?.token !== undefined) {
-      const changed = semaphore.neutralVoteReview();
-      if (changed) {
-        setUpvote(review.nPositiveVotes + semaphore.upvote);
-        setDownvote(review.nNegativeVotes + semaphore.downvote);
-        setNeutralvote(review.nNeutralVotes + semaphore.neutralVote);
+      let changedHappen = false;
+      if (myneutralvotes !== 1) {
+        changedHappen = true;
+        setMyNeutralvotes(1);
+      }
+      setMyUpvotes(0);
+      setMyDownvotes(0);
+      if (changedHappen) {
+        setUpvote(review.nPositiveVotes + myupvotes);
+        setDownvote(review.nNegativeVotes + mydownvotes);
+        setNeutralvote(review.nNeutralVotes + myneutralvotes);
         reviewsService.voteReview(review._id, 0).then((res: any) => {
           setUpvote(res?.data?.nPositiveVotes);
           setDownvote(res?.data?.nNegativeVotes);

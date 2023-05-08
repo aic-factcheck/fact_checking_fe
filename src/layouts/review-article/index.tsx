@@ -90,7 +90,7 @@ const ReviewArticle: React.FC = () => {
           <MyTitle headline={t('claims')} fontcolor="#d86e3d" />
         </Col>
         <Col span={12} flex="0">
-          <Button type="primary" shape="round" size="large" onClick={showModal} style={{ backgroundColor: '#d86e3d', color: 'white' }} icon={<PlusCircleOutlined />}>
+          <Button className="createClaimModal" type="primary" shape="round" size="large" onClick={showModal} style={{ backgroundColor: '#d86e3d', color: 'white' }} icon={<PlusCircleOutlined />}>
             {t('add_claim')}
           </Button>
           <Modal

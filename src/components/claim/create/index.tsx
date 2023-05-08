@@ -99,11 +99,11 @@ const CreateClaim : React.FC<Props> = ({
           },
         ]}
       >
-        <Input.TextArea rows={4} />
+        <Input.TextArea rows={4} id="createClaimText" />
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 0, span: 22 }}>
-        <Button type="primary" htmlType="submit" disabled={!articleSubmited}>
+        <Button type="primary" htmlType="submit" disabled={!articleSubmited} id="createClaimSubmitButton">
           {t('add')}
         </Button>
       </Form.Item>

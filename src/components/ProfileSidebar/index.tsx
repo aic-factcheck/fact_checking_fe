@@ -33,10 +33,10 @@ const ProfileSidebar: React.FC = () => {
                 <Nav.Link eventKey="2nd" className="whites">{t('edit_profile')}</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="3rd" className="whites">{t('my_articles')}</Nav.Link>
+                <Nav.Link eventKey="3rd" className="whites myArticlesProfile">{t('my_articles')}</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="4th" className="whites">{t('my_claims')}</Nav.Link>
+                <Nav.Link eventKey="4th" className="whites myClaimsProfile">{t('my_claims')}</Nav.Link>
               </Nav.Item>
             </Nav>
           </Col>
