@@ -152,7 +152,7 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
             xl={8}
             xxl={8}
           >
-            <Button onClick={scrapeFromURL}>{t('load_text_from_url')}</Button>
+            <Button onClick={scrapeFromURL} id="scrapingButton">{t('load_text_from_url')}</Button>
           </Col>
         </Row>
       </Form.Item>
@@ -194,7 +194,7 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
         <Input.TextArea rows={8} id="rawTextData" />
       </Form.Item>
       <Form.Item wrapperCol={{ span: 6, offset: 6 }}>
-        <Button type="primary" htmlType="submit" disabled={articleSubmited}>
+        <Button type="primary" htmlType="submit" disabled={articleSubmited} id="addArticleSubmitButton">
           {t('submit')}
         </Button>
       </Form.Item>

@@ -116,7 +116,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
           },
           ]}
         >
-          <Input.TextArea rows={3} />
+          <Input.TextArea rows={3} id="reviewTextForm" />
         </Form.Item>
         <Form.Item
           name="links"
@@ -128,6 +128,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
           ]}
         >
           <Select
+            id="reviewLinksForm"
             mode="tags"
             style={{ width: '100%' }}
             placeholder="Tags Mode"
@@ -147,7 +148,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 0, span: 22 }}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" id="reviewSubmitForm">
             {t('add')}
           </Button>
         </Form.Item>

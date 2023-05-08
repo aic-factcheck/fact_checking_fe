@@ -82,11 +82,11 @@ const EditClaim: React.FC<Props> = ({ claim, indexClaim, closeModal }) => {
           },
         ]}
       >
-        <Input.TextArea rows={4} />
+        <Input.TextArea rows={4} id="editTextClaim" />
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 0, span: 22 }}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" id="submitChangedClaim">
           {t('save')}
         </Button>
       </Form.Item>

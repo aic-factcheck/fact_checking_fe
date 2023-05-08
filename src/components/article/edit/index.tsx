@@ -84,7 +84,7 @@ const EditArticle: React.FC<Props> = ({ article, indexEdit }) => {
           },
         ]}
       >
-        <Input />
+        <Input id="editTitleArticle" />
       </Form.Item>
       <Form.Item
         name="sourceUrl"
@@ -95,7 +95,7 @@ const EditArticle: React.FC<Props> = ({ article, indexEdit }) => {
           },
         ]}
       >
-        <Input />
+        <Input id="editSourceUrlArticle" />
       </Form.Item>
       <Form.Item
         label={t('language')}
@@ -124,7 +124,7 @@ const EditArticle: React.FC<Props> = ({ article, indexEdit }) => {
           span: 20,
         }}
       >
-        <Button type="primary" htmlType="submit" disabled={false}>
+        <Button id="submitChangedArticle" type="primary" htmlType="submit" disabled={false}>
           {t('save')}
         </Button>
       </Form.Item>

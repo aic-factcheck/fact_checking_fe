@@ -98,7 +98,7 @@ const SignIn: React.FC = () => {
               ]}
               style={{ margin: '2%' }}
             >
-              <Input placeholder={t('email')} />
+              <Input placeholder={t('email')} id="email" />
             </Form.Item>
 
             <Form.Item
@@ -112,7 +112,7 @@ const SignIn: React.FC = () => {
               ]}
               style={{ margin: '2%' }}
             >
-              <Input.Password placeholder={t('password')} />
+              <Input.Password placeholder={t('password')} id="password" />
             </Form.Item>
 
             <Form.Item
@@ -122,7 +122,7 @@ const SignIn: React.FC = () => {
               }}
               style={{ margin: '2%' }}
             >
-              <Button block type="primary" htmlType="submit">
+              <Button block type="primary" htmlType="submit" id="signin">
                 {t('sign_in')}
               </Button>
             </Form.Item>

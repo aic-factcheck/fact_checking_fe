@@ -144,7 +144,7 @@ const AllArticles : React.FC = () => {
               <Search placeholder={t('search_article')} onSearch={onSearch} />
             </Col>
             <Col span={10} flex="0">
-              <Link to="/article/create" style={{ color: 'white', padding: '2%' }}>
+              <Link to="/article/create" id="addArticleLink" style={{ color: 'white', padding: '2%' }}>
                 <Button type="primary" shape="round" size="large" style={{ backgroundColor: '#d86e3d', color: 'white' }} icon={<PlusCircleOutlined />}>
                   {t('add')}
                 </Button>
