@@ -24,7 +24,7 @@ export default defineConfig({
       }, */
     baseUrl: process.env.REACT_APP_API_BASE,
     slowTestThreshold: 1000,
-    supportFile: false,
+    supportFile: 'cypress/support/index.js',
     experimentalRunAllSpecs: true,
   },
 });

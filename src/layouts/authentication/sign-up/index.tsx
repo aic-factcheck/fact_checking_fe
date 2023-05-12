@@ -83,7 +83,7 @@ const SignUp: React.FC = () => {
             autoComplete="off"
           >
             <Form.Item
-              name={t('first_name')}
+              name="firstname"
               rules={[
                 {
                   required: true,
@@ -91,7 +91,7 @@ const SignUp: React.FC = () => {
                 },
               ]}
             >
-              <Input placeholder="First name" />
+              <Input placeholder="First name" id="firstNameRegister" />
             </Form.Item>
 
             <Form.Item
@@ -103,7 +103,7 @@ const SignUp: React.FC = () => {
                 },
               ]}
             >
-              <Input placeholder={t('last_name')} />
+              <Input placeholder={t('last_name')} id="lastNameRegister" />
             </Form.Item>
 
             <Form.Item
@@ -115,7 +115,7 @@ const SignUp: React.FC = () => {
                 },
               ]}
             >
-              <Input placeholder={t('email')} />
+              <Input placeholder={t('email')} id="emailRegister" />
             </Form.Item>
 
             <Form.Item
@@ -127,7 +127,7 @@ const SignUp: React.FC = () => {
                 },
               ]}
             >
-              <Input.Password placeholder={t('password')} />
+              <Input.Password placeholder={t('password')} id="passwordRegister" />
             </Form.Item>
 
             <Form.Item
@@ -136,7 +136,7 @@ const SignUp: React.FC = () => {
                 span: 24,
               }}
             >
-              <Button block type="primary" htmlType="submit">
+              <Button block type="primary" htmlType="submit" id="submitRegister">
                 {t('register')}
               </Button>
             </Form.Item>
