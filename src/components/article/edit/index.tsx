@@ -5,6 +5,7 @@ import {
 } from 'antd';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import myArticles from '../../../_state/usersArticles';
 import authAtom from '../../../_state/auth';
 import { IArticle } from '../../../common/types';
@@ -40,8 +41,9 @@ const EditArticle: React.FC<Props> = ({ article, indexEdit }) => {
     const id = article._id;
 
     articlesService.editArticle(id, mergedValues).then(() => {
-      notificationApi.success({
+      notificationApi.info({
         message: t('article_edited'),
+        icon: <CheckOutlined />,
       });
 
       // eslint-disable-next-line prefer-const
@@ -56,8 +58,9 @@ const EditArticle: React.FC<Props> = ({ article, indexEdit }) => {
 
       setMyArticlesList(mergedArticles);
     })
-      .catch((e) => notificationApi.error({
+      .catch((e) => notificationApi.info({
         message: e,
+        icon: <CloseOutlined />,
       }));
   };
 
@@ -86,7 +89,7 @@ const EditArticle: React.FC<Props> = ({ article, indexEdit }) => {
         label={t('title')}
         rules={[
           {
-            required: true,
+            required: true, min: 6,
           },
         ]}
       >
@@ -97,7 +100,7 @@ const EditArticle: React.FC<Props> = ({ article, indexEdit }) => {
         label={t('source_url')}
         rules={[
           {
-            required: true,
+            required: true, min: 6,
           },
         ]}
       >
@@ -118,7 +121,7 @@ const EditArticle: React.FC<Props> = ({ article, indexEdit }) => {
         label={t('article_text')}
         rules={[
           {
-            required: true,
+            required: true, min: 6,
           },
         ]}
       >

@@ -5,6 +5,7 @@ import {
 } from 'antd';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
+import { CheckOutlined } from '@ant-design/icons';
 import myClaims from '../../../_state/usersClaims';
 import authAtom from '../../../_state/auth';
 import { IClaim } from '../../../common/types';
@@ -39,8 +40,9 @@ const EditClaim: React.FC<Props> = ({ claim, indexClaim, closeModal }) => {
 
     if (id !== undefined) {
       claimsService.editClaim(articleid, claimid, values).then(() => {
-        notificationApi.success({
+        notificationApi.info({
           message: t('claim_edited'),
+          icon: <CheckOutlined />,
         });
         // eslint-disable-next-line prefer-const
         let claimToEdit = { ...myClaimsList[indexClaim] } as IClaim;
@@ -57,7 +59,7 @@ const EditClaim: React.FC<Props> = ({ claim, indexClaim, closeModal }) => {
         setMyClaimsList(mergedClaims);
         closeModal();
       })
-        .catch((e) => notificationApi.error(e));
+        .catch((e) => notificationApi.info(e));
       // eslint-disable-next-line max-len
       // userActions.editClaim(articleid, claimid, values, myClaimsList, indexClaim, setMyClaimsList);
     }
@@ -82,7 +84,7 @@ const EditClaim: React.FC<Props> = ({ claim, indexClaim, closeModal }) => {
         label={t('claim_add_explain')}
         rules={[
           {
-            required: true,
+            required: true, min: 6,
           },
         ]}
       >

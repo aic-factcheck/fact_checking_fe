@@ -5,6 +5,7 @@ import {
 } from 'antd';
 import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
+import { CloseOutlined } from '@ant-design/icons';
 import authAtom from '../../_state/auth';
 import { IClaim, IReview } from '../../common/types';
 import reviewsService from '../../api/reviews.service';
@@ -82,8 +83,9 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
         closeModal();
       }).catch((err: any) => {
         const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
-        notificationApi.error({
+        notificationApi.info({
           message: errorMessage,
+          icon: <CloseOutlined />,
         });
         // closeModal();
       });
@@ -119,7 +121,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
           label={t('review_text')}
           style={{ color: '#000000' }}
           rules={[{
-            required: true,
+            required: true, min: 6,
           },
           ]}
         >

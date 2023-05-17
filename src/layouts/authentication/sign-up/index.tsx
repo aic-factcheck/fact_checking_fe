@@ -6,6 +6,7 @@ import {
 
 import { useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
+import { CloseOutlined } from '@ant-design/icons';
 import authAtom from '../../../_state/auth';
 import usersService from '../../../api/users.service';
 import { NotificationContext } from '../../../components/NotificationContext/NotificationContext';
@@ -42,8 +43,9 @@ const SignUp: React.FC = () => {
       // eslint-disable-next-line max-len
       // http_common.defaults.headers.common['Authorization'] = `Bearer ${res.data.token.accessToken}`;
     }).catch((err: any) => {
-      notificationApi.error({
+      notificationApi.info({
         message: err.response.data.message,
+        icon: <CloseOutlined />,
       });
     });
   };
@@ -92,6 +94,7 @@ const SignUp: React.FC = () => {
                 {
                   required: true,
                   message: t('please_first'),
+                  min: 5,
                 },
               ]}
             >
@@ -104,6 +107,7 @@ const SignUp: React.FC = () => {
                 {
                   required: true,
                   message: t('please_last'),
+                  min: 5,
                 },
               ]}
             >
@@ -116,6 +120,7 @@ const SignUp: React.FC = () => {
                 {
                   required: true,
                   message: t('please_mail'),
+                  min: 6,
                 },
               ]}
             >
@@ -128,6 +133,7 @@ const SignUp: React.FC = () => {
                 {
                   required: true,
                   message: t('please_pass'),
+                  min: 8,
                 },
               ]}
             >

@@ -5,6 +5,7 @@ import {
 } from 'antd';
 import { useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
+import { CloseOutlined } from '@ant-design/icons';
 import authAtom from '../../../_state/auth';
 import UsersService from '../../../api/users.service';
 import { NotificationContext } from '../../../components/NotificationContext/NotificationContext';
@@ -38,15 +39,17 @@ const SignIn: React.FC = () => {
       localStorage.setItem('email', res.data.user.email);
       localStorage.setItem('expiresIn', res.data.token.expiresIn);
     }).catch((err: any) => {
-      notificationApi.error({
+      notificationApi.info({
         message: err.response.data.message,
+        icon: <CloseOutlined />,
       });
     });
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    notificationApi.error({
+    notificationApi.info({
       message: errorInfo,
+      icon: <CloseOutlined />,
     });
   };
 
@@ -100,6 +103,7 @@ const SignIn: React.FC = () => {
                 {
                   required: true,
                   message: t('please_mail'),
+                  min: 5,
                 },
               ]}
               style={{ margin: '2%' }}
@@ -114,6 +118,7 @@ const SignIn: React.FC = () => {
                 {
                   required: true,
                   message: t('please_pass'),
+                  min: 6,
                 },
               ]}
               style={{ margin: '2%' }}
