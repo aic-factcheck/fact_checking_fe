@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -82,7 +83,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
         reviewsNum();
         closeModal();
       }).catch((err: any) => {
-        const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
+        const errorMessage = 'An error occurred while creating review. Review text and links must be at least 6 characters long';
         notificationApi.info({
           message: errorMessage,
           icon: <CloseOutlined />,
