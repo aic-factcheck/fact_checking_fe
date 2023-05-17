@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Layout, Button, Form, Input, message,
+  Layout, Button, Form, Input, notification,
 } from 'antd';
 
 import { useRecoilState } from 'recoil';
@@ -33,23 +33,29 @@ const EditProfile: React.FC = () => {
   const onFinish = (values: FormData) => {
     const id = auth?.user.id;
     if (id !== undefined) {
-      try {
-        usersService.editProfile(
-          id,
-          values.firstName,
-          values.lastName,
-          values.password,
-          setAuth,
-          auth,
-        );
-      } catch (error: any) {
-        message.error(error);
-      }
+      usersService.editProfile(
+        id,
+        values.firstName,
+        values.lastName,
+        values.password,
+        setAuth,
+        auth,
+      ).catch((err: any) => {
+        const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
+        notification.error({
+          message: errorMessage,
+        });
+        // closeModal();
+      });
     }
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    message.error(errorInfo);
+  const onFinishFailed = (err: any) => {
+    // message.error(errorInfo);
+    const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
+    notification.error({
+      message: errorMessage,
+    });
   };
 
   return (

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Button, Form, Input, Select, Row, Col, Typography, Divider, message, notification,
+  Button, Form, Input, Select, Row, Col, Typography, Divider, notification,
 } from 'antd';
 import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
@@ -63,6 +63,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
 
     if (id !== undefined) {
       reviewsService.addreview(articleid, claimid, values).then((res: any) => {
+        console.log('chybaaaa');
         const mergedReviews = [...reviewsList];
         res.key = res.data._id;
         res.data.addedBy.firstName = auth?.user.firstName;
@@ -78,7 +79,11 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
         reviewsNum();
         closeModal();
       }).catch((err: any) => {
-        message.error(err);
+        const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
+        notification.error({
+          message: errorMessage,
+        });
+        // closeModal();
       });
     }
   };
