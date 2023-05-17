@@ -38,7 +38,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": " GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "test:e2e": "cypress run",
     "test:e2e:open": "cypress open",
