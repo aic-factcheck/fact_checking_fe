@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/lines-between-class-members */
 import React, { useEffect, useState } from 'react';
 import {
-  Layout, List, Row, Col, Button, Modal,
+  Layout, List, Row, Col, Button, Modal, Skeleton,
 } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
@@ -79,11 +79,16 @@ const ReviewArticle: React.FC = () => {
   return (
     <Content className="content" style={{ padding: '0% 2% 2% 2%', marginTop: 20 }}>
       <div style={{ marginBottom: '3%' }}>
-        <Article
-          article={article !== undefined ? article : new ArticleEmpty()}
-          isEditable={allowEdit}
-          indexArticle={1}
-        />
+        {
+          article === undefined ? <Skeleton avatar paragraph={{ rows: 1 }} active />
+            : (
+              <Article
+                article={article !== undefined ? article : new ArticleEmpty()}
+                isEditable={allowEdit}
+                indexArticle={1}
+              />
+            )
+        }
       </div>
       <Row justify="space-between" align="bottom">
         <Col span={12}>
@@ -117,15 +122,16 @@ const ReviewArticle: React.FC = () => {
       >
         {
           // _id, priority, addedBy, articleId, text
-          claims?.sort((a, b) => ((a.createdAt < b.createdAt) ? 1 : -1)).map((obj, index) => (
-            <div key={obj._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
-              <Claim
-                claim={obj}
-                index={index}
-                isEditable={allowEdit}
-              />
-            </div>
-          ))
+          claims === undefined ? <Skeleton avatar paragraph={{ rows: 2 }} active />
+            : claims?.sort((a, b) => ((a.createdAt < b.createdAt) ? 1 : -1)).map((obj, index) => (
+              <div key={obj._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
+                <Claim
+                  claim={obj}
+                  index={index}
+                  isEditable={allowEdit}
+                />
+              </div>
+            ))
         }
       </List>
     </Content>

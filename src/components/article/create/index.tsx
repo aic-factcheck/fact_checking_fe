@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Button, Col, Form, Input, Row, Select, message, notification,
+  Button, Col, Form, Input, Row, Select, notification,
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -91,7 +91,12 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
         icon: <img alt="leaders" width="50%" src={`${process.env.PUBLIC_URL}/pictures/experience.png`} style={{ marginRight: '5%' }} />,
       });
     })
-      .catch((e) => message.error(e));
+      .catch((err : any) => {
+        const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
+        notification.error({
+          message: errorMessage,
+        });
+      });
   };
 
   const handleChange = (value: string) => {
