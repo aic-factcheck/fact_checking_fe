@@ -83,9 +83,10 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
         reviewsNum();
         closeModal();
       }).catch((err: any) => {
-        const errorMessage = 'An error occurred while creating review. Review text and links must be at least 6 characters long';
+        const errorMessage = 'An error occurred while creating review.';
         notificationApi.info({
           message: errorMessage,
+          description: 'Review text and links must be at least 6 characters long',
           icon: <CloseOutlined />,
         });
         // closeModal();
@@ -122,7 +123,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
           label={t('review_text')}
           style={{ color: '#000000' }}
           rules={[{
-            required: true, min: 6,
+            required: true, min: 2,
           },
           ]}
         >
