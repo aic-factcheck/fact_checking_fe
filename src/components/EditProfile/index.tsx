@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Layout, Button, Form, Input, notification,
+  Layout, Button, Form, Input,
 } from 'antd';
 
 import { useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import authAtom from '../../_state/auth';
 import usersService from '../../api/users.service';
+import { NotificationContext } from '../NotificationContext/NotificationContext';
 
 interface FormData {
   firstName: string;
@@ -22,6 +23,7 @@ const EditProfile: React.FC = () => {
   const [auth, setAuth] = useRecoilState(authAtom);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const notificationApi = useContext(NotificationContext);
 
   useEffect(() => {
     // redirect to home if not logged in
@@ -42,7 +44,7 @@ const EditProfile: React.FC = () => {
         auth,
       ).catch((err: any) => {
         const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
-        notification.error({
+        notificationApi.error({
           message: errorMessage,
         });
         // closeModal();
@@ -53,7 +55,7 @@ const EditProfile: React.FC = () => {
   const onFinishFailed = (err: any) => {
     // message.error(errorInfo);
     const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
-    notification.error({
+    notificationApi.error({
       message: errorMessage,
     });
   };

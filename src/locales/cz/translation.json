@@ -90,5 +90,7 @@
     "articles_score": "Skóre článku",
     "claims_score": "Skóre tvrzení",
     "reviews_score": "Skóre hodnocení",
-    "name": "Méno"
+    "name": "Méno",
+    "article_edited": "Článek úspěšně upraven",
+    "claim_edited": "Tvrzení úspěšně upraveno"
 }

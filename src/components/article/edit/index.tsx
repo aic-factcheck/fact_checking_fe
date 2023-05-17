@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Button, Form, Input, Select, message,
+  Button, Form, Input, Select,
 } from 'antd';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +9,7 @@ import myArticles from '../../../_state/usersArticles';
 import authAtom from '../../../_state/auth';
 import { IArticle } from '../../../common/types';
 import articlesService from '../../../api/articles.service';
+import { NotificationContext } from '../../NotificationContext/NotificationContext';
 
 const { Option } = Select;
 
@@ -23,6 +24,7 @@ const EditArticle: React.FC<Props> = ({ article, indexEdit }) => {
   const { t } = useTranslation();
   const [lang, setLanguage] = useState('cz');
   const [myArticlesList, setMyArticlesList] = useRecoilState(myArticles);
+  const notificationApi = useContext(NotificationContext);
 
   useEffect(() => {
     // redirect to home if already logged in
@@ -38,7 +40,9 @@ const EditArticle: React.FC<Props> = ({ article, indexEdit }) => {
     const id = article._id;
 
     articlesService.editArticle(id, mergedValues).then(() => {
-      message.success('Successfully edited article');
+      notificationApi.success({
+        message: t('article_edited'),
+      });
 
       // eslint-disable-next-line prefer-const
       let articleToEdit = { ...myArticlesList[indexEdit] } as IArticle;
@@ -52,7 +56,9 @@ const EditArticle: React.FC<Props> = ({ article, indexEdit }) => {
 
       setMyArticlesList(mergedArticles);
     })
-      .catch((e) => message.error(e));
+      .catch((e) => notificationApi.error({
+        message: e,
+      }));
   };
 
   const handleChange = (value: string) => {

@@ -90,5 +90,7 @@
     "articles_score": "Articles score",
     "claims_score": "Claims score",
     "reviews_score": "Reviews score",
-    "name": "Name"
+    "name": "Name",
+    "article_edited": "Article successfully edited",
+    "claim_edited": "Claim successfully edited"
 }

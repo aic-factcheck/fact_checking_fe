@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
-  Button, Col, Form, Input, Row, Select, notification,
+  Button, Col, Form, Input, Row, Select,
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -12,6 +12,7 @@ import authAtom from '../../../_state/auth';
 import { IArticle } from '../../../common/types';
 import articlesService from '../../../api/articles.service';
 import articlesLoaded from '../../../_state/articlesLoaded';
+import { NotificationContext } from '../../NotificationContext/NotificationContext';
 
 const { Option } = Select;
 
@@ -30,6 +31,7 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
   const [myArticlesList, setMyArticlesList] = useRecoilState(myArticles);
   const [loaded, setArticlesLoaded] = useRecoilState(articlesLoaded);
   const auth = useRecoilValue(authAtom);
+  const notificationApi = useContext(NotificationContext);
 
   useEffect(() => {
     // redirect to home if already logged in
@@ -85,7 +87,7 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
       setMyArticlesList(mergedArticles);
       setArticle(res.data);
       setArticleSubmited(true);
-      notification.info({
+      notificationApi.info({
         message: t('successfully_added_article'),
         description: t('gained_8'),
         icon: <img alt="leaders" width="50%" src={`${process.env.PUBLIC_URL}/pictures/experience.png`} style={{ marginRight: '5%' }} />,
@@ -93,7 +95,7 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
     })
       .catch((err : any) => {
         const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
-        notification.error({
+        notificationApi.error({
           message: errorMessage,
         });
       });
