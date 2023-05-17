@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  Layout, Button, Form, Input, Row, Col, Divider, message,
+  Layout, Button, Form, Input, Row, Col, Divider,
 } from 'antd';
 
 import { useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import authAtom from '../../../_state/auth';
 import usersService from '../../../api/users.service';
+import { NotificationContext } from '../../../components/NotificationContext/NotificationContext';
 // import http_common from '../../../http_common';
 
 const { Content } = Layout;
@@ -16,6 +17,7 @@ const SignUp: React.FC = () => {
   const [auth, setAuth] = useRecoilState(authAtom);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const notificationApi = useContext(NotificationContext);
 
   useEffect(() => {
     // redirect to home if already logged in
@@ -40,7 +42,9 @@ const SignUp: React.FC = () => {
       // eslint-disable-next-line max-len
       // http_common.defaults.headers.common['Authorization'] = `Bearer ${res.data.token.accessToken}`;
     }).catch((err: any) => {
-      message.error(err.response.data.message);
+      notificationApi.error({
+        message: err.response.data.message,
+      });
     });
   };
 

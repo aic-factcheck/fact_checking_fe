@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Button, Form, Input, message,
+  Button, Form, Input,
 } from 'antd';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +9,7 @@ import myClaims from '../../../_state/usersClaims';
 import authAtom from '../../../_state/auth';
 import { IClaim } from '../../../common/types';
 import claimsService from '../../../api/claims.service';
+import { NotificationContext } from '../../NotificationContext/NotificationContext';
 
 interface Props {
   claim: IClaim;
@@ -22,6 +23,7 @@ const EditClaim: React.FC<Props> = ({ claim, indexClaim, closeModal }) => {
   const { t } = useTranslation();
   const [claimForm] = Form.useForm();
   const [myClaimsList, setMyClaimsList] = useRecoilState(myClaims);
+  const notificationApi = useContext(NotificationContext);
 
   useEffect(() => {
     // redirect to home if already logged in
@@ -37,7 +39,9 @@ const EditClaim: React.FC<Props> = ({ claim, indexClaim, closeModal }) => {
 
     if (id !== undefined) {
       claimsService.editClaim(articleid, claimid, values).then(() => {
-        message.success('Successfully edited claim');
+        notificationApi.success({
+          message: t('claim_edited'),
+        });
         // eslint-disable-next-line prefer-const
         let claimToEdit = { ...myClaimsList[indexClaim] } as IClaim;
 
@@ -53,7 +57,7 @@ const EditClaim: React.FC<Props> = ({ claim, indexClaim, closeModal }) => {
         setMyClaimsList(mergedClaims);
         closeModal();
       })
-        .catch((e) => message.error(e));
+        .catch((e) => notificationApi.error(e));
       // eslint-disable-next-line max-len
       // userActions.editClaim(articleid, claimid, values, myClaimsList, indexClaim, setMyClaimsList);
     }

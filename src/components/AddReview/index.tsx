@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Button, Form, Input, Select, Row, Col, Typography, Divider, notification,
+  Button, Form, Input, Select, Row, Col, Typography, Divider,
 } from 'antd';
 import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import authAtom from '../../_state/auth';
 import { IClaim, IReview } from '../../common/types';
 import reviewsService from '../../api/reviews.service';
+import { NotificationContext } from '../NotificationContext/NotificationContext';
 
 const { Option } = Select;
 const { Paragraph } = Typography;
@@ -23,6 +24,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const notificationApi = useContext(NotificationContext);
 
   const [claimForm] = Form.useForm();
   const [reviewsList, setReviewsList] = useState<IReview[]>([]);
@@ -71,7 +73,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
         mergedReviews.push(res.data);
         claimForm.resetFields(['text']);
         setReviewsList(mergedReviews);
-        notification.info({
+        notificationApi.info({
           message: t('successfully_added_review'),
           description: t('gained_30'),
           icon: <img alt="leaders" width="50%" src={`${process.env.PUBLIC_URL}/pictures/experience.png`} style={{ marginRight: '5%' }} />,
@@ -80,7 +82,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
         closeModal();
       }).catch((err: any) => {
         const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
-        notification.error({
+        notificationApi.error({
           message: errorMessage,
         });
         // closeModal();

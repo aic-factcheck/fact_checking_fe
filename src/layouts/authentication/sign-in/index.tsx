@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  Layout, Button, Form, Input, message, Row, Col, Divider,
+  Layout, Button, Form, Input, Row, Col, Divider,
 } from 'antd';
 import { useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import authAtom from '../../../_state/auth';
 import UsersService from '../../../api/users.service';
+import { NotificationContext } from '../../../components/NotificationContext/NotificationContext';
 
 const { Content } = Layout;
 
@@ -19,6 +20,7 @@ const SignIn: React.FC = () => {
   const [auth, setAuth] = useRecoilState(authAtom);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const notificationApi = useContext(NotificationContext);
 
   useEffect(() => {
     // redirect to home if already logged in
@@ -36,12 +38,16 @@ const SignIn: React.FC = () => {
       localStorage.setItem('email', res.data.user.email);
       localStorage.setItem('expiresIn', res.data.token.expiresIn);
     }).catch((err: any) => {
-      message.error(err.response.data.message);
+      notificationApi.error({
+        message: err.response.data.message,
+      });
     });
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    message.error(errorInfo);
+    notificationApi.error({
+      message: errorInfo,
+    });
   };
 
   return (

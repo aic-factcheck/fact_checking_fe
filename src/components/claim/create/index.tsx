@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
-  Button, Form, Input, notification,
+  Button, Form, Input,
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -10,6 +10,7 @@ import authAtom from '../../../_state/auth';
 import { IClaim, IArticle } from '../../../common/types';
 import claimsService from '../../../api/claims.service';
 import claimsLoaded from '../../../_state/claimsLoaded';
+import { NotificationContext } from '../../NotificationContext/NotificationContext';
 
 interface Props {
   articleSubmited: boolean,
@@ -28,6 +29,7 @@ const CreateClaim : React.FC<Props> = ({
   const auth = useRecoilValue(authAtom);
   const [myClaimsList, setMyClaimsList] = useRecoilState(myClaims);
   const [loaded, setClaimsLoaded] = useRecoilState(claimsLoaded);
+  const notificationApi = useContext(NotificationContext);
 
   useEffect(() => {
     const id = auth?.user?.id;
@@ -71,14 +73,14 @@ const CreateClaim : React.FC<Props> = ({
       const mergedMyClaims = [...myClaimsList, newClaim];
       setMyClaimsList(mergedMyClaims);
       closeModal();
-      notification.info({
+      notificationApi.info({
         message: t('successfully_added_claim'),
         description: t('gained_20'),
         icon: <img alt="leaders" width="50%" src={`${process.env.PUBLIC_URL}/pictures/experience.png`} style={{ marginRight: '5%' }} />,
       });
     }).catch((err: any) => {
       const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
-      notification.error({
+      notificationApi.error({
         message: errorMessage,
       });
     });
