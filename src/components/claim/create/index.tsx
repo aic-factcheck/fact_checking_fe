@@ -5,6 +5,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
+import { CloseOutlined } from '@ant-design/icons';
 import myClaims from '../../../_state/usersClaims';
 import authAtom from '../../../_state/auth';
 import { IClaim, IArticle } from '../../../common/types';
@@ -80,8 +81,9 @@ const CreateClaim : React.FC<Props> = ({
       });
     }).catch((err: any) => {
       const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
-      notificationApi.error({
+      notificationApi.info({
         message: errorMessage,
+        icon: <CloseOutlined />,
       });
     });
   };
@@ -102,7 +104,7 @@ const CreateClaim : React.FC<Props> = ({
         label={t('claim_add_explain')}
         rules={[
           {
-            required: true,
+            required: true, min: 6,
           },
         ]}
       >

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import type { FormInstance } from 'antd/es/form';
+import { CloseOutlined } from '@ant-design/icons';
 import myArticles from '../../../_state/usersArticles';
 import MyTitle from '../../MyTitle/index';
 import authAtom from '../../../_state/auth';
@@ -95,8 +96,9 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
     })
       .catch((err : any) => {
         const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
-        notificationApi.error({
+        notificationApi.info({
           message: errorMessage,
+          icon: <CloseOutlined />,
         });
       });
   };
@@ -144,7 +146,7 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
               name="sourceUrl"
               rules={[
                 {
-                  required: true,
+                  required: true, min: 6,
                 },
               ]}
             >
@@ -168,7 +170,7 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
         label={t('title')}
         rules={[
           {
-            required: true,
+            required: true, min: 6,
           },
         ]}
       >
@@ -194,7 +196,7 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
         label={t('article_text')}
         rules={[
           {
-            required: true,
+            required: true, min: 6,
           },
         ]}
       >

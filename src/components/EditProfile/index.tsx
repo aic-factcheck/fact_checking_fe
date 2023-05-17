@@ -6,6 +6,7 @@ import {
 
 import { useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
+import { CloseOutlined } from '@ant-design/icons';
 import authAtom from '../../_state/auth';
 import usersService from '../../api/users.service';
 import { NotificationContext } from '../NotificationContext/NotificationContext';
@@ -44,8 +45,9 @@ const EditProfile: React.FC = () => {
         auth,
       ).catch((err: any) => {
         const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
-        notificationApi.error({
+        notificationApi.info({
           message: errorMessage,
+          icon: <CloseOutlined />,
         });
         // closeModal();
       });
@@ -55,8 +57,9 @@ const EditProfile: React.FC = () => {
   const onFinishFailed = (err: any) => {
     // message.error(errorInfo);
     const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
-    notificationApi.error({
+    notificationApi.info({
       message: errorMessage,
+      icon: <CloseOutlined />,
     });
   };
 
@@ -87,6 +90,7 @@ const EditProfile: React.FC = () => {
             {
               required: true,
               message: 'Please input your first name!',
+              min: 5,
             },
           ]}
         >
@@ -101,6 +105,7 @@ const EditProfile: React.FC = () => {
             {
               required: true,
               message: 'Please input your last name!',
+              min: 5,
             },
           ]}
         >
@@ -115,6 +120,7 @@ const EditProfile: React.FC = () => {
             {
               required: true,
               message: 'Please input your email!',
+              min: 6,
             },
           ]}
         >
