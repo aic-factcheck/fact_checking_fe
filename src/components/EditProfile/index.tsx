@@ -90,7 +90,7 @@ const EditProfile: React.FC = () => {
             {
               required: true,
               message: 'Please input your first name!',
-              min: 5,
+              min: 4,
             },
           ]}
         >
@@ -105,7 +105,7 @@ const EditProfile: React.FC = () => {
             {
               required: true,
               message: 'Please input your last name!',
-              min: 5,
+              min: 4,
             },
           ]}
         >

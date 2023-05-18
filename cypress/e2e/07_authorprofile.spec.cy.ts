@@ -29,7 +29,7 @@ describe('Article author profile Test', () => {
     cy.get('.articleComponent .authorArticle').first().click();
 
     // check if all loaded
-    cy.get('@claims.all').should('have.length', 2);
+    cy.get('@claims.all').should('have.length', 1);
     cy.get('@articles.all').should('have.length', 1);
     cy.get('@userStats.all').should('have.length', 1);
   });

@@ -94,7 +94,7 @@ const SignUp: React.FC = () => {
                 {
                   required: true,
                   message: t('please_first'),
-                  min: 5,
+                  min: 4,
                 },
               ]}
             >
@@ -107,7 +107,7 @@ const SignUp: React.FC = () => {
                 {
                   required: true,
                   message: t('please_last'),
-                  min: 5,
+                  min: 4,
                 },
               ]}
             >
