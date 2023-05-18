@@ -174,7 +174,7 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
           },
         ]}
       >
-        <Input />
+        <Input id="titleArticle" />
       </Form.Item>
       <Form.Item
         label={t('language')}

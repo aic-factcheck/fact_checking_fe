@@ -42,4 +42,39 @@ describe('Login Test', () => {
       expect(response).to.have.nested.property('user.level');
     });
   });
+
+  it('fills wrong email in the register form', () => {
+    // intercept register api call
+    const firstN = 'John';
+    const lastN = 'Test';
+    const mail = 'aaaaa.com';
+    const passw = 'mypassword';
+
+    cy.intercept('POST', '**/v1/auth/register', (req) => {
+      console.log(req);
+      expect(req.body).to.deep.equal({
+        firstName: firstN, lastName: lastN, email: mail, password: passw,
+      });
+    }).as('register');
+
+    cy.visit({
+      url: 'http://localhost:3001/sign-up',
+      method: 'GET',
+    });
+
+    // Fill in form with email and password
+    cy.get('#firstNameRegister').type(firstN);
+    cy.get('#lastNameRegister').type(lastN);
+
+    cy.get('#emailRegister').type(mail);
+    cy.get('#passwordRegister').type(passw);
+
+    // Submit the form
+    cy.get('#submitRegister').click();
+
+    // Assert the stubbed API call's request and response
+    cy.wait('@register').its('response').should((response) => {
+      expect(response?.statusCode).to.eq(400);
+    });
+  });
 });
