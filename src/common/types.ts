@@ -48,6 +48,7 @@ export interface IReview {
     firstName: string,
     lastName: string,
     email: string,
+    level: number,
   },
 }
 
