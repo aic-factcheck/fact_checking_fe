@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -7,7 +8,7 @@ import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import authAtom from '../../_state/auth';
 import Review from '../Review';
-import { IClaim } from '../../common/types';
+import { IClaim, IReview } from '../../common/types';
 import reviewsService from '../../api/reviews.service';
 
 const { Paragraph } = Typography;
@@ -23,7 +24,7 @@ const Reviews : React.FC<Props> = ({ claim, updated, indexClaim }) => {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [reviewsList, setReviewsList] = useState([]);
+  const [reviewsList, setReviewsList] = useState<IReview[]>([]);
 
   useEffect(() => {
     // redirect to home if already logged in
@@ -56,12 +57,16 @@ const Reviews : React.FC<Props> = ({ claim, updated, indexClaim }) => {
       >
         {
           // _id, priority, addedBy, articleId, text
-          reviewsList.length > 0 ? (reviewsList.map((obj) => (
-            <Review review={obj} />
-          ))) : (
-            <div className="emptyList">
-              {t('no_reviews_yet')}
-            </div>
+          reviewsList.length > 0 ? (
+            reviewsList.sort((a, b) => (
+              ((1 + 0.1 * b.addedBy.level) * b.nPositiveVotes - b.nNegativeVotes - 0.1 * b.nNeutralVotes)
+              - ((1 + 0.1 * a.addedBy.level) * a.nPositiveVotes - a.nNegativeVotes - 0.1 * a.nNeutralVotes)))
+              .map((obj) => (
+                <Review review={obj} />
+              ))) : (
+                <div className="emptyList">
+                  {t('no_reviews_yet')}
+                </div>
           )
         }
       </List>

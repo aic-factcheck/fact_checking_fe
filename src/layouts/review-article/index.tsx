@@ -123,15 +123,17 @@ const ReviewArticle: React.FC = () => {
         {
           // _id, priority, addedBy, articleId, text
           claims === undefined ? <Skeleton avatar paragraph={{ rows: 2 }} active />
-            : claims?.sort((a, b) => ((a.createdAt < b.createdAt) ? 1 : -1)).map((obj, index) => (
-              <div key={obj._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
-                <Claim
-                  claim={obj}
-                  index={index}
-                  isEditable={allowEdit}
-                />
-              </div>
-            ))
+            : claims?.sort((a, b) => (
+              (b.nPositiveVotes - b.nNegativeVotes) - (a.nPositiveVotes - a.nNegativeVotes)))
+              .map((obj, index) => (
+                <div key={obj._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
+                  <Claim
+                    claim={obj}
+                    index={index}
+                    isEditable={allowEdit}
+                  />
+                </div>
+              ))
         }
       </List>
     </Content>
