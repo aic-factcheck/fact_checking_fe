@@ -1,7 +1,11 @@
 # Project requirements
 
-Node v16.13.1
+Node v16.13.1 \
 Yarn 1.22.19
+
+# Available at address 
+
+https://fc-app-fe-ab88f.ondigitalocean.app/
 
 # Getting Started with Create React App
 
