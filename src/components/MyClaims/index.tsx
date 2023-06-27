@@ -25,7 +25,7 @@ const MyClaims: React.FC = () => {
   const [loaded, setClaimsLoaded] = useRecoilState(claimsLoaded);
 
   useEffect(() => {
-    const id = auth?.user?.id;
+    const id = auth?.user?._id;
     // redirect to home if already logged in
     if (id === undefined) {
       navigate('/sign-in');
@@ -33,7 +33,7 @@ const MyClaims: React.FC = () => {
 
     if (loaded === false) {
       claimsService.getMyClaims(id).then((res: any) => {
-        // const claimsList = res.filter((el) => id === el?.addedBy._id);
+        // const claimsList = res.filter((el) => id === el?.author._id);
         setMyClaimsList(res.data);
         setClaimsLoaded(true);
       }).catch();

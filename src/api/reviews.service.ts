@@ -9,7 +9,7 @@ export default class ReviewsService {
 
   static voteReview = (idReview: string, rating: number) => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return factCheckBe.post<number>(`/vote?reviewId=${idReview}`, { rating }, { headers });
+    return factCheckBe.post<number>(`/vote?id=${idReview}&type=REVIEW`, { rating }, { headers });
   };
 
   static addreview = (articleid: string, claimid: string, values: IReview) => {

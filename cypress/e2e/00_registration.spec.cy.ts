@@ -38,7 +38,7 @@ describe('Login Test', () => {
       expect(response).to.have.property('user');
       expect(response).to.have.nested.property('user.email');
       expect(response).to.have.nested.property('user.role');
-      expect(response).to.have.nested.property('user.id');
+      expect(response).to.have.nested.property('user._id');
       expect(response).to.have.nested.property('user.level');
     });
   });

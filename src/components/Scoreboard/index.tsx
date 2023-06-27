@@ -70,7 +70,7 @@ const Scoreboard: React.FC = () => {
     if (auth?.user?.email === undefined) {
       navigate('/sign-in');
     }
-    const id = auth?.user?.id;
+    const id = auth?.user?._id;
     if (id !== undefined) {
       usersService.getUserStats().then((res: any) => {
         setStats(res.data);

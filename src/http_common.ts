@@ -35,10 +35,10 @@ async function refreshAccessToken() {
 }
 
 factCheckBe.interceptors.response.use((response) => response, (error) => {
-  const { config, response: { status } } = error;
+  const { config, response: { statusCode } } = error;
   const originalRequest = config;
 
-  if (status === 401) {
+  if (statusCode === 401) {
     if (!isRefreshing) {
       isRefreshing = true;
       refreshAccessToken()

@@ -24,7 +24,7 @@ class ArticleEmpty implements IArticle {
   lang = '';
   text = '';
   sourceType = '';
-  addedBy!: {
+  author!: {
     _id: string;
     firstName: string;
     lastName: string;

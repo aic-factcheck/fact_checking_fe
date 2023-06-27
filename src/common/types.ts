@@ -4,11 +4,12 @@ export interface IClaim {
     _id: string;
   };
   text: string;
+  lang: string;
   createdAt: string;
   nPositiveVotes: number,
   nNegativeVotes: number,
   nReviews: number,
-  addedBy: {
+  author: {
     _id: string;
     firstName: string;
     lastName: string;
@@ -23,7 +24,7 @@ export interface IArticle {
   lang: string;
   text: string;
   sourceType: string;
-  addedBy: {
+  author: {
     _id: string;
     firstName: string;
     lastName: string;
@@ -43,7 +44,7 @@ export interface IReview {
   nPositiveVotes: number,
   nNeutralVotes: number,
   nNegativeVotes: number,
-  addedBy: {
+  author: {
     _id: string,
     firstName: string,
     lastName: string,

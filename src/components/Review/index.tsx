@@ -129,7 +129,7 @@ const Review: React.FC<Props> = ({ review }) => {
               <Col span={20}>
                 <Paragraph style={{ color: 'black', margin: '0%' }}>
                   <p style={{ display: 'inline' }}>
-                    {`${review?.addedBy.firstName} ${review?.addedBy.lastName}`}
+                    {`${review?.author.firstName} ${review?.author.lastName}`}
                     {review.vote === 'positive' && <CheckOutlined style={{ marginLeft: '7px' }} /> }
                     {review.vote === 'negative' && <CloseOutlined style={{ marginLeft: '7px' }} />}
                     {review.vote === 'no_info' && <BiQuestionMark style={{ marginLeft: '7px' }} />}

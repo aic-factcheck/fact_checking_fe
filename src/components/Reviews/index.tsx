@@ -56,11 +56,11 @@ const Reviews : React.FC<Props> = ({ claim, updated, indexClaim }) => {
         }}
       >
         {
-          // _id, priority, addedBy, articleId, text
+          // _id, priority, author, articleId, text
           reviewsList.length > 0 ? (
             reviewsList.sort((a, b) => (
-              ((1 + 0.1 * b.addedBy.level) * b.nPositiveVotes - b.nNegativeVotes - 0.1 * b.nNeutralVotes)
-              - ((1 + 0.1 * a.addedBy.level) * a.nPositiveVotes - a.nNegativeVotes - 0.1 * a.nNeutralVotes)))
+              ((1 + 0.1 * b.author.level) * b.nPositiveVotes - b.nNegativeVotes - 0.1 * b.nNeutralVotes)
+              - ((1 + 0.1 * a.author.level) * a.nPositiveVotes - a.nNegativeVotes - 0.1 * a.nNeutralVotes)))
               .map((obj) => (
                 <Review review={obj} />
               ))) : (
