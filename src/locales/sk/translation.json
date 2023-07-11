@@ -97,5 +97,19 @@
     "reviews_score": "Skóre hodnotení",
     "name": "Méno",
     "article_edited": "Článok úspešne upravený",
-    "claim_edited": "Tvrdenie úspešne upravené"
+    "claim_edited": "Tvrdenie úspešne upravené",
+    "my_reviews": "Moje hodnotenia",
+    "open_profile": "Otvoriť profil",
+    "open_article": "Otvoriť článok",
+    "range": "Obdobie : ",
+    "sort": "Zoradiť podľa : ",
+    "range_day": "dnes",
+    "range_days": "3 dni",
+    "range_week": "týždeň",
+    "range_month": "mesiac",
+    "range_year": "rok",
+    "positive_votes_desc": "pozitívne hlasy zostupne",
+    "positive_votes_asc": "pozitívne hlasy vzostupne",
+    "date_desc": "dátum zostupne",
+    "date_asc": "dátum vzostupne"
 }

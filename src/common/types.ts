@@ -53,6 +53,23 @@ export interface IReview {
   },
 }
 
+export interface IUserReview {
+  claim: IClaim;
+  _id: string,
+  claimId: {
+    _id: string
+  },
+  text: string,
+  createdAt: string,
+  vote: string,
+  links: string[],
+  nPositiveVotes: number,
+  nNeutralVotes: number,
+  nNegativeVotes: number,
+  author: IAuthor,
+  article: string,
+}
+
 export interface IStats {
   user: {
     _id: string,
@@ -82,6 +99,14 @@ export interface IPerson {
   nArticles: number;
   nClaims: number;
   nReviews: number;
+}
+
+export interface IAuthor {
+  _id: string,
+  firstName: string,
+  lastName: string,
+  email: string,
+  reputation: number
 }
 
 export interface IProfile {

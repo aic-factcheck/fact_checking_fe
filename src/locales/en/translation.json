@@ -97,5 +97,19 @@
     "reviews_score": "Reviews score",
     "name": "Name",
     "article_edited": "Article successfully edited",
-    "claim_edited": "Claim successfully edited"
+    "claim_edited": "Claim successfully edited",
+    "my_reviews": "My reviews",
+    "open_profile": "Open profile",
+    "open_article": "Open article",
+    "range": "Range : ",
+    "sort": "Sort by : ",
+    "range_day": "Today",
+    "range_days": "3 days",
+    "range_week": "week",
+    "range_month": "month",
+    "range_year": "year",
+    "positive_votes_desc": "positive votes descending",
+    "positive_votes_asc": "positive votes ascending",
+    "date_desc": "date descending",
+    "date_asc": "date ascending"
 }

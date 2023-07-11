@@ -8,10 +8,15 @@ import EditProfile from '../EditProfile';
 import MyArticles from '../MyArticles';
 import MyClaims from '../MyClaims';
 import Scoreboard from '../Scoreboard';
+import UserReviews from '../UserReviews';
 
 const { Content } = Layout;
 
-const ProfileSidebar: React.FC = () => {
+interface Props {
+  userid: string,
+}
+
+const ProfileSidebar: React.FC<Props> = ({ userid }) => {
   const { t } = useTranslation();
 
   return (
@@ -38,6 +43,9 @@ const ProfileSidebar: React.FC = () => {
               <Nav.Item>
                 <Nav.Link eventKey="4th" className="whites myClaimsProfile">{t('my_claims')}</Nav.Link>
               </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="5th" className="whites myReviewsProfile">{t('my_reviews')}</Nav.Link>
+              </Nav.Item>
             </Nav>
           </Col>
           <Col sm={9} xl={9} style={{ marginLeft: '1%' }}>
@@ -55,6 +63,9 @@ const ProfileSidebar: React.FC = () => {
                   </Tab.Pane>
                   <Tab.Pane eventKey="4th">
                     <MyClaims />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="5th">
+                    <UserReviews userid={userid} />
                   </Tab.Pane>
                 </Tab.Content>
               </Col>

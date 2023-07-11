@@ -45,7 +45,14 @@ const Reviews : React.FC<Props> = ({ claim, updated, indexClaim }) => {
       >
         <Col span={24}>
           <Paragraph style={{ color: 'white', fontWeight: 'bold' }}>
-            {claim.text}
+            <p style={{
+              display: 'inline', color: 'white', fontStyle: 'italic', fontSize: '1.0em',
+            }}
+            >
+              „
+              {claim.text}
+              “
+            </p>
           </Paragraph>
         </Col>
       </Row>

@@ -21,6 +21,7 @@ import claimsService from '../../api/claims.service';
 import articlesService from '../../api/articles.service';
 import Article from '../../components/article';
 import userService from '../../api/users.service';
+import UserReviews from '../../components/UserReviews';
 
 const { Content } = Layout;
 
@@ -158,11 +159,11 @@ const UserProfile: React.FC = () => {
           </Col>
           <Col xs={24} sm={24} md={24} lg={24} xl={18} xxl={18}>
             <Tabs
-              defaultActiveKey="profile"
+              defaultActiveKey="reviews"
               id="uncontrolled-tab-example"
               className="mb-3"
             >
-              <Tab eventKey="home" title={t('articles')}>
+              <Tab eventKey="articles" title={t('articles')}>
                 {
                   articlesList.length > 0 ? (articlesList?.map((obj : IArticle, index: number) => (
                     <div key={obj?._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
@@ -181,10 +182,13 @@ const UserProfile: React.FC = () => {
                   )
                 }
               </Tab>
-              <Tab eventKey="profile" title={t('claims')}>
+              <Tab eventKey="claims" title={t('claims')}>
                 {
                   claimsList.sort((a: IClaim, b: IClaim) => ((a.createdAt < b.createdAt) ? 1 : -1)).map((obj: IClaim, index: number) => <div key={obj._id} style={{ padding: '1%', borderRadius: '10px' }}><Claim claim={obj} isEditable={allowEdit} index={index} /></div>)
                 }
+              </Tab>
+              <Tab eventKey="reviews" title={t('reviews')}>
+                <UserReviews userid={auth?.user?._id} />
               </Tab>
             </Tabs>
           </Col>
@@ -193,5 +197,4 @@ const UserProfile: React.FC = () => {
     </Content>
   );
 };
-
 export default UserProfile;

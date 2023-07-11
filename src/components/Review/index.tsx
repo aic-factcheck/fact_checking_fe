@@ -7,6 +7,7 @@ import { BiQuestionMark } from 'react-icons/bi';
 import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { useRecoilValue } from 'recoil';
+import { Link } from 'react-router-dom';
 import { IReview } from '../../common/types';
 import reviewsService from '../../api/reviews.service';
 import authAtom from '../../_state/auth';
@@ -129,7 +130,11 @@ const Review: React.FC<Props> = ({ review }) => {
               <Col span={20}>
                 <Paragraph style={{ color: 'black', margin: '0%' }}>
                   <p style={{ display: 'inline' }}>
-                    {`${review?.author.firstName} ${review?.author.lastName}`}
+                    <Tooltip title={t('open_profile')}>
+                      <Link to={`/profileSearch/${review.author._id}`} style={{ color: 'black' }}>
+                        {`${review?.author.firstName} ${review?.author.lastName}`}
+                      </Link>
+                    </Tooltip>
                     {review.vote === 'positive' && <CheckOutlined style={{ marginLeft: '7px' }} /> }
                     {review.vote === 'negative' && <CloseOutlined style={{ marginLeft: '7px' }} />}
                     {review.vote === 'no_info' && <BiQuestionMark style={{ marginLeft: '7px' }} />}

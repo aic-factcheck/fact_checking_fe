@@ -1,10 +1,10 @@
 /* eslint-disable no-lonely-if */
 import React, { useEffect, useState } from 'react';
 import {
-  List, Layout, Row, Col, Input, Divider, Skeleton,
+  List, Layout, Row, Col, Input, Divider, Skeleton, Select, Space,
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import authAtom from '../../_state/auth';
@@ -12,8 +12,6 @@ import Claim from '../../components/claim';
 import MyTitle from '../../components/MyTitle';
 import { IClaim } from '../../common/types';
 import claimsService from '../../api/claims.service';
-import hotClaims from '../../_state/hotClaims';
-import hotClaimsPage from '../../_state/hotClaimsPage';
 
 const { Content } = Layout;
 const { Search } = Input;
@@ -23,8 +21,6 @@ const ClaimPages: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const [recoilHotClaimsList, setRecoilHotClaimsList] = useRecoilState(hotClaims);
-  const [recoilHotClaimsPageNum, setRecoilHotClaimsPage] = useRecoilState(hotClaimsPage);
   const [claimsList, setClaimsList] = useState<IClaim[]>([]);
 
   const [loading, setLoading] = useState(false);
@@ -33,6 +29,9 @@ const ClaimPages: React.FC = () => {
   const [searchValue, setSearchValue] = useState('');
   const [hasMoreData, setHasMoreData] = useState(true);
 
+  const [sortBy, setSortBy] = useState('POSITIVE_VOTES_DESC');
+  const [duration, setDuration] = useState('MONTH');
+
   const allowEdit = false;
 
   useEffect(() => {
@@ -40,15 +39,13 @@ const ClaimPages: React.FC = () => {
     if (auth?.user?.email === undefined) {
       navigate('/sign-in');
     }
-    if (recoilHotClaimsList.length > 0) {
-      setClaimsList(Array.from(recoilHotClaimsList));
-    } else {
-      claimsService.getClaimsList(recoilHotClaimsPageNum).then((res: any) => {
-        setRecoilHotClaimsList(Array.from(res.data));
-        setRecoilHotClaimsPage(recoilHotClaimsPageNum + 1);
-        setClaimsList(Array.from(res.data));
-      }).catch();
-    }
+
+    claimsService.getClaimsList(1, duration, sortBy).then((res: any) => {
+      setClaimsList(Array.from(res.data));
+      if (res.data.length < 10) {
+        setHasMoreData(false);
+      }
+    }).catch();
   }, [auth, navigate]);
 
   const onSearch = (pattern: string) => {
@@ -61,15 +58,15 @@ const ClaimPages: React.FC = () => {
       claimsService.queryClaim(pattern).then((res: any) => {
         setSearchPage((s) => s + 1);
         setClaimsList(res.data);
-        if (res.data.length === 0) {
+        if (res.data.length < 10) {
           setHasMoreData(false);
         }
       }).catch(() => {
         setSearchPage(1);
-        setClaimsList(Array.from(recoilHotClaimsList));
+        setClaimsList(claimsList);
       });
     } else {
-      setClaimsList(Array.from(recoilHotClaimsList));
+      setClaimsList(claimsList);
       setIsDefaultSearch(true);
       setHasMoreData(true);
     }
@@ -81,12 +78,10 @@ const ClaimPages: React.FC = () => {
     }
     setLoading(true);
     if (isDefaultSearch) {
-      claimsService.getClaimsList(recoilHotClaimsPageNum).then((res: any) => {
-        setRecoilHotClaimsPage(recoilHotClaimsPageNum + 1);
-        setClaimsList([...recoilHotClaimsList, ...res.data]);
-        setRecoilHotClaimsList([...recoilHotClaimsList, ...res.data]);
+      claimsService.getClaimsList(searchPage, duration, sortBy).then((res: any) => {
+        setClaimsList([...claimsList, ...res.data]);
         setLoading(false);
-        if (res.data.length === 0) {
+        if (res.data.length < 10) {
           setHasMoreData(false);
         }
         window.dispatchEvent(new Event('resize'));
@@ -109,6 +104,30 @@ const ClaimPages: React.FC = () => {
         setLoading(false);
       }
     }
+  };
+
+  const handleChangeRange = (value: string) => {
+    setDuration(value);
+    setSearchPage(1);
+    claimsService.getClaimsList(1, duration, sortBy).then((res: any) => {
+      setClaimsList(Array.from(res.data));
+      if (res.data.length < 10) {
+        setHasMoreData(false);
+      }
+    }).catch();
+    console.log(`selected ${value}`);
+  };
+
+  const handleChangeSort = (value: string) => {
+    setSortBy(value);
+    setSearchPage(1);
+    claimsService.getClaimsList(1, duration, sortBy).then((res: any) => {
+      setClaimsList(Array.from(res.data));
+      if (res.data.length < 10) {
+        setHasMoreData(false);
+      }
+    }).catch();
+    console.log(`selected ${value}`);
   };
 
   return (
@@ -142,6 +161,35 @@ const ClaimPages: React.FC = () => {
             <Col span={24}>
               <Search placeholder={t('search_claim')} onSearch={onSearch} />
             </Col>
+          </Row>
+          <Row>
+            <Space wrap>
+              {t('range')}
+              <Select
+                defaultValue="MONTH"
+                style={{ width: 120 }}
+                onChange={handleChangeRange}
+                options={[
+                  { value: 'DAY', label: t('range_day') },
+                  { value: 'DAYS', label: t('range_days') },
+                  { value: 'WEEK', label: t('range_week') },
+                  { value: 'MONTH', label: t('range_month') },
+                  { value: 'YEAR', label: t('range_year') },
+                ]}
+              />
+              {t('sort')}
+              <Select
+                defaultValue="POSITIVE_VOTES_DESC"
+                style={{ width: 200 }}
+                onChange={handleChangeSort}
+                options={[
+                  { value: 'POSITIVE_VOTES_DESC', label: t('positive_votes_desc') },
+                  { value: 'POSITIVE_VOTES_ASC', label: t('positive_votes_asc') },
+                  { value: 'DATE_DESC', label: t('date_desc') },
+                  { value: 'DATE_ASC', label: t('date_asc') },
+                ]}
+              />
+            </Space>
           </Row>
           {
           claimsList.map((obj: IClaim, index: number) => <div key={obj._id} style={{ padding: '1%', borderRadius: '10px' }}><Claim claim={obj} isEditable={allowEdit} index={index} /></div>)

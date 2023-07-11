@@ -3,8 +3,8 @@ import { factCheckBe } from '../http_common';
 import { IClaim } from '../common/types';
 
 export default class ClaimsService {
-  static getClaimsList = (page: number) => {
-    return factCheckBe.get<IClaim[]>(`/hot/claims?perPage=10&page=${page}&duration=MONTH&sortBy=DATE_DESC`);
+  static getClaimsList = (page: number, duration: string, sortBy: string) => {
+    return factCheckBe.get<IClaim[]>(`/hot/claims?perPage=10&page=${page}&duration=${duration}&sortBy=${sortBy}`);
   };
 
   static getMyClaims = (userId: string) => {

@@ -33,7 +33,8 @@ const Scoreboard: React.FC = () => {
     },
     {
       title: t('name'),
-      dataIndex: 'name',
+      // eslint-disable-next-line no-useless-concat
+      dataIndex: 'firstName',
     },
     {
       title: 'Level',

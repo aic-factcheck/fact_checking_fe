@@ -30,7 +30,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
 
   const [claimForm] = Form.useForm();
   const [reviewsList, setReviewsList] = useState<IReview[]>([]);
-  const [vote, setVote] = useState('positive');
+  const [vote, setVote] = useState('TRUE');
   const [linksList, setLinksList] = useState<string[]>([]);
 
   useEffect(() => {
@@ -152,7 +152,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
           label={t('review_overall_trust')}
           name="vote"
         >
-          <Select defaultValue="positive" onChange={handleChange}>
+          <Select defaultValue="TRUE" onChange={handleChange}>
             <Option value="TRUE">{t('true')}</Option>
             <Option value="PARTIALLY_TRUE">{t('partialy_true')}</Option>
             <Option value="INCONCLUSIVE">{t('inconclusive')}</Option>
