@@ -182,7 +182,7 @@ const UserReview: React.FC<Props> = ({ review }) => {
                     <Paragraph style={{ color: 'black', margin: '0%' }}>
                       <ul>
                         {
-                            review.links.map((objLink: string) => (
+                            review.links?.map((objLink: string) => (
                               <li style={{ display: 'inline-block', margin: '0' }}>
                                 <Tooltip title={`${objLink}`}>
                                   <span>

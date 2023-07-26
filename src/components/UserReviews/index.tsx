@@ -42,7 +42,7 @@ const UserReviews : React.FC<Props> = ({ userid }) => {
         {
           // _id, priority, author, articleId, text
           reviewsList.length > 0 ? (
-            reviewsList.map((obj) => (
+            reviewsList?.map((obj) => (
               <UserReview review={obj} />
             ))) : (
               <div className="emptyList">

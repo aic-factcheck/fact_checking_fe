@@ -157,7 +157,7 @@ const AllArticles : React.FC = () => {
 
           </Row>
           {
-          articlesList?.map((obj: IArticle, index: number) => <div key={obj._id} style={{ padding: '1%', borderRadius: '10px' }}><Article article={obj} isEditable={allowEdit} indexArticle={index} /></div>)
+          articlesList?.map((obj: IArticle, index: number) => <div key={obj?._id} style={{ padding: '1%', borderRadius: '10px' }}><Article article={obj} isEditable={allowEdit} indexArticle={index} /></div>)
         }
         </List>
       </InfiniteScroll>
