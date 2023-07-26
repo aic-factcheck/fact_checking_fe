@@ -78,7 +78,7 @@ const LadingPage: React.FC = () => {
               }}
             >
               {
-                claimsList?.slice(0, 8).map((obj: IClaim, index: number) => (
+                claimsList?.map((obj: IClaim, index: number) => (
                   <Carousel.Item
                     key={obj._id}
                     style={{
