@@ -192,7 +192,7 @@ const ClaimPages: React.FC = () => {
             </Space>
           </Row>
           {
-          claimsList.map((obj: IClaim, index: number) => <div key={obj._id} style={{ padding: '1%', borderRadius: '10px' }}><Claim claim={obj} isEditable={allowEdit} index={index} /></div>)
+          claimsList?.map((obj: IClaim, index: number) => <div key={obj._id} style={{ padding: '1%', borderRadius: '10px' }}><Claim claim={obj} isEditable={allowEdit} index={index} /></div>)
         }
         </List>
       </InfiniteScroll>

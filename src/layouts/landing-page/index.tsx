@@ -78,9 +78,9 @@ const LadingPage: React.FC = () => {
               }}
             >
               {
-                claimsList?.map((obj: IClaim, index: number) => (
+                claimsList.length > 0 ? (claimsList?.map((obj: IClaim, index: number) => (
                   <Carousel.Item
-                    key={obj._id}
+                    key={obj?._id}
                     style={{
                       padding: '12%',
                       height: '60%',
@@ -92,7 +92,11 @@ const LadingPage: React.FC = () => {
                       index={index}
                     />
                   </Carousel.Item>
-                ))
+                ))) : (
+                  <div className="emptyList">
+                    {' '}
+                  </div>
+                )
               }
             </Carousel>
           </Col>
