@@ -18,7 +18,7 @@ jobs:
 
       - name: Build and push Docker images
         run: |
-          docker build -t rastokopal/fact-checking-fe:latest .
+          docker build --build-arg REACT_APP_API_BASE=${{ env.REACT_APP_API_BASE }} --build-arg PORT=${{ env.PORT }} --build-arg REACT_APP_API_GET_TEXT=${{ env.REACT_APP_API_GET_TEXT }} -t rastokopal/fact-checking-fe:latest .
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
           docker push rastokopal/fact-checking-fe:latest
 

@@ -22,7 +22,7 @@ const LadingPage: React.FC = () => {
 
   useEffect(() => {
     claimsService.getClaimsList(1, 'MONTH', 'POSITIVE_VOTES_DESC')
-      .then((res: any) => setClaimsList(res.data)).catch();
+      .then((res: any) => setClaimsList(Array.from(res.data))).catch();
   }, [auth, navigate]);
 
   return (
