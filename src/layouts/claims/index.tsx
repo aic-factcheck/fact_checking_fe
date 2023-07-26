@@ -109,7 +109,7 @@ const ClaimPages: React.FC = () => {
   const handleChangeRange = (value: string) => {
     setDuration(value);
     setSearchPage(1);
-    claimsService.getClaimsList(1, duration, sortBy).then((res: any) => {
+    claimsService.getClaimsList(1, value, sortBy).then((res: any) => {
       setClaimsList(Array.from(res.data));
       if (res.data.length < 10) {
         setHasMoreData(false);
@@ -121,7 +121,7 @@ const ClaimPages: React.FC = () => {
   const handleChangeSort = (value: string) => {
     setSortBy(value);
     setSearchPage(1);
-    claimsService.getClaimsList(1, duration, sortBy).then((res: any) => {
+    claimsService.getClaimsList(1, duration, value).then((res: any) => {
       setClaimsList(Array.from(res.data));
       if (res.data.length < 10) {
         setHasMoreData(false);
