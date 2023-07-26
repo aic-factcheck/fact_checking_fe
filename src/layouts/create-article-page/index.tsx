@@ -169,7 +169,7 @@ const CreateArticlePage: React.FC = () => {
                 {
                   claims?.map((obj: IClaim, index: number) => (
                     <div
-                      key={obj._id}
+                      key={obj?._id}
                       style={{
                         marginBottom: '1%', background: 'none', borderRadius: '10px',
                       }}
