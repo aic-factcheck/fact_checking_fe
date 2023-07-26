@@ -3,6 +3,14 @@ FROM node:18 AS base
 WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
 
+ARG REACT_APP_API_BASE
+ARG PORT
+ARG REACT_APP_API_GET_TEXT
+
+ENV REACT_APP_API_BASE=$REACT_APP_API_BASE
+ENV PORT=$PORT
+ENV REACT_APP_API_GET_TEXT=$REACT_APP_API_GET_TEXT
+
 # ---- Dependencies ----
 FROM base AS dependencies
 RUN yarn install
