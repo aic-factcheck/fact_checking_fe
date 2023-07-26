@@ -126,7 +126,7 @@ const ReviewArticle: React.FC = () => {
             : claims?.sort((a, b) => (
               (b.nPositiveVotes - b.nNegativeVotes) - (a.nPositiveVotes - a.nNegativeVotes)))
               .map((obj, index) => (
-                <div key={obj._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
+                <div key={obj?._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
                   <Claim
                     claim={obj}
                     index={index}
