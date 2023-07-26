@@ -17,7 +17,7 @@ const Profile: React.FC = () => {
 
   return (
     <div>
-      <ProfileSidebar />
+      <ProfileSidebar userid={auth?.user?._id} />
     </div>
   );
 };

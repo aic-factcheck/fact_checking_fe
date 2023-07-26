@@ -36,7 +36,7 @@ const EditClaim: React.FC<Props> = ({ claim, indexClaim, closeModal }) => {
   const onFinish = (values: any) => {
     const articleid = claim.article._id;
     const claimid = claim._id;
-    const id = auth?.user.id;
+    const id = auth?.user._id;
 
     if (id !== undefined) {
       claimsService.editClaim(articleid, claimid, values).then(() => {

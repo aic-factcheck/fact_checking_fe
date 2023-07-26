@@ -26,7 +26,7 @@ class ArticleEmpty implements IArticle {
   lang = '';
   text = '';
   sourceType = '';
-  addedBy!: {
+  author!: {
     _id: string;
     firstName: string;
     lastName: string;
@@ -121,7 +121,7 @@ const ReviewArticle: React.FC = () => {
         }}
       >
         {
-          // _id, priority, addedBy, articleId, text
+          // _id, priority, author, articleId, text
           claims === undefined ? <Skeleton avatar paragraph={{ rows: 2 }} active />
             : claims?.sort((a, b) => (
               (b.nPositiveVotes - b.nNegativeVotes) - (a.nPositiveVotes - a.nNegativeVotes)))

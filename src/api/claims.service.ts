@@ -3,8 +3,8 @@ import { factCheckBe } from '../http_common';
 import { IClaim } from '../common/types';
 
 export default class ClaimsService {
-  static getClaimsList = (page: number) => {
-    return factCheckBe.get<IClaim[]>(`/hot/claims?perPage=10&page=${page}`);
+  static getClaimsList = (page: number, duration: string, sortBy: string) => {
+    return factCheckBe.get<IClaim[]>(`/hot/claims?perPage=10&page=${page}&duration=${duration}&sortBy=${sortBy}`);
   };
 
   static getMyClaims = (userId: string) => {
@@ -14,7 +14,7 @@ export default class ClaimsService {
 
   static voteClaim = (idClaim: string, rating: number) => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return factCheckBe.post<number>(`/vote?claimId=${idClaim}`, { rating }, { headers });
+    return factCheckBe.post<number>(`/vote?id=${idClaim}&type=CLAIM`, { rating }, { headers });
   };
 
   static getClaimsOfArticle = (articleId: string) => {

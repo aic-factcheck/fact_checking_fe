@@ -33,7 +33,8 @@ const Scoreboard: React.FC = () => {
     },
     {
       title: t('name'),
-      dataIndex: 'name',
+      // eslint-disable-next-line no-useless-concat
+      dataIndex: 'firstName',
     },
     {
       title: 'Level',
@@ -70,7 +71,7 @@ const Scoreboard: React.FC = () => {
     if (auth?.user?.email === undefined) {
       navigate('/sign-in');
     }
-    const id = auth?.user?.id;
+    const id = auth?.user?._id;
     if (id !== undefined) {
       usersService.getUserStats().then((res: any) => {
         setStats(res.data);

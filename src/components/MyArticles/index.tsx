@@ -30,10 +30,10 @@ const MyArticles: React.FC = () => {
     }
 
     if (loaded === false) {
-      const id = auth?.user.id;
+      const id = auth?.user._id;
       if (id !== undefined) {
         articlesService.getMyArticles(id).then((res: any) => {
-          /* const articles = res.filter((el) => id === el?.addedBy._id); */
+          /* const articles = res.filter((el) => id === el?.author._id); */
           setMyArticlesList(res.data);
           setArticlesLoaded(true);
         }).catch();

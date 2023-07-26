@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
-  Button, Form, Input,
+  Button, Form, Input, Select,
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -12,6 +12,8 @@ import { IClaim, IArticle } from '../../../common/types';
 import claimsService from '../../../api/claims.service';
 import claimsLoaded from '../../../_state/claimsLoaded';
 import { NotificationContext } from '../../NotificationContext/NotificationContext';
+
+const { Option } = Select;
 
 interface Props {
   articleSubmited: boolean,
@@ -27,13 +29,14 @@ const CreateClaim : React.FC<Props> = ({
   const [claimForm] = Form.useForm();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [lang, setLanguage] = useState('cz');
   const auth = useRecoilValue(authAtom);
   const [myClaimsList, setMyClaimsList] = useRecoilState(myClaims);
   const [loaded, setClaimsLoaded] = useRecoilState(claimsLoaded);
   const notificationApi = useContext(NotificationContext);
 
   useEffect(() => {
-    const id = auth?.user?.id;
+    const id = auth?.user?._id;
     // redirect to home if already logged in
     if (id === undefined) {
       navigate('/sign-in');
@@ -41,7 +44,7 @@ const CreateClaim : React.FC<Props> = ({
 
     if (myClaimsList.length < 1 && loaded === false) {
       claimsService.getMyClaims(id).then((res: any) => {
-        // const claimsList = res.filter((el) => id === el?.addedBy._id);
+        // const claimsList = res.filter((el) => id === el?.author._id);
         setMyClaimsList(res.data);
         setClaimsLoaded(true);
       }).catch();
@@ -49,9 +52,12 @@ const CreateClaim : React.FC<Props> = ({
   }, [auth, navigate, myClaimsList]);
 
   const onFinish = (values: any) => {
+    const mergedValues = values;
+    mergedValues.lang = lang;
+
     const newClaim = {
-      addedBy: {
-        _id: auth?.user?.id,
+      author: {
+        _id: auth?.user?._id,
         firstName: auth?.user.firstName,
         lastName: auth?.user.lastName,
       },
@@ -59,13 +65,15 @@ const CreateClaim : React.FC<Props> = ({
         _id: article._id,
       },
       createdAt: new Date().toString(),
+      // eslint-disable-next-line object-shorthand
+      lang: lang,
       text: values.text,
       nNegativeVotes: 0,
       nPositiveVotes: 0,
       _id: new Date().toString(),
     } as IClaim;
 
-    claimsService.createClaim(article._id, values).then((res: any) => {
+    claimsService.createClaim(article._id, mergedValues).then((res: any) => {
       const mergedClaims = [...claims];
       res.key = res.data._id;
       mergedClaims.push(res.data);
@@ -86,6 +94,10 @@ const CreateClaim : React.FC<Props> = ({
         icon: <CloseOutlined />,
       });
     });
+  };
+
+  const handleChange = (value: string) => {
+    setLanguage(value);
   };
 
   return (
@@ -109,6 +121,22 @@ const CreateClaim : React.FC<Props> = ({
         ]}
       >
         <Input.TextArea rows={4} id="createClaimText" />
+      </Form.Item>
+
+      <Form.Item
+        label={t('language')}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Select defaultValue="cz" style={{ width: 120, color: '#000000' }} onChange={handleChange}>
+          <Option value="cz">{t('czech')}</Option>
+          <Option value="en">{t('english')}</Option>
+          <Option value="sk">{t('slovak')}</Option>
+          <Option value="other">{t('other')}</Option>
+        </Select>
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 0, span: 22 }}>

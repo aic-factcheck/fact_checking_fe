@@ -30,7 +30,7 @@ export default class ArticlesService {
 
   static getTextFromURL = (urlAdress: string) => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return scrapingService.get<string>(`/extract/json?url=${urlAdress}`, { headers });
+    return scrapingService.get<string>(`/json?url=${urlAdress}`, { headers });
   };
 
   static editArticle = (id: string, mergedValues: IArticle) => {

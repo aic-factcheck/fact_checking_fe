@@ -34,7 +34,7 @@ const EditProfile: React.FC = () => {
   }, [auth, navigate]);
 
   const onFinish = (values: FormData) => {
-    const id = auth?.user.id;
+    const id = auth?.user._id;
     if (id !== undefined) {
       usersService.editProfile(
         id,

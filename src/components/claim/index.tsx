@@ -194,14 +194,14 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
         <Col span={16} offset={0}>
           <Paragraph style={{ color: 'black', textAlign: 'left' }}>
             {
-                claim?.addedBy.firstName !== undefined && claim?.createdAt !== undefined
+                claim?.author.firstName !== undefined && claim?.createdAt !== undefined
                   ? (
-                    <Link to={`/profileSearch/${claim?.addedBy?._id}`}>
-                      {`${claim?.addedBy?.firstName} ${claim?.addedBy.lastName}`}
+                    <Link to={`/profileSearch/${claim?.author?._id}`}>
+                      {`${claim?.author?.firstName} ${claim?.author.lastName}`}
                     </Link>
                   )
                   : (
-                    <Link to={`/profileSearch/${claim?.addedBy?._id}`}>
+                    <Link to={`/profileSearch/${claim?.author?._id}`}>
                       {`${auth?.user?.firstName} ${auth?.user.lastName}`}
                     </Link>
                   )

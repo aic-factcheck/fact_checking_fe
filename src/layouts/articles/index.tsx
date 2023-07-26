@@ -42,11 +42,15 @@ const AllArticles : React.FC = () => {
     }
     if (recoilHotArticlesList.length > 0) {
       setArticlesList(Array.from(recoilHotArticlesList));
+      setHasMoreData(false);
     } else {
       articlesService.getArticlesList(recoilHotArticlesPageNum).then((res: any) => {
         setRecoilHotArticlesList(Array.from(res.data));
         setRecoilHotArticlesPage(recoilHotArticlesPageNum + 1);
         setArticlesList(Array.from(res.data));
+        if (res.data.length < 10) {
+          setHasMoreData(false);
+        }
       }).catch();
     }
   }, [auth, navigate]);

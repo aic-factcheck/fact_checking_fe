@@ -41,10 +41,10 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
     }
 
     if (myArticlesList.length < 1 && loaded === false) {
-      const id = auth?.user?.id;
+      const id = auth?.user?._id;
       if (id !== undefined) {
         articlesService.getMyArticles(id).then((res: any) => {
-          /* const articles = res.filter((el) => id === el?.addedBy._id); */
+          /* const articles = res.filter((el) => id === el?.author._id); */
           setMyArticlesList(res.data);
           setArticlesLoaded(true);
         }).catch();
@@ -76,8 +76,8 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
       lang: lang,
       text: values.text,
       sourceType: 'article',
-      addedBy: {
-        _id: auth?.user.id,
+      author: {
+        _id: auth?.user._id,
         firstName: auth?.user.firstName,
         lastName: auth?.user.lastName,
       },

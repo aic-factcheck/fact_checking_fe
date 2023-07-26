@@ -4,11 +4,12 @@ export interface IClaim {
     _id: string;
   };
   text: string;
+  lang: string;
   createdAt: string;
   nPositiveVotes: number,
   nNegativeVotes: number,
   nReviews: number,
-  addedBy: {
+  author: {
     _id: string;
     firstName: string;
     lastName: string;
@@ -23,7 +24,7 @@ export interface IArticle {
   lang: string;
   text: string;
   sourceType: string;
-  addedBy: {
+  author: {
     _id: string;
     firstName: string;
     lastName: string;
@@ -43,13 +44,30 @@ export interface IReview {
   nPositiveVotes: number,
   nNeutralVotes: number,
   nNegativeVotes: number,
-  addedBy: {
+  author: {
     _id: string,
     firstName: string,
     lastName: string,
     email: string,
     level: number,
   },
+}
+
+export interface IUserReview {
+  claim: IClaim;
+  _id: string,
+  claimId: {
+    _id: string
+  },
+  text: string,
+  createdAt: string,
+  vote: string,
+  links: string[],
+  nPositiveVotes: number,
+  nNeutralVotes: number,
+  nNegativeVotes: number,
+  author: IAuthor,
+  article: string,
 }
 
 export interface IStats {
@@ -81,6 +99,14 @@ export interface IPerson {
   nArticles: number;
   nClaims: number;
   nReviews: number;
+}
+
+export interface IAuthor {
+  _id: string,
+  firstName: string,
+  lastName: string,
+  email: string,
+  reputation: number
 }
 
 export interface IProfile {

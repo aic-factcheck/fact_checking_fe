@@ -124,12 +124,12 @@ const Article: React.FC<Props> = ({ article, isEditable, indexArticle }) => {
       </Row>
       <Row>
         <Col offset={1} span="auto">
-          { (article?.addedBy?.firstName !== undefined && article?.createdAt !== undefined) && article?.createdAt !== undefined
+          { (article?.author?.firstName !== undefined && article?.createdAt !== undefined) && article?.createdAt !== undefined
             ? (
               <Paragraph>
 
-                <Link to={`/profileSearch/${article?.addedBy?._id}`} className="authorArticle">
-                  {`${article?.addedBy?.firstName} ${article?.addedBy.lastName}`}
+                <Link to={`/profileSearch/${article?.author?._id}`} className="authorArticle">
+                  {`${article?.author?.firstName} ${article?.author.lastName}`}
                 </Link>
 
                 {', '}

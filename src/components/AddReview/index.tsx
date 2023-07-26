@@ -30,7 +30,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
 
   const [claimForm] = Form.useForm();
   const [reviewsList, setReviewsList] = useState<IReview[]>([]);
-  const [vote, setVote] = useState('positive');
+  const [vote, setVote] = useState('TRUE');
   const [linksList, setLinksList] = useState<string[]>([]);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
     if (auth?.token === undefined) {
       navigate('/sign-in');
     }
-    const id = auth?.user.id;
+    const id = auth?.user._id;
     const articleid = claim?.article._id;
     const claimid = claim?._id;
     if (id !== undefined) {
@@ -61,17 +61,17 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
     const mergedValues = values;
     const articleid = claim.article._id;
     const claimid = claim._id;
-    const id = auth?.user.id;
+    const userId = auth?.user._id;
     mergedValues.vote = vote;
+    mergedValues.lang = 'cz';
     mergedValues.links = linksList;
 
-    if (id !== undefined) {
-      reviewsService.addreview(articleid, claimid, values).then((res: any) => {
-        console.log('chybaaaa');
+    if (userId !== undefined) {
+      reviewsService.addreview(articleid, claimid, mergedValues).then((res: any) => {
         const mergedReviews = [...reviewsList];
         res.key = res.data._id;
-        res.data.addedBy.firstName = auth?.user.firstName;
-        res.data.addedBy.lastName = auth?.user.lastName;
+        res.data.author.firstName = auth?.user.firstName;
+        res.data.author.lastName = auth?.user.lastName;
         mergedReviews.push(res.data);
         claimForm.resetFields(['text']);
         setReviewsList(mergedReviews);
@@ -83,6 +83,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
         reviewsNum();
         closeModal();
       }).catch((err: any) => {
+        console.log(err);
         const errorMessage = 'An error occurred while creating review.';
         notificationApi.info({
           message: errorMessage,
@@ -151,10 +152,12 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
           label={t('review_overall_trust')}
           name="vote"
         >
-          <Select defaultValue="positive" onChange={handleChange}>
-            <Option value="positive">{t('positive')}</Option>
-            <Option value="negative">{t('negative')}</Option>
-            <Option value="no_info">{t('not_enough_info')}</Option>
+          <Select defaultValue="TRUE" onChange={handleChange}>
+            <Option value="TRUE">{t('true')}</Option>
+            <Option value="PARTIALLY_TRUE">{t('partialy_true')}</Option>
+            <Option value="INCONCLUSIVE">{t('inconclusive')}</Option>
+            <Option value="NON_VERIFIABLE">{t('non_verifiable')}</Option>
+            <Option value="FALSE">{t('false')}</Option>
           </Select>
         </Form.Item>
 

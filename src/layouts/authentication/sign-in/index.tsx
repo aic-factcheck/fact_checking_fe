@@ -25,7 +25,7 @@ const SignIn: React.FC = () => {
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.user?.id !== undefined) {
+    if (auth?.user?._id !== undefined) {
       navigate('/');
     }
   }, [auth, navigate]);
@@ -33,6 +33,7 @@ const SignIn: React.FC = () => {
   const onFinish = (values: FormData) => {
     UsersService.login(values.email, values.password).then((res: any) => {
       setAuth(res.data);
+      // console.log(res.data);
       localStorage.setItem('user', JSON.stringify(res.data));
       localStorage.setItem('accessToken', res.data.token.accessToken);
       localStorage.setItem('refreshToken', res.data.token.refreshToken);

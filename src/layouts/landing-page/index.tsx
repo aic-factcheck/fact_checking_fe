@@ -21,7 +21,7 @@ const LadingPage: React.FC = () => {
   const [claimsList, setClaimsList] = useState<IClaim[]>([]);
 
   useEffect(() => {
-    claimsService.getClaimsList(1)
+    claimsService.getClaimsList(1, 'MONTH', 'POSITIVE_VOTES_DESC')
       .then((res: any) => setClaimsList(res.data)).catch();
   }, [auth, navigate]);
 
