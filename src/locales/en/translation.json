@@ -111,5 +111,10 @@
     "positive_votes_desc": "positive votes descending",
     "positive_votes_asc": "positive votes ascending",
     "date_desc": "date descending",
-    "date_asc": "date ascending"
+    "date_asc": "date ascending",
+    "reputation": "Reputation",
+    "code": "Verification code",
+    "invite": "Invite user",
+    "successfully_invited": "User was invited",
+    "invite_about": "Send invitation to application to another user. User receives email with registration code"
 }

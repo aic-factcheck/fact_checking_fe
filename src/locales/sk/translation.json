@@ -111,5 +111,10 @@
     "positive_votes_desc": "pozitívne hlasy zostupne",
     "positive_votes_asc": "pozitívne hlasy vzostupne",
     "date_desc": "dátum zostupne",
-    "date_asc": "dátum vzostupne"
+    "date_asc": "dátum vzostupne",
+    "reputation": "Reputácia",
+    "code": "Verifikačný kód",
+    "invite": "Pozvať používateľa",
+    "successfully_invited": "Používateľ bol pozvaný",
+    "invite_about": "Pošlite pozvánku do aplikácie inému používateľovi. Používateľovi príde mail s registračným kódom"
 }

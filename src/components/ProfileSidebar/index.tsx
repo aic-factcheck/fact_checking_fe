@@ -9,6 +9,7 @@ import MyArticles from '../MyArticles';
 import MyClaims from '../MyClaims';
 import Scoreboard from '../Scoreboard';
 import UserReviews from '../UserReviews';
+import Invitation from '../Invitation';
 
 const { Content } = Layout;
 
@@ -46,6 +47,9 @@ const ProfileSidebar: React.FC<Props> = ({ userid }) => {
               <Nav.Item>
                 <Nav.Link eventKey="5th" className="whites myReviewsProfile">{t('my_reviews')}</Nav.Link>
               </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="6th" className="whites invitationsProfile">{t('invite')}</Nav.Link>
+              </Nav.Item>
             </Nav>
           </Col>
           <Col sm={9} xl={9} style={{ marginLeft: '1%' }}>
@@ -66,6 +70,9 @@ const ProfileSidebar: React.FC<Props> = ({ userid }) => {
                   </Tab.Pane>
                   <Tab.Pane eventKey="5th">
                     <UserReviews userid={userid} />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="6th">
+                    <Invitation />
                   </Tab.Pane>
                 </Tab.Content>
               </Col>

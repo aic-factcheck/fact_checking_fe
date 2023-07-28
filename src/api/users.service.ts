@@ -25,6 +25,26 @@ export default class UserService {
     }, { headers });
   };
 
+  static signupCode = (
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+    code: string,
+  ) => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
+    return factCheckBe.post<any>('/auth/register-code', {
+      firstName, lastName, email, password, code,
+    }, { headers });
+  };
+
+  static invite = (email: string) => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
+    return factCheckBe.post<any>('/invitations', {
+      email,
+    }, { headers });
+  };
+
   static getUserStats = () => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
     return factCheckBe.get<IStats>('/stats', { headers });
