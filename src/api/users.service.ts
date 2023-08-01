@@ -38,10 +38,10 @@ export default class UserService {
     }, { headers });
   };
 
-  static invite = (email: string) => {
+  static invite = (invitedEmail: string) => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
     return factCheckBe.post<any>('/invitations', {
-      email,
+      invitedEmail,
     }, { headers });
   };
 
