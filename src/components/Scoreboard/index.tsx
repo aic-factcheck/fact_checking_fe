@@ -33,8 +33,13 @@ const Scoreboard: React.FC = () => {
     },
     {
       title: t('name'),
+      dataIndex: 'fullName', // Use a custom dataIndex for the merged value
+      render: (text: string, record: any) => `${record.firstName} ${record.lastName}`, // Combine firstName and lastName
+    },
+    {
+      title: t('reputation'),
       // eslint-disable-next-line no-useless-concat
-      dataIndex: 'firstName',
+      dataIndex: 'reputation',
     },
     {
       title: 'Level',

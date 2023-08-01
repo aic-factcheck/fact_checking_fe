@@ -28,11 +28,12 @@ const SignUp: React.FC = () => {
   }, [auth, navigate]);
 
   const onFinish = (values: any) => {
-    usersService.signup(
+    usersService.signupCode(
       values.firstname,
       values.lastname,
       values.email,
       values.password,
+      values.code,
     ).then((res) => {
       setAuth(res.data);
       localStorage.setItem('user', JSON.stringify(res.data));
@@ -98,7 +99,7 @@ const SignUp: React.FC = () => {
                 },
               ]}
             >
-              <Input placeholder="First name" id="firstNameRegister" />
+              <Input placeholder={t('first_name')} id="firstNameRegister" />
             </Form.Item>
 
             <Form.Item
@@ -138,6 +139,19 @@ const SignUp: React.FC = () => {
               ]}
             >
               <Input.Password placeholder={t('password')} id="passwordRegister" />
+            </Form.Item>
+
+            <Form.Item
+              name="code"
+              rules={[
+                {
+                  required: true,
+                  message: t('please_first'),
+                  min: 4,
+                },
+              ]}
+            >
+              <Input placeholder={t('code')} id="codeRegister" />
             </Form.Item>
 
             <Form.Item
