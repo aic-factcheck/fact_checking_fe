@@ -49,21 +49,22 @@ const MyArticles: React.FC = () => {
         }}
       >
         {
-          myArticlesList !== undefined ? (myArticlesList?.map((obj : IArticle, index: number) => (
-            <div key={obj?._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
-              <Article
-                article={obj}
-                isEditable={allowEdit}
-                indexArticle={index}
-              />
-            </div>
-          ))) : (
-            <div className="emptyList">
-              {' '}
-              {t('no_articles_yet')}
-              {' '}
-            </div>
-          )
+          (myArticlesList !== undefined && myArticlesList.length > 0)
+            ? (myArticlesList?.map((obj : IArticle, index: number) => (
+              <div key={obj?._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
+                <Article
+                  article={obj}
+                  isEditable={allowEdit}
+                  indexArticle={index}
+                />
+              </div>
+            ))) : (
+              <div className="emptyList">
+                {' '}
+                {t('no_articles_yet')}
+                {' '}
+              </div>
+            )
         }
       </List>
     </Content>

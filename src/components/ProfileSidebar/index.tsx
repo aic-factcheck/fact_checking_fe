@@ -1,7 +1,8 @@
-import React from 'react';
-import { Layout } from 'antd';
+/* eslint-disable max-len */
+import React, { useEffect, useState } from 'react';
+import { Layout, Row, Col } from 'antd';
 import {
-  Tab, Row, Col, Nav,
+  Tab, Nav,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import EditProfile from '../EditProfile';
@@ -19,6 +20,21 @@ interface Props {
 
 const ProfileSidebar: React.FC<Props> = ({ userid }) => {
   const { t } = useTranslation();
+  const [isPortrait, setIsPortrait] = useState(
+    window.matchMedia('(orientation: portrait)').matches,
+  );
+
+  const handleResize = () => {
+    setIsPortrait(window.matchMedia('(orientation: portrait)').matches);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <Content
@@ -30,7 +46,7 @@ const ProfileSidebar: React.FC<Props> = ({ userid }) => {
         defaultActiveKey="1st"
       >
         <Row>
-          <Col sm={2}>
+          <Col xs={24} sm={24} md={24} lg={isPortrait ? 24 : 6} xl={isPortrait ? 24 : 6} xxl={isPortrait ? 24 : 6}>
             <Nav variant="pills" className="flex-column">
               <Nav.Item>
                 <Nav.Link eventKey="1st" className="whites">{t('score')}</Nav.Link>
@@ -52,9 +68,9 @@ const ProfileSidebar: React.FC<Props> = ({ userid }) => {
               </Nav.Item>
             </Nav>
           </Col>
-          <Col sm={9} xl={9} style={{ marginLeft: '1%' }}>
+          <Col xs={24} sm={24} md={24} lg={isPortrait ? 24 : 17} xl={isPortrait ? 24 : 17} xxl={isPortrait ? 24 : 17}>
             <Row className="justify-content-center">
-              <Col sm={9} xl={8} style={{ paddingLeft: '0' }}>
+              <Col xs={22} sm={22} md={22} lg={22} xl={22} xxl={22} style={{ paddingLeft: '0' }}>
                 <Tab.Content>
                   <Tab.Pane eventKey="1st">
                     <Scoreboard />

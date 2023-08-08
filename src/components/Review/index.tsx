@@ -42,13 +42,10 @@ const Review: React.FC<Props> = ({ review }) => {
       setMyDownvotes(0);
       setMyNeutralvotes(0);
       if (changedHappen) {
-        setUpvote(review.nPositiveVotes + myupvotes);
-        setDownvote(review.nNegativeVotes + mydownvotes);
-        setNeutralvote(review.nNeutralVotes + myneutralvotes);
-        reviewsService.voteReview(review._id, 1).then((res: any) => {
-          setUpvote(res?.data?.nPositiveVotes);
-          setDownvote(res?.data?.nNegativeVotes);
-          setNeutralvote(res?.data?.nNeutralVotes);
+        setUpvote(review.nPositiveVotes + 1);
+        setDownvote(review.nNegativeVotes + 0);
+        setNeutralvote(review.nNeutralVotes + 0);
+        reviewsService.voteReview(review._id, 1).then(() => {
         }).catch((err) => {
           console.log(err);
         });
@@ -66,13 +63,10 @@ const Review: React.FC<Props> = ({ review }) => {
       setMyUpvotes(0);
       setMyNeutralvotes(0);
       if (changedHappen) {
-        setUpvote(review.nPositiveVotes + myupvotes);
-        setDownvote(review.nNegativeVotes + mydownvotes);
-        setNeutralvote(review.nNeutralVotes + myneutralvotes);
-        reviewsService.voteReview(review._id, -1).then((res: any) => {
-          setUpvote(res?.data?.nPositiveVotes);
-          setDownvote(res?.data?.nNegativeVotes);
-          setNeutralvote(res?.data?.nNeutralVotes);
+        setUpvote(review.nPositiveVotes + 0);
+        setDownvote(review.nNegativeVotes + 1);
+        setNeutralvote(review.nNeutralVotes + 0);
+        reviewsService.voteReview(review._id, -1).then(() => {
         }).catch((err) => {
           console.log(err);
         });
@@ -90,13 +84,10 @@ const Review: React.FC<Props> = ({ review }) => {
       setMyUpvotes(0);
       setMyDownvotes(0);
       if (changedHappen) {
-        setUpvote(review.nPositiveVotes + myupvotes);
-        setDownvote(review.nNegativeVotes + mydownvotes);
-        setNeutralvote(review.nNeutralVotes + myneutralvotes);
-        reviewsService.voteReview(review._id, 0).then((res: any) => {
-          setUpvote(res?.data?.nPositiveVotes);
-          setDownvote(res?.data?.nNegativeVotes);
-          setNeutralvote(res?.data?.nNeutralVotes);
+        setUpvote(review.nPositiveVotes + 0);
+        setDownvote(review.nNegativeVotes + 0);
+        setNeutralvote(review.nNeutralVotes + 1);
+        reviewsService.voteReview(review._id, 0).then(() => {
         }).catch((err) => {
           console.log(err);
         });
