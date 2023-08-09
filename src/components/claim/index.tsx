@@ -71,6 +71,7 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
 
   const addUpVote = (claimId: string) => {
     if (auth?.token !== undefined) {
+      console.log('upvote');
       let changedHappen = false;
       if (myupvotes !== 1) {
         changedHappen = true;
@@ -78,11 +79,9 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
       }
       setMyDownvotes(0);
       if (changedHappen) {
-        setUpvotes(claim.nPositiveVotes + myupvotes);
-        setDownvotes(claim.nNegativeVotes + mydownvotes);
-        claimsService.voteClaim(claimId, 1).then((res: any) => {
-          setUpvotes(res?.data?.nPositiveVotes);
-          setDownvotes(res?.data?.nNegativeVotes);
+        setUpvotes(claim.nPositiveVotes + 1);
+        setDownvotes(claim.nNegativeVotes + 0);
+        claimsService.voteClaim(claimId, 1).then(() => {
         }).catch((err) => {
           console.log(err);
         });
@@ -99,76 +98,15 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
       }
       setMyUpvotes(0);
       if (changedHappen) {
-        setUpvotes(claim.nPositiveVotes + myupvotes);
-        setDownvotes(claim.nNegativeVotes + mydownvotes);
-        claimsService.voteClaim(claimId, -1).then((res: any) => {
-          setUpvotes(res?.data?.nPositiveVotes);
-          setDownvotes(res?.data?.nNegativeVotes);
+        setUpvotes(claim.nPositiveVotes + 0);
+        setDownvotes(claim.nNegativeVotes + 1);
+        claimsService.voteClaim(claimId, -1).then(() => {
         }).catch((err) => {
           console.log(err);
         });
       }
     }
   };
-
-  const editButton = (isEditable)
-    ? (
-      <div>
-        <Button
-          block
-          onClick={showModal}
-          icon={<EditOutlined />}
-          className="buttons editClaimProfile"
-          style={{ border: 'none' }}
-        >
-          {t('edit')}
-        </Button>
-        <Modal
-          title={t('edit')}
-          open={open}
-          onOk={handleOk}
-          // confirmLoading={confirmLoading}
-          onCancel={handleOk}
-          footer={[]}
-        >
-          <EditClaim
-            claim={claim}
-            indexClaim={index}
-            closeModal={handleOk}
-          />
-        </Modal>
-      </div>
-    ) : (
-      <div>
-        <Button
-          block
-          onClick={showModalAddReview}
-          icon={<PlusCircleOutlined />}
-          className="buttons addReviewButton"
-          style={{
-            zIndex: '99',
-            border: 'none',
-          }}
-        >
-          {t('add_review')}
-        </Button>
-        <Modal
-          title={t('add_review')}
-          open={openAddReview}
-          onOk={handleOkAddReview}
-          // confirmLoading={confirmLoading}
-          onCancel={handleOkAddReview}
-          className="reviewsModal"
-          footer={[]}
-        >
-          <AddReview
-            claim={claim}
-            closeModal={handleOkAddReview}
-            reviewsNum={increaseReviewsNum}
-          />
-        </Modal>
-      </div>
-    );
 
   return (
     <div
@@ -182,12 +120,41 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
       }}
     >
       <Row>
-        <Col span={24}>
+        <Col span={20}>
           <Paragraph style={{ color: 'black' }}>
             <Link to={`/article/${claim?.article._id}`} className="claims" style={{ color: 'black', textDecorationColor: 'black' }}>
               <MyTitle headline={claim?.text} fontcolor="black" />
             </Link>
           </Paragraph>
+        </Col>
+        <Col offset={1} span={3}>
+          { isEditable && (
+          <div>
+            <Button
+              type="primary"
+              onClick={showModal}
+              icon={<EditOutlined />}
+              className="buttons editClaimProfile"
+              style={{ border: 'none' }}
+            >
+              {t('edit')}
+            </Button>
+            <Modal
+              title={t('edit')}
+              open={open}
+              onOk={handleOk}
+          // confirmLoading={confirmLoading}
+              onCancel={handleOk}
+              footer={[]}
+            >
+              <EditClaim
+                claim={claim}
+                indexClaim={index}
+                closeModal={handleOk}
+              />
+            </Modal>
+          </div>
+          ) }
         </Col>
       </Row>
       <Row>
@@ -264,7 +231,35 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
           xl={12}
           xxl={12}
         >
-          {editButton}
+          <div>
+            <Button
+              block
+              onClick={showModalAddReview}
+              icon={<PlusCircleOutlined />}
+              className="buttons addReviewButton"
+              style={{
+                zIndex: '99',
+                border: 'none',
+              }}
+            >
+              {t('add_review')}
+            </Button>
+            <Modal
+              title={t('add_review')}
+              open={openAddReview}
+              onOk={handleOkAddReview}
+          // confirmLoading={confirmLoading}
+              onCancel={handleOkAddReview}
+              className="reviewsModal"
+              footer={[]}
+            >
+              <AddReview
+                claim={claim}
+                closeModal={handleOkAddReview}
+                reviewsNum={increaseReviewsNum}
+              />
+            </Modal>
+          </div>
         </Col>
         <Col
           xs={12}

@@ -34,9 +34,7 @@ export interface IArticle {
 
 export interface IReview {
   _id: string,
-  claimId: {
-    _id: string
-  },
+  claim: IClaim,
   text: string,
   createdAt: string,
   vote: string,
@@ -44,6 +42,7 @@ export interface IReview {
   nPositiveVotes: number,
   nNeutralVotes: number,
   nNegativeVotes: number,
+  article: string,
   author: {
     _id: string,
     firstName: string,

@@ -62,6 +62,7 @@
     "please_last": "Zadejte Vaše druhé jméno!",
     "please_mail": "Zadejte Váš email!",
     "please_pass": "Zadejte Vaše heslo!",
+    "please_code": "Zadejte Váš verifikační kód!",
     "profile": "Profil",
     "agree": "Souhlas",
     "disagree": "Nesouhlas",
@@ -98,6 +99,7 @@
     "name": "Méno",
     "article_edited": "Článek úspěšně upraven",
     "claim_edited": "Tvrzení úspěšně upraveno",
+    "review_edited": "Hodnocení úspěšně upraveno",
     "my_reviews": "Moje hodnocení",
     "open_profile": "Otevřít profil",
     "open_article": "Otevřít článek",
@@ -116,5 +118,10 @@
     "code": "Verifikační kód",
     "invite": "Pozvat užívatele",
     "successfully_invited": "Užívatel byl pozvaný",
-    "invite_about": "Pošlite pozvánku do aplikace jinému užívatelovi. Užívatelovi příde mail s registračním kódem"
+    "invite_about": "Pošlite pozvánku do aplikace jinému užívatelovi. Užívatelovi příde mail s registračním kódem",
+    "thinks_true": " si myslí, že je to Pravda",
+    "thinks_partially_true": " si myslí, že je to částeční pravda",
+    "thinks_false": " si myslí, že je to Lož",
+    "thinks_inconclusive": " si myslí, že je to Nerozhodnutelné",
+    "thinks_non_verifiable": " si myslí, že je to Neověřitelné"
 }

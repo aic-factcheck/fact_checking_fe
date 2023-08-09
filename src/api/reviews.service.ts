@@ -17,6 +17,11 @@ export default class ReviewsService {
     return factCheckBe.post<IReview>(`/articles/${articleid}/claims/${claimid}/reviews`, values, { headers });
   };
 
+  static editreview = (articleId: string, claimId: string, reviewId: string, values: IReview) => {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
+    return factCheckBe.patch<IReview>(`/articles/${articleId}/claims/${claimId}/reviews/${reviewId}`, values, { headers });
+  };
+
   static userReviews = (userid: string) => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
     return factCheckBe.get<IUserReview[]>(`/users/${userid}/reviews`, { headers });

@@ -118,7 +118,7 @@ const Article: React.FC<Props> = ({ article, isEditable, indexArticle }) => {
             <MyTitle headline={article?.title} fontcolor="black" />
           </Link>
         </Col>
-        <Col offset={1} span={2}>
+        <Col offset={1} span={3}>
           {editButton}
         </Col>
       </Row>

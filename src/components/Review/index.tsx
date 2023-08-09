@@ -5,7 +5,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import { BiQuestionMark } from 'react-icons/bi';
 import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
-import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { useRecoilValue } from 'recoil';
 import { Link } from 'react-router-dom';
 import { IReview } from '../../common/types';
@@ -42,13 +41,10 @@ const Review: React.FC<Props> = ({ review }) => {
       setMyDownvotes(0);
       setMyNeutralvotes(0);
       if (changedHappen) {
-        setUpvote(review.nPositiveVotes + myupvotes);
-        setDownvote(review.nNegativeVotes + mydownvotes);
-        setNeutralvote(review.nNeutralVotes + myneutralvotes);
-        reviewsService.voteReview(review._id, 1).then((res: any) => {
-          setUpvote(res?.data?.nPositiveVotes);
-          setDownvote(res?.data?.nNegativeVotes);
-          setNeutralvote(res?.data?.nNeutralVotes);
+        setUpvote(review.nPositiveVotes + 1);
+        setDownvote(review.nNegativeVotes + 0);
+        setNeutralvote(review.nNeutralVotes + 0);
+        reviewsService.voteReview(review._id, 1).then(() => {
         }).catch((err) => {
           console.log(err);
         });
@@ -66,13 +62,10 @@ const Review: React.FC<Props> = ({ review }) => {
       setMyUpvotes(0);
       setMyNeutralvotes(0);
       if (changedHappen) {
-        setUpvote(review.nPositiveVotes + myupvotes);
-        setDownvote(review.nNegativeVotes + mydownvotes);
-        setNeutralvote(review.nNeutralVotes + myneutralvotes);
-        reviewsService.voteReview(review._id, -1).then((res: any) => {
-          setUpvote(res?.data?.nPositiveVotes);
-          setDownvote(res?.data?.nNegativeVotes);
-          setNeutralvote(res?.data?.nNeutralVotes);
+        setUpvote(review.nPositiveVotes + 0);
+        setDownvote(review.nNegativeVotes + 1);
+        setNeutralvote(review.nNeutralVotes + 0);
+        reviewsService.voteReview(review._id, -1).then(() => {
         }).catch((err) => {
           console.log(err);
         });
@@ -90,19 +83,38 @@ const Review: React.FC<Props> = ({ review }) => {
       setMyUpvotes(0);
       setMyDownvotes(0);
       if (changedHappen) {
-        setUpvote(review.nPositiveVotes + myupvotes);
-        setDownvote(review.nNegativeVotes + mydownvotes);
-        setNeutralvote(review.nNeutralVotes + myneutralvotes);
-        reviewsService.voteReview(review._id, 0).then((res: any) => {
-          setUpvote(res?.data?.nPositiveVotes);
-          setDownvote(res?.data?.nNegativeVotes);
-          setNeutralvote(res?.data?.nNeutralVotes);
+        setUpvote(review.nPositiveVotes + 0);
+        setDownvote(review.nNegativeVotes + 0);
+        setNeutralvote(review.nNeutralVotes + 1);
+        reviewsService.voteReview(review._id, 0).then(() => {
         }).catch((err) => {
           console.log(err);
         });
       }
     }
   };
+
+  const renderVote = React.useCallback(() => {
+    switch (review.vote) {
+      case 'TRUE':
+        return t('thinks_true');
+
+      case 'PARTIALLY_TRUE':
+        return t('thinks_partially_true');
+
+      case 'FALSE':
+        return t('thinks_false');
+
+      case 'INCONCLUSIVE':
+        return t('thinks_inconclusive');
+
+      case 'NON_VERIFIABLE':
+        return t('thinks_non_verifiable');
+
+      default:
+        return ' ';
+    }
+  }, [review.vote]);
 
   return (
     <div>
@@ -129,15 +141,18 @@ const Review: React.FC<Props> = ({ review }) => {
             >
               <Col span={20}>
                 <Paragraph style={{ color: 'black', margin: '0%' }}>
-                  <p style={{ display: 'inline' }}>
+                  <p style={{ display: 'flex', alignItems: 'center' }}>
                     <Tooltip title={t('open_profile')}>
                       <Link to={`/profileSearch/${review.author._id}`} style={{ color: 'black' }}>
                         {`${review?.author.firstName} ${review?.author.lastName}`}
                       </Link>
                     </Tooltip>
-                    {review.vote === 'positive' && <CheckOutlined style={{ marginLeft: '7px' }} /> }
-                    {review.vote === 'negative' && <CloseOutlined style={{ marginLeft: '7px' }} />}
-                    {review.vote === 'no_info' && <BiQuestionMark style={{ marginLeft: '7px' }} />}
+                    <div style={{
+                      fontWeight: 'normal', float: 'right', marginLeft: '3%', fontStyle: 'italic',
+                    }}
+                    >
+                      {renderVote()}
+                    </div>
                   </p>
                 </Paragraph>
               </Col>

@@ -62,6 +62,7 @@
     "please_last": "Please input your last name!",
     "please_mail": "Please input your email!",
     "please_pass": "Please input your password!",
+    "please_code": "Please input your verification code!",
     "profile": "Profile",
     "agree": "Agree",
     "disagree": "Disagree",
@@ -98,6 +99,7 @@
     "name": "Name",
     "article_edited": "Article successfully edited",
     "claim_edited": "Claim successfully edited",
+    "review_edited": "Review successfully edited",
     "my_reviews": "My reviews",
     "open_profile": "Open profile",
     "open_article": "Open article",
@@ -116,5 +118,10 @@
     "code": "Verification code",
     "invite": "Invite user",
     "successfully_invited": "User was invited",
-    "invite_about": "Send invitation to application to another user. User receives email with registration code"
+    "invite_about": "Send invitation to application to another user. User receives email with registration code",
+    "thinks_true": " thinks that it is True",
+    "thinks_partially_true": " thinks that it is Partially true",
+    "thinks_false": " thinks that it is že je to False",
+    "thinks_inconclusive": " thinks that it is že je to Inconclusive",
+    "thinks_non_verifiable": " thinks that it is že je to Non verifiable"
 }

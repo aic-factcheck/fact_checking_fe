@@ -48,19 +48,20 @@ const MyClaims: React.FC = () => {
         }}
       >
         {
-          myClaimsList !== undefined ? (myClaimsList?.map((obj: IClaim, index: number) => (
-            <div key={obj?._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
-              <Claim
-                claim={obj}
-                index={index}
-                isEditable={allowEdit}
-              />
-            </div>
-          ))) : (
-            <div className="emptyList">
-              {t('no_claims_yet')}
-            </div>
-          )
+          (myClaimsList !== undefined && myClaimsList.length > 0)
+            ? (myClaimsList?.map((obj: IClaim, index: number) => (
+              <div key={obj?._id} style={{ margin: '1%', background: 'white', borderRadius: '10px' }}>
+                <Claim
+                  claim={obj}
+                  index={index}
+                  isEditable={allowEdit}
+                />
+              </div>
+            ))) : (
+              <div className="emptyList">
+                {t('no_claims_yet')}
+              </div>
+            )
         }
       </List>
     </Content>
