@@ -79,6 +79,7 @@ const CreateClaim : React.FC<Props> = ({
       mergedClaims.push(res.data);
       claimForm.resetFields(['text']);
       setClaims(mergedClaims);
+      newClaim._id = res.data._id;
       const mergedMyClaims = [...myClaimsList, newClaim];
       setMyClaimsList(mergedMyClaims);
       closeModal();

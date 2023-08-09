@@ -99,6 +99,7 @@
     "name": "Méno",
     "article_edited": "Článok úspešne upravený",
     "claim_edited": "Tvrdenie úspešne upravené",
+    "review_edited": "Hodnotenie úspešne upravené",
     "my_reviews": "Moje hodnotenia",
     "open_profile": "Otvoriť profil",
     "open_article": "Otvoriť článok",
@@ -117,5 +118,10 @@
     "code": "Verifikačný kód",
     "invite": "Pozvať používateľa",
     "successfully_invited": "Používateľ bol pozvaný",
-    "invite_about": "Pošlite pozvánku do aplikácie inému používateľovi. Používateľovi príde mail s registračným kódom"
+    "invite_about": "Pošlite pozvánku do aplikácie inému používateľovi. Používateľovi príde mail s registračným kódom",
+    "thinks_true": " si myslí, že je to Pravda",
+    "thinks_partially_true": " si myslí, že je to Čiastočná pravda",
+    "thinks_false": " si myslí, že je to Lož",
+    "thinks_inconclusive": " si myslí, že je to Nerozhodnutelné",
+    "thinks_non_verifiable": " si myslí, že je to Neoveritelné"
 }

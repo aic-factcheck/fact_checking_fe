@@ -1,15 +1,17 @@
 /* eslint-disable max-len */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Divider, List,
 } from 'antd';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import authAtom from '../../_state/auth';
 import UserReview from '../UserReview';
-import { IUserReview } from '../../common/types';
+import { IReview } from '../../common/types';
 import reviewsService from '../../api/reviews.service';
+import myReviews from '../../_state/usersReviews';
+import reviewsLoaded from '../../_state/reviewsLoaded';
 
 interface Props {
   userid: string,
@@ -20,15 +22,18 @@ const UserReviews : React.FC<Props> = ({ userid }) => {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [reviewsList, setReviewsList] = useState<IUserReview[]>([]);
+  const [myReviewsList, setMyReviewsList] = useRecoilState(myReviews);
+  const [loaded, setReviewsLoaded] = useRecoilState(reviewsLoaded);
 
   useEffect(() => {
     // redirect to home if already logged in
-
-    reviewsService.userReviews(userid).then((res: any) => {
-      // const reviews = res.filter((el) => claimid === el?.claimId);
-      setReviewsList(res.data);
-    }).catch();
+    if (loaded === false) {
+      reviewsService.userReviews(userid).then((res: any) => {
+        // const reviews = res.filter((el) => claimid === el?.claimId);
+        setMyReviewsList(res.data);
+        setReviewsLoaded(true);
+      }).catch();
+    }
   }, [auth, navigate]);
 
   return (
@@ -41,9 +46,9 @@ const UserReviews : React.FC<Props> = ({ userid }) => {
       >
         {
           // _id, priority, author, articleId, text
-          reviewsList.length > 0 ? (
-            reviewsList?.map((obj) => (
-              <UserReview review={obj} />
+          myReviewsList.length > 0 ? (
+            myReviewsList?.map((obj : IReview, index: number) => (
+              <UserReview review={obj} indexReview={index} />
             ))) : (
               <div className="emptyList">
                 {t('no_reviews_yet')}

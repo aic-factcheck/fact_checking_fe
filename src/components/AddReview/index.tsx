@@ -4,13 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import {
   Button, Form, Input, Select, Row, Col, Typography, Divider,
 } from 'antd';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import { CloseOutlined } from '@ant-design/icons';
 import authAtom from '../../_state/auth';
 import { IClaim, IReview } from '../../common/types';
 import reviewsService from '../../api/reviews.service';
 import { NotificationContext } from '../NotificationContext/NotificationContext';
+import myReviews from '../../_state/usersReviews';
+import reviewsLoaded from '../../_state/reviewsLoaded';
 
 const { Option } = Select;
 const { Paragraph } = Typography;
@@ -33,6 +35,9 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
   const [vote, setVote] = useState('TRUE');
   const [linksList, setLinksList] = useState<string[]>([]);
 
+  const [myReviewsList, setMyReviewsList] = useRecoilState(myReviews);
+  const [loaded, setReviewsLoaded] = useRecoilState(reviewsLoaded);
+
   useEffect(() => {
     // redirect to home if already logged in
     if (auth?.token === undefined) {
@@ -41,10 +46,19 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
     const id = auth?.user._id;
     const articleid = claim?.article._id;
     const claimid = claim?._id;
+
     if (id !== undefined) {
       reviewsService.getReviews(articleid, claimid).then((res: any) => {
         // const reviews = res.filter((el) => claimid === el?.claimId);
         setReviewsList(res.data);
+      }).catch();
+    }
+
+    if (myReviewsList.length < 1 && loaded === false) {
+      reviewsService.userReviews(id).then((res: any) => {
+        // const claimsList = res.filter((el) => id === el?.author._id);
+        setMyReviewsList(res.data);
+        setReviewsLoaded(true);
       }).catch();
     }
   }, [auth, navigate]);
@@ -66,6 +80,27 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
     mergedValues.lang = 'cz';
     mergedValues.links = linksList;
 
+    const newReview = {
+      author: {
+        _id: auth?.user?._id,
+        firstName: auth?.user.firstName,
+        lastName: auth?.user.lastName,
+        email: auth?.user.email,
+        level: auth?.user.level,
+      },
+      article: claim.article._id,
+      links: linksList,
+      createdAt: new Date().toString(),
+      // eslint-disable-next-line object-shorthand
+      text: values.text,
+      nNegativeVotes: 0,
+      nNeutralVotes: 0,
+      nPositiveVotes: 0,
+      _id: new Date().toString(),
+      claim,
+      vote,
+    } as IReview;
+
     if (userId !== undefined) {
       reviewsService.addreview(articleid, claimid, mergedValues).then((res: any) => {
         const mergedReviews = [...reviewsList];
@@ -75,6 +110,12 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
         mergedReviews.push(res.data);
         claimForm.resetFields(['text']);
         setReviewsList(mergedReviews);
+
+        // cache users reviews
+        newReview._id = res.data._id;
+        const mergedMyReviews = [...myReviewsList, newReview];
+        setMyReviewsList(mergedMyReviews);
+
         notificationApi.info({
           message: t('successfully_added_review'),
           description: t('gained_30'),
@@ -84,10 +125,8 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
         closeModal();
       }).catch((err: any) => {
         console.log(err);
-        const errorMessage = 'An error occurred while creating review.';
         notificationApi.info({
-          message: errorMessage,
-          description: 'Review text and links must be at least 6 characters long',
+          message: err.response.data.message,
           icon: <CloseOutlined />,
         });
         // closeModal();

@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
 import {
-  Row, Col, Typography, Divider, Tooltip, Button,
+  Row, Col, Typography, Divider, Tooltip, Button, Modal,
 } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { BiQuestionMark } from 'react-icons/bi';
 import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
-import { CheckOutlined, CloseOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  CheckOutlined, CloseOutlined, EditOutlined, UserOutlined,
+} from '@ant-design/icons';
 import { useRecoilValue } from 'recoil';
 import { Link } from 'react-router-dom';
-import { IUserReview } from '../../common/types';
+import { IReview } from '../../common/types';
 import reviewsService from '../../api/reviews.service';
 import authAtom from '../../_state/auth';
+import EditReview from '../EditReview';
 
 interface Props {
-  review: IUserReview,
+  review: IReview,
+  indexReview: number,
 }
 
 const { Paragraph } = Typography;
 // eslint-disable-next-line prefer-const
 
-const UserReview: React.FC<Props> = ({ review }) => {
+const UserReview: React.FC<Props> = ({ review, indexReview }) => {
   const { t } = useTranslation();
   const auth = useRecoilValue(authAtom);
 
@@ -30,6 +34,19 @@ const UserReview: React.FC<Props> = ({ review }) => {
   const [upvote, setUpvote] = useState(review?.nPositiveVotes);
   const [downvote, setDownvote] = useState(review?.nNegativeVotes);
   const [neutralvote, setNeutralvote] = useState(review?.nNeutralVotes);
+
+  const [open, setOpen] = useState(false);
+  const showModal = () => {
+    setOpen(true);
+  };
+
+  const handleOk = () => {
+    setOpen(false);
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
+  };
 
   const addUpVote = () => {
     console.log(auth?.token);
@@ -119,7 +136,7 @@ const UserReview: React.FC<Props> = ({ review }) => {
                 }}
                 >
                   „
-                  {review.claim.text}
+                  {review?.claim?.text}
                   “
                 </p>
               </Link>
@@ -163,6 +180,27 @@ const UserReview: React.FC<Props> = ({ review }) => {
                       </p>
                     </Paragraph>
                   </Col>
+                  <Col offset={1} span={3}>
+                    <div>
+                      <Button type="primary" className="editArticleProfile" onClick={showModal} icon={<EditOutlined />}>
+                        {t('edit')}
+                      </Button>
+                      <Modal
+                        title={t('edit')}
+                        open={open}
+                        onOk={handleOk}
+          // confirmLoading={confirmLoading}
+                        onCancel={handleCancel}
+                        width="80%"
+                        footer={[]}
+                      >
+                        <EditReview
+                          review={review}
+                          indexEdit={indexReview}
+                        />
+                      </Modal>
+                    </div>
+                  </Col>
                 </Row>
                 <Row style={{
                   borderRadius: '10px', textAlign: 'left', paddingLeft: '2%', paddingTop: '0%',
@@ -170,7 +208,7 @@ const UserReview: React.FC<Props> = ({ review }) => {
                 >
                   <Col span={20}>
                     <Paragraph style={{ color: 'black', margin: '0%' }}>
-                      {review.text}
+                      {review?.text}
                     </Paragraph>
                   </Col>
                 </Row>

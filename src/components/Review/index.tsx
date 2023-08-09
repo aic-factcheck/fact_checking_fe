@@ -5,7 +5,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import { BiQuestionMark } from 'react-icons/bi';
 import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
-import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { useRecoilValue } from 'recoil';
 import { Link } from 'react-router-dom';
 import { IReview } from '../../common/types';
@@ -95,6 +94,28 @@ const Review: React.FC<Props> = ({ review }) => {
     }
   };
 
+  const renderVote = React.useCallback(() => {
+    switch (review.vote) {
+      case 'TRUE':
+        return t('thinks_true');
+
+      case 'PARTIALLY_TRUE':
+        return t('thinks_partially_true');
+
+      case 'FALSE':
+        return t('thinks_false');
+
+      case 'INCONCLUSIVE':
+        return t('thinks_inconclusive');
+
+      case 'NON_VERIFIABLE':
+        return t('thinks_non_verifiable');
+
+      default:
+        return ' ';
+    }
+  }, [review.vote]);
+
   return (
     <div>
       <Row>
@@ -120,15 +141,18 @@ const Review: React.FC<Props> = ({ review }) => {
             >
               <Col span={20}>
                 <Paragraph style={{ color: 'black', margin: '0%' }}>
-                  <p style={{ display: 'inline' }}>
+                  <p style={{ display: 'flex', alignItems: 'center' }}>
                     <Tooltip title={t('open_profile')}>
                       <Link to={`/profileSearch/${review.author._id}`} style={{ color: 'black' }}>
                         {`${review?.author.firstName} ${review?.author.lastName}`}
                       </Link>
                     </Tooltip>
-                    {review.vote === 'positive' && <CheckOutlined style={{ marginLeft: '7px' }} /> }
-                    {review.vote === 'negative' && <CloseOutlined style={{ marginLeft: '7px' }} />}
-                    {review.vote === 'no_info' && <BiQuestionMark style={{ marginLeft: '7px' }} />}
+                    <div style={{
+                      fontWeight: 'normal', float: 'right', marginLeft: '3%', fontStyle: 'italic',
+                    }}
+                    >
+                      {renderVote()}
+                    </div>
                   </p>
                 </Paragraph>
               </Col>
