@@ -26,10 +26,16 @@ const Scoreboard: React.FC = () => {
   const [stats, setStats] = useState<IStats>();
   const [leaderboard, setLeaderboard] = useState([]);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10; // Your page size
+
   const columns = [
     {
       title: 'Rank',
-      render: (id: string, record: any, index: number) => { ++index; return index; },
+      render: (id: string, record: any, index: number) => {
+        const rank = (currentPage - 1) * pageSize + index + 1;
+        return rank;
+      },
     },
     {
       title: t('name'),
@@ -40,6 +46,9 @@ const Scoreboard: React.FC = () => {
       title: t('reputation'),
       // eslint-disable-next-line no-useless-concat
       dataIndex: 'reputation',
+      sorter: {
+        compare: (a: any, b: any) => a.reputation - b.reputation,
+      },
     },
     {
       title: 'Level',
@@ -183,7 +192,16 @@ const Scoreboard: React.FC = () => {
           <img alt="leaders" width="100%" src={`${process.env.PUBLIC_URL}/pictures/scoreboard.png`} style={{ padding: '5%' }} />
         </Col>
         <Col sm={18} style={{ overflowX: 'scroll' }}>
-          <Table columns={columns} dataSource={leaderboard} rowKey="id" />
+          <Table
+            columns={columns}
+            dataSource={leaderboard}
+            rowKey="id"
+            pagination={{
+              current: currentPage,
+              pageSize,
+              onChange: (page) => setCurrentPage(page),
+            }}
+          />
         </Col>
       </Row>
     </div>
