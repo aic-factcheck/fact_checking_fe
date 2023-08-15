@@ -28,7 +28,7 @@ const EditProfile: React.FC = () => {
 
   useEffect(() => {
     // redirect to home if not logged in
-    if (auth?.user === undefined) {
+    if (auth?.token === undefined) {
       navigate('/sign-in');
     }
   }, [auth, navigate]);
@@ -74,9 +74,9 @@ const EditProfile: React.FC = () => {
           span: 24,
         }}
         initialValues={{
-          firstName: auth?.user.firstName !== undefined ? auth?.user.firstName : '',
-          lastName: auth?.user.lastName !== undefined ? auth?.user.lastName : '',
-          email: auth?.user.email !== undefined ? auth?.user.email : '',
+          firstName: auth?.user?.firstName !== undefined ? auth?.user?.firstName : '',
+          lastName: auth?.user?.lastName !== undefined ? auth?.user?.lastName : '',
+          email: auth?.user?.email !== undefined ? auth?.user?.email : '',
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
