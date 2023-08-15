@@ -10,7 +10,7 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.user?.email === undefined) {
+    if (auth?.token === undefined) {
       navigate('/sign-in');
     }
   }, [auth, navigate]);
