@@ -9,16 +9,12 @@ import EditProfile from '../EditProfile';
 import MyArticles from '../MyArticles';
 import MyClaims from '../MyClaims';
 import Scoreboard from '../Scoreboard';
-import UserReviews from '../UserReviews';
+import MyReviews from '../MyReviews';
 import Invitation from '../Invitation';
 
 const { Content } = Layout;
 
-interface Props {
-  userid: string,
-}
-
-const ProfileSidebar: React.FC<Props> = ({ userid }) => {
+const ProfileSidebar = () => {
   const { t } = useTranslation();
   const [isPortrait, setIsPortrait] = useState(
     window.matchMedia('(orientation: portrait)').matches,
@@ -85,7 +81,7 @@ const ProfileSidebar: React.FC<Props> = ({ userid }) => {
                     <MyClaims />
                   </Tab.Pane>
                   <Tab.Pane eventKey="5th">
-                    <UserReviews userid={userid} />
+                    <MyReviews />
                   </Tab.Pane>
                   <Tab.Pane eventKey="6th">
                     <Invitation />
