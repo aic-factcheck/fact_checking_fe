@@ -13,21 +13,18 @@ import reviewsService from '../../api/reviews.service';
 import myReviews from '../../_state/usersReviews';
 import reviewsLoaded from '../../_state/reviewsLoaded';
 
-interface Props {
-  userid: string,
-}
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const UserReviews : React.FC<Props> = ({ userid }) => {
+const MyReviews = () => {
   const auth = useRecoilValue(authAtom);
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [myReviewsList, setMyReviewsList] = useRecoilState(myReviews);
   const [loaded, setReviewsLoaded] = useRecoilState(reviewsLoaded);
+  const userid = auth?.user?._id;
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (loaded === false) {
+    if (loaded === false && userid !== undefined) {
       reviewsService.userReviews(userid).then((res: any) => {
         // const reviews = res.filter((el) => claimid === el?.claimId);
         setMyReviewsList(res.data);
@@ -60,4 +57,4 @@ const UserReviews : React.FC<Props> = ({ userid }) => {
   );
 };
 
-export default UserReviews;
+export default MyReviews;

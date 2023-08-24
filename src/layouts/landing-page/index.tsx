@@ -137,6 +137,7 @@ const LadingPage: React.FC = () => {
               <Col offset={0} span={14}>
                 <Title level={2}>{t('articles')}</Title>
                 <p>
+                  <h6 style={{ marginRight: '1%', display: 'inline' }}> 1.) </h6>
                   {t('article_explain')}
                 </p>
               </Col>
@@ -152,6 +153,7 @@ const LadingPage: React.FC = () => {
               >
                 <Title level={2}>{t('claims')}</Title>
                 <p>
+                  <h6 style={{ marginRight: '1%', display: 'inline' }}> 2.) </h6>
                   {t('claim_explain')}
                 </p>
               </Col>
@@ -185,6 +187,7 @@ const LadingPage: React.FC = () => {
               >
                 <Title level={2}>{t('reviews')}</Title>
                 <p>
+                  <h6 style={{ marginRight: '1%', display: 'inline' }}> 3.) </h6>
                   {t('review_explain')}
                 </p>
               </Col>
@@ -223,7 +226,7 @@ const LadingPage: React.FC = () => {
                 >
                   <Card.Meta
                     avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                    title="Bc. Roman Bútora"
+                    title="Ing. Roman Bútora"
                     description="Frontend developer"
                   />
                 </Card>

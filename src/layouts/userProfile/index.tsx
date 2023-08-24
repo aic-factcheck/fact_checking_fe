@@ -15,13 +15,14 @@ import { BiQuestionMark } from 'react-icons/bi';
 import authAtom from '../../_state/auth';
 import Claim from '../../components/claim';
 import {
-  IArticle, IClaim, IProfile, IStats,
+  IArticle, IClaim, IProfile, IReview, IStats,
 } from '../../common/types';
 import claimsService from '../../api/claims.service';
 import articlesService from '../../api/articles.service';
 import Article from '../../components/article';
 import userService from '../../api/users.service';
-import UserReviews from '../../components/UserReviews';
+import reviewsService from '../../api/reviews.service';
+import UserReview from '../../components/UserReview';
 
 const { Content } = Layout;
 
@@ -31,6 +32,7 @@ const UserProfile: React.FC = () => {
   const { t } = useTranslation();
   const [claimsList, setClaimsList] = useState([]);
   const [articlesList, setArticlesList] = useState([]);
+  const [reviewsList, setReviewsList] = useState([]);
   const [userProfile, setUserProfile] = useState<IProfile>();
   const [userStats, setUserStats] = useState<IStats>();
   const { userId } = useParams();
@@ -53,6 +55,9 @@ const UserProfile: React.FC = () => {
       }).catch();
       userService.getUserStatsProfile(userId).then((res: any) => {
         setUserStats(res.data);
+      }).catch();
+      reviewsService.userReviews(userId).then((res: any) => {
+        setReviewsList(res.data);
       }).catch();
     }
   }, [auth, navigate]);
@@ -184,11 +189,28 @@ const UserProfile: React.FC = () => {
               </Tab>
               <Tab eventKey="claims" title={t('claims')}>
                 {
-                  claimsList?.sort((a: IClaim, b: IClaim) => ((a.createdAt < b.createdAt) ? 1 : -1)).map((obj: IClaim, index: number) => <div key={obj?._id} style={{ padding: '1%', borderRadius: '10px' }}><Claim claim={obj} isEditable={allowEdit} index={index} /></div>)
+                  claimsList.length > 0
+                    ? claimsList?.sort((a: IClaim, b: IClaim) => ((a.createdAt < b.createdAt) ? 1 : -1)).map((obj: IClaim, index: number) => <div key={obj?._id} style={{ padding: '1%', borderRadius: '10px' }}><Claim claim={obj} isEditable={allowEdit} index={index} /></div>)
+                    : (
+                      <div className="emptyList">
+                        {' '}
+                        {t('no_claims_yet')}
+                        {' '}
+                      </div>
+                    )
                 }
               </Tab>
               <Tab eventKey="reviews" title={t('reviews')}>
-                <UserReviews userid={auth?.user?._id} />
+                {
+                  reviewsList.length > 0 ? (
+                    reviewsList?.map((obj : IReview, index: number) => (
+                      <UserReview review={obj} indexReview={index} />
+                    ))) : (
+                      <div className="emptyList">
+                        {t('no_reviews_yet')}
+                      </div>
+                  )
+                }
               </Tab>
             </Tabs>
           </Col>
