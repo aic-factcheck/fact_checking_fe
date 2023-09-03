@@ -123,5 +123,14 @@
     "thinks_partially_true": " si myslí, že je to částeční pravda",
     "thinks_false": " si myslí, že je to Lož",
     "thinks_inconclusive": " si myslí, že je to Nerozhodnutelné",
-    "thinks_non_verifiable": " si myslí, že je to Neověřitelné"
+    "thinks_non_verifiable": " si myslí, že je to Neověřitelné",
+    "my_review": "Moje hodnocení :",
+    "add_article_url": "Přidejte adresu článku",
+    "add_article_url_desc": "Po kliknutí na tlačítko vedle se stáhne obsah článku",
+    "add_article_submit": "Přidejte článek",
+    "add_article_submit_desc": "Článek uvidíte v sekci Články a taky ve svím profilu. Článek můžete i po přidání ve svém profilu editovat",
+    "show_tour": "Ukázka",
+    "next": "Další",
+    "previous": "Zpátky",
+    "finish": "Konec!"
 }

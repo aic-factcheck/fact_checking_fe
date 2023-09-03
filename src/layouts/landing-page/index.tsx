@@ -10,6 +10,10 @@ import authAtom from '../../_state/auth';
 import Claim from '../../components/claim';
 import { IClaim } from '../../common/types';
 import claimsService from '../../api/claims.service';
+import TabExample from '../../components/TabExample';
+import CreateArticleTutorial from '../../components/Tutorial/addarticle';
+import CreateClaimTutorial from '../../components/Tutorial/addclaim';
+import AddReviewTutorial from '../../components/Tutorial/addreview';
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -142,6 +146,9 @@ const LadingPage: React.FC = () => {
                 </p>
               </Col>
             </Row>
+            <Row>
+              <TabExample element={<CreateArticleTutorial />} />
+            </Row>
             <Divider />
             <Row>
               <Col
@@ -168,6 +175,9 @@ const LadingPage: React.FC = () => {
                 />
               </Col>
             </Row>
+            <Row>
+              <TabExample element={<CreateClaimTutorial />} />
+            </Row>
             <Divider />
             <Row>
               <Col offset={2} span={6}>
@@ -191,6 +201,9 @@ const LadingPage: React.FC = () => {
                   {t('review_explain')}
                 </p>
               </Col>
+            </Row>
+            <Row>
+              <TabExample element={<AddReviewTutorial />} />
             </Row>
             <Divider />
           </div>

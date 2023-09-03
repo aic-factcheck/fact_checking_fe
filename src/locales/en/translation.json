@@ -123,5 +123,14 @@
     "thinks_partially_true": " thinks that it is Partially true",
     "thinks_false": " thinks that it is že je to False",
     "thinks_inconclusive": " thinks that it is že je to Inconclusive",
-    "thinks_non_verifiable": " thinks that it is že je to Non verifiable"
+    "thinks_non_verifiable": " thinks that it is že je to Non verifiable",
+    "my_review": "My review :",
+    "add_article_url": "Add article URL address",
+    "add_article_url_desc": "Click the button on the right and article title and text loads automatically",
+    "add_article_submit": "Submit article",
+    "add_article_submit_desc": "After submitting the article, you can find it in Articles section and in your profile. Yo can also edit the article in your profile",
+    "show_tour": "Show tour",
+    "next": "Next",
+    "previous": "Previous",
+    "finish": "Finish!"
 }
