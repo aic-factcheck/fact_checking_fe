@@ -141,13 +141,20 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
       }}
       >
         <Col span={24}>
-          <Paragraph style={{ color: 'white' }}>
-            {claim.text}
+          <Paragraph style={{ color: 'white', fontWeight: 'bold' }}>
+            <p style={{
+              display: 'inline', color: 'white', fontStyle: 'italic', fontSize: '1.0em',
+            }}
+            >
+              „
+              {claim.text}
+              “
+            </p>
           </Paragraph>
         </Col>
       </Row>
       <Divider style={{ backgroundColor: 'white', width: '5%' }} />
-      <Title level={5} className="defaultForm" style={{ color: 'white', whiteSpace: 'pre-line', textDecoration: 'none' }}>My review :</Title>
+      <Title level={5} className="defaultForm" style={{ color: '#d86e3d', whiteSpace: 'pre-line', textDecoration: 'none' }}>{t('my_review')}</Title>
       <Form
         form={claimForm}
         name="basic"
