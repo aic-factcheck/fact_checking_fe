@@ -10,6 +10,10 @@ html, body {
 body {
   font-family: 'Cardo', serif;
 }
+
+.bg-body-tertiary, .mb-3, .navbar, .navbar-expand-md, .navbar-light {
+  margin-bottom: '0%';
+}
  
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Oswald', sans-serif;
@@ -277,5 +281,13 @@ a.claims:hover {
 
 .ant-tour {
   max-width: 100%;
+}
+
+.offcanvas {
+  max-width: 80%;
+}
+
+.offcanvas-start {
+  max-width: 80%;
 }
 
