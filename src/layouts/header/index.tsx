@@ -15,17 +15,19 @@ import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import {
   Col, Row,
 } from 'antd';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 import authAtom from '../../_state/auth';
 
 const CustomHeader : React.FC = () => {
   const auth = useRecoilValue(authAtom);
   const { t } = useTranslation();
   const location = useLocation();
+  const expand = 'md';
 
   const navItems = (auth?.user?.email !== undefined)
     ? (
-      <Container fluid style={{ zIndex: 1 }}>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Container fluid style={{ zIndex: 1, margin: '0px' }}>
+        <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
         <Navbar.Brand className="mx-auto" style={{ color: 'white', margin: '0px' }}>
           <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
             <img
@@ -38,50 +40,68 @@ const CustomHeader : React.FC = () => {
             {' '}
           </Link>
         </Navbar.Brand>
-        <Navbar.Collapse id="responsive-navbar-nav" style={{ paddingRight: '10px' }}>
-          <Nav className="me-auto" activeKey={location.pathname}>
-            <Link to="/" style={{ textDecoration: 'none' }}>
-              <Nav.Link as={Link} to="/claims" id="claimsLink" active={location.pathname === '/claims'} style={{ color: 'white', fontWeight: '500' }}>{t('claims')}</Nav.Link>
-            </Link>
-            <Link to="/" style={{ textDecoration: 'none' }}>
-              <Nav className="me-auto" activeKey={location.pathname}>
-                <Nav.Link as={Link} to="/articles" id="articlesLink" active={location.pathname === '/articles'} style={{ color: 'white', fontWeight: '500' }}>{t('articles')}</Nav.Link>
-              </Nav>
-            </Link>
-            <Link to="/" style={{ textDecoration: 'none' }}>
-              <Nav.Link as={Link} to="/profile" id="profileLink" active={location.pathname === '/claims'} style={{ color: 'white', fontWeight: '500' }}>{t('scoreboard')}</Nav.Link>
-            </Link>
-          </Nav>
-          <Nav activeKey={location.pathname} style={{ float: 'left' }}>
-            <Nav.Item style={{ color: 'white' }}>
-              <Button
-                onClick={() => i18next.changeLanguage('en')}
-                style={{
-                  background: 'none', border: 'none', alignItems: 'flex-end', display: 'inline-flex', paddingLeft: '0px',
-                }}
-              >
-                <span className="fi fi-gb" style={{ whiteSpace: 'nowrap' }} />
-              </Button>
-              <Button
-                onClick={() => i18next.changeLanguage('cz')}
-                style={{
-                  background: 'none', border: 'none', alignItems: 'flex-end', display: 'inline-flex',
-                }}
-              >
-                <span className="fi fi-cz" style={{ whiteSpace: 'nowrap' }} />
-              </Button>
-              <Button
-                onClick={() => i18next.changeLanguage('sk')}
-                style={{
-                  background: 'none', border: 'none', alignItems: 'flex-end', display: 'inline-flex',
-                }}
-              >
-                <span className="fi fi-sk" style={{ whiteSpace: 'nowrap' }} />
-              </Button>
-            </Nav.Item>
+        <Navbar.Offcanvas
+          style={{ paddingRight: '10px', backgroundColor: '#d86e3d' }}
+          id={`offcanvasNavbar-expand-${expand}`}
+          aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
+          placement="start"
+        >
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
+              <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+                <img
+                  alt=""
+                  src={`${process.env.PUBLIC_URL}/pictures/image44.png`}
+                  style={{ width: '70%', maxHeight: '20%' }}
+                />
+              </Link>
+            </Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <Nav className="me-auto" activeKey={location.pathname}>
+              <Link to="/" style={{ textDecoration: 'none' }}>
+                <Nav.Link as={Link} to="/claims" id="claimsLink" active={location.pathname === '/claims'} style={{ color: 'white', fontWeight: '500' }}>{t('claims')}</Nav.Link>
+              </Link>
+              <Link to="/" style={{ textDecoration: 'none' }}>
+                <Nav className="me-auto" activeKey={location.pathname}>
+                  <Nav.Link as={Link} to="/articles" id="articlesLink" active={location.pathname === '/articles'} style={{ color: 'white', fontWeight: '500' }}>{t('articles')}</Nav.Link>
+                </Nav>
+              </Link>
+              <Link to="/" style={{ textDecoration: 'none' }}>
+                <Nav.Link as={Link} to="/profile" id="profileLink" active={location.pathname === '/claims'} style={{ color: 'white', fontWeight: '500' }}>{t('scoreboard')}</Nav.Link>
+              </Link>
+            </Nav>
+            <Nav activeKey={location.pathname} style={{ float: 'left' }}>
+              <Nav.Item style={{ color: 'white' }}>
+                <Button
+                  onClick={() => i18next.changeLanguage('en')}
+                  style={{
+                    background: 'none', border: 'none', alignItems: 'flex-end', display: 'inline-flex', paddingLeft: '0px',
+                  }}
+                >
+                  <span className="fi fi-gb" style={{ whiteSpace: 'nowrap' }} />
+                </Button>
+                <Button
+                  onClick={() => i18next.changeLanguage('cz')}
+                  style={{
+                    background: 'none', border: 'none', alignItems: 'flex-end', display: 'inline-flex',
+                  }}
+                >
+                  <span className="fi fi-cz" style={{ whiteSpace: 'nowrap' }} />
+                </Button>
+                <Button
+                  onClick={() => i18next.changeLanguage('sk')}
+                  style={{
+                    background: 'none', border: 'none', alignItems: 'flex-end', display: 'inline-flex',
+                  }}
+                >
+                  <span className="fi fi-sk" style={{ whiteSpace: 'nowrap' }} />
+                </Button>
+              </Nav.Item>
 
-          </Nav>
-        </Navbar.Collapse>
+            </Nav>
+          </Offcanvas.Body>
+        </Navbar.Offcanvas>
       </Container>
     ) : (
       <Container fluid style={{ zIndex: 1 }}>
@@ -98,39 +118,56 @@ const CustomHeader : React.FC = () => {
             {' '}
           </Link>
         </Navbar.Brand>
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto" activeKey={location.pathname}>
-            {' '}
-          </Nav>
-          <Nav activeKey={location.pathname}>
-            <Nav.Item style={{ color: 'white' }}>
-              <Button
-                onClick={() => i18next.changeLanguage('en')}
-                style={{
-                  background: 'none', border: 'none', alignItems: 'flex-end', display: 'inline-flex', paddingLeft: '0px',
-                }}
-              >
-                <span className="fi fi-gb" style={{ whiteSpace: 'nowrap' }} />
-              </Button>
-              <Button
-                onClick={() => i18next.changeLanguage('cz')}
-                style={{
-                  background: 'none', border: 'none', alignItems: 'flex-end', display: 'inline-flex',
-                }}
-              >
-                <span className="fi fi-cz" style={{ whiteSpace: 'nowrap' }} />
-              </Button>
-              <Button
-                onClick={() => i18next.changeLanguage('sk')}
-                style={{
-                  background: 'none', border: 'none', alignItems: 'flex-end', display: 'inline-flex',
-                }}
-              >
-                <span className="fi fi-sk" style={{ whiteSpace: 'nowrap' }} />
-              </Button>
-            </Nav.Item>
-          </Nav>
-        </Navbar.Collapse>
+        <Navbar.Offcanvas
+          id={`offcanvasNavbar-expand-${expand}`}
+          aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
+          placement="start"
+        >
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
+              <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+                <img
+                  alt=""
+                  src={`${process.env.PUBLIC_URL}/pictures/image44.png`}
+                  style={{ width: '70%', maxHeight: '20%' }}
+                />
+              </Link>
+            </Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <Nav className="me-auto" activeKey={location.pathname}>
+              {' '}
+            </Nav>
+            <Nav activeKey={location.pathname}>
+              <Nav.Item style={{ color: 'white' }}>
+                <Button
+                  onClick={() => i18next.changeLanguage('en')}
+                  style={{
+                    background: 'none', border: 'none', alignItems: 'flex-end', display: 'inline-flex', paddingLeft: '0px',
+                  }}
+                >
+                  <span className="fi fi-gb" style={{ whiteSpace: 'nowrap' }} />
+                </Button>
+                <Button
+                  onClick={() => i18next.changeLanguage('cz')}
+                  style={{
+                    background: 'none', border: 'none', alignItems: 'flex-end', display: 'inline-flex',
+                  }}
+                >
+                  <span className="fi fi-cz" style={{ whiteSpace: 'nowrap' }} />
+                </Button>
+                <Button
+                  onClick={() => i18next.changeLanguage('sk')}
+                  style={{
+                    background: 'none', border: 'none', alignItems: 'flex-end', display: 'inline-flex',
+                  }}
+                >
+                  <span className="fi fi-sk" style={{ whiteSpace: 'nowrap' }} />
+                </Button>
+              </Nav.Item>
+            </Nav>
+          </Offcanvas.Body>
+        </Navbar.Offcanvas>
       </Container>
     );
 
@@ -219,19 +256,20 @@ const CustomHeader : React.FC = () => {
     );
 
   return (
-    <Row style={{ width: '100%', background: '#d86e3d' }}>
-      <Col xs={20} sm={21} md={21} lg={22} xl={22} xxl={23}>
+    <Row style={{ width: '100%', background: '#d86e3d', marginBottom: '0px' }}>
+      <Col xs={20} sm={21} md={21} lg={22} xl={22} xxl={23} style={{ marginBottom: '0px' }}>
         <Navbar
-          collapseOnSelect
-          expand="md"
+          key={expand}
+          expand={expand}
+          className="bg-body-tertiary mb-3"
           style={{
-            backgroundColor: '#d86e3d', fontWeight: 'bold', color: 'white', fontSize: 'medium', width: '100%',
+            backgroundColor: '#d86e3d', fontWeight: 'bold', color: 'white', fontSize: 'medium', width: '100%', marginBottom: '0px',
           }}
         >
           {navItems}
         </Navbar>
       </Col>
-      <Col xs={4} sm={3} md={3} lg={2} xl={2} xxl={1}>
+      <Col xs={4} sm={3} md={3} lg={2} xl={2} xxl={1} style={{ marginBottom: '0px' }}>
         {profileIsLoggedIn}
       </Col>
     </Row>
