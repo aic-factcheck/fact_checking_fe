@@ -40,7 +40,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.token === undefined) {
+    if (auth?.token?.refreshToken === undefined) {
       navigate('/sign-in');
     }
     const id = auth?.user._id;

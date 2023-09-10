@@ -70,7 +70,7 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
   const [downvotes, setDownvotes] = useState(claim.nNegativeVotes);
 
   const addUpVote = (claimId: string) => {
-    if (auth?.token !== undefined) {
+    if (auth?.token?.refreshToken !== undefined) {
       console.log('upvote');
       let changedHappen = false;
       if (myupvotes !== 1) {
@@ -90,7 +90,7 @@ const Claim: React.FC<Props> = ({ claim, isEditable, index }) => {
   };
 
   const addDownVote = (claimId: string) => {
-    if (auth?.token !== undefined) {
+    if (auth?.token?.refreshToken !== undefined) {
       let changedHappen = false;
       if (mydownvotes !== 1) {
         changedHappen = true;

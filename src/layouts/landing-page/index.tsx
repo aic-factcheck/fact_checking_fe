@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Layout, Col, Divider, Row, Typography, Card, Avatar,
+  Layout, Col, Divider, Row, Typography, /* Card, Avatar, */
 } from 'antd';
 import Carousel from 'react-bootstrap/Carousel';
 import { useNavigate } from 'react-router-dom';
@@ -86,7 +86,7 @@ const LadingPage: React.FC = () => {
                   <Carousel.Item
                     key={obj?._id}
                     style={{
-                      padding: '12%',
+                      padding: '0%',
                       height: '60%',
                     }}
                   >
@@ -209,7 +209,7 @@ const LadingPage: React.FC = () => {
           </div>
 
           {/* About us */}
-          <div
+          {/* <div
             className="contentLand"
           >
 
@@ -279,7 +279,7 @@ const LadingPage: React.FC = () => {
                 </Card>
               </Col>
             </Row>
-          </div>
+          </div> */}
         </Content>
       </Layout>
       {/* <img

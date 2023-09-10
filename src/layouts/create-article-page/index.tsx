@@ -58,7 +58,7 @@ const CreateArticlePage: React.FC = () => {
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.token === undefined) {
+    if (auth?.token?.refreshToken === undefined) {
       navigate('/sign-in');
     }
   }, []);

@@ -22,7 +22,7 @@ const SignUp: React.FC = () => {
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.user?.email !== undefined) {
+    if (auth?.refreshToken !== undefined) {
       navigate('/');
     }
   }, [auth, navigate]);
@@ -41,6 +41,7 @@ const SignUp: React.FC = () => {
       localStorage.setItem('refreshToken', res.data.token.refreshToken);
       localStorage.setItem('email', res.data.user.email);
       localStorage.setItem('expiresIn', res.data.token.expiresIn);
+      navigate('/');
       // eslint-disable-next-line max-len
       // http_common.defaults.headers.common['Authorization'] = `Bearer ${res.data.token.accessToken}`;
     }).catch((err: any) => {

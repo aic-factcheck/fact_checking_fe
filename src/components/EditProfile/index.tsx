@@ -28,7 +28,7 @@ const EditProfile: React.FC = () => {
 
   useEffect(() => {
     // redirect to home if not logged in
-    if (auth?.token === undefined) {
+    if (auth?.token?.refreshToken === undefined) {
       navigate('/sign-in');
     }
   }, [auth, navigate]);

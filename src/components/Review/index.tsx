@@ -32,7 +32,7 @@ const Review: React.FC<Props> = ({ review }) => {
 
   const addUpVote = () => {
     console.log(auth?.token);
-    if (auth?.token !== undefined) {
+    if (auth?.token?.refreshToken !== undefined) {
       let changedHappen = false;
       if (myupvotes !== 1) {
         changedHappen = true;
@@ -53,7 +53,7 @@ const Review: React.FC<Props> = ({ review }) => {
   };
 
   const addDownVote = () => {
-    if (auth?.token !== undefined) {
+    if (auth?.token?.refreshToken !== undefined) {
       let changedHappen = false;
       if (mydownvotes !== 1) {
         changedHappen = true;
@@ -74,7 +74,7 @@ const Review: React.FC<Props> = ({ review }) => {
   };
 
   const addNeutralVote = () => {
-    if (auth?.token !== undefined) {
+    if (auth?.token?.refreshToken !== undefined) {
       let changedHappen = false;
       if (myneutralvotes !== 1) {
         changedHappen = true;
@@ -163,7 +163,7 @@ const Review: React.FC<Props> = ({ review }) => {
             >
               <Col span={20}>
                 <Paragraph style={{ color: 'black', margin: '0%' }}>
-                  {review.text}
+                  {review?.text}
                 </Paragraph>
               </Col>
             </Row>
@@ -175,7 +175,7 @@ const Review: React.FC<Props> = ({ review }) => {
                 <Paragraph style={{ color: 'black', margin: '0%' }}>
                   <ul>
                     {
-                            review.links.map((objLink: string) => (
+                            review.links?.map((objLink: string) => (
                               <li style={{ display: 'inline-block', margin: '0' }}>
                                 <Tooltip title={`${objLink}`}>
                                   <span>

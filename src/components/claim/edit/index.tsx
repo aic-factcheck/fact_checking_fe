@@ -28,7 +28,7 @@ const EditClaim: React.FC<Props> = ({ claim, indexClaim, closeModal }) => {
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.token === undefined) {
+    if (auth?.token?.refreshToken === undefined) {
       navigate('/sign-in');
     }
   }, [auth, navigate]);
