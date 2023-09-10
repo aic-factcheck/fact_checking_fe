@@ -47,21 +47,25 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
     {
       title: t('add_article_url'),
       description: t('add_article_url_desc'),
-      target: () => ref1.current,
+      placement: 'bottom',
+      target: () => null,
       nextButtonProps: {
         children: t('next'), // Change the text here
       },
+      arrow: false,
     },
     {
       title: t('add_article_submit'),
       description: t('add_article_submit_desc'),
-      target: () => ref2.current,
+      placement: 'bottom',
+      target: () => null,
       nextButtonProps: {
         children: t('finish'), // Change the text here
       },
       prevButtonProps: {
         children: t('previous'), // Change the text here
       },
+      arrow: false,
     },
   ];
 

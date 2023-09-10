@@ -126,7 +126,7 @@
     "thinks_non_verifiable": " si myslí, že je to Neoveritelné",
     "my_review": "Moje hodnotenie :",
     "add_article_url": "Pridajte adresu článku",
-    "add_article_url_desc": "Po kliknutí na tlačítko vedľa sa stiahne obsah článku",
+    "add_article_url_desc": "Zadajte adresu URL článku a kliknite na tlačidlo \"Načítať text z adresy URL\", čím sa automaticky vloží názov a text článku",
     "add_article_submit": "Pridajte článok",
     "add_article_submit_desc": "Článok uvidíte v sekcii Články a tiež vo svojom profile. Aj po pridaní môžete na svojom profile článok editovať",
     "show_tour": "Ukážka",
