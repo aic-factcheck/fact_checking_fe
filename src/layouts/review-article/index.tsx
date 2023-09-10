@@ -63,7 +63,7 @@ const ReviewArticle: React.FC = () => {
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.user?.email === undefined) {
+    if (auth?.token?.refreshToken === undefined) {
       navigate('/sign-in');
     }
     if (articleId !== undefined) {

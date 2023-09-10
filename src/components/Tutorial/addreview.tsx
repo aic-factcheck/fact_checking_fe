@@ -12,7 +12,7 @@ const contentStyle: React.CSSProperties = {
 };
 
 const AddReviewTutorial: React.FC = () => (
-  <Carousel dotPosition="bottom" autoplay>
+  <Carousel dotPosition="bottom">
     <div>
       <div style={contentStyle}>
         <img

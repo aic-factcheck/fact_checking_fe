@@ -36,7 +36,9 @@ const ClaimPages: React.FC = () => {
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.user?.email === undefined) {
+    if (auth?.token?.refreshToken === undefined) {
+      console.log(auth?.refreshToken);
+      console.log('You must be logged in');
       navigate('/sign-in');
     }
 

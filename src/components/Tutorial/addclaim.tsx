@@ -11,7 +11,7 @@ const contentStyle: React.CSSProperties = {
 };
 
 const CreateClaimTutorial : React.FC = () => (
-  <Carousel dotPosition="bottom" autoplay>
+  <Carousel dotPosition="bottom">
     <div>
       <div style={contentStyle}>
         <img

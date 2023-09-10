@@ -25,7 +25,7 @@ const SignIn: React.FC = () => {
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.user?._id !== undefined) {
+    if (auth?.refreshToken !== undefined) {
       navigate('/');
     }
   }, [auth, navigate]);
@@ -39,6 +39,7 @@ const SignIn: React.FC = () => {
       localStorage.setItem('refreshToken', res.data.token.refreshToken);
       localStorage.setItem('email', res.data.user.email);
       localStorage.setItem('expiresIn', res.data.token.expiresIn);
+      navigate('/');
     }).catch((err: any) => {
       notificationApi.info({
         message: err.response.data.message,

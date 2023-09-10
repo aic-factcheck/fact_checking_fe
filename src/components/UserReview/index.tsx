@@ -18,12 +18,13 @@ import EditReview from '../EditReview';
 interface Props {
   review: IReview,
   indexReview: number,
+  isEditable: boolean,
 }
 
 const { Paragraph } = Typography;
 // eslint-disable-next-line prefer-const
 
-const UserReview: React.FC<Props> = ({ review, indexReview }) => {
+const UserReview: React.FC<Props> = ({ review, indexReview, isEditable }) => {
   const { t } = useTranslation();
   const auth = useRecoilValue(authAtom);
 
@@ -50,7 +51,7 @@ const UserReview: React.FC<Props> = ({ review, indexReview }) => {
 
   const addUpVote = () => {
     console.log(auth?.token);
-    if (auth?.token !== undefined) {
+    if (auth?.token?.refreshToken !== undefined) {
       let changedHappen = false;
       if (myupvotes !== 1) {
         changedHappen = true;
@@ -59,13 +60,10 @@ const UserReview: React.FC<Props> = ({ review, indexReview }) => {
       setMyDownvotes(0);
       setMyNeutralvotes(0);
       if (changedHappen) {
-        setUpvote(review.nPositiveVotes + myupvotes);
-        setDownvote(review.nNegativeVotes + mydownvotes);
-        setNeutralvote(review.nNeutralVotes + myneutralvotes);
-        reviewsService.voteReview(review._id, 1).then((res: any) => {
-          setUpvote(res?.data?.nPositiveVotes);
-          setDownvote(res?.data?.nNegativeVotes);
-          setNeutralvote(res?.data?.nNeutralVotes);
+        setUpvote(review.nPositiveVotes + 1);
+        setDownvote(review.nNegativeVotes + 0);
+        setNeutralvote(review.nNeutralVotes + 0);
+        reviewsService.voteReview(review._id, 1).then(() => {
         }).catch((err) => {
           console.log(err);
         });
@@ -74,7 +72,7 @@ const UserReview: React.FC<Props> = ({ review, indexReview }) => {
   };
 
   const addDownVote = () => {
-    if (auth?.token !== undefined) {
+    if (auth?.token?.refreshToken !== undefined) {
       let changedHappen = false;
       if (mydownvotes !== 1) {
         changedHappen = true;
@@ -83,13 +81,10 @@ const UserReview: React.FC<Props> = ({ review, indexReview }) => {
       setMyUpvotes(0);
       setMyNeutralvotes(0);
       if (changedHappen) {
-        setUpvote(review.nPositiveVotes + myupvotes);
-        setDownvote(review.nNegativeVotes + mydownvotes);
-        setNeutralvote(review.nNeutralVotes + myneutralvotes);
-        reviewsService.voteReview(review._id, -1).then((res: any) => {
-          setUpvote(res?.data?.nPositiveVotes);
-          setDownvote(res?.data?.nNegativeVotes);
-          setNeutralvote(res?.data?.nNeutralVotes);
+        setUpvote(review.nPositiveVotes + 0);
+        setDownvote(review.nNegativeVotes + 1);
+        setNeutralvote(review.nNeutralVotes + 0);
+        reviewsService.voteReview(review._id, -1).then(() => {
         }).catch((err) => {
           console.log(err);
         });
@@ -98,7 +93,7 @@ const UserReview: React.FC<Props> = ({ review, indexReview }) => {
   };
 
   const addNeutralVote = () => {
-    if (auth?.token !== undefined) {
+    if (auth?.token?.refreshToken !== undefined) {
       let changedHappen = false;
       if (myneutralvotes !== 1) {
         changedHappen = true;
@@ -107,13 +102,10 @@ const UserReview: React.FC<Props> = ({ review, indexReview }) => {
       setMyUpvotes(0);
       setMyDownvotes(0);
       if (changedHappen) {
-        setUpvote(review.nPositiveVotes + myupvotes);
-        setDownvote(review.nNegativeVotes + mydownvotes);
-        setNeutralvote(review.nNeutralVotes + myneutralvotes);
-        reviewsService.voteReview(review._id, 0).then((res: any) => {
-          setUpvote(res?.data?.nPositiveVotes);
-          setDownvote(res?.data?.nNegativeVotes);
-          setNeutralvote(res?.data?.nNeutralVotes);
+        setUpvote(review.nPositiveVotes + 0);
+        setDownvote(review.nNegativeVotes + 0);
+        setNeutralvote(review.nNeutralVotes + 1);
+        reviewsService.voteReview(review._id, 0).then(() => {
         }).catch((err) => {
           console.log(err);
         });
@@ -142,6 +134,35 @@ const UserReview: React.FC<Props> = ({ review, indexReview }) => {
         return ' ';
     }
   }, [review.vote]);
+
+  const editReview = () => {
+    if (isEditable) {
+      return (
+        <Col offset={1} span={3}>
+          <div>
+            <Button type="primary" className="editArticleProfile" onClick={showModal} icon={<EditOutlined />}>
+              {t('edit')}
+            </Button>
+            <Modal
+              title={t('edit')}
+              open={open}
+              onOk={handleOk}
+// confirmLoading={confirmLoading}
+              onCancel={handleCancel}
+              width="80%"
+              footer={[]}
+            >
+              <EditReview
+                review={review}
+                indexEdit={indexReview}
+              />
+            </Modal>
+          </div>
+        </Col>
+      );
+    }
+    return <div />;
+  };
 
   return (
     <div>
@@ -205,27 +226,9 @@ const UserReview: React.FC<Props> = ({ review, indexReview }) => {
                       </p>
                     </Paragraph>
                   </Col>
-                  <Col offset={1} span={3}>
-                    <div>
-                      <Button type="primary" className="editArticleProfile" onClick={showModal} icon={<EditOutlined />}>
-                        {t('edit')}
-                      </Button>
-                      <Modal
-                        title={t('edit')}
-                        open={open}
-                        onOk={handleOk}
-          // confirmLoading={confirmLoading}
-                        onCancel={handleCancel}
-                        width="80%"
-                        footer={[]}
-                      >
-                        <EditReview
-                          review={review}
-                          indexEdit={indexReview}
-                        />
-                      </Modal>
-                    </div>
-                  </Col>
+                  {
+                    editReview()
+                  }
                 </Row>
                 <Row style={{
                   borderRadius: '10px', textAlign: 'left', paddingLeft: '2%', paddingTop: '0%',

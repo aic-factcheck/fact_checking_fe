@@ -37,7 +37,7 @@ const AllArticles : React.FC = () => {
   const allowEdit = false;
 
   useEffect(() => {
-    if (auth?.user?.email === undefined) {
+    if (auth?.token?.refreshToken === undefined) {
       navigate('/sign-in');
     }
     if (recoilHotArticlesList.length > 0) {

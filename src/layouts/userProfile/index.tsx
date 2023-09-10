@@ -40,7 +40,7 @@ const UserProfile: React.FC = () => {
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.user?.email === undefined) {
+    if (auth?.token?.refreshToken === undefined) {
       navigate('/sign-in');
     }
     if (userId !== undefined) {
@@ -204,7 +204,7 @@ const UserProfile: React.FC = () => {
                 {
                   reviewsList.length > 0 ? (
                     reviewsList?.map((obj : IReview, index: number) => (
-                      <UserReview review={obj} indexReview={index} />
+                      <UserReview review={obj} indexReview={index} isEditable={false} />
                     ))) : (
                       <div className="emptyList">
                         {t('no_reviews_yet')}

@@ -71,7 +71,7 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
 
   useEffect(() => {
     // redirect to home if already logged in
-    if (auth?.user === undefined) {
+    if (auth?.token?.refreshToken === undefined) {
       navigate('/sign-in');
     }
 

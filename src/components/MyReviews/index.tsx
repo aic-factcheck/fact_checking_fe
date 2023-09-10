@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-boolean-value */
 /* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -45,7 +46,7 @@ const MyReviews = () => {
           // _id, priority, author, articleId, text
           myReviewsList.length > 0 ? (
             myReviewsList?.map((obj : IReview, index: number) => (
-              <UserReview review={obj} indexReview={index} />
+              <UserReview review={obj} indexReview={index} isEditable={true} />
             ))) : (
               <div className="emptyList">
                 {t('no_reviews_yet')}
