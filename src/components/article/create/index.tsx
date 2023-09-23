@@ -130,9 +130,8 @@ const CreateArticle: React.FC<Props> = ({ articleSubmited, setArticleSubmited, s
       });
     })
       .catch((err : any) => {
-        const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
         notificationApi.info({
-          message: errorMessage,
+          message: err?.response?.data?.message,
           icon: <CloseOutlined />,
         });
       });

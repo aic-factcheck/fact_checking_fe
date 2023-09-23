@@ -41,7 +41,7 @@ const Invitation: React.FC = () => {
       });
     }).catch((err: any) => {
       notificationApi.info({
-        message: err.response.data.message,
+        message: err?.response?.data?.message,
         icon: <CloseOutlined />,
       });
     });

@@ -89,9 +89,8 @@ const CreateClaim : React.FC<Props> = ({
         icon: <img alt="leaders" width="50%" src={`${process.env.PUBLIC_URL}/pictures/experience.png`} style={{ marginRight: '5%' }} />,
       });
     }).catch((err: any) => {
-      const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
       notificationApi.info({
-        message: errorMessage,
+        message: err?.response?.data?.message,
         icon: <CloseOutlined />,
       });
     });
@@ -107,9 +106,7 @@ const CreateClaim : React.FC<Props> = ({
       name="basic"
       labelCol={{ span: 24 }}
       wrapperCol={{ span: 24 }}
-      // initialValues={{ remember: true }}
       onFinish={onFinish}
-      // onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
       <Form.Item

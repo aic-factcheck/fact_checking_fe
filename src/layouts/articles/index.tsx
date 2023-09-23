@@ -65,9 +65,7 @@ const AllArticles : React.FC = () => {
       articlesService.queryArticle(pattern).then((res: any) => {
         setSearchPage((s) => s + 1);
         setArticlesList(res.data);
-        if (res.data.length === 0) {
-          setHasMoreData(false);
-        }
+        setHasMoreData(false);
       }).catch(() => {
         setSearchPage(1);
         setArticlesList(Array.from(recoilHotArticlesList));
@@ -116,7 +114,7 @@ const AllArticles : React.FC = () => {
   };
 
   return (
-    <Content className="content" style={{ padding: '25px 25px', marginTop: 20 }}>
+    <Content className="content" style={{ padding: '25px 25px' }}>
       <InfiniteScroll
         dataLength={articlesList.length}
         next={loadMoreData}

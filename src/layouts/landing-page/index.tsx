@@ -86,7 +86,7 @@ const LadingPage: React.FC = () => {
                   <Carousel.Item
                     key={obj?._id}
                     style={{
-                      padding: '0%',
+                      padding: '10%',
                       height: '60%',
                     }}
                   >

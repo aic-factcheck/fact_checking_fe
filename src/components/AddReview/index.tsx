@@ -126,7 +126,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
       }).catch((err: any) => {
         console.log(err);
         notificationApi.info({
-          message: err.response.data.message,
+          message: err?.response?.data?.message,
           icon: <CloseOutlined />,
         });
         // closeModal();
@@ -160,9 +160,7 @@ const AddReview: React.FC<AddReviewProps> = ({ claim, closeModal, reviewsNum }) 
         name="basic"
         labelCol={{ span: 24 }}
         wrapperCol={{ span: 24 }}
-        // initialValues={{ remember: true }}
         onFinish={onFinish}
-        // onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item

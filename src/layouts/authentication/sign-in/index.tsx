@@ -42,16 +42,9 @@ const SignIn: React.FC = () => {
       navigate('/');
     }).catch((err: any) => {
       notificationApi.info({
-        message: err.response.data.message,
+        message: err?.response?.data?.message,
         icon: <CloseOutlined />,
       });
-    });
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    notificationApi.info({
-      message: errorInfo,
-      icon: <CloseOutlined />,
     });
   };
 
@@ -92,7 +85,6 @@ const SignIn: React.FC = () => {
             }}
             onFinish={onFinish}
             layout="vertical"
-            onFinishFailed={onFinishFailed}
             autoComplete="off"
             style={{
               paddingTop: '1%', paddingBottom: '1%', padding: '1%', marginTop: 10, background: 'white', borderRadius: '10px',
