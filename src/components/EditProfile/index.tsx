@@ -44,9 +44,8 @@ const EditProfile: React.FC = () => {
         setAuth,
         auth,
       ).catch((err: any) => {
-        const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
         notificationApi.info({
-          message: errorMessage,
+          message: err?.response?.data?.message,
           icon: <CloseOutlined />,
         });
         // closeModal();
@@ -54,14 +53,14 @@ const EditProfile: React.FC = () => {
     }
   };
 
-  const onFinishFailed = (err: any) => {
-    // message.error(errorInfo);
-    const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
-    notificationApi.info({
-      message: errorMessage,
-      icon: <CloseOutlined />,
-    });
-  };
+  // const onFinishFailed = (err: any) => {
+  //   // message.error(errorInfo);
+  //   const errorMessage = err?.response?.data?.errors[0]?.messages[0].toString();
+  //   notificationApi.info({
+  //     message: errorMessage,
+  //     icon: <CloseOutlined />,
+  //   });
+  // };
 
   return (
     <Content className="site-layout" style={{ paddingLeft: '0%', padding: '1%' }}>
@@ -79,7 +78,7 @@ const EditProfile: React.FC = () => {
           email: auth?.user?.email !== undefined ? auth?.user?.email : '',
         }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
+        // onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item

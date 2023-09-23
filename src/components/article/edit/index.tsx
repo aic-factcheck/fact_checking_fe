@@ -58,8 +58,8 @@ const EditArticle: React.FC<Props> = ({ article, indexEdit }) => {
 
       setMyArticlesList(mergedArticles);
     })
-      .catch((e) => notificationApi.info({
-        message: e,
+      .catch((err: any) => notificationApi.info({
+        message: err?.response?.data?.message,
         icon: <CloseOutlined />,
       }));
   };

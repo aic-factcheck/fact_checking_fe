@@ -32,8 +32,8 @@ export default class ClaimsService {
     return factCheckBe.patch<IClaim>(`/articles/${articleid}/claims/${claimid}`, values, { headers });
   };
 
-  static queryClaim = (patternSearch: string) => {
+  static queryClaim = (patternSearch: string, sortBy: string) => {
     const headers = { Authorization: `Bearer ${localStorage.getItem('accessToken')}` };
-    return factCheckBe.get<IClaim[]>(`/search/claims?text=${patternSearch}`, { headers });
+    return factCheckBe.get<IClaim[]>(`/search/claims?text=${patternSearch}&sortBy=${sortBy}`, { headers });
   };
 }

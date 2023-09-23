@@ -72,7 +72,7 @@ const CustomHeader : React.FC = () => {
               </Link>
             </Nav>
             <Nav activeKey={location.pathname} style={{ float: 'left' }}>
-              <Nav.Item style={{ color: 'white' }}>
+              <Nav.Item style={{ color: 'white', display: 'flex', alignItems: 'center' }}>
                 <Button
                   onClick={() => i18next.changeLanguage('en')}
                   style={{
@@ -261,7 +261,7 @@ const CustomHeader : React.FC = () => {
         <Navbar
           key={expand}
           expand={expand}
-          className="bg-body-tertiary mb-3"
+          className="bg-body-tertiary"
           style={{
             backgroundColor: '#d86e3d', fontWeight: 'bold', color: 'white', fontSize: 'medium', width: '100%', marginBottom: '0px',
           }}
@@ -269,7 +269,7 @@ const CustomHeader : React.FC = () => {
           {navItems}
         </Navbar>
       </Col>
-      <Col xs={4} sm={3} md={3} lg={2} xl={2} xxl={1} style={{ marginBottom: '0px' }}>
+      <Col xs={4} sm={3} md={3} lg={2} xl={2} xxl={1} style={{ marginBottom: '0px', paddingRight: '2%' }}>
         {profileIsLoggedIn}
       </Col>
     </Row>

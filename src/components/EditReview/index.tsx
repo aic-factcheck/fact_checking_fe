@@ -66,10 +66,9 @@ const EditReview: React.FC<Props> = ({ review, indexEdit }) => {
 
         setMyReviewsList(mergedReviews);
       })
-      .catch((e) => {
-        console.log(e);
+      .catch((err: any) => {
         notificationApi.info({
-          message: e.response.data.message,
+          message: err?.response?.data?.message,
           icon: <CloseOutlined />,
         });
       });
@@ -103,9 +102,7 @@ const EditReview: React.FC<Props> = ({ review, indexEdit }) => {
         name="basic"
         labelCol={{ span: 24 }}
         wrapperCol={{ span: 24 }}
-        // initialValues={{ remember: true }}
         onFinish={onFinish}
-        // onFinishFailed={onFinishFailed}
         autoComplete="off"
         initialValues={{
           text: review.text,

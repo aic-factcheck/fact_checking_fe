@@ -29,6 +29,8 @@ const ClaimPages: React.FC = () => {
   const [searchValue, setSearchValue] = useState('');
   const [hasMoreData, setHasMoreData] = useState(true);
 
+  const [disabledRange, setDisabledRange] = useState(false);
+
   const [sortBy, setSortBy] = useState('POSITIVE_VOTES_DESC');
   const [duration, setDuration] = useState('MONTH');
 
@@ -53,22 +55,34 @@ const ClaimPages: React.FC = () => {
   const onSearch = (pattern: string) => {
     // eslint-disable-next-line max-len
     if (pattern.length > 3) {
+      setDisabledRange(true);
       setIsDefaultSearch(false);
       setSearchValue(pattern);
       setSearchPage(1);
+      setClaimsList([]);
       // eslint-disable-next-line max-len
-      claimsService.queryClaim(pattern).then((res: any) => {
-        setSearchPage((s) => s + 1);
+      claimsService.queryClaim(pattern, sortBy).then((res: any) => {
         setClaimsList(res.data);
         if (res.data.length < 10) {
           setHasMoreData(false);
         }
       }).catch(() => {
-        setSearchPage(1);
-        setClaimsList(claimsList);
+        claimsService.getClaimsList(1, duration, sortBy).then((res: any) => {
+          setClaimsList(Array.from(res.data));
+          if (res.data.length < 10) {
+            setHasMoreData(false);
+          }
+        }).catch();
       });
     } else {
-      setClaimsList(claimsList);
+      setDisabledRange(false);
+      setSearchValue('');
+      claimsService.getClaimsList(1, duration, sortBy).then((res: any) => {
+        setClaimsList(Array.from(res.data));
+        if (res.data.length < 10) {
+          setHasMoreData(false);
+        }
+      }).catch();
       setIsDefaultSearch(true);
       setHasMoreData(true);
     }
@@ -80,7 +94,9 @@ const ClaimPages: React.FC = () => {
     }
     setLoading(true);
     if (isDefaultSearch) {
-      claimsService.getClaimsList(searchPage, duration, sortBy).then((res: any) => {
+      console.log(`Loading more data  ${searchPage}`);
+      claimsService.getClaimsList(searchPage + 1, duration, sortBy).then((res: any) => {
+        setSearchPage((s) => s + 1);
         setClaimsList([...claimsList, ...res.data]);
         setLoading(false);
         if (res.data.length < 10) {
@@ -91,20 +107,16 @@ const ClaimPages: React.FC = () => {
         setLoading(false);
       });
     } else {
-      if (searchPage < 2) {
-        // eslint-disable-next-line max-len
-        claimsService.queryClaim(searchValue).then((res: any) => {
-          setSearchPage(searchPage + 1);
-          setClaimsList([...claimsList, ...res.data]);
-          setLoading(false);
-          setHasMoreData(false);
-          window.dispatchEvent(new Event('resize'));
-        }).catch(() => {
-          setLoading(false);
-        });
-      } else {
+      // eslint-disable-next-line max-len
+      claimsService.queryClaim(searchValue, sortBy).then((res: any) => {
+        setClaimsList([...claimsList, ...res.data]);
         setLoading(false);
-      }
+        setHasMoreData(false);
+        window.dispatchEvent(new Event('resize'));
+      }).catch(() => {
+        setLoading(false);
+      });
+      setLoading(false);
     }
   };
 
@@ -115,25 +127,41 @@ const ClaimPages: React.FC = () => {
       setClaimsList(Array.from(res.data));
       if (res.data.length < 10) {
         setHasMoreData(false);
+      } else {
+        setHasMoreData(true);
       }
     }).catch();
-    console.log(`selected ${value}`);
   };
 
   const handleChangeSort = (value: string) => {
     setSortBy(value);
     setSearchPage(1);
-    claimsService.getClaimsList(1, duration, value).then((res: any) => {
-      setClaimsList(Array.from(res.data));
-      if (res.data.length < 10) {
-        setHasMoreData(false);
-      }
-    }).catch();
-    console.log(`selected ${value}`);
+    if (searchValue.length > 3) {
+      claimsService.queryClaim(searchValue, value).then((res: any) => {
+        setClaimsList(Array.from(res.data));
+        if (res.data.length < 10) {
+          setHasMoreData(false);
+        } else {
+          setHasMoreData(true);
+        }
+      }).catch(() => {
+        setLoading(false);
+      });
+      // setLoading(false);
+    } else {
+      claimsService.getClaimsList(1, duration, value).then((res: any) => {
+        setClaimsList(Array.from(res.data));
+        if (res.data.length < 10) {
+          setHasMoreData(false);
+        } else {
+          setHasMoreData(true);
+        }
+      }).catch();
+    }
   };
 
   return (
-    <Content className="content" style={{ padding: '25px 25px', marginTop: 20 }}>
+    <Content className="content" style={{ padding: '25px 25px' }}>
       <InfiniteScroll
         dataLength={claimsList.length}
         next={loadMoreData}
@@ -165,9 +193,10 @@ const ClaimPages: React.FC = () => {
             </Col>
           </Row>
           <Row>
-            <Space wrap>
+            <Space wrap style={{ marginRight: '5%', marginBottom: '2%' }}>
               {t('range')}
               <Select
+                disabled={disabledRange}
                 defaultValue="MONTH"
                 style={{ width: 120 }}
                 onChange={handleChangeRange}
@@ -179,10 +208,11 @@ const ClaimPages: React.FC = () => {
                   { value: 'YEAR', label: t('range_year') },
                 ]}
               />
+            </Space>
+            <Space wrap style={{ marginRight: '5%', marginBottom: '2%' }}>
               {t('sort')}
               <Select
                 defaultValue="POSITIVE_VOTES_DESC"
-                style={{ width: 200 }}
                 onChange={handleChangeSort}
                 options={[
                   { value: 'POSITIVE_VOTES_DESC', label: t('positive_votes_desc') },

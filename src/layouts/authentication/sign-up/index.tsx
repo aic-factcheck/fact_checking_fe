@@ -42,11 +42,9 @@ const SignUp: React.FC = () => {
       localStorage.setItem('email', res.data.user.email);
       localStorage.setItem('expiresIn', res.data.token.expiresIn);
       navigate('/');
-      // eslint-disable-next-line max-len
-      // http_common.defaults.headers.common['Authorization'] = `Bearer ${res.data.token.accessToken}`;
     }).catch((err: any) => {
       notificationApi.info({
-        message: err.response.data.message,
+        message: err?.response?.data?.message,
         icon: <CloseOutlined />,
       });
     });

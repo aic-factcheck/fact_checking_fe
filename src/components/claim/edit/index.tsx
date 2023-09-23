@@ -71,9 +71,7 @@ const EditClaim: React.FC<Props> = ({ claim, indexClaim, closeModal }) => {
       name="basic"
       labelCol={{ span: 24 }}
       wrapperCol={{ span: 24 }}
-      // initialValues={{ remember: true }}
       onFinish={onFinish}
-      // onFinishFailed={onFinishFailed}
       autoComplete="off"
       initialValues={{
         text: claim.text,
